@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218050646",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "convenio",
+  "fields": [
+    {
+      "fieldName": "idConvenio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "identificacion",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Convenio",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

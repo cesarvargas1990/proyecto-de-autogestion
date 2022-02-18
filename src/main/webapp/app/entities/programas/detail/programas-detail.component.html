@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="programas">
+      <h2 data-cy="programasDetailsHeading"><span jhiTranslate="portalautogestionApp.programas.detail.title">Programas</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ programas.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.programas.idProgramas">Id Programas</span></dt>
+        <dd>
+          <span>{{ programas.idProgramas }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.programas.name">Name</span></dt>
+        <dd>
+          <span>{{ programas.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.programas.identificacion">Identificacion</span></dt>
+        <dd>
+          <span>{{ programas.identificacion }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.programas.fKConvenio">F K Convenio</span></dt>
+        <dd>
+          <span>{{ programas.fKConvenio }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/programas', programas.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

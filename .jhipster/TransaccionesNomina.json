@@ -1,0 +1,136 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218050643",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "transacciones_nomina",
+  "fields": [
+    {
+      "fieldName": "tipoDocumentoBenef",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "numeroDocumentoBenef",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "nombreUno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreDos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoUno",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoDos",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreUnoPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nombreDosPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoUnoPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "apellidoDosPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaPago",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "horaPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pinPago",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKDepartamentoDePago",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKMunicipioDePago",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKDepartamento",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKMunicipio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKIdConvenio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKIdPrograma",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fechaDePago",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "valorGiro",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "estado",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "periodoPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "motivoAnulacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fechaVigencia",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "fechaCargue",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "nota",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "redPagadora",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "observacionControl",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "solicitudAutorizacion",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "TransaccionesNomina",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

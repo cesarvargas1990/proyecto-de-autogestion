@@ -1,0 +1,150 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="transaccionesNomina">
+      <h2 data-cy="transaccionesNominaDetailsHeading">
+        <span jhiTranslate="portalautogestionApp.transaccionesNomina.detail.title">Transacciones Nomina</span>
+      </h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.tipoDocumentoBenef">Tipo Documento Benef</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.tipoDocumentoBenef }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.numeroDocumentoBenef">Numero Documento Benef</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.numeroDocumentoBenef }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.nombreUno">Nombre Uno</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.nombreUno }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.nombreDos">Nombre Dos</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.nombreDos }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoUno">Apellido Uno</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.apellidoUno }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoDos">Apellido Dos</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.apellidoDos }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.nombreUnoPago">Nombre Uno Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.nombreUnoPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.nombreDosPago">Nombre Dos Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.nombreDosPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoUnoPago">Apellido Uno Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.apellidoUnoPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoDosPago">Apellido Dos Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.apellidoDosPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaPago">Fecha Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fechaPago | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.horaPago">Hora Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.horaPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.pinPago">Pin Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.pinPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamentoDePago">F K Departamento De Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKDepartamentoDePago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipioDePago">F K Municipio De Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKMunicipioDePago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamento">F K Departamento</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKDepartamento }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipio">F K Municipio</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKMunicipio }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdConvenio">F K Id Convenio</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKIdConvenio }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdPrograma">F K Id Programa</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fKIdPrograma }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaDePago">Fecha De Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fechaDePago | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.valorGiro">Valor Giro</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.valorGiro }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.estado">Estado</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.estado }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.periodoPago">Periodo Pago</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.periodoPago }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.motivoAnulacion">Motivo Anulacion</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.motivoAnulacion }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaVigencia">Fecha Vigencia</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fechaVigencia | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaCargue">Fecha Cargue</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.fechaCargue | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.nota">Nota</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.nota }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.redPagadora">Red Pagadora</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.redPagadora }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.observacionControl">Observacion Control</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.observacionControl }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.transaccionesNomina.solicitudAutorizacion">Solicitud Autorizacion</span></dt>
+        <dd>
+          <span>{{ transaccionesNomina.solicitudAutorizacion }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/transacciones-nomina', transaccionesNomina.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

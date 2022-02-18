@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218050645",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "municipio",
+  "fields": [
+    {
+      "fieldName": "idMunicipio",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codDane",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "fKIdDepartamento",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Municipio",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

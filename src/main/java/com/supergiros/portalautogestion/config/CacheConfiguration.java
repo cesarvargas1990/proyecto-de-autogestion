@@ -48,6 +48,11 @@ public class CacheConfiguration {
             createCache(cm, com.supergiros.portalautogestion.domain.User.class.getName());
             createCache(cm, com.supergiros.portalautogestion.domain.Authority.class.getName());
             createCache(cm, com.supergiros.portalautogestion.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.supergiros.portalautogestion.domain.TransaccionesNomina.class.getName());
+            createCache(cm, com.supergiros.portalautogestion.domain.Departamentos.class.getName());
+            createCache(cm, com.supergiros.portalautogestion.domain.Municipio.class.getName());
+            createCache(cm, com.supergiros.portalautogestion.domain.Convenio.class.getName());
+            createCache(cm, com.supergiros.portalautogestion.domain.Programas.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

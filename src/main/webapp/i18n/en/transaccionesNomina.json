@@ -1,0 +1,53 @@
+{
+  "portalautogestionApp": {
+    "transaccionesNomina": {
+      "home": {
+        "title": "Transacciones Nominas",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Transacciones Nomina",
+        "createOrEditLabel": "Create or edit a Transacciones Nomina",
+        "notFound": "No Transacciones Nominas found"
+      },
+      "created": "A new Transacciones Nomina is created with identifier {{ param }}",
+      "updated": "A Transacciones Nomina is updated with identifier {{ param }}",
+      "deleted": "A Transacciones Nomina is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Transacciones Nomina {{ id }}?"
+      },
+      "detail": {
+        "title": "Transacciones Nomina"
+      },
+      "id": "ID",
+      "tipoDocumentoBenef": "Tipo Documento Benef",
+      "numeroDocumentoBenef": "Numero Documento Benef",
+      "nombreUno": "Nombre Uno",
+      "nombreDos": "Nombre Dos",
+      "apellidoUno": "Apellido Uno",
+      "apellidoDos": "Apellido Dos",
+      "nombreUnoPago": "Nombre Uno Pago",
+      "nombreDosPago": "Nombre Dos Pago",
+      "apellidoUnoPago": "Apellido Uno Pago",
+      "apellidoDosPago": "Apellido Dos Pago",
+      "fechaPago": "Fecha Pago",
+      "horaPago": "Hora Pago",
+      "pinPago": "Pin Pago",
+      "fKDepartamentoDePago": "F K Departamento De Pago",
+      "fKMunicipioDePago": "F K Municipio De Pago",
+      "fKDepartamento": "F K Departamento",
+      "fKMunicipio": "F K Municipio",
+      "fKIdConvenio": "F K Id Convenio",
+      "fKIdPrograma": "F K Id Programa",
+      "fechaDePago": "Fecha De Pago",
+      "valorGiro": "Valor Giro",
+      "estado": "Estado",
+      "periodoPago": "Periodo Pago",
+      "motivoAnulacion": "Motivo Anulacion",
+      "fechaVigencia": "Fecha Vigencia",
+      "fechaCargue": "Fecha Cargue",
+      "nota": "Nota",
+      "redPagadora": "Red Pagadora",
+      "observacionControl": "Observacion Control",
+      "solicitudAutorizacion": "Solicitud Autorizacion"
+    }
+  }
+}

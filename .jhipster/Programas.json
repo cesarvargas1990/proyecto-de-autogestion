@@ -1,0 +1,32 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218050647",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "programas",
+  "fields": [
+    {
+      "fieldName": "idProgramas",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "identificacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKConvenio",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Programas",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}

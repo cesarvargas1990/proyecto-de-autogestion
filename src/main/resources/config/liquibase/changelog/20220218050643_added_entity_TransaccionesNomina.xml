@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <!--
+        Added the entity TransaccionesNomina.
+    -->
+    <changeSet id="20220218050643-1" author="jhipster">
+        <createTable tableName="transacciones_nomina">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="tipo_documento_benef" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="numero_documento_benef" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="nombre_uno" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="nombre_dos" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_uno" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_dos" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="nombre_uno_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="nombre_dos_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_uno_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="apellido_dos_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_pago" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="hora_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pin_pago" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_departamento_de_pago" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_municipio_de_pago" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_departamento" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_municipio" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_id_convenio" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_id_programa" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_de_pago" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="valor_giro" type="integer">
+                <constraints nullable="true" />
+            </column>
+            <column name="estado" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="periodo_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="motivo_anulacion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_vigencia" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="fecha_cargue" type="date">
+                <constraints nullable="true" />
+            </column>
+            <column name="nota" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="red_pagadora" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="observacion_control" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="solicitud_autorizacion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
+        </createTable>
+    </changeSet>
+
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
+
+    <!--
+        Load sample data generated with Faker.js
+        - This data can be easily edited using a CSV editor (or even MS Excel) and
+          is located in the 'src/main/resources/config/liquibase/fake-data' directory
+        - By default this data is applied when running with the JHipster 'dev' profile.
+          This can be customized by adding or removing 'faker' in the 'spring.liquibase.contexts'
+          Spring Boot configuration key.
+    -->
+    <changeSet id="20220218050643-1-data" author="jhipster" context="faker">
+        <loadData
+                  file="config/liquibase/fake-data/transacciones_nomina.csv"
+                  separator=";"
+                  tableName="transacciones_nomina"
+                  usePreparedStatements="true">
+            <column name="id" type="numeric"/>
+            <column name="tipo_documento_benef" type="string"/>
+            <column name="numero_documento_benef" type="numeric"/>
+            <column name="nombre_uno" type="string"/>
+            <column name="nombre_dos" type="string"/>
+            <column name="apellido_uno" type="string"/>
+            <column name="apellido_dos" type="string"/>
+            <column name="nombre_uno_pago" type="string"/>
+            <column name="nombre_dos_pago" type="string"/>
+            <column name="apellido_uno_pago" type="string"/>
+            <column name="apellido_dos_pago" type="string"/>
+            <column name="fecha_pago" type="date"/>
+            <column name="hora_pago" type="string"/>
+            <column name="pin_pago" type="numeric"/>
+            <column name="f_k_departamento_de_pago" type="numeric"/>
+            <column name="f_k_municipio_de_pago" type="numeric"/>
+            <column name="f_k_departamento" type="numeric"/>
+            <column name="f_k_municipio" type="numeric"/>
+            <column name="f_k_id_convenio" type="numeric"/>
+            <column name="f_k_id_programa" type="numeric"/>
+            <column name="fecha_de_pago" type="date"/>
+            <column name="valor_giro" type="numeric"/>
+            <column name="estado" type="string"/>
+            <column name="periodo_pago" type="string"/>
+            <column name="motivo_anulacion" type="string"/>
+            <column name="fecha_vigencia" type="date"/>
+            <column name="fecha_cargue" type="date"/>
+            <column name="nota" type="string"/>
+            <column name="red_pagadora" type="string"/>
+            <column name="observacion_control" type="string"/>
+            <column name="solicitud_autorizacion" type="string"/>
+            <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,27 @@
+{
+  "portalautogestionApp": {
+    "programas": {
+      "home": {
+        "title": "Programas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Programas",
+        "createOrEditLabel": "Crear o editar Programas",
+        "notFound": "Ningún Programas encontrado"
+      },
+      "created": "Un nuevo Programas ha sido creado con el identificador {{ param }}",
+      "updated": "Un Programas ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Programas ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Programas {{ id }}?"
+      },
+      "detail": {
+        "title": "Programas"
+      },
+      "id": "ID",
+      "idProgramas": "Id Programas",
+      "name": "Name",
+      "identificacion": "Identificacion",
+      "fKConvenio": "F K Convenio"
+    }
+  }
+}

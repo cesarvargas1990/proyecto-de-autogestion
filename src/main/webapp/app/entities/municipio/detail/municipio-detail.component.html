@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <div *ngIf="municipio">
+      <h2 data-cy="municipioDetailsHeading"><span jhiTranslate="portalautogestionApp.municipio.detail.title">Municipio</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ municipio.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.municipio.idMunicipio">Id Municipio</span></dt>
+        <dd>
+          <span>{{ municipio.idMunicipio }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.municipio.name">Name</span></dt>
+        <dd>
+          <span>{{ municipio.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.municipio.codDane">Cod Dane</span></dt>
+        <dd>
+          <span>{{ municipio.codDane }}</span>
+        </dd>
+        <dt><span jhiTranslate="portalautogestionApp.municipio.fKIdDepartamento">F K Id Departamento</span></dt>
+        <dd>
+          <span>{{ municipio.fKIdDepartamento }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/municipio', municipio.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

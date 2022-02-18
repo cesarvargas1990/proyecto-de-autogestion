@@ -1,0 +1,53 @@
+{
+  "portalautogestionApp": {
+    "transaccionesNomina": {
+      "home": {
+        "title": "Transacciones Nominas",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Transacciones Nomina",
+        "createOrEditLabel": "Crear o editar Transacciones Nomina",
+        "notFound": "Ningún Transacciones Nominas encontrado"
+      },
+      "created": "Un nuevo Transacciones Nomina ha sido creado con el identificador {{ param }}",
+      "updated": "Un Transacciones Nomina ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Transacciones Nomina ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Transacciones Nomina {{ id }}?"
+      },
+      "detail": {
+        "title": "Transacciones Nomina"
+      },
+      "id": "ID",
+      "tipoDocumentoBenef": "Tipo Documento Benef",
+      "numeroDocumentoBenef": "Numero Documento Benef",
+      "nombreUno": "Nombre Uno",
+      "nombreDos": "Nombre Dos",
+      "apellidoUno": "Apellido Uno",
+      "apellidoDos": "Apellido Dos",
+      "nombreUnoPago": "Nombre Uno Pago",
+      "nombreDosPago": "Nombre Dos Pago",
+      "apellidoUnoPago": "Apellido Uno Pago",
+      "apellidoDosPago": "Apellido Dos Pago",
+      "fechaPago": "Fecha Pago",
+      "horaPago": "Hora Pago",
+      "pinPago": "Pin Pago",
+      "fKDepartamentoDePago": "F K Departamento De Pago",
+      "fKMunicipioDePago": "F K Municipio De Pago",
+      "fKDepartamento": "F K Departamento",
+      "fKMunicipio": "F K Municipio",
+      "fKIdConvenio": "F K Id Convenio",
+      "fKIdPrograma": "F K Id Programa",
+      "fechaDePago": "Fecha De Pago",
+      "valorGiro": "Valor Giro",
+      "estado": "Estado",
+      "periodoPago": "Periodo Pago",
+      "motivoAnulacion": "Motivo Anulacion",
+      "fechaVigencia": "Fecha Vigencia",
+      "fechaCargue": "Fecha Cargue",
+      "nota": "Nota",
+      "redPagadora": "Red Pagadora",
+      "observacionControl": "Observacion Control",
+      "solicitudAutorizacion": "Solicitud Autorizacion"
+    }
+  }
+}

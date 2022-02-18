@@ -1,0 +1,26 @@
+{
+  "portalautogestionApp": {
+    "convenio": {
+      "home": {
+        "title": "Convenios",
+        "refreshListLabel": "Refrescar lista",
+        "createLabel": "Crear nuevo Convenio",
+        "createOrEditLabel": "Crear o editar Convenio",
+        "notFound": "Ningún Convenios encontrado"
+      },
+      "created": "Un nuevo Convenio ha sido creado con el identificador {{ param }}",
+      "updated": "Un Convenio ha sido actualizado con el identificador {{ param }}",
+      "deleted": "Un Convenio ha sido eliminado con el identificador {{ param }}",
+      "delete": {
+        "question": "¿Seguro que quiere eliminar Convenio {{ id }}?"
+      },
+      "detail": {
+        "title": "Convenio"
+      },
+      "id": "ID",
+      "idConvenio": "Id Convenio",
+      "name": "Name",
+      "identificacion": "Identificacion"
+    }
+  }
+}

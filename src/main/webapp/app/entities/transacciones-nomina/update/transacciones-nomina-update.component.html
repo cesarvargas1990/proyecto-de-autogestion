@@ -1,0 +1,471 @@
+<div class="row justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-transacciones-nomina-heading"
+        data-cy="TransaccionesNominaCreateUpdateHeading"
+        jhiTranslate="portalautogestionApp.transaccionesNomina.home.createOrEditLabel"
+      >
+        Create or edit a Transacciones Nomina
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-control-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.tipoDocumentoBenef"
+            for="field_tipoDocumentoBenef"
+            >Tipo Documento Benef</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="tipoDocumentoBenef"
+            id="field_tipoDocumentoBenef"
+            data-cy="tipoDocumentoBenef"
+            formControlName="tipoDocumentoBenef"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.numeroDocumentoBenef"
+            for="field_numeroDocumentoBenef"
+            >Numero Documento Benef</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="numeroDocumentoBenef"
+            id="field_numeroDocumentoBenef"
+            data-cy="numeroDocumentoBenef"
+            formControlName="numeroDocumentoBenef"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.nombreUno" for="field_nombreUno"
+            >Nombre Uno</label
+          >
+          <input type="text" class="form-control" name="nombreUno" id="field_nombreUno" data-cy="nombreUno" formControlName="nombreUno" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.nombreDos" for="field_nombreDos"
+            >Nombre Dos</label
+          >
+          <input type="text" class="form-control" name="nombreDos" id="field_nombreDos" data-cy="nombreDos" formControlName="nombreDos" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoUno" for="field_apellidoUno"
+            >Apellido Uno</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoUno"
+            id="field_apellidoUno"
+            data-cy="apellidoUno"
+            formControlName="apellidoUno"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoDos" for="field_apellidoDos"
+            >Apellido Dos</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoDos"
+            id="field_apellidoDos"
+            data-cy="apellidoDos"
+            formControlName="apellidoDos"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.nombreUnoPago" for="field_nombreUnoPago"
+            >Nombre Uno Pago</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreUnoPago"
+            id="field_nombreUnoPago"
+            data-cy="nombreUnoPago"
+            formControlName="nombreUnoPago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.nombreDosPago" for="field_nombreDosPago"
+            >Nombre Dos Pago</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="nombreDosPago"
+            id="field_nombreDosPago"
+            data-cy="nombreDosPago"
+            formControlName="nombreDosPago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoUnoPago"
+            for="field_apellidoUnoPago"
+            >Apellido Uno Pago</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoUnoPago"
+            id="field_apellidoUnoPago"
+            data-cy="apellidoUnoPago"
+            formControlName="apellidoUnoPago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoDosPago"
+            for="field_apellidoDosPago"
+            >Apellido Dos Pago</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="apellidoDosPago"
+            id="field_apellidoDosPago"
+            data-cy="apellidoDosPago"
+            formControlName="apellidoDosPago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fechaPago" for="field_fechaPago"
+            >Fecha Pago</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaPago"
+              data-cy="fechaPago"
+              type="text"
+              class="form-control"
+              name="fechaPago"
+              ngbDatepicker
+              #fechaPagoDp="ngbDatepicker"
+              formControlName="fechaPago"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="fechaPagoDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.horaPago" for="field_horaPago"
+            >Hora Pago</label
+          >
+          <input type="text" class="form-control" name="horaPago" id="field_horaPago" data-cy="horaPago" formControlName="horaPago" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.pinPago" for="field_pinPago"
+            >Pin Pago</label
+          >
+          <input type="number" class="form-control" name="pinPago" id="field_pinPago" data-cy="pinPago" formControlName="pinPago" />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamentoDePago"
+            for="field_fKDepartamentoDePago"
+            >F K Departamento De Pago</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKDepartamentoDePago"
+            id="field_fKDepartamentoDePago"
+            data-cy="fKDepartamentoDePago"
+            formControlName="fKDepartamentoDePago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipioDePago"
+            for="field_fKMunicipioDePago"
+            >F K Municipio De Pago</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKMunicipioDePago"
+            id="field_fKMunicipioDePago"
+            data-cy="fKMunicipioDePago"
+            formControlName="fKMunicipioDePago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamento"
+            for="field_fKDepartamento"
+            >F K Departamento</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKDepartamento"
+            id="field_fKDepartamento"
+            data-cy="fKDepartamento"
+            formControlName="fKDepartamento"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipio" for="field_fKMunicipio"
+            >F K Municipio</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKMunicipio"
+            id="field_fKMunicipio"
+            data-cy="fKMunicipio"
+            formControlName="fKMunicipio"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdConvenio" for="field_fKIdConvenio"
+            >F K Id Convenio</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKIdConvenio"
+            id="field_fKIdConvenio"
+            data-cy="fKIdConvenio"
+            formControlName="fKIdConvenio"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdPrograma" for="field_fKIdPrograma"
+            >F K Id Programa</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="fKIdPrograma"
+            id="field_fKIdPrograma"
+            data-cy="fKIdPrograma"
+            formControlName="fKIdPrograma"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fechaDePago" for="field_fechaDePago"
+            >Fecha De Pago</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaDePago"
+              data-cy="fechaDePago"
+              type="text"
+              class="form-control"
+              name="fechaDePago"
+              ngbDatepicker
+              #fechaDePagoDp="ngbDatepicker"
+              formControlName="fechaDePago"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="fechaDePagoDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.valorGiro" for="field_valorGiro"
+            >Valor Giro</label
+          >
+          <input type="number" class="form-control" name="valorGiro" id="field_valorGiro" data-cy="valorGiro" formControlName="valorGiro" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.estado" for="field_estado">Estado</label>
+          <input type="text" class="form-control" name="estado" id="field_estado" data-cy="estado" formControlName="estado" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.periodoPago" for="field_periodoPago"
+            >Periodo Pago</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="periodoPago"
+            id="field_periodoPago"
+            data-cy="periodoPago"
+            formControlName="periodoPago"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.motivoAnulacion"
+            for="field_motivoAnulacion"
+            >Motivo Anulacion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="motivoAnulacion"
+            id="field_motivoAnulacion"
+            data-cy="motivoAnulacion"
+            formControlName="motivoAnulacion"
+          />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fechaVigencia" for="field_fechaVigencia"
+            >Fecha Vigencia</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaVigencia"
+              data-cy="fechaVigencia"
+              type="text"
+              class="form-control"
+              name="fechaVigencia"
+              ngbDatepicker
+              #fechaVigenciaDp="ngbDatepicker"
+              formControlName="fechaVigencia"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="fechaVigenciaDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.fechaCargue" for="field_fechaCargue"
+            >Fecha Cargue</label
+          >
+          <div class="input-group">
+            <input
+              id="field_fechaCargue"
+              data-cy="fechaCargue"
+              type="text"
+              class="form-control"
+              name="fechaCargue"
+              ngbDatepicker
+              #fechaCargueDp="ngbDatepicker"
+              formControlName="fechaCargue"
+            />
+            <span class="input-group-append">
+              <button type="button" class="btn btn-secondary" (click)="fechaCargueDp.toggle()">
+                <fa-icon icon="calendar-alt"></fa-icon>
+              </button>
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.nota" for="field_nota">Nota</label>
+          <input type="text" class="form-control" name="nota" id="field_nota" data-cy="nota" formControlName="nota" />
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label" jhiTranslate="portalautogestionApp.transaccionesNomina.redPagadora" for="field_redPagadora"
+            >Red Pagadora</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="redPagadora"
+            id="field_redPagadora"
+            data-cy="redPagadora"
+            formControlName="redPagadora"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.observacionControl"
+            for="field_observacionControl"
+            >Observacion Control</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="observacionControl"
+            id="field_observacionControl"
+            data-cy="observacionControl"
+            formControlName="observacionControl"
+          />
+        </div>
+
+        <div class="form-group">
+          <label
+            class="form-control-label"
+            jhiTranslate="portalautogestionApp.transaccionesNomina.solicitudAutorizacion"
+            for="field_solicitudAutorizacion"
+            >Solicitud Autorizacion</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="solicitudAutorizacion"
+            id="field_solicitudAutorizacion"
+            data-cy="solicitudAutorizacion"
+            formControlName="solicitudAutorizacion"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

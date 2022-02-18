@@ -1,0 +1,28 @@
+{
+  "applications": "*",
+  "changelogDate": "20220218050644",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "departamentos",
+  "fields": [
+    {
+      "fieldName": "idDepartamentos",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "codDane",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Departamentos",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [],
+  "service": "no"
+}
