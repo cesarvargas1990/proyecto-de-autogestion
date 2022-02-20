@@ -9,6 +9,7 @@ import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.security.SecurityUtils;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
+import com.supergiros.portalautogestion.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -147,6 +148,14 @@ public class UserService {
 
     public User createUser(AdminUserDTO userDTO) {
         User user = new User();
+        user.setConvenio(userDTO.getConvenio());
+        user.setPrograma(userDTO.getPrograma());
+        user.setDepartamento(userDTO.getDepartamento());
+        user.setMunicipio(userDTO.getMunicipio());
+        user.setDocumentType(userDTO.getDocumentType());
+        user.setDocumentNumber(userDTO.getDocumentNumber());
+        user.setCelphone(userDTO.getCelphone());
+
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -194,6 +203,14 @@ public class UserService {
             .map(user -> {
                 this.clearUserCaches(user);
                 user.setLogin(userDTO.getLogin().toLowerCase());
+                user.setConvenio(userDTO.getConvenio());
+                user.setPrograma(userDTO.getPrograma());
+                user.setDepartamento(userDTO.getDepartamento());
+                user.setMunicipio(userDTO.getMunicipio());
+                user.setDocumentType(userDTO.getDocumentType());
+                user.setDocumentNumber(userDTO.getDocumentNumber());
+                user.setCelphone(userDTO.getCelphone());
+
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 if (userDTO.getEmail() != null) {

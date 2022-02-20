@@ -12,7 +12,7 @@
         </div>
 
         <div class="form-group">
-          <label class="form-control-label" jhiTranslate="userManagement.login">Login</label>
+          <label class="form-control-label">login</label>
           <input type="text" class="form-control" name="login" formControlName="login" />
 
           <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
@@ -32,9 +32,129 @@
             <small
               class="form-text text-danger"
               *ngIf="editForm.get('login')?.errors?.pattern"
-              jhiTranslate="entity.validation.patternLogin"
+              jhiTranslate="entity.validation.patternlogin"
             >
               This field can only contain letters, digits and e-mail addresses.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Tipo de Documento</label>
+          <input type="text" class="form-control" name="documentType" formControlName="documentType" />
+
+          <div
+            *ngIf="editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('documentType')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Numero de Documento</label>
+          <input type="text" class="form-control" name="documentNumber" formControlName="documentNumber" />
+
+          <div
+            *ngIf="
+              editForm.get('documentNumber')!.invalid && (editForm.get('documentNumber')!.dirty || editForm.get('documentNumber')!.touched)
+            "
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('documentNumber')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Celular</label>
+          <input type="text" class="form-control" name="celphone" formControlName="celphone" />
+
+          <div *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('celphone')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Convenio</label>
+          <input type="text" class="form-control" name="convenio" formControlName="convenio" />
+
+          <div *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('convenio')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Programa</label>
+          <input type="text" class="form-control" name="programa" formControlName="programa" />
+
+          <div *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('programa')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Departamento</label>
+          <input type="text" class="form-control" name="departamento" formControlName="departamento" />
+
+          <div
+            *ngIf="editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)"
+          >
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('departamento')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
+            </small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-control-label">Municipio</label>
+          <input type="text" class="form-control" name="municipio" formControlName="municipio" />
+
+          <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
+            <small
+              class="form-text text-danger"
+              *ngIf="editForm.get('municipio')?.errors?.maxlength"
+              jhiTranslate="entity.validation.maxlength"
+              [translateValues]="{ max: 50 }"
+            >
+              This field cannot be longer than 50 characters.
             </small>
           </div>
         </div>

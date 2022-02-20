@@ -27,6 +27,14 @@ export class UserManagementUpdateComponent implements OnInit {
         Validators.pattern('^[a-zA-Z0-9!$&*+=?^_`{|}~.-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$|^[_.@A-Za-z0-9-]+$'),
       ],
     ],
+    documentType: ['', [Validators.maxLength(50)]],
+    documentNumber: ['', [Validators.maxLength(50)]],
+    celphone: ['', [Validators.maxLength(50)]],
+    convenio: ['', [Validators.maxLength(50)]],
+    programa: ['', [Validators.maxLength(50)]],
+    departamento: ['', [Validators.maxLength(50)]],
+    municipio: ['', [Validators.maxLength(50)]],
+
     firstName: ['', [Validators.maxLength(50)]],
     lastName: ['', [Validators.maxLength(50)]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
@@ -74,6 +82,15 @@ export class UserManagementUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
+
+      documentType: user.documentType,
+      documentNumber: user.documentNumber,
+      celphone: user.celphone,
+      convenio: user.convenio,
+      programa: user.programa,
+      departamento: user.departamento,
+      municipio: user.municipio,
+
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
@@ -85,6 +102,15 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateUser(user: User): void {
     user.login = this.editForm.get(['login'])!.value;
+
+    user.documentType = this.editForm.get(['documentType'])!.value;
+    user.documentNumber = this.editForm.get(['documentNumber'])!.value;
+    user.celphone = this.editForm.get(['celphone'])!.value;
+    user.convenio = this.editForm.get(['convenio'])!.value;
+    user.programa = this.editForm.get(['programa'])!.value;
+    user.departamento = this.editForm.get(['departamento'])!.value;
+    user.municipio = this.editForm.get(['municipio'])!.value;
+
     user.firstName = this.editForm.get(['firstName'])!.value;
     user.lastName = this.editForm.get(['lastName'])!.value;
     user.email = this.editForm.get(['email'])!.value;

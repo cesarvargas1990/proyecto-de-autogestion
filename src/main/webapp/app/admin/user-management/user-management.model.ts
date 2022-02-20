@@ -16,7 +16,15 @@ export interface IUser {
 export class User implements IUser {
   constructor(
     public id?: number,
+    public tipodocumento?: string,
     public login?: string,
+    public documentType?: string,
+    public documentNumber?: string,
+    public celphone?: string,
+    public convenio?: string,
+    public programa?: string,
+    public departamento?: string,
+    public municipio?: string,
     public firstName?: string | null,
     public lastName?: string | null,
     public email?: string,
