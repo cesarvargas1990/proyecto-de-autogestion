@@ -1,7 +1,8 @@
 import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { LoginModalComponent } from './modal/login-modal.component';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 
@@ -25,7 +26,8 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private accountService: AccountService,
     private loginService: LoginService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -51,12 +53,16 @@ export class LoginComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: () => {
           this.authenticationError = false;
-          if (!this.router.getCurrentNavigation()) {
-            // There were no routing during login (eg from navigationToStoredUrl)
-            this.router.navigate(['']);
-          }
+          const modalRef = this.modalService.open(LoginModalComponent);
+          // if (!this.router.getCurrentNavigation()) {
+          //   // There were no routing during login (eg from navigationToStoredUrl)
+          //   this.router.navigate(['']);
+          // }
         },
         error: () => (this.authenticationError = true),
       });
+  }
+  showModal(): void {
+    const modalRef = this.modalService.open(LoginModalComponent);
   }
 }
