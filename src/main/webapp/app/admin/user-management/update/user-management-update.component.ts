@@ -28,7 +28,6 @@ export class UserManagementUpdateComponent implements OnInit {
       ],
     ],
     documentType: ['', [Validators.maxLength(50)]],
-    documentNumber: ['', [Validators.maxLength(50)]],
     celphone: ['', [Validators.maxLength(50)]],
     convenio: ['', [Validators.maxLength(50)]],
     programa: ['', [Validators.maxLength(50)]],
@@ -84,7 +83,6 @@ export class UserManagementUpdateComponent implements OnInit {
       login: user.login,
 
       documentType: user.documentType,
-      documentNumber: user.documentNumber,
       celphone: user.celphone,
       convenio: user.convenio,
       programa: user.programa,
@@ -104,7 +102,6 @@ export class UserManagementUpdateComponent implements OnInit {
     user.login = this.editForm.get(['login'])!.value;
 
     user.documentType = this.editForm.get(['documentType'])!.value;
-    user.documentNumber = this.editForm.get(['documentNumber'])!.value;
     user.celphone = this.editForm.get(['celphone'])!.value;
     user.convenio = this.editForm.get(['convenio'])!.value;
     user.programa = this.editForm.get(['programa'])!.value;

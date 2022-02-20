@@ -111,10 +111,6 @@ public class User extends AbstractAuditingEntity {
 
     @NotNull
     @Size(max = 50)
-    private String documentNumber;
-
-    @NotNull
-    @Size(max = 50)
     private String celphone;
 
     @NotNull
@@ -287,14 +283,6 @@ public class User extends AbstractAuditingEntity {
 
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public void setDocumentNumber(String documentNumber) {
-        this.documentNumber = documentNumber;
     }
 
     public String getCelphone() {

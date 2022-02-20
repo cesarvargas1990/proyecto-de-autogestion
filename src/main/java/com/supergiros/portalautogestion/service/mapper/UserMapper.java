@@ -59,7 +59,6 @@ public class UserMapper {
             user.setDepartamento(userDTO.getDepartamento());
             user.setMunicipio(userDTO.getMunicipio());
             user.setDocumentType(userDTO.getDocumentType());
-            user.setDocumentNumber(userDTO.getDocumentNumber());
             user.setCelphone(userDTO.getCelphone());
 
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());

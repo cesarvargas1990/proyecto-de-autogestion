@@ -23,10 +23,6 @@ public class AdminUserDTO {
 
     @NotNull
     @Size(max = 50)
-    private String documentNumber;
-
-    @NotNull
-    @Size(max = 50)
     private String celphone;
 
     @NotNull
@@ -80,7 +76,6 @@ public class AdminUserDTO {
     public AdminUserDTO(User user) {
         this.id = user.getId();
         this.documentType = user.getDocumentType();
-        this.documentNumber = user.getDocumentNumber();
         this.celphone = user.getCelphone();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
@@ -122,14 +117,6 @@ public class AdminUserDTO {
 
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
-    }
-
-    public String getDocumentNumber() {
-        return documentNumber;
-    }
-
-    public void setDocumentNumber(String documentNumber) {
-        this.documentNumber = documentNumber;
     }
 
     public String getCelphone() {

@@ -153,7 +153,6 @@ public class UserService {
         user.setDepartamento(userDTO.getDepartamento());
         user.setMunicipio(userDTO.getMunicipio());
         user.setDocumentType(userDTO.getDocumentType());
-        user.setDocumentNumber(userDTO.getDocumentNumber());
         user.setCelphone(userDTO.getCelphone());
 
         user.setLogin(userDTO.getLogin().toLowerCase());
@@ -208,7 +207,6 @@ public class UserService {
                 user.setDepartamento(userDTO.getDepartamento());
                 user.setMunicipio(userDTO.getMunicipio());
                 user.setDocumentType(userDTO.getDocumentType());
-                user.setDocumentNumber(userDTO.getDocumentNumber());
                 user.setCelphone(userDTO.getCelphone());
 
                 user.setFirstName(userDTO.getFirstName());
