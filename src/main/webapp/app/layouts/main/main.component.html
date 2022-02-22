@@ -1,13 +1,25 @@
 <jhi-page-ribbon></jhi-page-ribbon>
 
+<style>
+  .card {
+    min-height: 64vh;
+  }
+</style>
+
 <div>
   <router-outlet name="navbar"></router-outlet>
 </div>
 
 <div class="container-fluid">
-  <main class="card jh-card">
-    <router-outlet></router-outlet>
-  </main>
+  <div class="card jh-card">
+    <div class="row justify-content-md-center">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
 
-  <jhi-footer></jhi-footer>
+<div class="container-fluid">
+  <div class="row justify-content-md-end">
+    <jhi-footer></jhi-footer>
+  </div>
 </div>

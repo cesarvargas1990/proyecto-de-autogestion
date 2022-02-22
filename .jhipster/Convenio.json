@@ -6,10 +6,6 @@
   "entityTableName": "convenio",
   "fields": [
     {
-      "fieldName": "idConvenio",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "name",
       "fieldType": "String"
     },

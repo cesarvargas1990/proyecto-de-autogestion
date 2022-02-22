@@ -123,9 +123,6 @@ public class DepartamentosResource {
         Optional<Departamentos> result = departamentosRepository
             .findById(departamentos.getId())
             .map(existingDepartamentos -> {
-                if (departamentos.getIdDepartamentos() != null) {
-                    existingDepartamentos.setIdDepartamentos(departamentos.getIdDepartamentos());
-                }
                 if (departamentos.getName() != null) {
                     existingDepartamentos.setName(departamentos.getName());
                 }
