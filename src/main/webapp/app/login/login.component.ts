@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username!: ElementRef;
 
   authenticationError = false;
-
+  statusError = false;
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
     password: [null, [Validators.required]],
@@ -51,15 +51,33 @@ export class LoginComponent implements OnInit, AfterViewInit {
         rememberMe: this.loginForm.get('rememberMe')!.value,
       })
       .subscribe({
-        next: () => {
+        next: sucessLogin => {
           this.authenticationError = false;
-          const modalRef = this.modalService.open(LoginModalComponent);
-          // if (!this.router.getCurrentNavigation()) {
-          //   // There were no routing during login (eg from navigationToStoredUrl)
-          //   this.router.navigate(['']);
-          // }
+          this.statusError = false;
+          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
+          if (sucessLogin?.firstTime) {
+            this.modalService.open(LoginModalComponent);
+            if (!this.router.getCurrentNavigation()) {
+              this.router.navigate(['account/password']);
+            }
+          } else if (!sucessLogin?.firstTime) {
+            if (!this.router.getCurrentNavigation()) {
+              this.router.navigate(['']);
+            }
+          }
         },
-        error: () => (this.authenticationError = true),
+        error: errorLogin => {
+          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+
+          if (errorLogin.error.detail === 'Credenciales erróneas') {
+            this.authenticationError = true;
+            this.statusError = false;
+          } else if (errorLogin.error.detail === 'Usuario Deshabilitado') {
+            this.statusError = true;
+            this.authenticationError = false;
+          }
+        },
       });
   }
   showModal(): void {

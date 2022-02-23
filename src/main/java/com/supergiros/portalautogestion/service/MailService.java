@@ -80,11 +80,13 @@ public class MailService {
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         if (user.getEmail() == null) {
-            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            log.debug("No hay una cuenta asociada a'{}'", user.getLogin());
             return;
         }
+        log.debug("hasta aqui todo bien");
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
+
         context.setVariable(USER, user);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);

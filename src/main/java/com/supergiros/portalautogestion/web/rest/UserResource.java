@@ -204,4 +204,11 @@ public class UserResource {
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
     }
+
+    @PutMapping("/user/firstLogin")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<Object> userLoged(@RequestBody String login) {
+        userRepository.setUserLogeado(login);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }

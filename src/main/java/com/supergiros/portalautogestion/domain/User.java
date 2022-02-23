@@ -103,6 +103,7 @@ public class User extends AbstractAuditingEntity {
 
     @NotNull
     @Builder.Default
+    @Column(name = "first_time")
     private Boolean firstTime = true;
 
     @NotNull

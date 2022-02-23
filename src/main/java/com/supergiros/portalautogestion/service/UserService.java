@@ -82,9 +82,9 @@ public class UserService {
             });
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
+    public Optional<User> requestPasswordReset(String document) {
         return userRepository
-            .findOneByEmailIgnoreCase(mail)
+            .findOneByLogin(document)
             .filter(User::isActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
@@ -335,6 +335,20 @@ public class UserService {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
+        }
+    }
+
+    public boolean userStatus(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        return user.get().isActivated();
+    }
+
+    public void userFirstLogin(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        if (user.get().getFirstTime()) {
+            userRepository.setUserLogeado(login);
+        } else {
+            log.info("el usuario ya había logeado antes");
         }
     }
 }
