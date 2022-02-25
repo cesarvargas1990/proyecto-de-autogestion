@@ -7,7 +7,7 @@
       </h2>
 
       <dl class="row-md jh-entity-details">
-        <dt><span jhiTranslate="userManagement.login">Login</span></dt>
+        <dt><span>Número de Documento</span></dt>
         <dd>
           <span>{{ user.login }}</span>
           <span *ngIf="user.activated" class="badge badge-success" jhiTranslate="userManagement.activated">Activated</span>
@@ -23,7 +23,10 @@
         <dt><span jhiTranslate="userManagement.email">Email</span></dt>
         <dd>{{ user.email }}</dd>
 
-        <dt><span jhiTranslate="userManagement.langKey">Lang Key</span></dt>
+        <dt><span>Celular</span></dt>
+        <dd>{{ user.celphone }}</dd>
+
+        <!-- <dt><span jhiTranslate="userManagement.langKey">Lang Key</span></dt>
         <dd>{{ user.langKey }}</dd>
 
         <dt><span jhiTranslate="userManagement.createdBy">Created By</span></dt>
@@ -36,7 +39,7 @@
         <dd>{{ user.lastModifiedBy }}</dd>
 
         <dt><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span></dt>
-        <dd>{{ user.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</dd>
+        <dd>{{ user.lastModifiedDate | date: 'dd/MM/yy HH:mm' }}</dd> -->
 
         <dt><span jhiTranslate="userManagement.profiles">Profiles</span></dt>
         <dd>
@@ -50,6 +53,15 @@
 
       <button type="submit" routerLink="../../" class="btn btn-info">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <!-- <button type="button" [routerLink]="['./', user.login, 'edit']" queryParamsHandling="merge" -->
+      <!-- http://localhost:9000/admin/user-management/12345678910/view -->
+      <!-- http://localhost:9000/admin/user-management/12345678910/edit -->
+      <!-- <button type="button" [routerLink]="['./', user.login, 'edit']" queryParamsHandling="merge" -->
+      <button type="button" [routerLink]="['../../', user.login, 'edit']" queryParamsHandling="merge" class="btn btn-secondary btn-sm">
+        <fa-icon icon="pencil-alt"></fa-icon>
+        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
       </button>
     </div>
   </div>

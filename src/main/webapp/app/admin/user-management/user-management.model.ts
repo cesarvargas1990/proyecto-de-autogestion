@@ -18,11 +18,18 @@ export class User implements IUser {
     public id?: number,
     public login?: string,
     public documentType?: string,
+    public loginSearch?: string,
+    public documentTypeSearch?: string,
     public celphone?: string,
-    public convenio?: string,
-    public programa?: string,
-    public departamento?: string,
-    public municipio?: string,
+    public convenio?: number,
+    public convenioName?: string,
+    public programa?: number,
+    public programaName?: string,
+    public departamento?: number,
+    public municipio?: number,
+    public departamentoName?: string,
+    public municipioName?: string,
+
     public firstName?: string | null,
     public lastName?: string | null,
     public email?: string,
@@ -33,5 +40,20 @@ export class User implements IUser {
     public createdDate?: Date,
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date
+  ) {}
+}
+
+export class Grilla implements IUser {
+  constructor(
+    public id?: number,
+    public documentType?: string,
+    public login?: string,
+
+    public convenio?: number,
+    public programa?: number,
+    public departamento?: number,
+    public municipio?: number,
+
+    public authorities?: string[]
   ) {}
 }

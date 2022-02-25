@@ -14,7 +14,14 @@
         <div class="form-row">
           <div class="col-md-3 mb-2">
             <label class="form-control-label" jhiTranslate="userManagement.firstName">First Name</label>
-            <input type="text" class="form-control" name="firstName" formControlName="firstName" />
+            <input
+              type="text"
+              style="text-transform: uppercase"
+              class="form-control"
+              pattern="[A-Z ]{4,15}"
+              name="firstName"
+              formControlName="firstName"
+            />
 
             <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
               <small
@@ -27,10 +34,17 @@
               </small>
             </div>
           </div>
+
           <div class="col-md-3 mb-2">
             <label jhiTranslate="userManagement.lastName">Last Name</label>
-            <input type="text" class="form-control" name="lastName" formControlName="lastName" />
-
+            <input
+              type="text"
+              style="text-transform: uppercase"
+              class="form-control"
+              pattern="[A-Z ]{4,15}"
+              name="lastName"
+              formControlName="lastName"
+            />
             <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
               <small
                 class="form-text text-danger"
@@ -44,7 +58,9 @@
           </div>
           <div class="col-md-3 mb-2">
             <label class="form-control-label">Tipo de Documento</label>
-            <input type="text" class="form-control" name="documentType" formControlName="documentType" />
+            <select class="form-control" name="documentType" formControlName="documentType">
+              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option>
+            </select>
 
             <div
               *ngIf="
@@ -62,8 +78,16 @@
             </div>
           </div>
           <div class="col-md-3 mb-2">
-            <label class="form-control-label">Login</label>
-            <input type="text" class="form-control" name="login" formControlName="login" />
+            <label class="form-control-label">Número de documento</label>
+            <input
+              type="text"
+              style="text-transform: uppercase"
+              class="form-control"
+              required
+              pattern="[A-Z0-9]{5,11}"
+              name="login"
+              formControlName="login"
+            />
 
             <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
               <small
@@ -137,7 +161,7 @@
           </div>
           <div class="col-md-3 mb-2">
             <label class="form-control-label">Celular</label>
-            <input type="text" class="form-control" name="celphone" formControlName="celphone" />
+            <input type="text" class="form-control" pattern="[0-9]{10}" name="celphone" formControlName="celphone" />
 
             <div *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
               <small
@@ -152,143 +176,226 @@
           </div>
           <div class="col-md-3 mb-2">
             <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" name="authority" formControlName="authorities">
+            <select class="form-control" multiple name="authority" formControlName="authorities">
               <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
             </select>
           </div>
+
           <div class="col-md-3 mb-2">
             <label class="form-check-label" for="activated">
-              <input
-                class="form-check-input"
-                [attr.disabled]="user.id === undefined ? 'disabled' : null"
-                type="checkbox"
-                id="activated"
-                name="activated"
-                formControlName="activated"
-              />
+              <input class="form-check-input" type="checkbox" id="activated" name="activated" formControlName="activated" />
               <span jhiTranslate="userManagement.activated">Activated</span>
-
-              <label jhiTranslate="userManagement.profiles">Estado del usuario</label>
-              <select class="form-control" name="authority" formControlName="authorities">
-                <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-              </select>
             </label>
           </div>
         </div>
 
+        <!-- <div class="form-row">
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <select class="form-control" name="authority" formControlName="authorities">
+              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <input type="text" class="form-control" placeholder="First name" />
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <select class="form-control" name="authority" formControlName="authorities">
+              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <input type="text" class="form-control" placeholder="First name" />
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <select class="form-control" name="authority" formControlName="authorities">
+              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+            </select>
+          </div>
+
+          <div class="col-md-2 mb-2">
+            <label jhiTranslate="userManagement.profiles">Profiles</label>
+            <select class="form-control" name="authority" formControlName="authorities">
+              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
+            </select>
+          </div>
+        </div> -->
+
         <div class="form-row">
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" name="authority" formControlName="authorities">
-              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select>
+          <div class="col-md-3 mb-2">
+            <div class="form-group">
+              <label class="form-control-label">Convenio</label>
+
+              <select class="form-control" name="convenio" formControlName="convenio">
+                <option *ngFor="let convenio of convenio" [value]="convenio">{{ convenio }}</option>
+              </select>
+
+              <div *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('convenio')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+
+              <button type="button" class="btn btn-secondary" (click)="sqlconvenio()" value="Agregar departamento">
+                <fa-icon icon="check" value="Agregar departamento"></fa-icon>
+                Agregar Departamento
+              </button>
+            </div>
           </div>
 
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <input type="text" class="form-control" placeholder="First name" />
+          <div class="col-md-3 md-2">
+            <label class="form-control-label">Mostrar Programas</label>
+
+            <button type="button" class="btn btn-secondary" (click)="sqlprograma()" value="Mostrar municipios">
+              <fa-icon icon="list"></fa-icon>
+              Mostrar Programas
+            </button>
           </div>
 
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" name="authority" formControlName="authorities">
-              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select>
-          </div>
+          <div class="col-md-3 mb-2">
+            <div class="form-group">
+              <label class="form-control-label">Programa</label>
 
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <input type="text" class="form-control" placeholder="First name" />
-          </div>
+              <select class="form-control" name="programa" formControlName="programa">
+                <option *ngFor="let programa of programa" [value]="programa">{{ programa }}</option>
+              </select>
 
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" name="authority" formControlName="authorities">
-              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select>
-          </div>
+              <div *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('programa')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+            </div>
 
-          <div class="col-md-2 mb-2">
-            <label jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" name="authority" formControlName="authorities">
-              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label">Convenio</label>
-          <input type="text" class="form-control" name="convenio" formControlName="convenio" />
-
-          <div *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('convenio')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 50 }"
-            >
-              This field cannot be longer than 50 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label class="form-control-label">Programa</label>
-          <input type="text" class="form-control" name="programa" formControlName="programa" />
-
-          <div *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('programa')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 50 }"
-            >
-              This field cannot be longer than 50 characters.
-            </small>
+            <button type="button" class="btn btn-secondary" (click)="sqlAddAgreements()" value="Mostrar municipios">
+              <fa-icon icon="save"></fa-icon>
+              Agregar Programa
+            </button>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label">Departamento</label>
-          <input type="text" class="form-control" name="departamento" formControlName="departamento" />
+        <div class="form-row">
+          <div class="col-md-3 mb-2">
+            <div class="form-group">
+              <label class="form-control-label">Departamento</label>
 
-          <div
-            *ngIf="editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)"
-          >
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('departamento')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 50 }"
-            >
-              This field cannot be longer than 50 characters.
-            </small>
+              <select class="form-control" name="departamento" formControlName="departamento">
+                <option *ngFor="let departamento of departamento" [value]="departamento">{{ departamento }}</option>
+              </select>
+
+              <div
+                *ngIf="
+                  editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
+                "
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+
+              <button type="button" class="btn btn-secondary" (click)="sqlask()" value="Agregar departamento">
+                <fa-icon icon="check"></fa-icon>
+                Agregar Departamento
+              </button>
+            </div>
+          </div>
+
+          <div class="col-md-3 md-2">
+            <label class="form-control-label">Mostrar Municipios</label>
+
+            <button type="button" class="btn btn-secondary" (click)="sqlmunicipio()" value="Mostrar municipios">
+              <fa-icon icon="list"></fa-icon>
+              Mostrar Municipios
+            </button>
+          </div>
+
+          <div class="col-md-3 mb-2">
+            <div class="form-group">
+              <label class="form-control-label">Municipio</label>
+
+              <select class="form-control" name="municipio" formControlName="municipio">
+                <option *ngFor="let municipio of municipio" [value]="municipio">{{ municipio }}</option>
+              </select>
+
+              <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('municipio')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+            </div>
+
+            <button type="button" class="btn btn-secondary" (click)="sqlAddLocation()" value="Mostrar municipios">
+              <fa-icon icon="save"></fa-icon>
+              Agregar Municipio
+            </button>
           </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-control-label">Municipio</label>
-          <input type="text" class="form-control" name="municipio" formControlName="municipio" />
-
-          <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
-            <small
-              class="form-text text-danger"
-              *ngIf="editForm.get('municipio')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength"
-              [translateValues]="{ max: 50 }"
-            >
-              This field cannot be longer than 50 characters.
-            </small>
-          </div>
-        </div>
-
-        <div class="form-check"></div>
-
+        <!-- 
         <div class="form-group" *ngIf="languages && languages.length > 0">
           <label jhiTranslate="userManagement.langKey">Lang Key</label>
           <select class="form-control" id="langKey" name="langKey" formControlName="langKey">
             <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
           </select>
+        </div> -->
+
+        <div class="form-row">
+          <div class="col-md-8 mb-8">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col"><span>Convenio</span></th>
+                  <th scope="col"><span>Programa</span></th>
+
+                  <th scope="col"><span>Departamento</span></th>
+                  <th scope="col"><span>Municipio</span></th>
+                </tr>
+              </thead>
+
+              <tbody *ngIf="user">
+                <tr>
+                  <td>{{ convenioName }}</td>
+                  <td>{{ programaName }}</td>
+                  <td>{{ departamentoName }}</td>
+                  <td>{{ municipioName }}</td>
+
+                  <td>
+                    <div *ngFor="let authority of user.authorities">
+                      <span class="badge badge-info">{{ authority }}</span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 

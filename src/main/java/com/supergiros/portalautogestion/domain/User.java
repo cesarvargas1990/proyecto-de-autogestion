@@ -1,6 +1,7 @@
 package com.supergiros.portalautogestion.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.supergiros.portalautogestion.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
@@ -67,7 +68,7 @@ public class User extends AbstractAuditingEntity {
 
     @NotNull
     @Column(nullable = false)
-    private boolean activated = false;
+    private boolean activated;
 
     @Size(min = 2, max = 10)
     @Column(name = "lang_key", length = 10)
@@ -92,6 +93,7 @@ public class User extends AbstractAuditingEntity {
 
     @JsonIgnore
     @ManyToMany
+    @NotNull
     @JoinTable(
         name = "jhi_user_authority",
         joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
@@ -122,6 +124,7 @@ public class User extends AbstractAuditingEntity {
     private Long programa;
 
     @NotNull
+    @JsonIgnore
     @Column(name = "fk_departamento", length = 20)
     private Long departamento;
 
@@ -154,6 +157,7 @@ public class User extends AbstractAuditingEntity {
             ", firstName='" + firstName + '\'' +
             ", lastName='" + lastName + '\'' +
             ", email='" + email + '\'' +
+            ", departamento='" + departamento + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", activated='" + activated + '\'' +
             ", langKey='" + langKey + '\'' +
