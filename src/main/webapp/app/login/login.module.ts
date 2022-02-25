@@ -5,10 +5,11 @@ import { SharedModule } from 'app/shared/shared.module';
 import { LOGIN_ROUTE } from './login.route';
 import { LoginComponent } from './login.component';
 import { LoginModalComponent } from './modal/login-modal.component';
+import { TwoFAModalComponent } from './modal/twoFA-modal.component';
 
 @NgModule({
   imports: [SharedModule, RouterModule.forChild([LOGIN_ROUTE])],
-  declarations: [LoginComponent, LoginModalComponent],
+  declarations: [LoginComponent, LoginModalComponent, TwoFAModalComponent],
   entryComponents: [LoginModalComponent],
 })
 export class LoginModule {}

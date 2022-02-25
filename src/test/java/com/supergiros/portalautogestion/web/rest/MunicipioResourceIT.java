@@ -29,9 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class MunicipioResourceIT {
 
-    private static final Integer DEFAULT_ID_MUNICIPIO = 1;
-    private static final Integer UPDATED_ID_MUNICIPIO = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -65,11 +62,7 @@ class MunicipioResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Municipio createEntity(EntityManager em) {
-        Municipio municipio = new Municipio()
-            .idMunicipio(DEFAULT_ID_MUNICIPIO)
-            .name(DEFAULT_NAME)
-            .codDane(DEFAULT_COD_DANE)
-            .fKIdDepartamento(DEFAULT_F_K_ID_DEPARTAMENTO);
+        Municipio municipio = new Municipio().name(DEFAULT_NAME).codDane(DEFAULT_COD_DANE).fKIdDepartamento(DEFAULT_F_K_ID_DEPARTAMENTO);
         return municipio;
     }
 
@@ -80,11 +73,7 @@ class MunicipioResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Municipio createUpdatedEntity(EntityManager em) {
-        Municipio municipio = new Municipio()
-            .idMunicipio(UPDATED_ID_MUNICIPIO)
-            .name(UPDATED_NAME)
-            .codDane(UPDATED_COD_DANE)
-            .fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
+        Municipio municipio = new Municipio().name(UPDATED_NAME).codDane(UPDATED_COD_DANE).fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
         return municipio;
     }
 
@@ -106,7 +95,6 @@ class MunicipioResourceIT {
         List<Municipio> municipioList = municipioRepository.findAll();
         assertThat(municipioList).hasSize(databaseSizeBeforeCreate + 1);
         Municipio testMunicipio = municipioList.get(municipioList.size() - 1);
-        assertThat(testMunicipio.getIdMunicipio()).isEqualTo(DEFAULT_ID_MUNICIPIO);
         assertThat(testMunicipio.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testMunicipio.getCodDane()).isEqualTo(DEFAULT_COD_DANE);
         assertThat(testMunicipio.getfKIdDepartamento()).isEqualTo(DEFAULT_F_K_ID_DEPARTAMENTO);
@@ -142,7 +130,6 @@ class MunicipioResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(municipio.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idMunicipio").value(hasItem(DEFAULT_ID_MUNICIPIO)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].codDane").value(hasItem(DEFAULT_COD_DANE)))
             .andExpect(jsonPath("$.[*].fKIdDepartamento").value(hasItem(DEFAULT_F_K_ID_DEPARTAMENTO)));
@@ -160,7 +147,6 @@ class MunicipioResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(municipio.getId().intValue()))
-            .andExpect(jsonPath("$.idMunicipio").value(DEFAULT_ID_MUNICIPIO))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.codDane").value(DEFAULT_COD_DANE))
             .andExpect(jsonPath("$.fKIdDepartamento").value(DEFAULT_F_K_ID_DEPARTAMENTO));
@@ -185,11 +171,7 @@ class MunicipioResourceIT {
         Municipio updatedMunicipio = municipioRepository.findById(municipio.getId()).get();
         // Disconnect from session so that the updates on updatedMunicipio are not directly saved in db
         em.detach(updatedMunicipio);
-        updatedMunicipio
-            .idMunicipio(UPDATED_ID_MUNICIPIO)
-            .name(UPDATED_NAME)
-            .codDane(UPDATED_COD_DANE)
-            .fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
+        updatedMunicipio.name(UPDATED_NAME).codDane(UPDATED_COD_DANE).fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
 
         restMunicipioMockMvc
             .perform(
@@ -203,7 +185,6 @@ class MunicipioResourceIT {
         List<Municipio> municipioList = municipioRepository.findAll();
         assertThat(municipioList).hasSize(databaseSizeBeforeUpdate);
         Municipio testMunicipio = municipioList.get(municipioList.size() - 1);
-        assertThat(testMunicipio.getIdMunicipio()).isEqualTo(UPDATED_ID_MUNICIPIO);
         assertThat(testMunicipio.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testMunicipio.getCodDane()).isEqualTo(UPDATED_COD_DANE);
         assertThat(testMunicipio.getfKIdDepartamento()).isEqualTo(UPDATED_F_K_ID_DEPARTAMENTO);
@@ -277,7 +258,7 @@ class MunicipioResourceIT {
         Municipio partialUpdatedMunicipio = new Municipio();
         partialUpdatedMunicipio.setId(municipio.getId());
 
-        partialUpdatedMunicipio.idMunicipio(UPDATED_ID_MUNICIPIO).name(UPDATED_NAME).fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
+        partialUpdatedMunicipio.name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
 
         restMunicipioMockMvc
             .perform(
@@ -291,10 +272,9 @@ class MunicipioResourceIT {
         List<Municipio> municipioList = municipioRepository.findAll();
         assertThat(municipioList).hasSize(databaseSizeBeforeUpdate);
         Municipio testMunicipio = municipioList.get(municipioList.size() - 1);
-        assertThat(testMunicipio.getIdMunicipio()).isEqualTo(UPDATED_ID_MUNICIPIO);
         assertThat(testMunicipio.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testMunicipio.getCodDane()).isEqualTo(DEFAULT_COD_DANE);
-        assertThat(testMunicipio.getfKIdDepartamento()).isEqualTo(UPDATED_F_K_ID_DEPARTAMENTO);
+        assertThat(testMunicipio.getCodDane()).isEqualTo(UPDATED_COD_DANE);
+        assertThat(testMunicipio.getfKIdDepartamento()).isEqualTo(DEFAULT_F_K_ID_DEPARTAMENTO);
     }
 
     @Test
@@ -309,11 +289,7 @@ class MunicipioResourceIT {
         Municipio partialUpdatedMunicipio = new Municipio();
         partialUpdatedMunicipio.setId(municipio.getId());
 
-        partialUpdatedMunicipio
-            .idMunicipio(UPDATED_ID_MUNICIPIO)
-            .name(UPDATED_NAME)
-            .codDane(UPDATED_COD_DANE)
-            .fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
+        partialUpdatedMunicipio.name(UPDATED_NAME).codDane(UPDATED_COD_DANE).fKIdDepartamento(UPDATED_F_K_ID_DEPARTAMENTO);
 
         restMunicipioMockMvc
             .perform(
@@ -327,7 +303,6 @@ class MunicipioResourceIT {
         List<Municipio> municipioList = municipioRepository.findAll();
         assertThat(municipioList).hasSize(databaseSizeBeforeUpdate);
         Municipio testMunicipio = municipioList.get(municipioList.size() - 1);
-        assertThat(testMunicipio.getIdMunicipio()).isEqualTo(UPDATED_ID_MUNICIPIO);
         assertThat(testMunicipio.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testMunicipio.getCodDane()).isEqualTo(UPDATED_COD_DANE);
         assertThat(testMunicipio.getfKIdDepartamento()).isEqualTo(UPDATED_F_K_ID_DEPARTAMENTO);

@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { LoginModalComponent } from './modal/login-modal.component';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
+import { TwoFAModalComponent } from './modal/twoFA-modal.component';
 
 @Component({
   selector: 'jhi-login',
@@ -55,27 +56,28 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.authenticationError = false;
           this.statusError = false;
           /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-
-          if (sucessLogin?.firstTime) {
-            this.modalService.open(LoginModalComponent);
-            if (!this.router.getCurrentNavigation()) {
-              this.router.navigate(['account/password']);
-            }
-          } else if (!sucessLogin?.firstTime) {
-            if (!this.router.getCurrentNavigation()) {
-              this.router.navigate(['']);
-            }
-          }
+          this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
+          this.modalService.open(TwoFAModalComponent);
+          // if (sucessLogin?.firstTime) {
+          //   this.modalService.open(LoginModalComponent);
+          //   if (!this.router.getCurrentNavigation()) {
+          //     this.router.navigate(['account/password']);
+          //   }
+          // } else if (!sucessLogin?.firstTime) {
+          //   if (!this.router.getCurrentNavigation()) {
+          //     this.router.navigate(['']);
+          //   }
+          // }
         },
         error: errorLogin => {
           /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-
-          if (errorLogin.error.detail === 'Credenciales erróneas') {
-            this.authenticationError = true;
-            this.statusError = false;
-          } else if (errorLogin.error.detail === 'Usuario Deshabilitado') {
+          console.log(errorLogin);
+          if (errorLogin.error.detail === 'Usuario Deshabilitado') {
             this.statusError = true;
             this.authenticationError = false;
+          } else {
+            this.authenticationError = true;
+            this.statusError = false;
           }
         },
       });

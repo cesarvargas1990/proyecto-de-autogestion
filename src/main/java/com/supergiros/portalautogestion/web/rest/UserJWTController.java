@@ -5,11 +5,13 @@ import com.supergiros.portalautogestion.security.jwt.JWTFilter;
 import com.supergiros.portalautogestion.security.jwt.TokenProvider;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.web.rest.vm.LoginVM;
+import java.util.NoSuchElementException;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -38,8 +40,12 @@ public class UserJWTController {
 
     @PostMapping("/authenticate")
     public ResponseEntity<JWTToken> authorize(@Valid @RequestBody LoginVM loginVM) {
-        if (!userService.userStatus(loginVM.getUsername())) {
-            throw new DisabledException("Usuario Deshabilitado");
+        try {
+            if (!userService.userStatus(loginVM.getUsername())) {
+                throw new DisabledException("Usuario Deshabilitado");
+            }
+        } catch (NoSuchElementException e) {
+            throw new BadCredentialsException("Usuario No registrado");
         }
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(

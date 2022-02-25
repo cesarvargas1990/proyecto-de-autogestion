@@ -14,9 +14,6 @@
             <column name="id" type="bigint">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="id_municipio" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="name" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
@@ -47,7 +44,6 @@
                   tableName="municipio"
                   usePreparedStatements="true">
             <column name="id" type="numeric"/>
-            <column name="id_municipio" type="numeric"/>
             <column name="name" type="string"/>
             <column name="cod_dane" type="numeric"/>
             <column name="f_k_id_departamento" type="numeric"/>

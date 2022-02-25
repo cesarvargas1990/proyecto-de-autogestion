@@ -8,7 +8,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 export class PasswordResetInitService {
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
-  save(mail: string): Observable<{}> {
-    return this.http.post(this.applicationConfigService.getEndpointFor('api/account/reset-password/init'), mail);
+  save(document: string): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/account/reset-password/init'), document);
   }
 }

@@ -71,8 +71,7 @@ class ConvenioGatlingTest extends Simulation {
             .post("/api/convenios")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "idConvenio":"0"
-                , "name":"SAMPLE_TEXT"
+                "name":"SAMPLE_TEXT"
                 , "identificacion":"SAMPLE_TEXT"
                 }""")).asJson
             .check(status.is(201))

@@ -18,7 +18,6 @@
         "title": "Programas"
       },
       "id": "ID",
-      "idProgramas": "Id Programas",
       "name": "Name",
       "identificacion": "Identificacion",
       "fKConvenio": "F K Convenio"

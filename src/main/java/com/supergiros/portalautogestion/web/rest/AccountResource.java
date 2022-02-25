@@ -161,7 +161,7 @@ public class AccountResource {
         } else {
             // Pretend the request has been successful to prevent checking which emails really exist
             // but log that an invalid attempt has been made
-            log.warn("No estoy encontrando nada con ese decomento");
+            log.warn("No estoy encontrando nada con ese documento");
         }
     }
 
@@ -190,5 +190,26 @@ public class AccountResource {
             password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
             password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
         );
+    }
+
+    @PostMapping(path = "/account/generateToken")
+    public void generateTwoFactorToken(@RequestBody String document) {
+        Optional<User> user = userService.requestPasswordReset(document);
+        if (user.isPresent()) {
+            mailService.sendTwoFactorMail(user.get());
+        } else {
+            // Pretend the request has been successful to prevent checking which emails really exist
+            // but log that an invalid attempt has been made
+            log.warn("No estoy encontrando nada con ese documento");
+        }
+    }
+
+    @PostMapping(path = "/account/validateToken")
+    public void validateToken(@RequestBody String token) {
+        Optional<User> user = userService.tokenAuthentication(token);
+
+        if (!user.isPresent()) {
+            throw new AccountResourceException("No user was found for this reset key");
+        }
     }
 }

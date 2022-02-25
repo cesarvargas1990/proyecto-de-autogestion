@@ -20,6 +20,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,9 +71,13 @@ public class UserService {
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES))) {
+            throw new BadCredentialsException("El Código suministrado ha caducado");
+        }
         return userRepository
             .findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(1, ChronoUnit.DAYS)))
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES)))
             .map(user -> {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
@@ -83,6 +88,7 @@ public class UserService {
     }
 
     public Optional<User> requestPasswordReset(String document) {
+        System.out.println(Instant.now());
         return userRepository
             .findOneByLogin(document)
             .filter(User::isActivated)
@@ -350,5 +356,22 @@ public class UserService {
         } else {
             log.info("el usuario ya había logeado antes");
         }
+    }
+
+    public Optional<User> tokenAuthentication(String key) {
+        log.debug("Reset user password for reset key {}", key);
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES))) {
+            throw new BadCredentialsException("El Código suministrado ha caducado");
+        }
+        return userRepository
+            .findOneByResetKey(key)
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES)))
+            .map(user -> {
+                user.setResetKey(null);
+                user.setResetDate(null);
+                this.clearUserCaches(user);
+                return user;
+            });
     }
 }
