@@ -32,6 +32,9 @@ export class UserManagementComponent implements OnInit {
   isShown!: boolean;
   loginString!: string;
   documentTypeString!: string;
+  searchCredentialsError = false;
+  activated!: boolean;
+  desactivated!: boolean;
 
   editForm = this.fb.group({
     documentType: [[Validators.required]],
@@ -68,7 +71,7 @@ export class UserManagementComponent implements OnInit {
     // unsubscribe not needed because closed completes on modal close
     modalRef.closed.subscribe(reason => {
       if (reason === 'deleted') {
-        this.loadAll();
+        //this.loadAll();
       }
     });
   }
@@ -104,9 +107,26 @@ export class UserManagementComponent implements OnInit {
     this.documentTypeString = this.editForm.get(['documentType'])!.value.toString();
     this.loginString = this.editForm.get(['login'])!.value;
 
-    this.isShown = !this.isShown;
+    this.userService.find(this.loginString).subscribe({
+      next: xx => {
+        if (xx.documentType === this.documentTypeString) {
+          this.user = xx;
+          this.isShown = !this.isShown;
+          this.searchCredentialsError = false;
+          this.activated = xx.activated!;
+        } else {
+          this.searchCredentialsError = true;
+        }
+      },
+    });
+  }
 
-    this.userService.find(this.loginString).subscribe(xx => (this.user = xx));
+  activateOrdesactivate(user: User): void {
+    this.desactivated = this.activated;
+
+    this.activated = !this.activated;
+
+    this.setActive(user, this.activated);
   }
 
   search(): void {

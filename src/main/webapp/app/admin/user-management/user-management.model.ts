@@ -27,7 +27,7 @@ export class User implements IUser {
     public programaName?: string,
     public departamento?: number,
     public municipio?: number,
-    public departamentoName?: string,
+    public departamentoName?: string[],
     public municipioName?: string,
 
     public firstName?: string | null,

@@ -143,4 +143,7 @@ public class PublicUserResource {
     public Boolean searchInDB(String login, String documentType) {
         return userService.searchInDB(login, documentType);
     }
+    // @GetMapping("/getDepartamentosId")
+    // public List<Long> getDepartamentoId(@RequestBody List<String> )
+
 }

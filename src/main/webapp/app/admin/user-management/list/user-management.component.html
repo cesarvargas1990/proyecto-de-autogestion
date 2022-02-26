@@ -42,9 +42,11 @@
             type="text"
             style="text-transform: uppercase"
             class="form-control"
-            pattern="[0-9A-Z ]{4,15}"
+            pattern="[0-9A-Z ]{5,11}"
             name="login"
             formControlName="login"
+            maxlength="11"
+            onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )"
           />
 
           <!-- <div
@@ -122,17 +124,17 @@
             <td>
               <button
                 class="btn btn-danger btn-sm"
-                (click)="setActive(user, true)"
-                *ngIf="!user.activated"
+                (click)="activateOrdesactivate(user)"
+                *ngIf="this.activated"
                 jhiTranslate="userManagement.deactivated"
               >
                 Deactivated
               </button>
               <button
                 class="btn btn-success btn-sm"
-                (click)="setActive(user, false)"
-                *ngIf="user.activated"
-                [disabled]="!currentAccount || currentAccount.login === user.login"
+                (click)="activateOrdesactivate(user)"
+                *ngIf="this.desactivated"
+                [disabled]=""
                 jhiTranslate="userManagement.activated"
               >
                 Activated
@@ -176,6 +178,8 @@
       </table>
     </div>
   </div>
+
+  <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
 
   <div *ngIf="isShown">
     <div *ngIf="users">

@@ -29,18 +29,27 @@ export class UserManagementUpdateComponent implements OnInit {
 
   idDepartamento!: number;
   idConvenio!: number;
+  validadorCelphone!: number;
+  validadorEmail!: string;
+
+  convenioNIT!: string;
+  programaNIT!: string;
 
   isSaving = false;
+  celphoneCredentialsError = false;
+  emailCredentialsError = false;
+
+  departamentoNumber = 0;
 
   editForm = this.fb.group({
     id: [],
-    login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+    login: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(11)]],
     documentType: [[Validators.required]],
     celphone: [
       '',
       [Validators.maxLength(50), Validators.required, Validators.pattern('^[0-9!$&*+=?^_`{|}~.-]+@[0-9-]+(?:\\.[0-9-]+)*$|^[_.@0-9-]+$')],
     ],
-    firstName: ['', [Validators.maxLength(50), Validators.required]],
+    firstName: ['', [Validators.required]],
     lastName: ['', [Validators.maxLength(50), Validators.required]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
 
@@ -145,15 +154,31 @@ export class UserManagementUpdateComponent implements OnInit {
     user.login = this.editForm.get(['login'])!.value;
 
     user.documentType = this.editForm.get(['documentType'])!.value;
-    user.celphone = this.editForm.get(['celphone'])!.value;
-    //user.convenio = this.editForm.get(['convenio'])!.value;
-    //user.programa = this.editForm.get(['programa'])!.value;
 
-    //user.municipio = this.editForm.get(['municipio'])!.value;
+    this.validadorCelphone = this.editForm.get(['celphone'])!.value;
+    if (this.validadorCelphone.toString().startsWith('3')) {
+      user.celphone = this.editForm.get(['celphone'])!.value;
+      this.celphoneCredentialsError = false;
+    } else {
+      this.celphoneCredentialsError = true;
+    }
 
     user.firstName = this.editForm.get(['firstName'])!.value;
+
+    // this.validadorFirstName = this.editForm.get(['firstName'])!.value;
+
+    // user.firstName = (this.validadorFirstName).normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+
+    this.validadorEmail = this.editForm.get(['email'])!.value;
+    if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
+      user.email = this.editForm.get(['email'])!.value;
+      this.emailCredentialsError = false;
+    } else {
+      this.emailCredentialsError = true;
+    }
+
     user.lastName = this.editForm.get(['lastName'])!.value;
-    user.email = this.editForm.get(['email'])!.value;
+    // user.email = this.editForm.get(['email'])!.value;
 
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;

@@ -93,6 +93,18 @@ public class UserService {
         return departamentosRepository.findIdByNamePrograma(programaName);
     }
 
+    // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
+
+    //     List<Long> idsLista= Collections.emptyList();
+
+    //     for (int index = 0; index < departamentosLista.length; index++) {
+    //         Optional<Departamentos> departamento = departamentosRepository.findListbyId(string);
+    //         idsLista.add(departamento.get().getId());
+    //     }
+
+    //     return idsLista;
+    // }
+
     // @Transactional(readOnly = true)
     // public List<String> getAuthorities() {
     //     return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());

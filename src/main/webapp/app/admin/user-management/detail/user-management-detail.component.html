@@ -2,17 +2,20 @@
   <div class="col-8">
     <div *ngIf="user">
       <h2>
-        <span jhiTranslate="userManagement.detail.title">User</span> [<strong>{{ user.login }}</strong
+        <span jhiTranslate="userManagement.detail.title">User</span> [<strong>{{ user.id }}</strong
         >]
       </h2>
 
       <dl class="row-md jh-entity-details">
-        <dt><span>Número de Documento</span></dt>
+        <dt><span>Numero de Documento</span></dt>
         <dd>
           <span>{{ user.login }}</span>
           <span *ngIf="user.activated" class="badge badge-success" jhiTranslate="userManagement.activated">Activated</span>
           <span *ngIf="!user.activated" class="badge badge-danger" jhiTranslate="userManagement.deactivated">Deactivated</span>
         </dd>
+
+        <dt><span>Tipo de Documento</span></dt>
+        <dd>{{ user.documentType }}</dd>
 
         <dt><span jhiTranslate="userManagement.firstName">First Name</span></dt>
         <dd>{{ user.firstName }}</dd>
@@ -51,7 +54,7 @@
         </dd>
       </dl>
 
-      <button type="submit" routerLink="../../" class="btn btn-info">
+      <button type="submit" (click)="previousState()" class="btn btn-info">
         <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
       </button>
 

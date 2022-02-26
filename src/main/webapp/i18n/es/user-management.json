@@ -19,13 +19,18 @@
     "firstName": "Nombre",
     "lastName": "Apellidos",
     "email": "Email",
+    "celphone": "Celular",
     "activated": "Activado",
     "deactivated": "Desactivado",
+    "documentType": "Tipo de Documento",
     "profiles": "Perfiles",
     "langKey": "Idioma",
     "createdBy": "Creado por",
     "createdDate": "Fecha de creación",
     "lastModifiedBy": "Modificado por",
-    "lastModifiedDate": "Fecha de modificación"
+    "lastModifiedDate": "Fecha de modificación",
+    "searchCredentialsError": "Las credenciales de busqueda no coinciden",
+    "celphoneCredentialsError": "El número de celular debe iniciar con 3",
+    "emailCredentialsError": "El correo electrónico no es acorde al dominio"
   }
 }
