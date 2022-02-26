@@ -57,21 +57,21 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.statusError = false;
           /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
           this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
-          this.modalService.open(TwoFAModalComponent);
-          // if (sucessLogin?.firstTime) {
-          //   this.modalService.open(LoginModalComponent);
-          //   if (!this.router.getCurrentNavigation()) {
-          //     this.router.navigate(['account/password']);
-          //   }
-          // } else if (!sucessLogin?.firstTime) {
-          //   if (!this.router.getCurrentNavigation()) {
-          //     this.router.navigate(['']);
-          //   }
-          // }
+
+          if (sucessLogin?.firstTime) {
+            this.modalService.open(LoginModalComponent);
+            this.modalService.open(TwoFAModalComponent);
+            if (!this.router.getCurrentNavigation()) {
+              this.router.navigate(['account/password']);
+            }
+          } else if (!sucessLogin?.firstTime) {
+            this.modalService.open(TwoFAModalComponent);
+            if (!this.router.getCurrentNavigation()) {
+              this.router.navigate(['']);
+            }
+          }
         },
         error: errorLogin => {
-          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-          console.log(errorLogin);
           if (errorLogin.error.detail === 'Usuario Deshabilitado') {
             this.statusError = true;
             this.authenticationError = false;

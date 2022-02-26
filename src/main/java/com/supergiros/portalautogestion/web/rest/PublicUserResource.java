@@ -1,5 +1,6 @@
 package com.supergiros.portalautogestion.web.rest;
 
+import aj.org.objectweb.asm.Type;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
 import java.util.*;
@@ -61,5 +62,14 @@ public class PublicUserResource {
     @GetMapping("/authorities")
     public List<String> getAuthorities() {
         return userService.getAuthorities();
+    }
+
+    @GetMapping("/getDepartamentosId")
+    public List<Long> getDepartamentoId(@RequestBody List<String> nombresDepartamentos) {
+        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhh");
+        System.out.println(nombresDepartamentos.get(0));
+        System.out.println(nombresDepartamentos.get(1));
+        System.out.println(nombresDepartamentos.getClass());
+        return userService.findIdsDepartamentos(nombresDepartamentos);
     }
 }

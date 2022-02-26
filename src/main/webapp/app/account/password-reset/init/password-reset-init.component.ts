@@ -14,6 +14,9 @@ export class PasswordResetInitComponent implements AfterViewInit {
   email?: ElementRef;
   captcha = ''; // empty = not yet proven to be a human, anything else = human
   captchaValidator = true;
+  emailEnmascarado = '';
+  emailEnviado = false;
+  stringSeguro: any;
 
   success = false;
   resetRequestForm = this.fb.group({
@@ -34,20 +37,35 @@ export class PasswordResetInitComponent implements AfterViewInit {
   }
 
   requestReset(): void {
-    this.passwordResetInitService.save(this.resetRequestForm.get(['email'])!.value).subscribe({
-      next: succesReset => {
-        console.log(succesReset);
-      },
-      error: error => {
-        console.log(error);
-      },
-    });
-    this.modalService.open(ResetModalComponent);
+    this.passwordResetInitService.save(this.resetRequestForm.get(['email'])!.value).subscribe(loquellega => {
+      /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+      //this.emailEnmascarado=loquellega.email;
 
-    this.router.navigate(['account/reset/finish']);
+      this.emailEnmascarado = this.enmascararMail(loquellega.email);
+      this.emailEnviado = true;
+      setTimeout(() => {
+        this.router.navigate(['account/reset/finish']);
+      }, 3000);
+    });
   }
   resolved(captchaResponse: string): void {
     this.captcha = captchaResponse;
     this.captchaValidator = false;
+  }
+
+  enmascararMail(email: any): string {
+    if (email) {
+      email = email.split('');
+      const finalArray: any = [];
+      const length = email.indexOf('@');
+      email.forEach((item: any, pos: any) => {
+        pos >= 2 && pos <= length - 1 ? finalArray.push('*') : finalArray.push(email[pos]);
+      });
+      this.stringSeguro = finalArray.join('');
+
+      return String(this.stringSeguro);
+    } else {
+      return '';
+    }
   }
 }

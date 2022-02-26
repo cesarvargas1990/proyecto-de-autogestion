@@ -154,14 +154,16 @@ public class AccountResource {
      * @param mail the mail of the user.
      */
     @PostMapping(path = "/account/reset-password/init")
-    public void requestPasswordReset(@RequestBody String document) {
+    public User requestPasswordReset(@RequestBody String document) {
         Optional<User> user = userService.requestPasswordReset(document);
         if (user.isPresent()) {
             mailService.sendPasswordResetMail(user.get());
+            return user.get();
         } else {
             // Pretend the request has been successful to prevent checking which emails really exist
             // but log that an invalid attempt has been made
             log.warn("No estoy encontrando nada con ese documento");
+            return null;
         }
     }
 
@@ -211,5 +213,10 @@ public class AccountResource {
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this reset key");
         }
+    }
+
+    @PostMapping(path = "/account/userLoged")
+    public void userLoged(@RequestBody String login) {
+        userService.userFirstLogin(login);
     }
 }

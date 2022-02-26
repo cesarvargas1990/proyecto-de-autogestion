@@ -2,8 +2,10 @@ package com.supergiros.portalautogestion.service;
 
 import com.supergiros.portalautogestion.config.Constants;
 import com.supergiros.portalautogestion.domain.Authority;
+import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import com.supergiros.portalautogestion.repository.AuthorityRepository;
+import com.supergiros.portalautogestion.repository.DepartamentosRepository;
 import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.security.SecurityUtils;
@@ -33,6 +35,8 @@ import tech.jhipster.security.RandomUtil;
 @Transactional
 public class UserService {
 
+    long numeroId;
+
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
@@ -43,16 +47,20 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
+    private final DepartamentosRepository departamentosRepository;
+
     public UserService(
         UserRepository userRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager
+        CacheManager cacheManager,
+        DepartamentosRepository departamentosRepository
     ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.departamentosRepository = departamentosRepository;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -72,12 +80,12 @@ public class UserService {
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
         Optional<User> userprueba = userRepository.findOneByResetKey(key);
-        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES))) {
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
             throw new BadCredentialsException("El Código suministrado ha caducado");
         }
         return userRepository
             .findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES)))
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
             .map(user -> {
                 user.setPassword(passwordEncoder.encode(newPassword));
                 user.setResetKey(null);
@@ -361,17 +369,31 @@ public class UserService {
     public Optional<User> tokenAuthentication(String key) {
         log.debug("Reset user password for reset key {}", key);
         Optional<User> userprueba = userRepository.findOneByResetKey(key);
-        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES))) {
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
             throw new BadCredentialsException("El Código suministrado ha caducado");
         }
         return userRepository
             .findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(5, ChronoUnit.MINUTES)))
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
             .map(user -> {
                 user.setResetKey(null);
                 user.setResetDate(null);
                 this.clearUserCaches(user);
                 return user;
             });
+    }
+
+    public List<Long> findIdsDepartamentos(List<String> departamentosLista) {
+        System.out.println("inicio");
+        List<Long> idsLista = new ArrayList<>();
+        System.out.println("despues de la list");
+        for (int index = 0; index < departamentosLista.size(); index++) {
+            numeroId = departamentosRepository.findIdByName(departamentosLista.get(index));
+            System.out.println("AHHHHHHHHHHHHH" + numeroId);
+            idsLista.add(index, numeroId);
+            System.out.println("despues de añadir");
+        }
+        System.out.println("despues del for ");
+        return idsLista;
     }
 }

@@ -32,4 +32,8 @@ export class LoginService {
   validarToken(token: string): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/account/validateToken'), token);
   }
+
+  validarPrimerLogin(login: string): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/account/userLoged'), login);
+  }
 }

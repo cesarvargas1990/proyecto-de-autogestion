@@ -1,18 +1,45 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
+import { AccountService } from 'app/core/auth/account.service';
+import { Account } from 'app/core/auth/account.model';
+import { Observable } from 'rxjs';
+
 @Component({
-  selector: 'jhi-twoFa-modal',
+  selector: 'jhi-twofa-modal',
   templateUrl: './twoFA-modal.component.html',
+  providers: [NgbModalConfig, NgbModal],
 })
-export class TwoFAModalComponent {
+export class TwoFAModalComponent implements OnInit {
+  @ViewChild('content')
+  content?: TwoFAModalComponent;
+
+  tokenValidado = false;
+  tokenError = false;
+  pruebaesta = false;
+  itsTwoFAON = true;
+  account$?: Observable<Account | null>;
+
   twoFactorForm = this.fb.group({
     token: [null, [Validators.required]],
   });
-  tokenValidado = false;
-  tokenError = false;
-  constructor(private activeModal: NgbActiveModal, private loginService: LoginService, private fb: FormBuilder) {}
+
+  constructor(
+    private activeModal: NgbActiveModal,
+    private loginService: LoginService,
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private modalService: NgbModal,
+
+    config: NgbModalConfig
+  ) {
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
+  ngOnInit(): void {
+    this.account$ = this.accountService.identity();
+  }
 
   dismiss(): void {
     this.activeModal.dismiss();
@@ -23,6 +50,17 @@ export class TwoFAModalComponent {
       next: validatedToken => {
         this.tokenValidado = true;
         this.tokenError = false;
+        this.pruebaesta = false;
+        this.content?.dismiss;
+        this.activeModal.close;
+        this.modalService.dismissAll;
+
+        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+        this.account$?.subscribe({
+          next: personaLogeada => {
+            this.loginService.validarPrimerLogin(personaLogeada!.login).subscribe();
+          },
+        });
       },
 
       error: wrongToken => {
@@ -30,5 +68,9 @@ export class TwoFAModalComponent {
         this.tokenError = true;
       },
     });
+  }
+
+  open(content: any): void {
+    this.modalService.open(content);
   }
 }
