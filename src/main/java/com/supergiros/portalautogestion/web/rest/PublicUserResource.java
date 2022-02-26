@@ -115,6 +115,7 @@ public class PublicUserResource {
      */
     @GetMapping("/getIdConvenio")
     public Long getIdConvenio(String convenioName) {
+        System.out.println("AHHHH ESTE LLEGA" + convenioName);
         return userService.findIdByNameConvenio(convenioName);
     }
 

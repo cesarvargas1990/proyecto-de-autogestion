@@ -50,22 +50,18 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    private final DepartamentosRepository departamentosRepository;
-
     public UserService(
         UserRepository userRepository,
         DepartamentosRepository departamentosRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
-        CacheManager cacheManager,
-        DepartamentosRepository departamentosRepository
+        CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
         this.departamentosRepository = departamentosRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
-        this.departamentosRepository = departamentosRepository;
     }
 
     public List<String> getDepartamentosName() {
@@ -89,7 +85,9 @@ public class UserService {
     }
 
     public Long findIdByNameConvenio(String convenioName) {
-        return departamentosRepository.findIdByNameConvenio(convenioName);
+        Long a = departamentosRepository.findIdByNameConvenio(convenioName);
+        System.out.println("AHHHHHH ESTA ES LA ID" + a);
+        return a;
     }
 
     public List<String> getProgramasName(Long fkPrograma) {

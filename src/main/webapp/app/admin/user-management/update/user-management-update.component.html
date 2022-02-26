@@ -293,7 +293,7 @@
 
               <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="Agregar departamento">
                 <fa-icon icon="check" value="Agregar departamento"></fa-icon>
-                Agregar Departamento
+                Agregar Convenio
               </button>
             </div>
           </div>
@@ -368,7 +368,7 @@
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
-              <select class="form-control" multiple name="municipio" formControlName="municipio">
+              <select class="form-control" name="municipio" formControlName="municipio">
                 <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
               </select>
 

@@ -169,13 +169,13 @@ export class UserManagementUpdateComponent implements OnInit {
 
     // user.firstName = (this.validadorFirstName).normalize("NFD").replace(/[\u0300-\u036f]/g,"");
 
-    this.validadorEmail = this.editForm.get(['email'])!.value;
-    if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
-      user.email = this.editForm.get(['email'])!.value;
-      this.emailCredentialsError = false;
-    } else {
-      this.emailCredentialsError = true;
-    }
+    user.email = this.editForm.get(['email'])!.value;
+    // if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
+    //   user.email = this.editForm.get(['email'])!.value;
+    //   this.emailCredentialsError = false;
+    // } else {
+    //   this.emailCredentialsError = true;
+    // }
 
     user.lastName = this.editForm.get(['lastName'])!.value;
     // user.email = this.editForm.get(['email'])!.value;
@@ -208,6 +208,7 @@ export class UserManagementUpdateComponent implements OnInit {
     this.convenioName = ad;
 
     this.userService.getIdConvenios(ad).subscribe(xx => (this.idConvenio = xx));
+    /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
   }
 
   private updatePrograma(user: User): void {

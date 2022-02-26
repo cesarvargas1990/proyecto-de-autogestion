@@ -17,7 +17,7 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
   error = false;
   key = '';
   success = false;
-
+  bodyParam = false;
   passwordForm = this.fb.group({
     newPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
@@ -27,6 +27,15 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
   constructor(private passwordResetFinishService: PasswordResetFinishService, private route: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(params => {
+      if (params['key']) {
+        this.key = params['key'];
+        if (this.key === '') {
+          this.bodyParam = false;
+        }
+      }
+    });
+
     this.initialized = true;
   }
 
