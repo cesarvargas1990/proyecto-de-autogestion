@@ -51,9 +51,6 @@ export class TwoFAModalComponent implements OnInit {
         this.tokenValidado = true;
         this.tokenError = false;
         this.pruebaesta = false;
-        this.content?.dismiss;
-        this.activeModal.close;
-        this.modalService.dismissAll;
 
         /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
         this.account$?.subscribe({
