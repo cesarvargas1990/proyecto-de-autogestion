@@ -58,18 +58,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
           /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
           this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
 
-          if (sucessLogin?.firstTime) {
-            this.modalService.open(LoginModalComponent);
-            this.modalService.open(TwoFAModalComponent);
-            if (!this.router.getCurrentNavigation()) {
-              this.router.navigate(['account/password']);
-            }
-          } else if (!sucessLogin?.firstTime) {
-            this.modalService.open(TwoFAModalComponent);
-            if (!this.router.getCurrentNavigation()) {
-              this.router.navigate(['']);
-            }
-          }
+          this.modalService.open(TwoFAModalComponent);
+
+          this.router.navigate(['']);
         },
         error: errorLogin => {
           if (errorLogin.error.detail === 'Usuario Deshabilitado') {

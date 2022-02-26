@@ -1,6 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
@@ -11,9 +11,9 @@ import { Observable } from 'rxjs';
   templateUrl: './twoFA-modal.component.html',
   providers: [NgbModalConfig, NgbModal],
 })
-export class TwoFAModalComponent implements OnInit {
-  @ViewChild('content')
-  content?: TwoFAModalComponent;
+export class TwoFAModalComponent implements OnInit, AfterViewInit {
+  closeResult?: string;
+  @ViewChild('content') myModal: any;
 
   tokenValidado = false;
   tokenError = false;
@@ -36,6 +36,9 @@ export class TwoFAModalComponent implements OnInit {
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
+  }
+  ngAfterViewInit(): void {
+    this.open(this.myModal);
   }
   ngOnInit(): void {
     this.account$ = this.accountService.identity();
@@ -67,7 +70,23 @@ export class TwoFAModalComponent implements OnInit {
     });
   }
 
-  open(content: any): void {
-    this.modalService.open(content);
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
+      result => {
+        this.closeResult = `Closed with: ${result}`;
+      },
+      reason => {
+        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+      }
+    );
+  }
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
   }
 }
