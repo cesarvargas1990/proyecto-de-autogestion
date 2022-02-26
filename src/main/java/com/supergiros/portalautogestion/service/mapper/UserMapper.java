@@ -1,6 +1,7 @@
 package com.supergiros.portalautogestion.service.mapper;
 
 import com.supergiros.portalautogestion.domain.Authority;
+import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
@@ -61,10 +62,31 @@ public class UserMapper {
             user.setDocumentType(userDTO.getDocumentType());
             user.setCelphone(userDTO.getCelphone());
 
+            // Set<Departamentos> departamentos = this.departamentosFromStrings(userDTO.getDepartamento());
+            // user.setDepartamento(departamentos);
+
             Set<Authority> authorities = this.authoritiesFromStrings(userDTO.getAuthorities());
             user.setAuthorities(authorities);
             return user;
         }
+    }
+
+    private Set<Departamentos> departamentosFromStrings(Set<String> departamentosAsString) {
+        Set<Departamentos> departamentos = new HashSet<>();
+
+        if (departamentosAsString != null) {
+            departamentos =
+                departamentosAsString
+                    .stream()
+                    .map(string -> {
+                        Departamentos auth = new Departamentos();
+                        auth.setName(string);
+                        return auth;
+                    })
+                    .collect(Collectors.toSet());
+        }
+
+        return departamentos;
     }
 
     private Set<Authority> authoritiesFromStrings(Set<String> authoritiesAsString) {

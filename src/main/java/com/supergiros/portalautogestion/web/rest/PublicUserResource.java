@@ -64,12 +64,87 @@ public class PublicUserResource {
         return userService.getAuthorities();
     }
 
-    @GetMapping("/getDepartamentosId")
-    public List<Long> getDepartamentoId(@RequestBody List<String> nombresDepartamentos) {
-        System.out.println("ahhhhhhhhhhhhhhhhhhhhhhhhh");
-        System.out.println(nombresDepartamentos.get(0));
-        System.out.println(nombresDepartamentos.get(1));
-        System.out.println(nombresDepartamentos.getClass());
-        return userService.findIdsDepartamentos(nombresDepartamentos);
+    /**
+     * Gets a list of all departamentos.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getDepartamentos")
+    public List<String> getDepartamentos() {
+        return userService.getDepartamentosName();
     }
+
+    /**
+     * Gets the id of Departamento using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getIdDepartamentos")
+    public Long getIdDepartamentos(String departamentoName) {
+        return userService.findIdByName(departamentoName);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getMunicipios")
+    public List<String> getMunicipios(Long fkDepartmanento) {
+        return userService.getMunicipiosName(fkDepartmanento);
+    }
+
+    /**
+     * Gets the id of Municipio using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getIdMunicipios")
+    public Long getIdMunicipios(String municipioName) {
+        return userService.findIdByNameMunicipio(municipioName);
+    }
+
+    /**
+     * Gets a list of all convenios.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getConvenio")
+    public List<String> getConvenio() {
+        return userService.getConvenio();
+    }
+
+    /**
+     * Gets the id of convenio  using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getIdConvenio")
+    public Long getIdConvenio(String convenioName) {
+        return userService.findIdByNameConvenio(convenioName);
+    }
+
+    /**
+     * Gets a list of all programas.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getProgramas")
+    public List<String> getProgramas(Long fkConvenio) {
+        return userService.getProgramasName(fkConvenio);
+    }
+
+    /**
+     * Gets the id of programa using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getIdProgramas")
+    public Long getIdProgramas(String programaName) {
+        return userService.findIdByNamePrograma(programaName);
+    }
+
+    /**
+     * Gets a boolean confirmation if document type and document number exist in DB.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/searchInDB")
+    public Boolean searchInDB(String login, String documentType) {
+        return userService.searchInDB(login, documentType);
+    }
+    // @GetMapping("/getDepartamentosId")
+    // public List<Long> getDepartamentoId(@RequestBody List<String> )
+
 }

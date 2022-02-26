@@ -10,6 +10,7 @@ import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.security.SecurityUtils;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
+import com.supergiros.portalautogestion.service.dto.GrillaDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
 import com.supergiros.portalautogestion.service.mapper.UserMapper;
 import java.time.Instant;
@@ -41,6 +42,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final DepartamentosRepository departamentosRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
@@ -51,16 +54,71 @@ public class UserService {
 
     public UserService(
         UserRepository userRepository,
+        DepartamentosRepository departamentosRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager,
         DepartamentosRepository departamentosRepository
     ) {
         this.userRepository = userRepository;
+        this.departamentosRepository = departamentosRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
         this.departamentosRepository = departamentosRepository;
+    }
+
+    public List<String> getDepartamentosName() {
+        return departamentosRepository.getDepartamentosName();
+    }
+
+    public Long findIdByName(String departamentoName) {
+        return departamentosRepository.findIdByName(departamentoName);
+    }
+
+    public List<String> getMunicipiosName(Long fkDepartmanento) {
+        return departamentosRepository.getMunicipiosName(fkDepartmanento);
+    }
+
+    public Long findIdByNameMunicipio(String municipioName) {
+        return departamentosRepository.findIdByNameMunicipio(municipioName);
+    }
+
+    public List<String> getConvenio() {
+        return departamentosRepository.getConvenioName();
+    }
+
+    public Long findIdByNameConvenio(String convenioName) {
+        return departamentosRepository.findIdByNameConvenio(convenioName);
+    }
+
+    public List<String> getProgramasName(Long fkPrograma) {
+        return departamentosRepository.getProgramaName(fkPrograma);
+    }
+
+    public Long findIdByNamePrograma(String programaName) {
+        return departamentosRepository.findIdByNamePrograma(programaName);
+    }
+
+    // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
+
+    //     List<Long> idsLista= Collections.emptyList();
+
+    //     for (int index = 0; index < departamentosLista.length; index++) {
+    //         Optional<Departamentos> departamento = departamentosRepository.findListbyId(string);
+    //         idsLista.add(departamento.get().getId());
+    //     }
+
+    //     return idsLista;
+    // }
+
+    // @Transactional(readOnly = true)
+    // public List<String> getAuthorities() {
+    //     return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    // }
+
+    public Boolean searchInDB(String login, String documentType) {
+        return departamentosRepository.searchInDB(login, documentType);
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -138,7 +196,7 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(userDTO.isActivated());
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
@@ -185,7 +243,7 @@ public class UserService {
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
-        user.setActivated(true);
+        user.setActivated(userDTO.isActivated());
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO
                 .getAuthorities()

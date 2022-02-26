@@ -2,6 +2,7 @@ package com.supergiros.portalautogestion.service.dto;
 
 import com.supergiros.portalautogestion.config.Constants;
 import com.supergiros.portalautogestion.domain.Authority;
+import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import java.time.Instant;
 import java.util.Set;
@@ -67,6 +68,7 @@ public class AdminUserDTO {
 
     private Instant lastModifiedDate;
 
+    @NotNull
     private Set<String> authorities;
 
     private boolean firstTime;
@@ -98,6 +100,14 @@ public class AdminUserDTO {
 
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
     }
+
+    // constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    //     this.languageHelper.language.subscribe((languageKey: string) => {
+    //      if (languageKey !== undefined) {
+    //        this.languageService.changeLanguage(languageKey);
+    //      }
+    //     });
+    //    }
 
     public Long getId() {
         return id;
