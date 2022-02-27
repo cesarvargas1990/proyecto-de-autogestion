@@ -30,8 +30,8 @@ export class PasswordResetFinishComponent implements OnInit, AfterViewInit {
     this.route.queryParams.subscribe(params => {
       if (params['key']) {
         this.key = params['key'];
-        if (this.key === '') {
-          this.bodyParam = false;
+        if (this.key.length > 5) {
+          this.bodyParam = true;
         }
       }
     });
