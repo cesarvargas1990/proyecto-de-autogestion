@@ -80,11 +80,13 @@ public class MailService {
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         if (user.getEmail() == null) {
-            log.debug("Email doesn't exist for user '{}'", user.getLogin());
+            log.debug("No hay una cuenta asociada a'{}'", user.getLogin());
             return;
         }
+        log.debug("hasta aqui todo bien");
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
+
         context.setVariable(USER, user);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
@@ -108,5 +110,11 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
+    }
+
+    @Async
+    public void sendTwoFactorMail(User user) {
+        log.debug("Sending password reset email to '{}'", user.getEmail());
+        sendEmailFromTemplate(user, "mail/twoFactorEmail", "email.TwoFactor.title");
     }
 }

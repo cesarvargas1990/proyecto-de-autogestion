@@ -29,9 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class DepartamentosResourceIT {
 
-    private static final Integer DEFAULT_ID_DEPARTAMENTOS = 1;
-    private static final Integer UPDATED_ID_DEPARTAMENTOS = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -129,7 +126,6 @@ class DepartamentosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(departamentos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idDepartamentos").value(hasItem(DEFAULT_ID_DEPARTAMENTOS)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].codDane").value(hasItem(DEFAULT_COD_DANE)));
     }
@@ -146,7 +142,6 @@ class DepartamentosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(departamentos.getId().intValue()))
-            .andExpect(jsonPath("$.idDepartamentos").value(DEFAULT_ID_DEPARTAMENTOS))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.codDane").value(DEFAULT_COD_DANE));
     }
@@ -255,7 +250,7 @@ class DepartamentosResourceIT {
         Departamentos partialUpdatedDepartamentos = new Departamentos();
         partialUpdatedDepartamentos.setId(departamentos.getId());
 
-        partialUpdatedDepartamentos.name(UPDATED_NAME);
+        partialUpdatedDepartamentos.codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(

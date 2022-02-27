@@ -71,6 +71,8 @@ public class AdminUserDTO {
     @NotNull
     private Set<String> authorities;
 
+    private boolean firstTime;
+
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
     }
@@ -94,6 +96,8 @@ public class AdminUserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.firstTime = user.getFirstTime();
+
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
     }
 
@@ -255,5 +259,13 @@ public class AdminUserDTO {
 
     public void setAuthorities(Set<String> authorities) {
         this.authorities = authorities;
+    }
+
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
     }
 }

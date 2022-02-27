@@ -21,7 +21,6 @@ describe('Departamentos Service', () => {
 
     elemDefault = {
       id: 0,
-      idDepartamentos: 0,
       name: 'AAAAAAA',
       codDane: 0,
     };
@@ -59,7 +58,6 @@ describe('Departamentos Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          idDepartamentos: 1,
           name: 'BBBBBB',
           codDane: 1,
         },
@@ -78,8 +76,8 @@ describe('Departamentos Service', () => {
     it('should partial update a Departamentos', () => {
       const patchObject = Object.assign(
         {
-          idDepartamentos: 1,
           name: 'BBBBBB',
+          codDane: 1,
         },
         new Departamentos()
       );
@@ -99,7 +97,6 @@ describe('Departamentos Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          idDepartamentos: 1,
           name: 'BBBBBB',
           codDane: 1,
         },
@@ -153,7 +150,7 @@ describe('Departamentos Service', () => {
       });
 
       it('should add only unique Departamentos to an array', () => {
-        const departamentosArray: IDepartamentos[] = [{ id: 123 }, { id: 456 }, { id: 78238 }];
+        const departamentosArray: IDepartamentos[] = [{ id: 123 }, { id: 456 }, { id: 41528 }];
         const departamentosCollection: IDepartamentos[] = [{ id: 123 }];
         expectedResult = service.addDepartamentosToCollectionIfMissing(departamentosCollection, ...departamentosArray);
         expect(expectedResult).toHaveLength(3);

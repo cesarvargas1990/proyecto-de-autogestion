@@ -2,6 +2,7 @@ package com.supergiros.portalautogestion.web.rest;
 
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
+import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -58,6 +59,19 @@ public class TransaccionesNominaResource {
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
+
+    // @PostMapping("/transacciones-nominas/red-pagadora")
+    // public ResponseEntity<TransaccionesNomina> createTransaccionesNominaRedPagadora(@RequestBody TransaccionesNominaDTO transaccionesNominaDTO)
+    //     throws URISyntaxException {
+    //     log.debug("REST request to save TransaccionesNomina : {}", transaccionesNominaDTO);
+    //     TransaccionesNomina transaccionesNomina = new TransaccionesNomina();
+    //     transaccionesNomina.s
+    //     TransaccionesNomina result = transaccionesNominaRepository.save(transaccionesNominaDTO);
+    //     return ResponseEntity
+    //         .created(new URI("/api/transacciones-nominas/" + result.getId()))
+    //         .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
+    //         .body(result);
+    // }
 
     /**
      * {@code PUT  /transacciones-nominas/:id} : Updates an existing transaccionesNomina.

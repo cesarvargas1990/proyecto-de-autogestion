@@ -23,6 +23,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +35,8 @@ import tech.jhipster.security.RandomUtil;
 @Service
 @Transactional
 public class UserService {
+
+    long numeroId;
 
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
@@ -82,7 +85,9 @@ public class UserService {
     }
 
     public Long findIdByNameConvenio(String convenioName) {
-        return departamentosRepository.findIdByNameConvenio(convenioName);
+        Long a = departamentosRepository.findIdByNameConvenio(convenioName);
+        System.out.println("AHHHHHH ESTA ES LA ID" + a);
+        return a;
     }
 
     public List<String> getProgramasName(Long fkPrograma) {
@@ -130,21 +135,39 @@ public class UserService {
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
-        return userRepository
-            .findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(1, ChronoUnit.DAYS)))
-            .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
-                this.clearUserCaches(user);
-                return user;
-            });
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (userprueba.get().getFirstTime()) {
+            return userRepository
+                .findOneByResetKey(key)
+                .map(user -> {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    user.setResetKey(null);
+                    user.setResetDate(null);
+                    user.setFirstTime(false);
+                    this.clearUserCaches(user);
+                    return user;
+                });
+        } else {
+            if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
+                throw new BadCredentialsException("El Código suministrado ha caducado");
+            }
+            return userRepository
+                .findOneByResetKey(key)
+                .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
+                .map(user -> {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    user.setResetKey(null);
+                    user.setResetDate(null);
+                    this.clearUserCaches(user);
+                    return user;
+                });
+        }
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
+    public Optional<User> requestPasswordReset(String document) {
+        System.out.println(Instant.now());
         return userRepository
-            .findOneByEmailIgnoreCase(mail)
+            .findOneByLogin(document)
             .filter(User::isActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
@@ -396,5 +419,50 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+
+    public boolean userStatus(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        return user.get().isActivated();
+    }
+
+    public void userFirstLogin(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        if (user.get().getFirstTime()) {
+            userRepository.setUserLogeado(login);
+        } else {
+            log.info("el usuario ya había logeado antes");
+        }
+    }
+
+    public Optional<User> tokenAuthentication(String key) {
+        log.debug("Reset user password for reset key {}", key);
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
+            throw new BadCredentialsException("El Código suministrado ha caducado");
+        }
+        return userRepository
+            .findOneByResetKey(key)
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
+            .map(user -> {
+                user.setResetKey(null);
+                user.setResetDate(null);
+                this.clearUserCaches(user);
+                return user;
+            });
+    }
+
+    public List<Long> findIdsDepartamentos(List<String> departamentosLista) {
+        System.out.println("inicio");
+        List<Long> idsLista = new ArrayList<>();
+        System.out.println("despues de la list");
+        for (int index = 0; index < departamentosLista.size(); index++) {
+            numeroId = departamentosRepository.findIdByName(departamentosLista.get(index));
+            System.out.println("AHHHHHHHHHHHHH" + numeroId);
+            idsLista.add(index, numeroId);
+            System.out.println("despues de añadir");
+        }
+        System.out.println("despues del for ");
+        return idsLista;
     }
 }

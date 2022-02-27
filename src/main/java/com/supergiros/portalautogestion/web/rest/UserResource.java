@@ -7,6 +7,7 @@ import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.service.MailService;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
+import com.supergiros.portalautogestion.service.dto.UserDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import com.supergiros.portalautogestion.web.rest.errors.EmailAlreadyUsedException;
 import com.supergiros.portalautogestion.web.rest.errors.LoginAlreadyUsedException;
@@ -115,10 +116,11 @@ public class UserResource {
             // Lowercase the user login before comparing with database
         } else if (userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).isPresent()) {
             throw new LoginAlreadyUsedException();
-        } else if (userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).isPresent()) {
-            throw new EmailAlreadyUsedException();
+            //} else if (userRepository.findOneByEmailIgnoreCase(userDTO.getEmail()).isPresent()) {
+            //     throw new EmailAlreadyUsedException();
         } else {
             User newUser = userService.createUser(userDTO);
+            System.out.println("AHB CONTRASEÑA    " + newUser.getPassword());
             mailService.sendCreationEmail(newUser);
             return ResponseEntity
                 .created(new URI("/api/admin/users/" + newUser.getLogin()))
@@ -203,5 +205,12 @@ public class UserResource {
         log.debug("REST request to delete User: {}", login);
         userService.deleteUser(login);
         return ResponseEntity.noContent().headers(HeaderUtil.createAlert(applicationName, "userManagement.deleted", login)).build();
+    }
+
+    @PutMapping("/user/firstLogin")
+    @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<Object> userLoged(@RequestBody String login) {
+        userRepository.setUserLogeado(login);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

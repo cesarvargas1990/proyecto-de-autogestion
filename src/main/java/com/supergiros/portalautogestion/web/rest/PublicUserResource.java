@@ -1,5 +1,6 @@
 package com.supergiros.portalautogestion.web.rest;
 
+import aj.org.objectweb.asm.Type;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
 import java.util.*;
@@ -114,6 +115,7 @@ public class PublicUserResource {
      */
     @GetMapping("/getIdConvenio")
     public Long getIdConvenio(String convenioName) {
+        System.out.println("AHHHH ESTE LLEGA" + convenioName);
         return userService.findIdByNameConvenio(convenioName);
     }
 

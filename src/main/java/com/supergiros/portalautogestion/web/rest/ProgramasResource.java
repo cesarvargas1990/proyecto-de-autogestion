@@ -123,9 +123,6 @@ public class ProgramasResource {
         Optional<Programas> result = programasRepository
             .findById(programas.getId())
             .map(existingProgramas -> {
-                if (programas.getIdProgramas() != null) {
-                    existingProgramas.setIdProgramas(programas.getIdProgramas());
-                }
                 if (programas.getName() != null) {
                     existingProgramas.setName(programas.getName());
                 }

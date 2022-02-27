@@ -123,9 +123,6 @@ public class MunicipioResource {
         Optional<Municipio> result = municipioRepository
             .findById(municipio.getId())
             .map(existingMunicipio -> {
-                if (municipio.getIdMunicipio() != null) {
-                    existingMunicipio.setIdMunicipio(municipio.getIdMunicipio());
-                }
                 if (municipio.getName() != null) {
                     existingMunicipio.setName(municipio.getName());
                 }

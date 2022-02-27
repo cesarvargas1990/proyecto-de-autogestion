@@ -29,9 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ProgramasResourceIT {
 
-    private static final Integer DEFAULT_ID_PROGRAMAS = 1;
-    private static final Integer UPDATED_ID_PROGRAMAS = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -65,11 +62,7 @@ class ProgramasResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Programas createEntity(EntityManager em) {
-        Programas programas = new Programas()
-            .idProgramas(DEFAULT_ID_PROGRAMAS)
-            .name(DEFAULT_NAME)
-            .identificacion(DEFAULT_IDENTIFICACION)
-            .fKConvenio(DEFAULT_F_K_CONVENIO);
+        Programas programas = new Programas().name(DEFAULT_NAME).identificacion(DEFAULT_IDENTIFICACION).fKConvenio(DEFAULT_F_K_CONVENIO);
         return programas;
     }
 
@@ -80,11 +73,7 @@ class ProgramasResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Programas createUpdatedEntity(EntityManager em) {
-        Programas programas = new Programas()
-            .idProgramas(UPDATED_ID_PROGRAMAS)
-            .name(UPDATED_NAME)
-            .identificacion(UPDATED_IDENTIFICACION)
-            .fKConvenio(UPDATED_F_K_CONVENIO);
+        Programas programas = new Programas().name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION).fKConvenio(UPDATED_F_K_CONVENIO);
         return programas;
     }
 
@@ -106,7 +95,6 @@ class ProgramasResourceIT {
         List<Programas> programasList = programasRepository.findAll();
         assertThat(programasList).hasSize(databaseSizeBeforeCreate + 1);
         Programas testProgramas = programasList.get(programasList.size() - 1);
-        assertThat(testProgramas.getIdProgramas()).isEqualTo(DEFAULT_ID_PROGRAMAS);
         assertThat(testProgramas.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProgramas.getIdentificacion()).isEqualTo(DEFAULT_IDENTIFICACION);
         assertThat(testProgramas.getfKConvenio()).isEqualTo(DEFAULT_F_K_CONVENIO);
@@ -142,7 +130,6 @@ class ProgramasResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(programas.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idProgramas").value(hasItem(DEFAULT_ID_PROGRAMAS)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION)))
             .andExpect(jsonPath("$.[*].fKConvenio").value(hasItem(DEFAULT_F_K_CONVENIO)));
@@ -160,7 +147,6 @@ class ProgramasResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(programas.getId().intValue()))
-            .andExpect(jsonPath("$.idProgramas").value(DEFAULT_ID_PROGRAMAS))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.identificacion").value(DEFAULT_IDENTIFICACION))
             .andExpect(jsonPath("$.fKConvenio").value(DEFAULT_F_K_CONVENIO));
@@ -185,11 +171,7 @@ class ProgramasResourceIT {
         Programas updatedProgramas = programasRepository.findById(programas.getId()).get();
         // Disconnect from session so that the updates on updatedProgramas are not directly saved in db
         em.detach(updatedProgramas);
-        updatedProgramas
-            .idProgramas(UPDATED_ID_PROGRAMAS)
-            .name(UPDATED_NAME)
-            .identificacion(UPDATED_IDENTIFICACION)
-            .fKConvenio(UPDATED_F_K_CONVENIO);
+        updatedProgramas.name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION).fKConvenio(UPDATED_F_K_CONVENIO);
 
         restProgramasMockMvc
             .perform(
@@ -203,7 +185,6 @@ class ProgramasResourceIT {
         List<Programas> programasList = programasRepository.findAll();
         assertThat(programasList).hasSize(databaseSizeBeforeUpdate);
         Programas testProgramas = programasList.get(programasList.size() - 1);
-        assertThat(testProgramas.getIdProgramas()).isEqualTo(UPDATED_ID_PROGRAMAS);
         assertThat(testProgramas.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProgramas.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
         assertThat(testProgramas.getfKConvenio()).isEqualTo(UPDATED_F_K_CONVENIO);
@@ -277,7 +258,7 @@ class ProgramasResourceIT {
         Programas partialUpdatedProgramas = new Programas();
         partialUpdatedProgramas.setId(programas.getId());
 
-        partialUpdatedProgramas.name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION).fKConvenio(UPDATED_F_K_CONVENIO);
+        partialUpdatedProgramas.identificacion(UPDATED_IDENTIFICACION).fKConvenio(UPDATED_F_K_CONVENIO);
 
         restProgramasMockMvc
             .perform(
@@ -291,8 +272,7 @@ class ProgramasResourceIT {
         List<Programas> programasList = programasRepository.findAll();
         assertThat(programasList).hasSize(databaseSizeBeforeUpdate);
         Programas testProgramas = programasList.get(programasList.size() - 1);
-        assertThat(testProgramas.getIdProgramas()).isEqualTo(DEFAULT_ID_PROGRAMAS);
-        assertThat(testProgramas.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testProgramas.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testProgramas.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
         assertThat(testProgramas.getfKConvenio()).isEqualTo(UPDATED_F_K_CONVENIO);
     }
@@ -309,11 +289,7 @@ class ProgramasResourceIT {
         Programas partialUpdatedProgramas = new Programas();
         partialUpdatedProgramas.setId(programas.getId());
 
-        partialUpdatedProgramas
-            .idProgramas(UPDATED_ID_PROGRAMAS)
-            .name(UPDATED_NAME)
-            .identificacion(UPDATED_IDENTIFICACION)
-            .fKConvenio(UPDATED_F_K_CONVENIO);
+        partialUpdatedProgramas.name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION).fKConvenio(UPDATED_F_K_CONVENIO);
 
         restProgramasMockMvc
             .perform(
@@ -327,7 +303,6 @@ class ProgramasResourceIT {
         List<Programas> programasList = programasRepository.findAll();
         assertThat(programasList).hasSize(databaseSizeBeforeUpdate);
         Programas testProgramas = programasList.get(programasList.size() - 1);
-        assertThat(testProgramas.getIdProgramas()).isEqualTo(UPDATED_ID_PROGRAMAS);
         assertThat(testProgramas.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testProgramas.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
         assertThat(testProgramas.getfKConvenio()).isEqualTo(UPDATED_F_K_CONVENIO);

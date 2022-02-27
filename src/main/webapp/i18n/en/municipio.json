@@ -18,7 +18,6 @@
         "title": "Municipio"
       },
       "id": "ID",
-      "idMunicipio": "Id Municipio",
       "name": "Name",
       "codDane": "Cod Dane",
       "fKIdDepartamento": "F K Id Departamento"

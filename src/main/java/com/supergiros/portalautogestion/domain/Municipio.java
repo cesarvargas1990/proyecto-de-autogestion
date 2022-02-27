@@ -21,9 +21,6 @@ public class Municipio implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_municipio")
-    private Integer idMunicipio;
-
     @Column(name = "name")
     private String name;
 
@@ -46,19 +43,6 @@ public class Municipio implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdMunicipio() {
-        return this.idMunicipio;
-    }
-
-    public Municipio idMunicipio(Integer idMunicipio) {
-        this.setIdMunicipio(idMunicipio);
-        return this;
-    }
-
-    public void setIdMunicipio(Integer idMunicipio) {
-        this.idMunicipio = idMunicipio;
     }
 
     public String getName() {
@@ -124,7 +108,6 @@ public class Municipio implements Serializable {
     public String toString() {
         return "Municipio{" +
             "id=" + getId() +
-            ", idMunicipio=" + getIdMunicipio() +
             ", name='" + getName() + "'" +
             ", codDane=" + getCodDane() +
             ", fKIdDepartamento=" + getfKIdDepartamento() +

@@ -21,7 +21,6 @@ describe('Programas Service', () => {
 
     elemDefault = {
       id: 0,
-      idProgramas: 0,
       name: 'AAAAAAA',
       identificacion: 'AAAAAAA',
       fKConvenio: 'AAAAAAA',
@@ -60,7 +59,6 @@ describe('Programas Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          idProgramas: 1,
           name: 'BBBBBB',
           identificacion: 'BBBBBB',
           fKConvenio: 'BBBBBB',
@@ -80,7 +78,7 @@ describe('Programas Service', () => {
     it('should partial update a Programas', () => {
       const patchObject = Object.assign(
         {
-          identificacion: 'BBBBBB',
+          fKConvenio: 'BBBBBB',
         },
         new Programas()
       );
@@ -100,7 +98,6 @@ describe('Programas Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
-          idProgramas: 1,
           name: 'BBBBBB',
           identificacion: 'BBBBBB',
           fKConvenio: 'BBBBBB',
@@ -155,7 +152,7 @@ describe('Programas Service', () => {
       });
 
       it('should add only unique Programas to an array', () => {
-        const programasArray: IProgramas[] = [{ id: 123 }, { id: 456 }, { id: 59585 }];
+        const programasArray: IProgramas[] = [{ id: 123 }, { id: 456 }, { id: 32211 }];
         const programasCollection: IProgramas[] = [{ id: 123 }];
         expectedResult = service.addProgramasToCollectionIfMissing(programasCollection, ...programasArray);
         expect(expectedResult).toHaveLength(3);

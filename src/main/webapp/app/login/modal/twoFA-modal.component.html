@@ -1,0 +1,22 @@
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="col 5">
+    <div class="row justify-content-center">
+      <div class="col 3">
+        <h1>Doble factor de autenticación</h1>
+
+        <form class="form" role="form" (ngSubmit)="verificar()" [formGroup]="twoFactorForm">
+          <div class="form-group">
+            <label class="token-label" for="token">Ingrese el código</label>
+            <input type="text" class="form-control" name="token" id="token" formControlName="token" #token data-cy="token" />
+          </div>
+          <button type="submit" class="btn btn-primary" data-cy="submit">Verificar</button>
+        </form>
+        <div class="alert alert-success" *ngIf="tokenValidado" jhiTranslate="login.token.success"></div>
+        <div class="alert alert-danger" *ngIf="tokenError" jhiTranslate="login.token.error"></div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="tokenValidado">
+    <button type="button" class="btn btn-outline-dark" (click)="d('Save click')">Continuar</button>
+  </div>
+</ng-template>

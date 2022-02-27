@@ -9,11 +9,20 @@
     },
     "messages": {
       "error": {
-        "authentication": "<strong>¡El inicio de sesión ha fallado!</strong> Por favor, revise las credenciales e intente de nuevo."
+        "authentication": "<strong>¡El inicio de sesión ha fallado!</strong> Por favor, revise las credenciales e intente de nuevo.",
+        "disable": "<strong>!El usuario se encuentra inactivo!</strong>Su usuario actualmente se encuentra inactivo, por favor comuníquese con su organización, a la línea de atención 01 8000 413 767 opción 1 o al PBX (602) 5190600  opción 1. Horarios de atención de lunes a sábado de 7:00 a.m. a 9:00 p.m. Domingos y festivos de 8:00 a.m. a 8:00 pm",
+        "verification": "<strong>El código ingresado no coincide</strong>"
+      },
+      "warning": {
+        "changepassword": "<strong>Por tu seguridad por favor cambia tu contraseña</strong> ."
       }
     },
     "password": {
       "forgot": "¿Ha olvidado su contraseña?"
+    },
+    "token": {
+      "success": "Código válido",
+      "error": "Código inválido, por favor verifique"
     }
   }
 }

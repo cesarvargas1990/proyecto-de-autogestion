@@ -123,9 +123,6 @@ public class ConvenioResource {
         Optional<Convenio> result = convenioRepository
             .findById(convenio.getId())
             .map(existingConvenio -> {
-                if (convenio.getIdConvenio() != null) {
-                    existingConvenio.setIdConvenio(convenio.getIdConvenio());
-                }
                 if (convenio.getName() != null) {
                     existingConvenio.setName(convenio.getName());
                 }
