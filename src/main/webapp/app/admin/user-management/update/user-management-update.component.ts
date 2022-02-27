@@ -27,6 +27,8 @@ export class UserManagementUpdateComponent implements OnInit {
   convenioName!: string;
   programaName!: string;
 
+  isMunicipios = false;
+
   idDepartamento!: number;
   idConvenio!: number;
   validadorCelphone!: number;
@@ -59,6 +61,7 @@ export class UserManagementUpdateComponent implements OnInit {
     //departamento: [[Validators.maxLength(50)], [Validators.required]],
     municipio: [],
 
+    isMunicipios: [],
     activated: [],
     langKey: [],
     authorities: [],
@@ -183,6 +186,8 @@ export class UserManagementUpdateComponent implements OnInit {
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
+
+    user.isMunicipios = this.editForm.get(['isMunicipios'])!.value;
   }
 
   private updateDepartamento(user: User): void {
