@@ -67,7 +67,7 @@ export class ConsultaEstadoGiroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadAll();
+    // this.loadAll();
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))

@@ -1,6 +1,6 @@
 <div>
   <h2 id="page-heading" data-cy="TransaccionesNominaHeading">
-    <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.title">Transacciones Nominas</span>
+    <span>Consulta estado de giro</span>
 
     <div class="row m-3">
       <form [formGroup]="formSearch" (submit)="send()">
@@ -47,7 +47,7 @@
     <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.notFound">No transaccionesNominas found</span>
   </div>
 
-  <div class="table-responsive" id="entities" *ngIf="transaccionesNominas && transaccionesNominas.length > 0">
+  <div class="table-responsive" id="entities">
     <table class="table table-striped" aria-describedby="page-heading">
       <thead>
         <tr>
