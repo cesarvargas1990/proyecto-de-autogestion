@@ -86,7 +86,6 @@ public class UserService {
 
     public Long findIdByNameConvenio(String convenioName) {
         Long a = departamentosRepository.findIdByNameConvenio(convenioName);
-        System.out.println("AHHHHHH ESTA ES LA ID" + a);
         return a;
     }
 

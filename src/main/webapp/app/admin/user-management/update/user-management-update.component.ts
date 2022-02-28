@@ -14,7 +14,6 @@ import { GrillaManagementService } from '../service/grilla-management.service';
 })
 export class UserManagementUpdateComponent implements OnInit {
   user!: User;
-  //grilla!: Grilla;
   languages = LANGUAGES;
   documenttypes = DOCUMENTTYPE;
   authorities: string[] = [];

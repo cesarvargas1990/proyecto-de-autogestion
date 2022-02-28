@@ -30,6 +30,8 @@ export class UserManagementComponent implements OnInit {
   documenttypes = DOCUMENTTYPE;
   user!: User;
   isShown!: boolean;
+  isShownlist!: boolean;
+
   loginString!: string;
   documentTypeString!: string;
   searchCredentialsError = false;
@@ -78,6 +80,8 @@ export class UserManagementComponent implements OnInit {
 
   loadAll(): void {
     this.isLoading = true;
+    this.isShownlist = true;
+
     this.userService
       .query({
         page: this.page - 1,
@@ -112,6 +116,7 @@ export class UserManagementComponent implements OnInit {
         if (xx.documentType === this.documentTypeString) {
           this.user = xx;
           this.isShown = !this.isShown;
+          this.isShownlist = !this.isShownlist;
           this.searchCredentialsError = false;
           this.activated = xx.activated!;
         } else {
