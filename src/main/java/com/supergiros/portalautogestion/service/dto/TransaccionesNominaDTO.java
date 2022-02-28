@@ -1,11 +1,16 @@
 package com.supergiros.portalautogestion.service.dto;
 
-import java.sql.Time;
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TransaccionesNominaDTO {
 
+    private String tipoDocumento;
+
+    private int identificacion;
+
     private int referencia_control;
+
+    private String periodoPago;
 
     private int convenio;
 
@@ -19,9 +24,9 @@ public class TransaccionesNominaDTO {
 
     private String apellido2;
 
-    private Date fechaDePago;
+    private LocalDate fechaDePago;
 
-    private Time horaDePago;
+    private String horaDePago;
 
     private int valorDePago;
 
@@ -89,19 +94,19 @@ public class TransaccionesNominaDTO {
         this.apellido2 = apellido2;
     }
 
-    public Date getFechaDePago() {
+    public LocalDate getFechaDePago() {
         return fechaDePago;
     }
 
-    public void setFechaDePago(Date fechaDePago) {
+    public void setFechaDePago(LocalDate fechaDePago) {
         this.fechaDePago = fechaDePago;
     }
 
-    public Time getHoraDePago() {
+    public String getHoraDePago() {
         return horaDePago;
     }
 
-    public void setHoraDePago(Time horaDePago) {
+    public void setHoraDePago(String horaDePago) {
         this.horaDePago = horaDePago;
     }
 
@@ -143,5 +148,29 @@ public class TransaccionesNominaDTO {
 
     public void setMotivoAnulacion(String motivoAnulacion) {
         this.motivoAnulacion = motivoAnulacion;
+    }
+
+    public String getTipoDocumento() {
+        return tipoDocumento;
+    }
+
+    public void setTipoDocumento(String tipoDocumento) {
+        this.tipoDocumento = tipoDocumento;
+    }
+
+    public int getIdentificacion() {
+        return identificacion;
+    }
+
+    public void setIdentificacion(int identificacion) {
+        this.identificacion = identificacion;
+    }
+
+    public String getPeriodoPago() {
+        return periodoPago;
+    }
+
+    public void setPeriodoPago(String periodoPago) {
+        this.periodoPago = periodoPago;
     }
 }

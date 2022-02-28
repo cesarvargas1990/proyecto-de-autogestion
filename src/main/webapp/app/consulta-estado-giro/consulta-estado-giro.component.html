@@ -1,0 +1,89 @@
+<div>
+  <h2 id="page-heading" data-cy="TransaccionesNominaHeading">
+    <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.title">Transacciones Nominas</span>
+
+    <div class="row m-3">
+      <form [formGroup]="formSearch" (submit)="send()">
+        <div class="row">
+          <div class="col">
+            <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
+          </div>
+
+          <div class="col">
+            <select placeholder="Tipo De Documento" class="form-control" name="documentType" formControlName="typeDocument">
+              <option value="TI">TI</option>
+              <option value="CC">CC</option>
+              <option value="Vatu">Vatu</option>
+              <option value="Lesotho">Lesotho</option>
+              <option value="Técnico">Técnico</option>
+              <option value="generating Granito payment">generating Granito payment</option>
+              <!-- <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option> -->
+            </select>
+          </div>
+
+          <div class="col">
+            <button class="btn btn-primary jh-create-entity create-transacciones-nomina">
+              <fa-icon icon="search"></fa-icon>
+              <span> Buscar </span>
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="col d-flex justify-content-end">
+        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+          <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.refreshListLabel">Refresh List</span>
+        </button>
+      </div>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="transaccionesNominas?.length === 0">
+    <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.notFound">No transaccionesNominas found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="transaccionesNominas && transaccionesNominas.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span>Tipo Documento Benef</span></th>
+          <th scope="col">
+            <span>Numero Documento Benef</span>
+          </th>
+
+          <th scope="col"><span>Fecha Pago</span></th>
+          <th scope="col"><span>Hora Pago</span></th>
+          <th scope="col"><span>PIN</span></th>
+          <th scope="col">
+            <span>Departamento De Pago</span>
+          </th>
+          <th scope="col"><span>Municipio De Pago</span></th>
+          <th scope="col"><span>Convenio</span></th>
+          <th scope="col"><span>Programa</span></th>
+          <th scope="col"><span>Valor Giro</span></th>
+          <th scope="col"><span>Estado</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaccionesNomina of transaccionesNominas; trackBy: trackId" data-cy="entityTable">
+          <td>{{ transaccionesNomina.tipoDocumentoBenef }}</td>
+          <td>{{ transaccionesNomina.numeroDocumentoBenef }}</td>
+          <td>{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
+          <td>{{ transaccionesNomina.horaPago }}</td>
+          <td>{{ transaccionesNomina.pinPago }}</td>
+          <td>{{ transaccionesNomina.fKDepartamentoDePago }}</td>
+          <td>{{ transaccionesNomina.fKMunicipioDePago }}</td>
+          <td>{{ transaccionesNomina.fKIdConvenio }}</td>
+          <td>{{ transaccionesNomina.fKIdPrograma }}</td>
+          <td>{{ transaccionesNomina.valorGiro }}</td>
+          <td>{{ transaccionesNomina.estado }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
