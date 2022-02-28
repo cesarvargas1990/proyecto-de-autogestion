@@ -2,13 +2,17 @@ package com.supergiros.portalautogestion.service;
 
 import com.supergiros.portalautogestion.config.Constants;
 import com.supergiros.portalautogestion.domain.Authority;
+import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import com.supergiros.portalautogestion.repository.AuthorityRepository;
+import com.supergiros.portalautogestion.repository.DepartamentosRepository;
 import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.security.SecurityUtils;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
+import com.supergiros.portalautogestion.service.dto.GrillaDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
+import com.supergiros.portalautogestion.service.mapper.UserMapper;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -19,6 +23,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,9 +36,13 @@ import tech.jhipster.security.RandomUtil;
 @Transactional
 public class UserService {
 
+    long numeroId;
+
     private final Logger log = LoggerFactory.getLogger(UserService.class);
 
     private final UserRepository userRepository;
+
+    private final DepartamentosRepository departamentosRepository;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -43,14 +52,71 @@ public class UserService {
 
     public UserService(
         UserRepository userRepository,
+        DepartamentosRepository departamentosRepository,
         PasswordEncoder passwordEncoder,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
+        this.departamentosRepository = departamentosRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+    }
+
+    public List<String> getDepartamentosName() {
+        return departamentosRepository.getDepartamentosName();
+    }
+
+    public Long findIdByName(String departamentoName) {
+        return departamentosRepository.findIdByName(departamentoName);
+    }
+
+    public List<String> getMunicipiosName(Long fkDepartmanento) {
+        return departamentosRepository.getMunicipiosName(fkDepartmanento);
+    }
+
+    public Long findIdByNameMunicipio(String municipioName) {
+        return departamentosRepository.findIdByNameMunicipio(municipioName);
+    }
+
+    public List<String> getConvenio() {
+        return departamentosRepository.getConvenioName();
+    }
+
+    public Long findIdByNameConvenio(String convenioName) {
+        Long a = departamentosRepository.findIdByNameConvenio(convenioName);
+        System.out.println("AHHHHHH ESTA ES LA ID" + a);
+        return a;
+    }
+
+    public List<String> getProgramasName(Long fkPrograma) {
+        return departamentosRepository.getProgramaName(fkPrograma);
+    }
+
+    public Long findIdByNamePrograma(String programaName) {
+        return departamentosRepository.findIdByNamePrograma(programaName);
+    }
+
+    // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
+
+    //     List<Long> idsLista= Collections.emptyList();
+
+    //     for (int index = 0; index < departamentosLista.length; index++) {
+    //         Optional<Departamentos> departamento = departamentosRepository.findListbyId(string);
+    //         idsLista.add(departamento.get().getId());
+    //     }
+
+    //     return idsLista;
+    // }
+
+    // @Transactional(readOnly = true)
+    // public List<String> getAuthorities() {
+    //     return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    // }
+
+    public Boolean searchInDB(String login, String documentType) {
+        return departamentosRepository.searchInDB(login, documentType);
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -69,21 +135,39 @@ public class UserService {
 
     public Optional<User> completePasswordReset(String newPassword, String key) {
         log.debug("Reset user password for reset key {}", key);
-        return userRepository
-            .findOneByResetKey(key)
-            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(1, ChronoUnit.DAYS)))
-            .map(user -> {
-                user.setPassword(passwordEncoder.encode(newPassword));
-                user.setResetKey(null);
-                user.setResetDate(null);
-                this.clearUserCaches(user);
-                return user;
-            });
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (userprueba.get().getFirstTime()) {
+            return userRepository
+                .findOneByResetKey(key)
+                .map(user -> {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    user.setResetKey(null);
+                    user.setResetDate(null);
+                    user.setFirstTime(false);
+                    this.clearUserCaches(user);
+                    return user;
+                });
+        } else {
+            if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
+                throw new BadCredentialsException("El Código suministrado ha caducado");
+            }
+            return userRepository
+                .findOneByResetKey(key)
+                .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
+                .map(user -> {
+                    user.setPassword(passwordEncoder.encode(newPassword));
+                    user.setResetKey(null);
+                    user.setResetDate(null);
+                    this.clearUserCaches(user);
+                    return user;
+                });
+        }
     }
 
-    public Optional<User> requestPasswordReset(String mail) {
+    public Optional<User> requestPasswordReset(String document) {
+        System.out.println(Instant.now());
         return userRepository
-            .findOneByEmailIgnoreCase(mail)
+            .findOneByLogin(document)
             .filter(User::isActivated)
             .map(user -> {
                 user.setResetKey(RandomUtil.generateResetKey());
@@ -123,7 +207,7 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(userDTO.isActivated());
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         Set<Authority> authorities = new HashSet<>();
@@ -147,6 +231,13 @@ public class UserService {
 
     public User createUser(AdminUserDTO userDTO) {
         User user = new User();
+        user.setConvenio(userDTO.getConvenio());
+        user.setPrograma(userDTO.getPrograma());
+        user.setDepartamento(userDTO.getDepartamento());
+        user.setMunicipio(userDTO.getMunicipio());
+        user.setDocumentType(userDTO.getDocumentType());
+        user.setCelphone(userDTO.getCelphone());
+
         user.setLogin(userDTO.getLogin().toLowerCase());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
@@ -163,7 +254,7 @@ public class UserService {
         user.setPassword(encryptedPassword);
         user.setResetKey(RandomUtil.generateResetKey());
         user.setResetDate(Instant.now());
-        user.setActivated(true);
+        user.setActivated(userDTO.isActivated());
         if (userDTO.getAuthorities() != null) {
             Set<Authority> authorities = userDTO
                 .getAuthorities()
@@ -194,6 +285,13 @@ public class UserService {
             .map(user -> {
                 this.clearUserCaches(user);
                 user.setLogin(userDTO.getLogin().toLowerCase());
+                user.setConvenio(userDTO.getConvenio());
+                user.setPrograma(userDTO.getPrograma());
+                user.setDepartamento(userDTO.getDepartamento());
+                user.setMunicipio(userDTO.getMunicipio());
+                user.setDocumentType(userDTO.getDocumentType());
+                user.setCelphone(userDTO.getCelphone());
+
                 user.setFirstName(userDTO.getFirstName());
                 user.setLastName(userDTO.getLastName());
                 if (userDTO.getEmail() != null) {
@@ -321,5 +419,50 @@ public class UserService {
         if (user.getEmail() != null) {
             Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE)).evict(user.getEmail());
         }
+    }
+
+    public boolean userStatus(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        return user.get().isActivated();
+    }
+
+    public void userFirstLogin(String login) {
+        Optional<User> user = userRepository.findOneByLogin(login);
+        if (user.get().getFirstTime()) {
+            userRepository.setUserLogeado(login);
+        } else {
+            log.info("el usuario ya había logeado antes");
+        }
+    }
+
+    public Optional<User> tokenAuthentication(String key) {
+        log.debug("Reset user password for reset key {}", key);
+        Optional<User> userprueba = userRepository.findOneByResetKey(key);
+        if (!userprueba.get().getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES))) {
+            throw new BadCredentialsException("El Código suministrado ha caducado");
+        }
+        return userRepository
+            .findOneByResetKey(key)
+            .filter(user -> user.getResetDate().isAfter(Instant.now().minus(Constants.TOKEN_DURATION, ChronoUnit.MINUTES)))
+            .map(user -> {
+                user.setResetKey(null);
+                user.setResetDate(null);
+                this.clearUserCaches(user);
+                return user;
+            });
+    }
+
+    public List<Long> findIdsDepartamentos(List<String> departamentosLista) {
+        System.out.println("inicio");
+        List<Long> idsLista = new ArrayList<>();
+        System.out.println("despues de la list");
+        for (int index = 0; index < departamentosLista.size(); index++) {
+            numeroId = departamentosRepository.findIdByName(departamentosLista.get(index));
+            System.out.println("AHHHHHHHHHHHHH" + numeroId);
+            idsLista.add(index, numeroId);
+            System.out.println("despues de añadir");
+        }
+        System.out.println("despues del for ");
+        return idsLista;
     }
 }

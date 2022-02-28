@@ -2,15 +2,13 @@ package com.supergiros.portalautogestion.service.dto;
 
 import com.supergiros.portalautogestion.config.Constants;
 import com.supergiros.portalautogestion.domain.Authority;
+import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import java.time.Instant;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.constraints.*;
 
-/**
- * A DTO representing a user, with his authorities.
- */
 public class AdminUserDTO {
 
     private Long id;
@@ -20,20 +18,44 @@ public class AdminUserDTO {
     @Size(min = 1, max = 50)
     private String login;
 
+    @NotNull
+    @Size(max = 50)
+    private String documentType;
+
+    @NotNull
+    @Size(max = 50)
+    private String celphone;
+
+    @NotNull
     @Size(max = 50)
     private String firstName;
 
+    @NotNull
     @Size(max = 50)
     private String lastName;
 
+    @NotNull
     @Email
     @Size(min = 5, max = 254)
     private String email;
 
+    @NotNull
+    private Long convenio;
+
+    @NotNull
+    private Long programa;
+
+    @NotNull
+    private Long departamento;
+
+    @NotNull
+    private Long municipio;
+
+    @NotNull
+    private boolean activated;
+
     @Size(max = 256)
     private String imageUrl;
-
-    private boolean activated = false;
 
     @Size(min = 2, max = 10)
     private String langKey;
@@ -46,7 +68,10 @@ public class AdminUserDTO {
 
     private Instant lastModifiedDate;
 
+    @NotNull
     private Set<String> authorities;
+
+    private boolean firstTime;
 
     public AdminUserDTO() {
         // Empty constructor needed for Jackson.
@@ -54,10 +79,16 @@ public class AdminUserDTO {
 
     public AdminUserDTO(User user) {
         this.id = user.getId();
+        this.documentType = user.getDocumentType();
+        this.celphone = user.getCelphone();
         this.login = user.getLogin();
         this.firstName = user.getFirstName();
         this.lastName = user.getLastName();
         this.email = user.getEmail();
+        this.convenio = user.getConvenio();
+        this.programa = user.getPrograma();
+        this.departamento = user.getDepartamento();
+        this.municipio = user.getMunicipio();
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
         this.langKey = user.getLangKey();
@@ -65,8 +96,18 @@ public class AdminUserDTO {
         this.createdDate = user.getCreatedDate();
         this.lastModifiedBy = user.getLastModifiedBy();
         this.lastModifiedDate = user.getLastModifiedDate();
+        this.firstTime = user.getFirstTime();
+
         this.authorities = user.getAuthorities().stream().map(Authority::getName).collect(Collectors.toSet());
     }
+
+    // constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
+    //     this.languageHelper.language.subscribe((languageKey: string) => {
+    //      if (languageKey !== undefined) {
+    //        this.languageService.changeLanguage(languageKey);
+    //      }
+    //     });
+    //    }
 
     public Long getId() {
         return id;
@@ -82,6 +123,22 @@ public class AdminUserDTO {
 
     public void setLogin(String login) {
         this.login = login;
+    }
+
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getCelphone() {
+        return celphone;
+    }
+
+    public void setCelphone(String celphone) {
+        this.celphone = celphone;
     }
 
     public String getFirstName() {
@@ -108,12 +165,36 @@ public class AdminUserDTO {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Long getConvenio() {
+        return convenio;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setConvenio(Long convenio) {
+        this.convenio = convenio;
+    }
+
+    public Long getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Long programa) {
+        this.programa = programa;
+    }
+
+    public Long getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Long departamento) {
+        this.departamento = departamento;
+    }
+
+    public Long getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Long municipio) {
+        this.municipio = municipio;
     }
 
     public boolean isActivated() {
@@ -122,6 +203,14 @@ public class AdminUserDTO {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getLangKey() {
@@ -172,22 +261,11 @@ public class AdminUserDTO {
         this.authorities = authorities;
     }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "AdminUserDTO{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated=" + activated +
-            ", langKey='" + langKey + '\'' +
-            ", createdBy=" + createdBy +
-            ", createdDate=" + createdDate +
-            ", lastModifiedBy='" + lastModifiedBy + '\'' +
-            ", lastModifiedDate=" + lastModifiedDate +
-            ", authorities=" + authorities +
-            "}";
+    public boolean isFirstTime() {
+        return firstTime;
+    }
+
+    public void setFirstTime(boolean firstTime) {
+        this.firstTime = firstTime;
     }
 }

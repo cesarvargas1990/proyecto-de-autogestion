@@ -32,6 +32,9 @@ export class AuthServerProvider {
       .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
   }
 
+  firstLogin(login: String): Observable<void> {
+    return this.http.put<void>(this.applicationConfigService.getEndpointFor('/api/admin/user/firstLogin'), login);
+  }
   logout(): Observable<void> {
     return new Observable(observer => {
       this.localStorageService.clear('authenticationToken');

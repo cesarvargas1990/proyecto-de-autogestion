@@ -154,14 +154,16 @@ public class AccountResource {
      * @param mail the mail of the user.
      */
     @PostMapping(path = "/account/reset-password/init")
-    public void requestPasswordReset(@RequestBody String mail) {
-        Optional<User> user = userService.requestPasswordReset(mail);
+    public User requestPasswordReset(@RequestBody String document) {
+        Optional<User> user = userService.requestPasswordReset(document);
         if (user.isPresent()) {
             mailService.sendPasswordResetMail(user.get());
+            return user.get();
         } else {
             // Pretend the request has been successful to prevent checking which emails really exist
             // but log that an invalid attempt has been made
-            log.warn("Password reset requested for non existing mail");
+            log.warn("No estoy encontrando nada con ese documento");
+            return null;
         }
     }
 
@@ -190,5 +192,31 @@ public class AccountResource {
             password.length() < ManagedUserVM.PASSWORD_MIN_LENGTH ||
             password.length() > ManagedUserVM.PASSWORD_MAX_LENGTH
         );
+    }
+
+    @PostMapping(path = "/account/generateToken")
+    public void generateTwoFactorToken(@RequestBody String document) {
+        Optional<User> user = userService.requestPasswordReset(document);
+        if (user.isPresent()) {
+            mailService.sendTwoFactorMail(user.get());
+        } else {
+            // Pretend the request has been successful to prevent checking which emails really exist
+            // but log that an invalid attempt has been made
+            log.warn("No estoy encontrando nada con ese documento");
+        }
+    }
+
+    @PostMapping(path = "/account/validateToken")
+    public void validateToken(@RequestBody String token) {
+        Optional<User> user = userService.tokenAuthentication(token);
+
+        if (!user.isPresent()) {
+            throw new AccountResourceException("No user was found for this reset key");
+        }
+    }
+
+    @PostMapping(path = "/account/userLoged")
+    public void userLoged(@RequestBody String login) {
+        userService.userFirstLogin(login);
     }
 }

@@ -1,6 +1,7 @@
 package com.supergiros.portalautogestion.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.supergiros.portalautogestion.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
@@ -12,6 +13,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Cache;
@@ -20,10 +25,14 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
  * A user.
  */
+
 @Entity
 @Table(name = "jhi_user")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends AbstractAuditingEntity implements Serializable {
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+public class User extends AbstractAuditingEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,7 +68,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @NotNull
     @Column(nullable = false)
-    private boolean activated = false;
+    private boolean activated;
 
     @Size(min = 2, max = 10)
     @Column(name = "lang_key", length = 10)
@@ -84,6 +93,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     @JsonIgnore
     @ManyToMany
+    @NotNull
     @JoinTable(
         name = "jhi_user_authority",
         joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") },
@@ -92,6 +102,73 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
+
+    @NotNull
+    @Builder.Default
+    @Column(name = "first_time")
+    private Boolean firstTime = true;
+
+    @NotNull
+    @Size(max = 50)
+    private String documentType;
+
+    @NotNull
+    @Size(max = 50)
+    private String celphone;
+
+    @NotNull
+    @Column(name = "fk_convenio", length = 20)
+    private Long convenio;
+
+    @NotNull
+    @Column(name = "fk_programa", length = 20)
+    private Long programa;
+
+    @NotNull
+    @JsonIgnore
+    @Column(name = "fk_departamento", length = 20)
+    private Long departamento;
+
+    @NotNull
+    @Column(name = "fk_municipio", length = 20)
+    private Long municipio;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof User)) {
+            return false;
+        }
+        return id != null && id.equals(((User) o).id);
+    }
+
+    @Override
+    public int hashCode() {
+        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
+        return getClass().hashCode();
+    }
+
+    // prettier-ignore
+    @Override
+    public String toString() {
+        return "User{" +
+            "login='" + login + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", departamento='" + departamento + '\'' +
+            ", imageUrl='" + imageUrl + '\'' +
+            ", activated='" + activated + '\'' +
+            ", langKey='" + langKey + '\'' +
+            ", activationKey='" + activationKey + '\'' +
+            "}";
+    }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 
     public Long getId() {
         return id;
@@ -105,9 +182,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
         return login;
     }
 
-    // Lowercase the login before saving it in database
     public void setLogin(String login) {
-        this.login = StringUtils.lowerCase(login, Locale.ENGLISH);
+        this.login = login;
     }
 
     public String getPassword() {
@@ -142,20 +218,28 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.email = email;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
     public boolean isActivated() {
         return activated;
     }
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getLangKey() {
+        return langKey;
+    }
+
+    public void setLangKey(String langKey) {
+        this.langKey = langKey;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
     public String getActivationKey() {
@@ -182,14 +266,6 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.resetDate = resetDate;
     }
 
-    public String getLangKey() {
-        return langKey;
-    }
-
-    public void setLangKey(String langKey) {
-        this.langKey = langKey;
-    }
-
     public Set<Authority> getAuthorities() {
         return authorities;
     }
@@ -198,35 +274,59 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.authorities = authorities;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof User)) {
-            return false;
-        }
-        return id != null && id.equals(((User) o).id);
+    public Boolean getFirstTime() {
+        return firstTime;
     }
 
-    @Override
-    public int hashCode() {
-        // see https://vladmihalcea.com/how-to-implement-equals-and-hashcode-using-the-jpa-entity-identifier/
-        return getClass().hashCode();
+    public void setFirstTime(Boolean firstTime) {
+        this.firstTime = firstTime;
     }
 
-    // prettier-ignore
-    @Override
-    public String toString() {
-        return "User{" +
-            "login='" + login + '\'' +
-            ", firstName='" + firstName + '\'' +
-            ", lastName='" + lastName + '\'' +
-            ", email='" + email + '\'' +
-            ", imageUrl='" + imageUrl + '\'' +
-            ", activated='" + activated + '\'' +
-            ", langKey='" + langKey + '\'' +
-            ", activationKey='" + activationKey + '\'' +
-            "}";
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
+
+    public String getCelphone() {
+        return celphone;
+    }
+
+    public void setCelphone(String celphone) {
+        this.celphone = celphone;
+    }
+
+    public Long getConvenio() {
+        return convenio;
+    }
+
+    public void setConvenio(Long convenio) {
+        this.convenio = convenio;
+    }
+
+    public Long getPrograma() {
+        return programa;
+    }
+
+    public void setPrograma(Long programa) {
+        this.programa = programa;
+    }
+
+    public Long getDepartamento() {
+        return departamento;
+    }
+
+    public void setDepartamento(Long departamento) {
+        this.departamento = departamento;
+    }
+
+    public Long getMunicipio() {
+        return municipio;
+    }
+
+    public void setMunicipio(Long municipio) {
+        this.municipio = municipio;
     }
 }

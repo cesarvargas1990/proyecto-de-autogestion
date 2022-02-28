@@ -96,4 +96,8 @@ public class Departamentos implements Serializable {
             ", codDane=" + getCodDane() +
             "}";
     }
+
+    public static long getSerialversionuid() {
+        return serialVersionUID;
+    }
 }
