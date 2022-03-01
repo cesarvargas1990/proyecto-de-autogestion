@@ -31,12 +31,15 @@ export class UserManagementComponent implements OnInit {
   user!: User;
   isShown!: boolean;
   isShownlist!: boolean;
+  aplicarfiltro!: string;
 
   loginString!: string;
   documentTypeString!: string;
   searchCredentialsError = false;
   activated!: boolean;
   desactivated!: boolean;
+  aplicarFiltro = true;
+  removerFiltro!: boolean;
 
   editForm = this.fb.group({
     documentType: [[Validators.required]],
@@ -60,7 +63,7 @@ export class UserManagementComponent implements OnInit {
   }
 
   setActive(user: User, isActivated: boolean): void {
-    this.userService.update({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
+    this.userService.update({ ...user, activated: isActivated }).subscribe();
   }
 
   trackIdentity(index: number, item: User): number {
@@ -119,6 +122,8 @@ export class UserManagementComponent implements OnInit {
           this.isShownlist = !this.isShownlist;
           this.searchCredentialsError = false;
           this.activated = xx.activated!;
+          this.removerFiltro = this.aplicarFiltro;
+          this.aplicarFiltro = !this.removerFiltro;
         } else {
           this.searchCredentialsError = true;
         }
