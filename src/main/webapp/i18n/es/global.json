@@ -1,13 +1,13 @@
 {
   "global": {
-    "title": "Portal de autogestión supergiros",
+    "title": "Portal de autogestión SuperGIROS",
     "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=es\">actualice su navegador</a> para mejorar su experiencia.",
     "menu": {
       "home": "Inicio",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
       "autogestion": {
         "main": "Autogestión",
-        "estadoGiro": "Estado de giro",
+        "estadoGiro": "Consulta estado de giro",
 
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
@@ -36,7 +36,7 @@
     },
     "form": {
       "username.label": "Usuario",
-      "username.placeholder": "Nombre de usuario",
+      "username.placeholder": "Número de documento",
       "currentpassword.label": "Contraseña actual",
       "currentpassword.placeholder": "Contraseña actual",
       "newpassword.label": "Nueva contraseña",

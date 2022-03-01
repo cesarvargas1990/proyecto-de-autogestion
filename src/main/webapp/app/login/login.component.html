@@ -4,18 +4,14 @@
   </div>
   <div style="width: 48%; float: left; display: inline-block; margin: 1rem">
     <form>
+      <div class="d-flex justify-content-center" id="centerd">
+        <img src="../../content/images/supergiros_logo_texto.png" class="card-img-top" alt="imagen de prueba" style="width: 70%" />
+      </div>
       <div class="row">
         <div class="col 5">
           <div class="row justify-content-center">
             <div class="col 3">
-              <h1
-                class="d-flex justify-content-center"
-                jhiTranslate="login.title"
-                data-cy="loginTitle"
-                style="color: blue; font-family: Georgia, 'Times New Roman', Times, serif"
-              >
-                Sign in
-              </h1>
+              <h1 class="d-flex justify-content-center" jhiTranslate="login.title" data-cy="loginTitle" style="color: #666699">Sign in</h1>
               <div
                 class="alert alert-danger"
                 *ngIf="authenticationError"
@@ -55,13 +51,11 @@
                     data-cy="password"
                   />
                 </div>
-
-                <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button" data-cy="submit">Sign in</button>
+                <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-primary" jhiTranslate="login.form.button" data-cy="submit">Sign in</button>
+                </div>
               </form>
-              <div
-                class="row justify-content-md-center alert alert-warning col-md-4 col-md-offset-4"
-                style="margin-top: 1rem; margin-left: 30%"
-              >
+              <div class="row justify-content-md-center alert alert-warning" style="margin-top: 1rem; margin-left: 27%; width: 18rem">
                 <a
                   class="alert-link"
                   routerLink="/account/reset/request"
