@@ -16,6 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDepartamentoMunicipioRepository extends JpaRepository<UserDepartamentoMunicipio, Long> {
     @Modifying
-    @Query(value = "INSERT INTO jhi_user_location(user_id, municipio_name)VALUES (?, ?) ", nativeQuery = true)
-    void userDMInsert(long userId, String municipioName);
+    @Query(value = "INSERT INTO jhi_user_location(user_id, departamento_name,  municipio_name)VALUES (?, ?, ?) ", nativeQuery = true)
+    void userDMInsert(long userId, String departamentoName, String municipioName);
 }

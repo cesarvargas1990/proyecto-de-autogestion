@@ -88,9 +88,10 @@ public class UserService {
 
     public void userDMInsert(UserDepartamentoMunicipioDTO udmDTO) {
         long userId = udmDTO.getuserId();
+        String[] departamentoName = udmDTO.getDepartamentoName();
         String[] municipioName = udmDTO.getmunicipioName();
         for (int i = 0; i < municipioName.length; i++) {
-            userDepartamentoMunicipioRepository.userDMInsert(userId, municipioName[i]);
+            userDepartamentoMunicipioRepository.userDMInsert(userId, departamentoName[i], municipioName[i]);
         }
     }
 

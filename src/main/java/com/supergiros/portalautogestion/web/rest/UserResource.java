@@ -227,11 +227,6 @@ public class UserResource {
     @PostMapping("/insertUDM")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public void userDMInserted(@RequestBody UserDepartamentoMunicipioDTO udmDTO) {
-        System.out.println(udmDTO.getuserId());
-        System.out.println(udmDTO.getmunicipioName()[0]);
-        System.out.println(udmDTO.getmunicipioName()[2]);
-        System.out.println((udmDTO.getmunicipioName()).getClass());
-
         userService.userDMInsert(udmDTO);
     }
 }

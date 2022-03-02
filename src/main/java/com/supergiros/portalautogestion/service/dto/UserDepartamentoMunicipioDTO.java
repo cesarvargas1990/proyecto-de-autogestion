@@ -4,17 +4,21 @@ import javax.validation.constraints.*;
 
 public class UserDepartamentoMunicipioDTO {
 
-    //@NotNull
+    // @NotNull
     private Long userId;
 
-    //@NotNull
+    // @NotNull
     private String[] municipioName;
+
+    // @NotNull
+    private String[] departamentoName;
 
     public UserDepartamentoMunicipioDTO() {}
 
-    public UserDepartamentoMunicipioDTO(Long userId, String[] municipioName) {
+    public UserDepartamentoMunicipioDTO(Long userId, String[] departamentoName, String[] municipioName) {
         this.userId = userId;
         this.municipioName = municipioName;
+        this.departamentoName = departamentoName;
     }
 
     public Long getuserId() {
@@ -31,5 +35,13 @@ public class UserDepartamentoMunicipioDTO {
 
     public void setmunicipioName(String[] municipioName) {
         this.municipioName = municipioName;
+    }
+
+    public String[] getDepartamentoName() {
+        return departamentoName;
+    }
+
+    public void setDepartamentoName(String[] departamentoName) {
+        this.departamentoName = departamentoName;
     }
 }

@@ -51,7 +51,7 @@ export class udmModel {
     //public municipioName?: string,
     // public departamento?: number,
     // public municipio?: number,
-    // public departamentoName?: string[],
+    public departamentoName?: string[],
     public municipioName?: string[]
   ) {}
 }

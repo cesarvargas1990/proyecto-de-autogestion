@@ -16,6 +16,13 @@ export class UserManagementUpdateComponent implements OnInit {
   user!: User;
   udmmodel!: udmModel;
 
+  municipiosListFull: string[] = [];
+  departamentosListFull: string[] = [];
+
+  municipiosListId: string[] = [];
+  municipiosList: string[] = [];
+  departamentosList!: string;
+
   languages = LANGUAGES;
   documenttypes = DOCUMENTTYPE;
   authorities: string[] = [];
@@ -23,7 +30,7 @@ export class UserManagementUpdateComponent implements OnInit {
   municipio: string[] = [];
   convenio: string[] = [];
   programa: string[] = [];
-  municipiosList: string[] = [];
+
   departamentoName!: string;
   municipioName!: string;
   convenioName!: string;
@@ -60,7 +67,6 @@ export class UserManagementUpdateComponent implements OnInit {
     convenio: [],
     programa: [],
     departamento: [],
-    //departamento: [[Validators.maxLength(50)], [Validators.required]],
     municipio: [],
 
     isMunicipios: [],
@@ -107,9 +113,10 @@ export class UserManagementUpdateComponent implements OnInit {
       this.userService.create(this.user).subscribe({
         next: x => {
           this.onSaveSuccess();
-
-          let udm = new udmModel(x.id, this.municipiosList);
+          const udm = new udmModel(x.id, this.departamentosListFull, this.municipiosListFull);
           this.userService.MakeinsertUDM(udm).subscribe();
+          this.municipiosListFull = [];
+          this.departamentosListFull = [];
         },
         error: () => this.onSaveError(),
       });
@@ -140,6 +147,10 @@ export class UserManagementUpdateComponent implements OnInit {
     this.addConvenioAndPrograma(this.user);
   }
 
+  sqlAddNewLocation(): void {
+    this.addLocation();
+  }
+
   private updateForm(user: User): void {
     this.editForm.patchValue({
       id: user.id,
@@ -162,7 +173,6 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateUser(user: User): void {
     user.login = this.editForm.get(['login'])!.value;
-
     user.documentType = this.editForm.get(['documentType'])!.value;
 
     this.validadorCelphone = this.editForm.get(['celphone'])!.value;
@@ -174,7 +184,6 @@ export class UserManagementUpdateComponent implements OnInit {
     }
 
     user.firstName = this.editForm.get(['firstName'])!.value;
-
     user.email = this.editForm.get(['email'])!.value;
     // if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
     //   user.email = this.editForm.get(['email'])!.value;
@@ -196,31 +205,35 @@ export class UserManagementUpdateComponent implements OnInit {
   }
 
   private updateMunicipio(user: User): void {
-    const ad = this.userService.getMunicipios(this.idDepartamento).subscribe(xxx => (this.municipio = xxx));
+    this.userService.getMunicipios(this.idDepartamento).subscribe(xxx => (this.municipio = xxx));
   }
 
   private addDepartamentoAndMunicipio(user: User): void {
     user.departamento = this.idDepartamento;
+    this.departamentosList = this.idDepartamento.toString();
     const ad = this.editForm.get(['municipio'])!.value;
     this.municipiosList = ad;
 
     this.municipioName = ad.toString();
-    this.userService.getIdMunicipios(ad).subscribe(xx => (user.municipio = xx));
+    for (let index = 0; index < ad.length; index++) {
+      this.userService.getIdMunicipios(ad[index]).subscribe(xx => (this.municipiosListId[index] = xx.toString()));
 
-    // this.udmmodel.userId = Number(this.user.login);
-    //       this.udmmodel.municipioNameList=this.municipiosList;
+      this.departamentosListFull.push(this.idDepartamento.toString());
+      /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+      // console.log("DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS");
+      // console.log(this.departamentosListFull);
+    }
+  }
 
-    //       // userId;
-    //       // municipioName;
+  private addLocation(): void {
+    for (let index = 0; index < this.municipiosList.length; index++) {
+      this.municipiosListFull.push(this.municipiosListId[index]);
+    }
 
-    //       this.userService.MakeinsertUDM(this.udmmodel);
-
-    ////////
-    // const adArray = this.editForm.get(['municipio'])!.value;
-    // for (let index = 0; index < adArray.length; index++) {
-    //   const element = adArray[index];
-
-    // }
+    // /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+    //   console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUL");
+    //   console.log(this.departamentosListFull);
+    //   console.log(this.municipiosListFull);
   }
 
   private updateConvenio(user: User): void {
