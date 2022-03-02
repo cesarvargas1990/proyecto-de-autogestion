@@ -1,9 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import { FormBuilder, Validators } from '@angular/forms';
-
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-
 import { LoginService } from 'app/login/login.service';
 
 import { AccountService } from 'app/core/auth/account.service';
@@ -21,7 +19,6 @@ import { Observable } from 'rxjs';
 })
 export class TwoFAModalComponent implements OnInit, AfterViewInit {
   closeResult?: string;
-
   @ViewChild('content') myModal: string | undefined;
 
   tokenValidado = false;
@@ -52,7 +49,6 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
     config.backdrop = 'static';
 
     config.keyboard = false;
-
     config.centered = true;
   }
 
@@ -72,9 +68,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
     this.loginService.validarToken(this.twoFactorForm.get('token')!.value).subscribe({
       next: validatedToken => {
         this.tokenValidado = true;
-
         this.tokenError = false;
-
         this.pruebaesta = false;
       },
 

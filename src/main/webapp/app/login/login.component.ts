@@ -59,6 +59,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
           this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
 
           this.modalService.open(TwoFAModalComponent);
+          this.modalService.dismissAll;
 
           this.router.navigate(['']);
         },
@@ -72,8 +73,5 @@ export class LoginComponent implements OnInit, AfterViewInit {
           }
         },
       });
-  }
-  showModal(): void {
-    const modalRef = this.modalService.open(LoginModalComponent);
   }
 }
