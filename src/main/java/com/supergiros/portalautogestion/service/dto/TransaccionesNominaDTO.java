@@ -8,13 +8,13 @@ public class TransaccionesNominaDTO {
 
     private int identificacion;
 
-    private int referencia_control;
+    private String referencia_control;
 
     private String periodoPago;
 
-    private int convenio;
+    private String convenio;
 
-    private int programa;
+    private String programa;
 
     private String nombre1;
 
@@ -28,37 +28,37 @@ public class TransaccionesNominaDTO {
 
     private String horaDePago;
 
-    private int valorDePago;
+    private String valorDePago;
 
-    private int departamento;
+    private String departamento;
 
-    private int municipio;
+    private String municipio;
 
     private String estado;
 
     private String motivoAnulacion;
 
-    public int getReferencia_control() {
+    public String getReferencia_control() {
         return referencia_control;
     }
 
-    public void setReferencia_control(int referencia_control) {
+    public void setReferencia_control(String referencia_control) {
         this.referencia_control = referencia_control;
     }
 
-    public int getConvenio() {
+    public String getConvenio() {
         return convenio;
     }
 
-    public void setConvenio(int convenio) {
+    public void setConvenio(String convenio) {
         this.convenio = convenio;
     }
 
-    public int getPrograma() {
+    public String getPrograma() {
         return programa;
     }
 
-    public void setPrograma(int programa) {
+    public void setPrograma(String programa) {
         this.programa = programa;
     }
 
@@ -110,27 +110,27 @@ public class TransaccionesNominaDTO {
         this.horaDePago = horaDePago;
     }
 
-    public int getValorDePago() {
+    public String getValorDePago() {
         return valorDePago;
     }
 
-    public void setValorDePago(int valorDePago) {
+    public void setValorDePago(String valorDePago) {
         this.valorDePago = valorDePago;
     }
 
-    public int getDepartamento() {
+    public String getDepartamento() {
         return departamento;
     }
 
-    public void setDepartamento(int departamento) {
+    public void setDepartamento(String departamento) {
         this.departamento = departamento;
     }
 
-    public int getMunicipio() {
+    public String getMunicipio() {
         return municipio;
     }
 
-    public void setMunicipio(int municipio) {
+    public void setMunicipio(String municipio) {
         this.municipio = municipio;
     }
 

@@ -4,7 +4,6 @@ import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
-// import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -223,32 +222,8 @@ public class TransaccionesNominaResource {
                 if (transaccionesNomina.getHoraPago() != null) {
                     existingTransaccionesNomina.setHoraPago(transaccionesNomina.getHoraPago());
                 }
-                if (transaccionesNomina.getPinPago() != null) {
-                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
-                }
-                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
-                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
-                }
-                if (transaccionesNomina.getfKMunicipioDePago() != null) {
-                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
-                }
-                if (transaccionesNomina.getfKDepartamento() != null) {
-                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
-                }
-                if (transaccionesNomina.getfKMunicipio() != null) {
-                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
-                }
-                if (transaccionesNomina.getfKIdConvenio() != null) {
-                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
-                }
-                if (transaccionesNomina.getfKIdPrograma() != null) {
-                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
-                }
                 if (transaccionesNomina.getFechaDePago() != null) {
                     existingTransaccionesNomina.setFechaDePago(transaccionesNomina.getFechaDePago());
-                }
-                if (transaccionesNomina.getValorGiro() != null) {
-                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
                 if (transaccionesNomina.getEstado() != null) {
                     existingTransaccionesNomina.setEstado(transaccionesNomina.getEstado());
@@ -276,6 +251,30 @@ public class TransaccionesNominaResource {
                 }
                 if (transaccionesNomina.getSolicitudAutorizacion() != null) {
                     existingTransaccionesNomina.setSolicitudAutorizacion(transaccionesNomina.getSolicitudAutorizacion());
+                }
+                if (transaccionesNomina.getPinPago() != null) {
+                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
+                }
+                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
+                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
+                }
+                if (transaccionesNomina.getfKMunicipioDePago() != null) {
+                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
+                }
+                if (transaccionesNomina.getfKDepartamento() != null) {
+                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
+                }
+                if (transaccionesNomina.getfKMunicipio() != null) {
+                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
+                }
+                if (transaccionesNomina.getfKIdConvenio() != null) {
+                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
+                }
+                if (transaccionesNomina.getfKIdPrograma() != null) {
+                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
+                }
+                if (transaccionesNomina.getValorGiro() != null) {
+                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
 
                 return existingTransaccionesNomina;

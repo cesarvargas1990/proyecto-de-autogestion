@@ -167,6 +167,13 @@ public class ProgramasResource {
         return ResponseUtil.wrapOrNotFound(programas);
     }
 
+    @GetMapping("/programas/nit/{nit}")
+    public ResponseEntity<Programas> getProgramassByNit(@PathVariable("nit") Long nit) {
+        log.debug("REST request to get Programass : {}", nit);
+        Optional<Programas> programa = programasRepository.getProgramaNameByNit(nit);
+        return ResponseUtil.wrapOrNotFound(programa);
+    }
+
     /**
      * {@code DELETE  /programas/:id} : delete the "id" programas.
      *

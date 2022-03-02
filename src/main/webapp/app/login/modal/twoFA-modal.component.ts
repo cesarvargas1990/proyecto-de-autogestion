@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { ModalDismissReasons, NgbActiveModal, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
@@ -13,7 +13,7 @@ import { Observable } from 'rxjs';
 })
 export class TwoFAModalComponent implements OnInit, AfterViewInit {
   closeResult?: string;
-  @ViewChild('content') myModal: any;
+  @ViewChild('content') myModal: string | undefined;
 
   tokenValidado = false;
   tokenError = false;
@@ -26,7 +26,6 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   });
 
   constructor(
-    private activeModal: NgbActiveModal,
     private loginService: LoginService,
     private fb: FormBuilder,
     private accountService: AccountService,
@@ -36,6 +35,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   ) {
     config.backdrop = 'static';
     config.keyboard = false;
+    config.centered = true;
   }
   ngAfterViewInit(): void {
     this.open(this.myModal);
@@ -45,7 +45,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   }
 
   dismiss(): void {
-    this.activeModal.dismiss();
+    this.modalService.dismissAll();
   }
 
   verificar(): void {
@@ -54,13 +54,6 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
         this.tokenValidado = true;
         this.tokenError = false;
         this.pruebaesta = false;
-
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        this.account$?.subscribe({
-          next: personaLogeada => {
-            this.loginService.validarPrimerLogin(personaLogeada!.login).subscribe();
-          },
-        });
       },
 
       error: wrongToken => {
@@ -70,23 +63,9 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
     });
   }
 
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(
-      result => {
-        this.closeResult = `Closed with: ${result}`;
-      },
-      reason => {
-        this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-      }
-    );
-  }
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+  open(content: string | undefined): void {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then(result => {
+      //this.closeResult = `Closed with: ${result}`;
+    });
   }
 }

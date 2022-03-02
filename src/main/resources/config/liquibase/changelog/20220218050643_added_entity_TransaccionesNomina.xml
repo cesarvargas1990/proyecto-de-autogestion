@@ -50,31 +50,7 @@
             <column name="hora_pago" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
-            <column name="pin_pago" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_departamento_de_pago" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_municipio_de_pago" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_departamento" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_municipio" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_id_convenio" type="integer">
-                <constraints nullable="true" />
-            </column>
-            <column name="f_k_id_programa" type="integer">
-                <constraints nullable="true" />
-            </column>
             <column name="fecha_de_pago" type="date">
-                <constraints nullable="true" />
-            </column>
-            <column name="valor_giro" type="integer">
                 <constraints nullable="true" />
             </column>
             <column name="estado" type="varchar(255)">
@@ -102,6 +78,30 @@
                 <constraints nullable="true" />
             </column>
             <column name="solicitud_autorizacion" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="pin_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_departamento_de_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_municipio_de_pago" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_departamento" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_municipio" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_id_convenio" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="f_k_id_programa" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+            <column name="valor_giro" type="varchar(255)">
                 <constraints nullable="true" />
             </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
@@ -137,15 +137,7 @@
             <column name="apellido_dos_pago" type="string"/>
             <column name="fecha_pago" type="date"/>
             <column name="hora_pago" type="string"/>
-            <column name="pin_pago" type="numeric"/>
-            <column name="f_k_departamento_de_pago" type="numeric"/>
-            <column name="f_k_municipio_de_pago" type="numeric"/>
-            <column name="f_k_departamento" type="numeric"/>
-            <column name="f_k_municipio" type="numeric"/>
-            <column name="f_k_id_convenio" type="numeric"/>
-            <column name="f_k_id_programa" type="numeric"/>
             <column name="fecha_de_pago" type="date"/>
-            <column name="valor_giro" type="numeric"/>
             <column name="estado" type="string"/>
             <column name="periodo_pago" type="string"/>
             <column name="motivo_anulacion" type="string"/>
@@ -155,6 +147,14 @@
             <column name="red_pagadora" type="string"/>
             <column name="observacion_control" type="string"/>
             <column name="solicitud_autorizacion" type="string"/>
+            <column name="pin_pago" type="string"/>
+            <column name="f_k_departamento_de_pago" type="string"/>
+            <column name="f_k_municipio_de_pago" type="string"/>
+            <column name="f_k_departamento" type="string"/>
+            <column name="f_k_municipio" type="string"/>
+            <column name="f_k_id_convenio" type="string"/>
+            <column name="f_k_id_programa" type="string"/>
+            <column name="valor_giro" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>
