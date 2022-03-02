@@ -124,12 +124,10 @@ public class User extends AbstractAuditingEntity {
     @Column(name = "fk_programa", length = 20)
     private Long programa;
 
-    @NotNull
     @JsonIgnore
     @Column(name = "fk_departamento", length = 20)
     private Long departamento;
 
-    @NotNull
     @Column(name = "fk_municipio", length = 20)
     private Long municipio;
 

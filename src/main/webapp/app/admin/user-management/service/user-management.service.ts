@@ -5,6 +5,8 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { Pagination } from 'app/core/request/request.model';
 import { IUser } from '../user-management.model';
+import { udmModel } from '../user-management.model';
+
 import { User } from '../user-management.model';
 
 @Injectable({ providedIn: 'root' })
@@ -78,5 +80,9 @@ export class UserManagementService {
     return this.http.get<true>(
       this.applicationConfigService.getEndpointFor('api/searchInDB?login=' + `${login}` + '&?documentType=' + `${documentType}`)
     );
+  }
+
+  MakeinsertUDM(udmmodel: udmModel): Observable<{}> {
+    return this.http.post(this.applicationConfigService.getEndpointFor('api/admin/insertUDM'), udmmodel);
   }
 }

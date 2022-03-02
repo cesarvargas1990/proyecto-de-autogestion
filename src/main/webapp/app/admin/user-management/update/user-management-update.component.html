@@ -395,7 +395,7 @@
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
-              <select class="form-control" name="municipio" formControlName="municipio">
+              <select class="form-control" multiple name="municipio" formControlName="municipio">
                 <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
               </select>
 
@@ -449,10 +449,10 @@
               <thead>
                 <tr>
                   <th scope="col"><span>Convenio</span></th>
-                  <th scope="col"><span>ConvenioNIT</span></th>
+                  <th scope="col"><span>Id</span></th>
 
                   <th scope="col"><span>Programa</span></th>
-                  <th scope="col"><span>ProbamaNIT</span></th>
+                  <th scope="col"><span>Id</span></th>
 
                   <th scope="col"><span>Departamento</span></th>
                   <th scope="col"><span>Municipio</span></th>

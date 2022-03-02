@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { LANGUAGES } from 'app/config/language.constants';
 import { DOCUMENTTYPE } from 'app/config/documentType.constants';
-import { User } from '../user-management.model';
+import { User, udmModel } from '../user-management.model';
 import { UserManagementService } from '../service/user-management.service';
 import { GrillaManagementService } from '../service/grilla-management.service';
 
@@ -14,6 +14,8 @@ import { GrillaManagementService } from '../service/grilla-management.service';
 })
 export class UserManagementUpdateComponent implements OnInit {
   user!: User;
+  udmmodel!: udmModel;
+
   languages = LANGUAGES;
   documenttypes = DOCUMENTTYPE;
   authorities: string[] = [];
@@ -21,6 +23,7 @@ export class UserManagementUpdateComponent implements OnInit {
   municipio: string[] = [];
   convenio: string[] = [];
   programa: string[] = [];
+  municipiosList: string[] = [];
   departamentoName!: string;
   municipioName!: string;
   convenioName!: string;
@@ -102,7 +105,12 @@ export class UserManagementUpdateComponent implements OnInit {
       });
     } else {
       this.userService.create(this.user).subscribe({
-        next: () => this.onSaveSuccess(),
+        next: x => {
+          this.onSaveSuccess();
+
+          let udm = new udmModel(x.id, this.municipiosList);
+          this.userService.MakeinsertUDM(udm).subscribe();
+        },
         error: () => this.onSaveError(),
       });
     }
@@ -167,10 +175,6 @@ export class UserManagementUpdateComponent implements OnInit {
 
     user.firstName = this.editForm.get(['firstName'])!.value;
 
-    // this.validadorFirstName = this.editForm.get(['firstName'])!.value;
-
-    // user.firstName = (this.validadorFirstName).normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-
     user.email = this.editForm.get(['email'])!.value;
     // if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
     //   user.email = this.editForm.get(['email'])!.value;
@@ -180,13 +184,9 @@ export class UserManagementUpdateComponent implements OnInit {
     // }
 
     user.lastName = this.editForm.get(['lastName'])!.value;
-    // user.email = this.editForm.get(['email'])!.value;
-
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
-
-    user.isMunicipios = this.editForm.get(['isMunicipios'])!.value;
   }
 
   private updateDepartamento(user: User): void {
@@ -201,10 +201,26 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private addDepartamentoAndMunicipio(user: User): void {
     user.departamento = this.idDepartamento;
-    const ad = this.editForm.get(['municipio'])!.value.toString();
-    this.municipioName = ad.toString();
+    const ad = this.editForm.get(['municipio'])!.value;
+    this.municipiosList = ad;
 
+    this.municipioName = ad.toString();
     this.userService.getIdMunicipios(ad).subscribe(xx => (user.municipio = xx));
+
+    // this.udmmodel.userId = Number(this.user.login);
+    //       this.udmmodel.municipioNameList=this.municipiosList;
+
+    //       // userId;
+    //       // municipioName;
+
+    //       this.userService.MakeinsertUDM(this.udmmodel);
+
+    ////////
+    // const adArray = this.editForm.get(['municipio'])!.value;
+    // for (let index = 0; index < adArray.length; index++) {
+    //   const element = adArray[index];
+
+    // }
   }
 
   private updateConvenio(user: User): void {
@@ -212,7 +228,6 @@ export class UserManagementUpdateComponent implements OnInit {
     this.convenioName = ad;
 
     this.userService.getIdConvenios(ad).subscribe(xx => (this.idConvenio = xx));
-    /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
   }
 
   private updatePrograma(user: User): void {

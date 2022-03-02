@@ -44,6 +44,18 @@ export class User implements IUser {
   ) {}
 }
 
+export class udmModel {
+  constructor(
+    //public id?: number,
+    public userId?: number,
+    //public municipioName?: string,
+    // public departamento?: number,
+    // public municipio?: number,
+    // public departamentoName?: string[],
+    public municipioName?: string[]
+  ) {}
+}
+
 export class Grilla implements IUser {
   constructor(
     public id?: number,

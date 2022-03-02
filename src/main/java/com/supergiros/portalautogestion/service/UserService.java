@@ -6,13 +6,15 @@ import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import com.supergiros.portalautogestion.repository.AuthorityRepository;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.UserDepartamentoMunicipioRepository;
 import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.security.SecurityUtils;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
-import com.supergiros.portalautogestion.service.dto.GrillaDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
+import com.supergiros.portalautogestion.service.dto.UserDepartamentoMunicipioDTO;
 import com.supergiros.portalautogestion.service.mapper.UserMapper;
+import java.io.Console;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -44,6 +46,8 @@ public class UserService {
 
     private final DepartamentosRepository departamentosRepository;
 
+    private final UserDepartamentoMunicipioRepository userDepartamentoMunicipioRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
@@ -54,11 +58,13 @@ public class UserService {
         UserRepository userRepository,
         DepartamentosRepository departamentosRepository,
         PasswordEncoder passwordEncoder,
+        UserDepartamentoMunicipioRepository userDepartamentoMunicipioRepository,
         AuthorityRepository authorityRepository,
         CacheManager cacheManager
     ) {
         this.userRepository = userRepository;
         this.departamentosRepository = departamentosRepository;
+        this.userDepartamentoMunicipioRepository = userDepartamentoMunicipioRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
@@ -78,6 +84,14 @@ public class UserService {
 
     public Long findIdByNameMunicipio(String municipioName) {
         return departamentosRepository.findIdByNameMunicipio(municipioName);
+    }
+
+    public void userDMInsert(UserDepartamentoMunicipioDTO udmDTO) {
+        long userId = udmDTO.getuserId();
+        String[] municipioName = udmDTO.getmunicipioName();
+        for (int i = 0; i < municipioName.length; i++) {
+            userDepartamentoMunicipioRepository.userDMInsert(userId, municipioName[i]);
+        }
     }
 
     public List<String> getConvenio() {
