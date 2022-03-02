@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { LANGUAGES } from 'app/config/language.constants';
 import { DOCUMENTTYPE } from 'app/config/documentType.constants';
-import { User } from '../user-management.model';
+import { User, udmModel } from '../user-management.model';
 import { UserManagementService } from '../service/user-management.service';
 import { GrillaManagementService } from '../service/grilla-management.service';
 
@@ -14,7 +14,15 @@ import { GrillaManagementService } from '../service/grilla-management.service';
 })
 export class UserManagementUpdateComponent implements OnInit {
   user!: User;
-  //grilla!: Grilla;
+  udmmodel!: udmModel;
+
+  municipiosListFull: string[] = [];
+  departamentosListFull: string[] = [];
+
+  municipiosListId: string[] = [];
+  municipiosList: string[] = [];
+  departamentosList!: string;
+
   languages = LANGUAGES;
   documenttypes = DOCUMENTTYPE;
   authorities: string[] = [];
@@ -22,10 +30,13 @@ export class UserManagementUpdateComponent implements OnInit {
   municipio: string[] = [];
   convenio: string[] = [];
   programa: string[] = [];
+
   departamentoName!: string;
   municipioName!: string;
   convenioName!: string;
   programaName!: string;
+
+  isMunicipios = false;
 
   idDepartamento!: number;
   idConvenio!: number;
@@ -56,9 +67,9 @@ export class UserManagementUpdateComponent implements OnInit {
     convenio: [],
     programa: [],
     departamento: [],
-    //departamento: [[Validators.maxLength(50)], [Validators.required]],
     municipio: [],
 
+    isMunicipios: [],
     activated: [],
     langKey: [],
     authorities: [],
@@ -100,7 +111,13 @@ export class UserManagementUpdateComponent implements OnInit {
       });
     } else {
       this.userService.create(this.user).subscribe({
-        next: () => this.onSaveSuccess(),
+        next: x => {
+          this.onSaveSuccess();
+          const udm = new udmModel(x.id, this.departamentosListFull, this.municipiosListFull);
+          this.userService.MakeinsertUDM(udm).subscribe();
+          this.municipiosListFull = [];
+          this.departamentosListFull = [];
+        },
         error: () => this.onSaveError(),
       });
     }
@@ -130,6 +147,10 @@ export class UserManagementUpdateComponent implements OnInit {
     this.addConvenioAndPrograma(this.user);
   }
 
+  sqlAddNewLocation(): void {
+    this.addLocation();
+  }
+
   private updateForm(user: User): void {
     this.editForm.patchValue({
       id: user.id,
@@ -152,7 +173,6 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateUser(user: User): void {
     user.login = this.editForm.get(['login'])!.value;
-
     user.documentType = this.editForm.get(['documentType'])!.value;
 
     this.validadorCelphone = this.editForm.get(['celphone'])!.value;
@@ -164,11 +184,6 @@ export class UserManagementUpdateComponent implements OnInit {
     }
 
     user.firstName = this.editForm.get(['firstName'])!.value;
-
-    // this.validadorFirstName = this.editForm.get(['firstName'])!.value;
-
-    // user.firstName = (this.validadorFirstName).normalize("NFD").replace(/[\u0300-\u036f]/g,"");
-
     user.email = this.editForm.get(['email'])!.value;
     // if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
     //   user.email = this.editForm.get(['email'])!.value;
@@ -178,8 +193,6 @@ export class UserManagementUpdateComponent implements OnInit {
     // }
 
     user.lastName = this.editForm.get(['lastName'])!.value;
-    // user.email = this.editForm.get(['email'])!.value;
-
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
@@ -192,15 +205,35 @@ export class UserManagementUpdateComponent implements OnInit {
   }
 
   private updateMunicipio(user: User): void {
-    const ad = this.userService.getMunicipios(this.idDepartamento).subscribe(xxx => (this.municipio = xxx));
+    this.userService.getMunicipios(this.idDepartamento).subscribe(xxx => (this.municipio = xxx));
   }
 
   private addDepartamentoAndMunicipio(user: User): void {
     user.departamento = this.idDepartamento;
-    const ad = this.editForm.get(['municipio'])!.value.toString();
-    this.municipioName = ad.toString();
+    this.departamentosList = this.idDepartamento.toString();
+    const ad = this.editForm.get(['municipio'])!.value;
+    this.municipiosList = ad;
 
-    this.userService.getIdMunicipios(ad).subscribe(xx => (user.municipio = xx));
+    this.municipioName = ad.toString();
+    for (let index = 0; index < ad.length; index++) {
+      this.userService.getIdMunicipios(ad[index]).subscribe(xx => (this.municipiosListId[index] = xx.toString()));
+
+      this.departamentosListFull.push(this.idDepartamento.toString());
+      /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+      // console.log("DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS");
+      // console.log(this.departamentosListFull);
+    }
+  }
+
+  private addLocation(): void {
+    for (let index = 0; index < this.municipiosList.length; index++) {
+      this.municipiosListFull.push(this.municipiosListId[index]);
+    }
+
+    // /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+    //   console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUL");
+    //   console.log(this.departamentosListFull);
+    //   console.log(this.municipiosListFull);
   }
 
   private updateConvenio(user: User): void {
@@ -208,7 +241,6 @@ export class UserManagementUpdateComponent implements OnInit {
     this.convenioName = ad;
 
     this.userService.getIdConvenios(ad).subscribe(xx => (this.idConvenio = xx));
-    /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
   }
 
   private updatePrograma(user: User): void {

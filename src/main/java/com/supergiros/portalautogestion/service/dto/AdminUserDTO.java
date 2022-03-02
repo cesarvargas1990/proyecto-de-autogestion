@@ -45,10 +45,8 @@ public class AdminUserDTO {
     @NotNull
     private Long programa;
 
-    @NotNull
     private Long departamento;
 
-    @NotNull
     private Long municipio;
 
     @NotNull
