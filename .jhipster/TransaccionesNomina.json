@@ -54,40 +54,8 @@
       "fieldType": "String"
     },
     {
-      "fieldName": "pinPago",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKDepartamentoDePago",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKMunicipioDePago",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKDepartamento",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKMunicipio",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKIdConvenio",
-      "fieldType": "Integer"
-    },
-    {
-      "fieldName": "fKIdPrograma",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "fechaDePago",
       "fieldType": "LocalDate"
-    },
-    {
-      "fieldName": "valorGiro",
-      "fieldType": "Integer"
     },
     {
       "fieldName": "estado",
@@ -123,6 +91,38 @@
     },
     {
       "fieldName": "solicitudAutorizacion",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "pinPago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKDepartamentoDePago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKMunicipioDePago",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKDepartamento",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKMunicipio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKIdConvenio",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "fKIdPrograma",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "valorGiro",
       "fieldType": "String"
     }
   ],

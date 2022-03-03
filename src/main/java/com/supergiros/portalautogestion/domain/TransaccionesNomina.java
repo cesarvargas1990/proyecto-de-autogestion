@@ -58,32 +58,8 @@ public class TransaccionesNomina implements Serializable {
     @Column(name = "hora_pago")
     private String horaPago;
 
-    @Column(name = "pin_pago")
-    private Integer pinPago;
-
-    @Column(name = "f_k_departamento_de_pago")
-    private Integer fKDepartamentoDePago;
-
-    @Column(name = "f_k_municipio_de_pago")
-    private Integer fKMunicipioDePago;
-
-    @Column(name = "f_k_departamento")
-    private Integer fKDepartamento;
-
-    @Column(name = "f_k_municipio")
-    private Integer fKMunicipio;
-
-    @Column(name = "f_k_id_convenio")
-    private Integer fKIdConvenio;
-
-    @Column(name = "f_k_id_programa")
-    private Integer fKIdPrograma;
-
     @Column(name = "fecha_de_pago")
     private LocalDate fechaDePago;
-
-    @Column(name = "valor_giro")
-    private Integer valorGiro;
 
     @Column(name = "estado")
     private String estado;
@@ -111,6 +87,30 @@ public class TransaccionesNomina implements Serializable {
 
     @Column(name = "solicitud_autorizacion")
     private String solicitudAutorizacion;
+
+    @Column(name = "pin_pago")
+    private String pinPago;
+
+    @Column(name = "f_k_departamento_de_pago")
+    private String fKDepartamentoDePago;
+
+    @Column(name = "f_k_municipio_de_pago")
+    private String fKMunicipioDePago;
+
+    @Column(name = "f_k_departamento")
+    private String fKDepartamento;
+
+    @Column(name = "f_k_municipio")
+    private String fKMunicipio;
+
+    @Column(name = "f_k_id_convenio")
+    private String fKIdConvenio;
+
+    @Column(name = "f_k_id_programa")
+    private String fKIdPrograma;
+
+    @Column(name = "valor_giro")
+    private String valorGiro;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -283,97 +283,6 @@ public class TransaccionesNomina implements Serializable {
         this.horaPago = horaPago;
     }
 
-    public Integer getPinPago() {
-        return this.pinPago;
-    }
-
-    public TransaccionesNomina pinPago(Integer pinPago) {
-        this.setPinPago(pinPago);
-        return this;
-    }
-
-    public void setPinPago(Integer pinPago) {
-        this.pinPago = pinPago;
-    }
-
-    public Integer getfKDepartamentoDePago() {
-        return this.fKDepartamentoDePago;
-    }
-
-    public TransaccionesNomina fKDepartamentoDePago(Integer fKDepartamentoDePago) {
-        this.setfKDepartamentoDePago(fKDepartamentoDePago);
-        return this;
-    }
-
-    public void setfKDepartamentoDePago(Integer fKDepartamentoDePago) {
-        this.fKDepartamentoDePago = fKDepartamentoDePago;
-    }
-
-    public Integer getfKMunicipioDePago() {
-        return this.fKMunicipioDePago;
-    }
-
-    public TransaccionesNomina fKMunicipioDePago(Integer fKMunicipioDePago) {
-        this.setfKMunicipioDePago(fKMunicipioDePago);
-        return this;
-    }
-
-    public void setfKMunicipioDePago(Integer fKMunicipioDePago) {
-        this.fKMunicipioDePago = fKMunicipioDePago;
-    }
-
-    public Integer getfKDepartamento() {
-        return this.fKDepartamento;
-    }
-
-    public TransaccionesNomina fKDepartamento(Integer fKDepartamento) {
-        this.setfKDepartamento(fKDepartamento);
-        return this;
-    }
-
-    public void setfKDepartamento(Integer fKDepartamento) {
-        this.fKDepartamento = fKDepartamento;
-    }
-
-    public Integer getfKMunicipio() {
-        return this.fKMunicipio;
-    }
-
-    public TransaccionesNomina fKMunicipio(Integer fKMunicipio) {
-        this.setfKMunicipio(fKMunicipio);
-        return this;
-    }
-
-    public void setfKMunicipio(Integer fKMunicipio) {
-        this.fKMunicipio = fKMunicipio;
-    }
-
-    public Integer getfKIdConvenio() {
-        return this.fKIdConvenio;
-    }
-
-    public TransaccionesNomina fKIdConvenio(Integer fKIdConvenio) {
-        this.setfKIdConvenio(fKIdConvenio);
-        return this;
-    }
-
-    public void setfKIdConvenio(Integer fKIdConvenio) {
-        this.fKIdConvenio = fKIdConvenio;
-    }
-
-    public Integer getfKIdPrograma() {
-        return this.fKIdPrograma;
-    }
-
-    public TransaccionesNomina fKIdPrograma(Integer fKIdPrograma) {
-        this.setfKIdPrograma(fKIdPrograma);
-        return this;
-    }
-
-    public void setfKIdPrograma(Integer fKIdPrograma) {
-        this.fKIdPrograma = fKIdPrograma;
-    }
-
     public LocalDate getFechaDePago() {
         return this.fechaDePago;
     }
@@ -385,19 +294,6 @@ public class TransaccionesNomina implements Serializable {
 
     public void setFechaDePago(LocalDate fechaDePago) {
         this.fechaDePago = fechaDePago;
-    }
-
-    public Integer getValorGiro() {
-        return this.valorGiro;
-    }
-
-    public TransaccionesNomina valorGiro(Integer valorGiro) {
-        this.setValorGiro(valorGiro);
-        return this;
-    }
-
-    public void setValorGiro(Integer valorGiro) {
-        this.valorGiro = valorGiro;
     }
 
     public String getEstado() {
@@ -517,6 +413,110 @@ public class TransaccionesNomina implements Serializable {
         this.solicitudAutorizacion = solicitudAutorizacion;
     }
 
+    public String getPinPago() {
+        return this.pinPago;
+    }
+
+    public TransaccionesNomina pinPago(String pinPago) {
+        this.setPinPago(pinPago);
+        return this;
+    }
+
+    public void setPinPago(String pinPago) {
+        this.pinPago = pinPago;
+    }
+
+    public String getfKDepartamentoDePago() {
+        return this.fKDepartamentoDePago;
+    }
+
+    public TransaccionesNomina fKDepartamentoDePago(String fKDepartamentoDePago) {
+        this.setfKDepartamentoDePago(fKDepartamentoDePago);
+        return this;
+    }
+
+    public void setfKDepartamentoDePago(String fKDepartamentoDePago) {
+        this.fKDepartamentoDePago = fKDepartamentoDePago;
+    }
+
+    public String getfKMunicipioDePago() {
+        return this.fKMunicipioDePago;
+    }
+
+    public TransaccionesNomina fKMunicipioDePago(String fKMunicipioDePago) {
+        this.setfKMunicipioDePago(fKMunicipioDePago);
+        return this;
+    }
+
+    public void setfKMunicipioDePago(String fKMunicipioDePago) {
+        this.fKMunicipioDePago = fKMunicipioDePago;
+    }
+
+    public String getfKDepartamento() {
+        return this.fKDepartamento;
+    }
+
+    public TransaccionesNomina fKDepartamento(String fKDepartamento) {
+        this.setfKDepartamento(fKDepartamento);
+        return this;
+    }
+
+    public void setfKDepartamento(String fKDepartamento) {
+        this.fKDepartamento = fKDepartamento;
+    }
+
+    public String getfKMunicipio() {
+        return this.fKMunicipio;
+    }
+
+    public TransaccionesNomina fKMunicipio(String fKMunicipio) {
+        this.setfKMunicipio(fKMunicipio);
+        return this;
+    }
+
+    public void setfKMunicipio(String fKMunicipio) {
+        this.fKMunicipio = fKMunicipio;
+    }
+
+    public String getfKIdConvenio() {
+        return this.fKIdConvenio;
+    }
+
+    public TransaccionesNomina fKIdConvenio(String fKIdConvenio) {
+        this.setfKIdConvenio(fKIdConvenio);
+        return this;
+    }
+
+    public void setfKIdConvenio(String fKIdConvenio) {
+        this.fKIdConvenio = fKIdConvenio;
+    }
+
+    public String getfKIdPrograma() {
+        return this.fKIdPrograma;
+    }
+
+    public TransaccionesNomina fKIdPrograma(String fKIdPrograma) {
+        this.setfKIdPrograma(fKIdPrograma);
+        return this;
+    }
+
+    public void setfKIdPrograma(String fKIdPrograma) {
+        this.fKIdPrograma = fKIdPrograma;
+    }
+
+    public String getValorGiro() {
+        return this.valorGiro;
+    }
+
+    public TransaccionesNomina valorGiro(String valorGiro) {
+        this.setValorGiro(valorGiro);
+        return this;
+    }
+
+    public void setValorGiro(String valorGiro) {
+        this.valorGiro = valorGiro;
+    }
+
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -553,15 +553,7 @@ public class TransaccionesNomina implements Serializable {
             ", apellidoDosPago='" + getApellidoDosPago() + "'" +
             ", fechaPago='" + getFechaPago() + "'" +
             ", horaPago='" + getHoraPago() + "'" +
-            ", pinPago=" + getPinPago() +
-            ", fKDepartamentoDePago=" + getfKDepartamentoDePago() +
-            ", fKMunicipioDePago=" + getfKMunicipioDePago() +
-            ", fKDepartamento=" + getfKDepartamento() +
-            ", fKMunicipio=" + getfKMunicipio() +
-            ", fKIdConvenio=" + getfKIdConvenio() +
-            ", fKIdPrograma=" + getfKIdPrograma() +
             ", fechaDePago='" + getFechaDePago() + "'" +
-            ", valorGiro=" + getValorGiro() +
             ", estado='" + getEstado() + "'" +
             ", periodoPago='" + getPeriodoPago() + "'" +
             ", motivoAnulacion='" + getMotivoAnulacion() + "'" +
@@ -571,6 +563,14 @@ public class TransaccionesNomina implements Serializable {
             ", redPagadora='" + getRedPagadora() + "'" +
             ", observacionControl='" + getObservacionControl() + "'" +
             ", solicitudAutorizacion='" + getSolicitudAutorizacion() + "'" +
+            ", pinPago='" + getPinPago() + "'" +
+            ", fKDepartamentoDePago='" + getfKDepartamentoDePago() + "'" +
+            ", fKMunicipioDePago='" + getfKMunicipioDePago() + "'" +
+            ", fKDepartamento='" + getfKDepartamento() + "'" +
+            ", fKMunicipio='" + getfKMunicipio() + "'" +
+            ", fKIdConvenio='" + getfKIdConvenio() + "'" +
+            ", fKIdPrograma='" + getfKIdPrograma() + "'" +
+            ", valorGiro='" + getValorGiro() + "'" +
             "}";
     }
 }

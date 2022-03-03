@@ -6,10 +6,6 @@
   "entityTableName": "municipio",
   "fields": [
     {
-      "fieldName": "idMunicipio",
-      "fieldType": "Integer"
-    },
-    {
       "fieldName": "name",
       "fieldType": "String"
     },

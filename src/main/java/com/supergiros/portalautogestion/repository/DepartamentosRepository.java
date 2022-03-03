@@ -7,6 +7,7 @@ import java.util.Observable;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -19,6 +20,9 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
 
     @Query(value = "SELECT name FROM departamentos", nativeQuery = true)
     List<String> getDepartamentosName();
+
+    @Query("SELECT d FROM Departamentos d " + "where d.codDane = :codDane ")
+    Optional<Departamentos> getDepartamentosNameByCodDane(@Param("codDane") Integer codDane);
 
     @Query(value = "SELECT id FROM departamentos WHERE departamentos.name = ?1 ", nativeQuery = true)
     Long findIdByName(String departamentoName);

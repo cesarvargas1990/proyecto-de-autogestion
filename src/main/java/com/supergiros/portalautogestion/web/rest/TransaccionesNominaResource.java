@@ -2,6 +2,7 @@ package com.supergiros.portalautogestion.web.rest;
 
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
+import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
@@ -60,18 +61,65 @@ public class TransaccionesNominaResource {
             .body(result);
     }
 
-    // @PostMapping("/transacciones-nominas/red-pagadora")
-    // public ResponseEntity<TransaccionesNomina> createTransaccionesNominaRedPagadora(@RequestBody TransaccionesNominaDTO transaccionesNominaDTO)
-    //     throws URISyntaxException {
-    //     log.debug("REST request to save TransaccionesNomina : {}", transaccionesNominaDTO);
-    //     TransaccionesNomina transaccionesNomina = new TransaccionesNomina();
-    //     transaccionesNomina.s
-    //     TransaccionesNomina result = transaccionesNominaRepository.save(transaccionesNominaDTO);
-    //     return ResponseEntity
-    //         .created(new URI("/api/transacciones-nominas/" + result.getId()))
-    //         .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
-    //         .body(result);
-    // }
+    @PutMapping("/transacciones-nominas/red-pagadora")
+    public RespuestaDTO createTransaccionesNominaRedPagadora(@RequestBody TransaccionesNominaDTO transaccionesNominaDTO)
+        throws URISyntaxException {
+        RespuestaDTO respuestaDTO = new RespuestaDTO();
+        TransaccionesNomina transaccionesNomina = new TransaccionesNomina();
+        transaccionesNomina.setEstado(transaccionesNominaDTO.getEstado());
+        transaccionesNomina.setPeriodoPago(transaccionesNominaDTO.getPeriodoPago());
+        transaccionesNomina.setTipoDocumentoBenef(transaccionesNominaDTO.getTipoDocumento());
+        transaccionesNomina.setNumeroDocumentoBenef(transaccionesNominaDTO.getIdentificacion());
+        transaccionesNomina.setfKDepartamentoDePago(transaccionesNominaDTO.getDepartamento());
+        transaccionesNomina.setPinPago(transaccionesNominaDTO.getReferencia_control());
+        transaccionesNomina.setfKIdConvenio(transaccionesNominaDTO.getConvenio());
+        transaccionesNomina.setfKIdPrograma(transaccionesNominaDTO.getPrograma());
+        transaccionesNomina.setNombreUnoPago(transaccionesNominaDTO.getNombre1());
+        transaccionesNomina.setNombreDosPago(transaccionesNominaDTO.getNombre2());
+        transaccionesNomina.setApellidoUnoPago(transaccionesNominaDTO.getApellido1());
+        transaccionesNomina.setApellidoDosPago(transaccionesNominaDTO.getApellido2());
+        transaccionesNomina.setFechaPago(transaccionesNominaDTO.getFechaDePago());
+        transaccionesNomina.setHoraPago(transaccionesNominaDTO.getHoraDePago());
+        transaccionesNomina.setValorGiro(transaccionesNominaDTO.getValorDePago());
+        transaccionesNomina.setMotivoAnulacion(transaccionesNominaDTO.getMotivoAnulacion());
+        transaccionesNomina.setfKMunicipioDePago(transaccionesNominaDTO.getMunicipio());
+
+        int result = transaccionesNominaRepository.updateTransaccionesNomina(
+            transaccionesNomina.getEstado(),
+            transaccionesNomina.getPeriodoPago(),
+            transaccionesNomina.getTipoDocumentoBenef(),
+            transaccionesNomina.getNumeroDocumentoBenef(),
+            transaccionesNomina.getfKDepartamentoDePago(),
+            transaccionesNomina.getfKMunicipioDePago(),
+            transaccionesNomina.getPinPago(),
+            transaccionesNomina.getfKIdConvenio(),
+            transaccionesNomina.getfKIdPrograma(),
+            transaccionesNomina.getNombreUnoPago(),
+            transaccionesNomina.getNombreDosPago(),
+            transaccionesNomina.getApellidoUnoPago(),
+            transaccionesNomina.getApellidoDosPago(),
+            transaccionesNomina.getFechaPago(),
+            transaccionesNomina.getHoraPago(),
+            transaccionesNomina.getValorGiro(),
+            transaccionesNomina.getMotivoAnulacion()
+        );
+
+        if (result == 0) {
+            respuestaDTO.setIdentificacion(transaccionesNomina.getNumeroDocumentoBenef());
+            respuestaDTO.setResultado("NO ACTUALIZADO");
+            respuestaDTO.setCodigo("400");
+            respuestaDTO.setDescripcion("ERROR");
+
+            return respuestaDTO;
+        } else {
+            respuestaDTO.setIdentificacion(transaccionesNomina.getNumeroDocumentoBenef());
+            respuestaDTO.setResultado("ACTUALIZADO");
+            respuestaDTO.setCodigo("200");
+            respuestaDTO.setDescripcion("OK");
+
+            return respuestaDTO;
+        }
+    }
 
     /**
      * {@code PUT  /transacciones-nominas/:id} : Updates an existing transaccionesNomina.
@@ -174,32 +222,8 @@ public class TransaccionesNominaResource {
                 if (transaccionesNomina.getHoraPago() != null) {
                     existingTransaccionesNomina.setHoraPago(transaccionesNomina.getHoraPago());
                 }
-                if (transaccionesNomina.getPinPago() != null) {
-                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
-                }
-                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
-                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
-                }
-                if (transaccionesNomina.getfKMunicipioDePago() != null) {
-                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
-                }
-                if (transaccionesNomina.getfKDepartamento() != null) {
-                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
-                }
-                if (transaccionesNomina.getfKMunicipio() != null) {
-                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
-                }
-                if (transaccionesNomina.getfKIdConvenio() != null) {
-                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
-                }
-                if (transaccionesNomina.getfKIdPrograma() != null) {
-                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
-                }
                 if (transaccionesNomina.getFechaDePago() != null) {
                     existingTransaccionesNomina.setFechaDePago(transaccionesNomina.getFechaDePago());
-                }
-                if (transaccionesNomina.getValorGiro() != null) {
-                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
                 if (transaccionesNomina.getEstado() != null) {
                     existingTransaccionesNomina.setEstado(transaccionesNomina.getEstado());
@@ -227,6 +251,30 @@ public class TransaccionesNominaResource {
                 }
                 if (transaccionesNomina.getSolicitudAutorizacion() != null) {
                     existingTransaccionesNomina.setSolicitudAutorizacion(transaccionesNomina.getSolicitudAutorizacion());
+                }
+                if (transaccionesNomina.getPinPago() != null) {
+                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
+                }
+                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
+                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
+                }
+                if (transaccionesNomina.getfKMunicipioDePago() != null) {
+                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
+                }
+                if (transaccionesNomina.getfKDepartamento() != null) {
+                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
+                }
+                if (transaccionesNomina.getfKMunicipio() != null) {
+                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
+                }
+                if (transaccionesNomina.getfKIdConvenio() != null) {
+                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
+                }
+                if (transaccionesNomina.getfKIdPrograma() != null) {
+                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
+                }
+                if (transaccionesNomina.getValorGiro() != null) {
+                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
 
                 return existingTransaccionesNomina;
@@ -261,6 +309,18 @@ public class TransaccionesNominaResource {
         log.debug("REST request to get TransaccionesNomina : {}", id);
         Optional<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
+    }
+
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
+    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+        @PathVariable("typeDocument") String typeDocument,
+        @PathVariable("numberDocument") Integer numberDocument
+    ) {
+        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocument(
+            typeDocument,
+            numberDocument
+        );
+        return transaccionesNomina;
     }
 
     /**

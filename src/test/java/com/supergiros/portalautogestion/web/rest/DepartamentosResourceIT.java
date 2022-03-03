@@ -165,6 +165,7 @@ class DepartamentosResourceIT {
         Departamentos updatedDepartamentos = departamentosRepository.findById(departamentos.getId()).get();
         // Disconnect from session so that the updates on updatedDepartamentos are not directly saved in db
         em.detach(updatedDepartamentos);
+        updatedDepartamentos.name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(
@@ -264,8 +265,8 @@ class DepartamentosResourceIT {
         List<Departamentos> departamentosList = departamentosRepository.findAll();
         assertThat(departamentosList).hasSize(databaseSizeBeforeUpdate);
         Departamentos testDepartamentos = departamentosList.get(departamentosList.size() - 1);
-        assertThat(testDepartamentos.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testDepartamentos.getCodDane()).isEqualTo(DEFAULT_COD_DANE);
+        assertThat(testDepartamentos.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testDepartamentos.getCodDane()).isEqualTo(UPDATED_COD_DANE);
     }
 
     @Test
@@ -279,6 +280,8 @@ class DepartamentosResourceIT {
         // Update the departamentos using partial update
         Departamentos partialUpdatedDepartamentos = new Departamentos();
         partialUpdatedDepartamentos.setId(departamentos.getId());
+
+        partialUpdatedDepartamentos.name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(

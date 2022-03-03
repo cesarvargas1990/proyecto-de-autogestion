@@ -167,6 +167,13 @@ public class MunicipioResource {
         return ResponseUtil.wrapOrNotFound(municipio);
     }
 
+    @GetMapping("/municipios/codDane/{codDane}")
+    public ResponseEntity<Municipio> getMunicipiosByCodDane(@PathVariable("codDane") Integer codDane) {
+        log.debug("REST request to get Municipios : {}", codDane);
+        Optional<Municipio> municipio = municipioRepository.getMunicipioNameByCodDane(codDane);
+        return ResponseUtil.wrapOrNotFound(municipio);
+    }
+
     /**
      * {@code DELETE  /municipios/:id} : delete the "id" municipio.
      *

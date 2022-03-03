@@ -164,6 +164,13 @@ public class ConvenioResource {
         return ResponseUtil.wrapOrNotFound(convenio);
     }
 
+    @GetMapping("/convenios/nit/{nit}")
+    public ResponseEntity<Convenio> getConveniosByNit(@PathVariable("nit") Long nit) {
+        log.debug("REST request to get Convenios : {}", nit);
+        Optional<Convenio> convenio = convenioRepository.getConvenioNameByNit(nit);
+        return ResponseUtil.wrapOrNotFound(convenio);
+    }
+
     /**
      * {@code DELETE  /convenios/:id} : delete the "id" convenio.
      *

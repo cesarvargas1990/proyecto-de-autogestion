@@ -164,6 +164,13 @@ public class DepartamentosResource {
         return ResponseUtil.wrapOrNotFound(departamentos);
     }
 
+    @GetMapping("/departamentos/codDane/{codDane}")
+    public ResponseEntity<Departamentos> getDepartamentosByCodDane(@PathVariable("codDane") Integer codDane) {
+        log.debug("REST request to get Departamentos : {}", codDane);
+        Optional<Departamentos> departamentos = departamentosRepository.getDepartamentosNameByCodDane(codDane);
+        return ResponseUtil.wrapOrNotFound(departamentos);
+    }
+
     /**
      * {@code DELETE  /departamentos/:id} : delete the "id" departamentos.
      *

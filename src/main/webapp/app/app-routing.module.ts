@@ -7,6 +7,7 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { ConsultaEstadoGiroComponent } from './consulta-estado-giro/consulta-estado-giro.component';
 
 @NgModule({
   imports: [
@@ -23,6 +24,10 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'account',
           loadChildren: () => import('./account/account.module').then(m => m.AccountModule),
+        },
+        {
+          path: 'consulta estado',
+          component: ConsultaEstadoGiroComponent,
         },
         {
           path: 'login',
