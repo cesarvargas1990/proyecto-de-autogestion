@@ -34,7 +34,7 @@ spring:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/portalautogestion
     username: postgres
-    password: prueba1
+    password: postgres
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -44,16 +44,15 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: smtp.gmail.com
+    host: 52.97.137.242
     port: 587
-    username: recoverytest2612@gmail.com
-    password: gpoidggciophplbv
+    username: notificacionessg@supergiros.com.co
+    password: Giros.2022
     protocol: smtp
-    tls: true
-    properties.mail.smtp:
-      auth: true
-      starttls.enable: true
-      ssl.trust: smtp.gmail.com
+    auth: true
+    starttls.enable: true
+    ssl.protocol: TLSv1.2
+
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
