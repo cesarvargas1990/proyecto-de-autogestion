@@ -27,7 +27,7 @@ public class Municipio implements Serializable {
     @Column(name = "cod_dane")
     private Integer codDane;
 
-    @Column(name = "f_k_id_departamento")
+    @Column(name = "fk_departamento")
     private Integer fKIdDepartamento;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

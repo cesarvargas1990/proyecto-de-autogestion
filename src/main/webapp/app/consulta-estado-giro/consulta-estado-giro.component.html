@@ -30,13 +30,6 @@
           </div>
         </div>
       </form>
-
-      <div class="col d-flex justify-content-end">
-        <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
-          <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
-          <span jhiTranslate="portalautogestionApp.transaccionesNomina.home.refreshListLabel">Refresh List</span>
-        </button>
-      </div>
     </div>
   </h2>
 
@@ -54,10 +47,10 @@
         <tr>
           <th scope="col"><span>Tipo Documento Beneficiario</span></th>
           <th scope="col">
-            <span>Numero Documento Beneficiario</span>
+            <span># Documento Beneficiario</span>
           </th>
 
-          <th scope="col"><span>Fecha Pago</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Fecha Pago</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Hora Pago</span></th>
           <th scope="col"><span>PIN</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].fKDepartamentoDePago !== null">
@@ -68,14 +61,14 @@
           <th scope="col"><span>Programa</span></th>
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
-          <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulacion</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulación</span></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let transaccionesNomina of transaccionesNominas; trackBy: trackId" data-cy="entityTable">
           <td>{{ transaccionesNomina.tipoDocumentoBenef ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
-          <td>{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
+          <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.fKDepartamentoDePago !== null">{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
