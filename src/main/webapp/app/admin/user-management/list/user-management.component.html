@@ -3,10 +3,10 @@
     <span id="user-management-page-heading" jhiTranslate="userManagement.home.title" data-cy="userManagementPageHeading">Users</span>
 
     <div class="d-flex justify-content-end">
-      <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
+      <!-- <button class="btn btn-info mr-2" (click)="loadAll()" [disabled]="isLoading">
         <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
         <span jhiTranslate="userManagement.home.refreshListLabel">Refresh List</span>
-      </button>
+      </button> -->
       <button class="btn btn-primary jh-create-entity" [routerLink]="['./new']">
         <fa-icon icon="plus"></fa-icon> <span jhiTranslate="userManagement.home.createLabel">Create a new User</span>
       </button>
@@ -24,15 +24,6 @@
         <select class="form-control" name="documentType" formControlName="documentType">
           <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option>
         </select>
-
-        <!-- <div *ngIf="
-                editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)
-              ">
-          <small class="form-text text-danger" *ngIf="editForm.get('documentType')?.errors?.maxlength"
-            jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-            This field cannot be longer than 50 characters.
-          </small>
-        </div> -->
       </div>
 
       <div class="col-md-3 mb-1">
@@ -43,41 +34,38 @@
             style="text-transform: uppercase"
             class="form-control"
             pattern="[0-9A-Z ]{5,11}"
-            name="login"
+            name="documentType"
             formControlName="login"
             maxlength="11"
             onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )"
           />
-
-          <!-- <div
-            *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.maxlength"
-              jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
-              This field cannot be longer than 50 characters.
-            </small>
-          </div> -->
         </div>
       </div>
+      <div class="row-md-1">
+        <div class="col-md-1">
+          <label class="form-control-label"></label>
 
-      <div class="col-md-3 mb-2">
-        <label class="form-control-label"></label>
-
-        <div class="form-group">
-          <button type="checkbox" class="btn btn-secondary" (click)="toggleShow()">
-            <fa-icon icon="check"></fa-icon>
+          <button type="button" class="btn btn-info btn-sm" value="Aplicar Filtro" (click)="toggleShow()" *ngIf="this.aplicarFiltro">
+            <fa-icon value="Aplicar Filtro"></fa-icon>Aplicar Filtro
           </button>
 
-          <!-- 
-          <div *ngIf="isShown" class="row container-fluid" id="divshow">
-            {{ documentTypeString }}
-          </div> -->
+          <button
+            type="button"
+            class="btn btn-danger btn-sm"
+            value="Remover Filtro"
+            (click)="toggleShow()"
+            [disabled]=""
+            *ngIf="this.removerFiltro"
+          >
+            <fa-icon value="Remover Filtro"></fa-icon>Remover Filtro
+          </button>
         </div>
       </div>
     </div>
   </form>
 
   <div *ngIf="isShown">
-    <div class="table-responsive" *ngIf="users">
+    <div class="table-responsive" *ngIf="user">
       <table class="table table-striped" aria-describedby="user-management-page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
@@ -86,7 +74,7 @@
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col" jhiSortBy="login">
-              <span jhiTranslate="userManagement.login">Login</span>
+              <span>Número de Documento</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col" jhiSortBy="email">
@@ -94,10 +82,7 @@
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col"></th>
-            <th scope="col" jhiSortBy="langKey">
-              <span jhiTranslate="userManagement.langKey">Lang Key</span>
-              <fa-icon icon="sort"></fa-icon>
-            </th>
+
             <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
             <th scope="col" jhiSortBy="createdDate">
               <span jhiTranslate="userManagement.createdDate">Created Date</span>
@@ -107,14 +92,12 @@
               <span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="convenio"><span>Convenio</span></th>
-            <!-- <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th> -->
 
             <th scope="col"></th>
           </tr>
         </thead>
 
-        <tbody *ngIf="user">
+        <tbody *ngIf="users">
           <tr>
             <td>
               <a [routerLink]="['./', user.login, 'view']">{{ user.id }}</a>
@@ -123,24 +106,23 @@
             <td>{{ user.email }}</td>
             <td>
               <button
-                class="btn btn-danger btn-sm"
+                class="btn btn-secondary btn-sm"
                 (click)="activateOrdesactivate(user)"
                 *ngIf="this.activated"
-                jhiTranslate="userManagement.deactivated"
+                jhiTranslate="userManagement.activated"
               >
                 Deactivated
               </button>
               <button
-                class="btn btn-success btn-sm"
+                class="btn btn-danger btn-sm"
                 (click)="activateOrdesactivate(user)"
                 *ngIf="this.desactivated"
                 [disabled]=""
-                jhiTranslate="userManagement.activated"
+                jhiTranslate="userManagement.deactivated"
               >
                 Activated
               </button>
             </td>
-            <td>{{ user.langKey }}</td>
             <td>
               <div *ngFor="let authority of user.authorities">
                 <span class="badge badge-info">{{ authority }}</span>
@@ -148,6 +130,82 @@
             </td>
             <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
             <td>{{ user.lastModifiedBy }}</td>
+
+            <td class="text-right">
+              <div class="btn-group">
+                <button type="submit" [routerLink]="['./', user.login, 'view']" class="btn btn-info btn-sm">
+                  <fa-icon icon="eye"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                </button>
+
+                <button type="submit" [routerLink]="['./', user.login, 'edit']" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                  <fa-icon icon="pencil-alt"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                </button>
+
+                <button
+                  type="button"
+                  (click)="deleteUser(user)"
+                  class="btn btn-danger btn-sm"
+                  [disabled]="!currentAccount || currentAccount.login === user.login"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                  <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div *ngIf="isShownlist">
+    <div class="table-responsive" *ngIf="users">
+      <table class="table table-striped" aria-describedby="user-management-page-heading">
+        <thead>
+          <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
+            <th scope="col" jhiSortBy="id">
+              <span jhiTranslate="global.field.id">ID</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="login">
+              <span>Número de Documento</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="email">
+              <span jhiTranslate="userManagement.email">Email</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
+            <th scope="col" jhiSortBy="createdDate">
+              <span jhiTranslate="userManagement.createdDate">Created Date</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+            <th scope="col" jhiSortBy="lastModifiedBy">
+              <span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span>
+              <fa-icon icon="sort"></fa-icon>
+            </th>
+
+            <th scope="col"></th>
+          </tr>
+        </thead>
+
+        <tbody *ngIf="users">
+          <tr *ngFor="let user of users; trackBy: trackIdentity">
+            <td>
+              <a [routerLink]="['./', user.login, 'view']">{{ user.id }}</a>
+            </td>
+            <td>{{ user.login }}</td>
+            <td>{{ user.email }}</td>
+            <td></td>
+            <td>
+              <div *ngFor="let authority of user.authorities">
+                <span class="badge badge-info">{{ authority }}</span>
+              </div>
+            </td>
+            <td>{{ user.createdDate | date: 'dd/MM/yy HH:mm' }}</td>
             <td>{{ user.lastModifiedBy }}</td>
 
             <td class="text-right">
@@ -181,7 +239,7 @@
 
   <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
 
-  <div *ngIf="isShown">
+  <div>
     <div *ngIf="users">
       <div class="row justify-content-center">
         <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>

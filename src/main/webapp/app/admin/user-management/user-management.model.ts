@@ -29,6 +29,7 @@ export class User implements IUser {
     public municipio?: number,
     public departamentoName?: string[],
     public municipioName?: string,
+    public isMunicipios?: string,
 
     public firstName?: string | null,
     public lastName?: string | null,
@@ -40,6 +41,18 @@ export class User implements IUser {
     public createdDate?: Date,
     public lastModifiedBy?: string,
     public lastModifiedDate?: Date
+  ) {}
+}
+
+export class udmModel {
+  constructor(
+    //public id?: number,
+    public userId?: number,
+    //public municipioName?: string,
+    // public departamento?: number,
+    // public municipio?: number,
+    public departamentoName?: string[],
+    public municipioName?: string[]
   ) {}
 }
 
