@@ -11,6 +11,9 @@ export interface IUser {
   createdDate?: Date;
   lastModifiedBy?: string;
   lastModifiedDate?: Date;
+
+  convenio?: number;
+  convenioName?: string;
 }
 
 export class User implements IUser {
