@@ -32,7 +32,7 @@ export class AuthServerProvider {
       .pipe(map(response => this.authenticateSuccess(response, credentials.rememberMe)));
   }
 
-  firstLogin(login: String): Observable<void> {
+  firstLogin(login: string): Observable<void> {
     return this.http.put<void>(this.applicationConfigService.getEndpointFor('/api/admin/user/firstLogin'), login);
   }
   logout(): Observable<void> {

@@ -8,6 +8,7 @@ export class Account {
     public lastName: string | null,
     public login: string,
     public imageUrl: string | null,
-    public firstTime: boolean
+    public firstTime: boolean,
+    public id: number
   ) {}
 }
