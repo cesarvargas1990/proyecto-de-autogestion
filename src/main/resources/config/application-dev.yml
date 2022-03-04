@@ -44,14 +44,15 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: 52.97.137.242
+    host: smtp.office365.com
     port: 587
     username: notificacionessg@supergiros.com.co
     password: Giros.2022
-    protocol: smtp
-    auth: true
-    starttls.enable: true
-    ssl.protocol: TLSv1.2
+    properties.mail.smtp:
+      protocol: smtp
+      auth: true
+      starttls.enable: true
+      ssl.protocol: TLSv1.2
 
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
