@@ -57,7 +57,7 @@ export class UserManagementUpdateComponent implements OnInit {
   emailCredentialsError = false;
   idCredentialsError = false;
   addLocationVerification = true;
-
+  saveReady = true;
   departamentoNumber = 0;
 
   editForm = this.fb.group({
@@ -269,6 +269,7 @@ export class UserManagementUpdateComponent implements OnInit {
     for (let index = 0; index < this.municipiosList.length; index++) {
       this.municipiosListFull.push(this.municipiosListId[index]);
     }
+    this.saveReady = false;
   }
 
   private updateConvenio(user: User): void {

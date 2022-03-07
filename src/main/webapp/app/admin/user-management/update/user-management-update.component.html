@@ -124,7 +124,7 @@
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('login')?.errors?.pattern"
-                jhiTranslate="entity.validation.patternlogin"
+                jhiTranslate="entity.validation.patternloginDocument"
               >
                 This field can only contain letters, digits and e-mail addresses.
               </small>
@@ -194,7 +194,7 @@
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('login')?.errors?.pattern"
-                jhiTranslate="entity.validation.patternlogin"
+                jhiTranslate="entity.validation.patternloginDocument"
               >
                 This field can only contain letters, digits and e-mail addresses.
               </small>
@@ -455,7 +455,12 @@
 
           <div *ngIf="user">
             <div class="col-md-1">
-              <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" style="margin: 1rem">
+              <button
+                type="submit"
+                [disabled]="editForm.invalid || isSaving || this.saveReady"
+                class="btn btn-primary"
+                style="margin: 1rem"
+              >
                 <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
               </button>
             </div>

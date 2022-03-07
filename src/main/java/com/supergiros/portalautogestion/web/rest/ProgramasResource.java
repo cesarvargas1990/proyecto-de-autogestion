@@ -168,7 +168,7 @@ public class ProgramasResource {
     }
 
     @GetMapping("/programas/nit/{nit}")
-    public ResponseEntity<Programas> getProgramassByNit(@PathVariable("nit") Long nit) {
+    public ResponseEntity<Programas> getProgramassByNit(@PathVariable("nit") String nit) {
         log.debug("REST request to get Programass : {}", nit);
         Optional<Programas> programa = programasRepository.getProgramaNameByNit(nit);
         return ResponseUtil.wrapOrNotFound(programa);
