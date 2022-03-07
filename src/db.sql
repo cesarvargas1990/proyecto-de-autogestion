@@ -62,10 +62,7 @@ CREATE TABLE jhi_user
 
 INSERT INTO jhi_user(login, password_hash, first_name,last_name,email,image_url,activated,lang_key,activation_key,reset_key,created_by,created_date,reset_date,last_modified_by,last_modified_date,document_type,celphone,fk_convenio,fk_programa,fk_departamento,fk_municipio,first_time) 
 VALUES
-('1107512551','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'Gabriel','Salazar','gabrielsameth@gmail.com',null,TRUE,'es',null,null,'system',null,null,1107512551,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','3165489169',1,1,5,187,FALSE),
-('1005897121','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'Kevin','Aristizabal','karistizabal307@gmail.com',null,TRUE,'es',null,null,'system',null,null,1107512551,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','316123456',1,1,5,187,FALSE),
-('1234195763','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'Joan','Caicedo','jaca.caicedo@gmail.com',null,TRUE,'es',null,null,'system',null,null,1107512551,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','311234567',1,1,5,187,FALSE),
-('1234567810','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'Pepito','Perez','gabriel.salazar@supergiros.com.co',null,TRUE,'es',null,null,'system',null,null,1107512551,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','3100000000',1,1,5,187,FALSE);
+('admin','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'admin','admin','lucila.popo@supergiros.com.co',null,TRUE,'es',null,null,'system',null,null,0000000000,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','3000000000',1,1,5,187,FALSE);
 -------------------------------------------------------------------------------------------------
 
 
@@ -86,12 +83,8 @@ CREATE TABLE jhi_user_authority
 INSERT INTO jhi_user_authority(user_id,authority_name)
 VALUES
 (1,'ROLE_ADMIN'),
-(1,'ROLE_USER'),
-(2,'ROLE_ADMIN'),
-(2,'ROLE_USER'),
-(3,'ROLE_ADMIN'),
-(3,'ROLE_USER'),
-(4,'ROLE_USER');
+(1,'ROLE_USER');
+
 
 -------------------------------------------------------------
 CREATE TABLE programas(
@@ -120,14 +113,8 @@ INSERT INTO jhi_user_location(user_id,departamento_name,municipio_name)
 VALUES
 (1,'24','1033'),
 (1,'24','1034'),
-(1,'24','1035'),
-(2,'24','1033'),
-(3,'24','1033'),
-(3,'24','1035'),
-(4,'24','1033'),
-(4,'24','1034'),
-(4,'24','1035'),
-(4,'9','428');
+(1,'24','1035');
+
 
 ------------------------------------------------------------------------------------------------
 
