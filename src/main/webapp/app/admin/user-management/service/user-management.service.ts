@@ -89,4 +89,24 @@ export class UserManagementService {
   MakeinsertUDM(udmmodel: udmModel): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/admin/insertUDM'), udmmodel);
   }
+
+  getNameConvenio(convenioId: number): Observable<string[]> {
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findNameByIdConvenio?convenioId=' + `${convenioId}`));
+  }
+
+  getNamePrograma(programaId: number): Observable<string[]> {
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findNameByIdPrograma?programaId=' + `${programaId}`));
+  }
+
+  getNameDepartamento(departamentoId: number): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor('api/findNameByIdDepartamento?departamentoId=' + `${departamentoId}`)
+    );
+  }
+
+  getNameMunicipio(municipioId: number): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor('api/findNameByIdMunicipio?municipioId=' + `${municipioId}`)
+    );
+  }
 }
