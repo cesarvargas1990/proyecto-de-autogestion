@@ -115,7 +115,13 @@ export class UserManagementUpdateComponent implements OnInit {
     this.updateUser(this.user);
     if (this.user.id !== undefined) {
       this.userService.update(this.user).subscribe({
-        next: () => this.onSaveSuccess(),
+        next: x => {
+          this.onSaveSuccess();
+          const udm = new udmModel(x.id, this.departamentosListFull, this.municipiosListFull);
+          this.userService.MakeinsertUDM(udm).subscribe();
+          this.municipiosListFull = [];
+          this.departamentosListFull = [];
+        },
         error: () => this.onSaveError(),
       });
     } else {
