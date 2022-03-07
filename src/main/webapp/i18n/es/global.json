@@ -127,7 +127,7 @@
     "url.not.found": "No existe",
     "NotNull": "¡El campo {{fieldName}} no puede estar vacío!",
     "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
-    "userexists": "¡El nombre de usuario ya existe!",
+    "userexists": "¡El número de documento ya existe!",
     "emailexists": "¡La cuenta de correo ya está en uso!",
     "idexists": "Un/a nuevo/a {{entityName}} no puede tener ID",
     "idnull": "ID inválido",

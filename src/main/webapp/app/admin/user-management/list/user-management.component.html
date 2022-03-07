@@ -62,6 +62,8 @@
         </div>
       </div>
     </div>
+
+    <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
   </form>
 
   <div *ngIf="isShown">
@@ -219,8 +221,8 @@
                   <fa-icon icon="pencil-alt"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                 </button>
-
-                <!-- <button
+                <!-- Boton de eliminar usuarios de raíz en BD (no incluye la sección de usuarios+departamentos+municipios) -->
+                <button
                   type="button"
                   (click)="deleteUser(user)"
                   class="btn btn-danger btn-sm"
@@ -228,7 +230,7 @@
                 >
                   <fa-icon icon="times"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                </button> -->
+                </button>
               </div>
             </td>
           </tr>
@@ -236,8 +238,6 @@
       </table>
     </div>
   </div>
-
-  <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
 
   <div>
     <div *ngIf="users">

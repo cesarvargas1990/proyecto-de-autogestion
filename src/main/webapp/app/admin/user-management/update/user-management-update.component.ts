@@ -20,6 +20,11 @@ export class UserManagementUpdateComponent implements OnInit {
   municipiosListFull: string[] = [];
   departamentosListFull: string[] = [];
 
+  convenioNameEdit: string[] = [];
+  programaNameEdit: string[] = [];
+  departamentoNameEdit: string[] = [];
+  municipioNameEdit: string[] = [];
+
   municipiosListId: string[] = [];
   municipiosList: string[] = [];
   departamentosList!: string;
@@ -50,6 +55,8 @@ export class UserManagementUpdateComponent implements OnInit {
   isSaving = false;
   celphoneCredentialsError = false;
   emailCredentialsError = false;
+  idCredentialsError = false;
+  addLocationVerification = true;
 
   departamentoNumber = 0;
 
@@ -154,18 +161,42 @@ export class UserManagementUpdateComponent implements OnInit {
   }
 
   private updateForm(user: User): void {
+    //this.userService.getNameConvenio(Number(user.convenio)).subscribe(xx =>{ this.convenioNameEdit = xx});
+    //this.userService.getNamePrograma((user.programa)!).subscribe(xxx =>{ this.programaNameEdit = xxx});
+    //this.userService.getNameDepartamento(Number(user.id)).subscribe(xx =>this.departamentoNameEdit= (xx));
+    //this.userService.getNameMunicipio((user.id)!).subscribe(xxx =>{ this.municipioNameEdit = xxx});
+
+    // this.userService.getNameConvenio(Number(user.convenio)).subscribe(ConvenioNameResp => {
+
+    //   this.convenioNameEdit = ConvenioNameResp
+    // });
+
+    if (user.programa === 1) {
+      this.editForm.patchValue({ programa: 'Ingreso solidario' });
+    } else if (user.programa === 2) {
+      this.editForm.patchValue({ programa: 'Devolución IVA' });
+    } else if (user.programa === 3) {
+      this.editForm.patchValue({ programa: 'Colombia Mayor' });
+    } else if (user.programa === 4) {
+      this.editForm.patchValue({ programa: 'Jóvenes Transformadores' });
+    }
+
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
       documentType: user.documentType,
 
-      convenio: user.convenio,
-      // convenio: user.convenio === 1 ?"DPS – Departamento para la Prosperidad Social": user.convenio,
+      //convenio: user.convenio,
+      convenio: user.convenio === 1 ? 'DPS – Departamento para la Prosperidad Social' : user.convenio,
       //convenio: user.convenioName,
 
-      programa: user.programa,
-      departamento: user.departamentoName,
-      municipio: user.municipio,
+      // programa: user.programa === 1 ?"Ingreso solidario": user.programa,
+      // programa: user.programa === 2 ?"Devolución IVA": user.convenio,
+      // programa: user.programa === 3 ?"Colombia Mayor": user.convenio,
+      // programa: user.programa === 4 ?"Jóvenes Transformadores": user.convenio,
+
+      //departamento: user.departamentoName,
+      //municipio: user.municipio,
       celphone: user.celphone,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -205,13 +236,7 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateDepartamento(user: User): void {
     const ad = this.editForm.get(['departamento'])!.value.toString();
-
-    user.departamentoName = ad;
-
-    //  /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-    //  console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUL");
-    //  console.log(user.departamentoName);
-
+    //user.departamentoName = ad;
     this.departamentoName = ad;
     this.userService.getIdDepartamentos(ad).subscribe(xx => (this.idDepartamento = xx));
   }
@@ -221,7 +246,7 @@ export class UserManagementUpdateComponent implements OnInit {
   }
 
   private addDepartamentoAndMunicipio(user: User): void {
-    user.departamento = this.idDepartamento;
+    //user.departamento = this.idDepartamento;
     this.departamentosList = this.idDepartamento.toString();
     const ad = this.editForm.get(['municipio'])!.value;
     this.municipiosList = ad;
@@ -231,9 +256,12 @@ export class UserManagementUpdateComponent implements OnInit {
       this.userService.getIdMunicipios(ad[index]).subscribe(xx => (this.municipiosListId[index] = xx.toString()));
 
       this.departamentosListFull.push(this.idDepartamento.toString());
-      /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-      // console.log("DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS");
-      // console.log(this.departamentosListFull);
+    }
+
+    if (this.municipioName === '-TODOS-') {
+      this.addLocationVerification = true;
+    } else {
+      this.addLocationVerification = false;
     }
   }
 
@@ -241,11 +269,6 @@ export class UserManagementUpdateComponent implements OnInit {
     for (let index = 0; index < this.municipiosList.length; index++) {
       this.municipiosListFull.push(this.municipiosListId[index]);
     }
-
-    // /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-    //   console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUL");
-    //   console.log(this.departamentosListFull);
-    //   console.log(this.municipiosListFull);
   }
 
   private updateConvenio(user: User): void {

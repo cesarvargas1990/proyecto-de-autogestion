@@ -49,7 +49,7 @@
               name="lastName"
               formControlName="lastName"
               maxlength="20"
-              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)"
+              onkeypress="return(event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)"
             />
             <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
               <small
@@ -129,6 +129,8 @@
                 This field can only contain letters, digits and e-mail addresses.
               </small>
             </div>
+
+            <div class="alert alert-danger" *ngIf="idCredentialsError" jhiTranslate="userManagement.idCredentialsError"></div>
           </div>
 
           <!-- EDIT -->
@@ -203,44 +205,9 @@
         <div class="form-row">
           <div class="col-md-2 mb-2">
             <label class="form-control-label">Email</label>
-            <input maxlength="30" type="email" class="form-control" name="email" formControlName="email" />
+            <input maxlength="50" type="email" class="form-control" name="email" formControlName="email" />
 
-            <!-- <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('email')?.errors?.required"
-              >
-                This field is required.
-              </small>
-
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('email')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 100 }"
-              >
-                This field cannot be longer than 100 characters.
-              </small>
-
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('email')?.errors?.minlength"
-                jhiTranslate="entity.validation.minlength"
-                [translateValues]="{ min: 5 }"
-              >
-                This field is required to be at least 5 characters.
-              </small>
-
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('email')?.errors?.email"
-                jhiTranslate="global.messages.validate.email.invalid"
-              >
-                Your email is invalid.
-              </small>
-            </div> -->
-
-            <!-- <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div> -->
+            <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div>
           </div>
 
           <div class="col-md-1"></div>
@@ -425,25 +392,9 @@
               </button>
             </div>
           </div>
-
-          <!-- <div class="col-md-2">
-
-            <label class="form-check-label" for="isMunicipios">
-              <input style="vertical-align: bottom" class="form-check-input" type="checkbox" id="isMunicipios"
-                name="isMunicipios" formControlName="isMunicipios" />
-              <span >¿más de 1 municipio?</span>
-            </label>
-          </div> -->
         </div>
 
-        <!-- <div class="form-group" *ngIf="languages && languages.length > 0">
-          <label jhiTranslate="userManagement.langKey">Lang Key</label>
-          <select class="form-control" id="langKey" name="langKey" formControlName="langKey">
-            <option *ngFor="let language of languages" [value]="language">{{ language | findLanguageFromKey }}</option>
-          </select>
-        </div> -->
-
-        <div class="form-row" [hidden]="user.id">
+        <div class="form-row">
           <div class="col-md-7 mb-8" style="margin: 2rem">
             <table class="table table-striped">
               <thead>
@@ -482,7 +433,13 @@
 
           <div *ngIf="user">
             <div class="col-md-1">
-              <button type="button" class="btn btn-secondary" (click)="sqlAddNewLocation()" style="margin: 1rem">
+              <button
+                type="button"
+                [disabled]="this.addLocationVerification"
+                class="btn btn-secondary"
+                (click)="sqlAddNewLocation()"
+                style="margin: 1rem"
+              >
                 <fa-icon icon="user-plus"></fa-icon>&nbsp;<span>Locación</span>
               </button>
             </div>
