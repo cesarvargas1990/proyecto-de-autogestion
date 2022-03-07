@@ -27,7 +27,7 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
     @Query(value = "SELECT id FROM departamentos WHERE departamentos.name = ?1 ", nativeQuery = true)
     Long findIdByName(String departamentoName);
 
-    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 ", nativeQuery = true)
+    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 OR municipio.fk_departamento = 35 ", nativeQuery = true)
     List<String> getMunicipiosName(Long fkDepartmanento);
 
     @Query(value = "SELECT id FROM municipio WHERE municipio.name = ?1 ", nativeQuery = true)
@@ -47,4 +47,16 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
 
     @Query(value = "SELECT id FROM jhi_user WHERE jhi_user.login = ?1 AND jhi_user.document_type = ?1 ", nativeQuery = true)
     Boolean searchInDB(String login, String documentType);
+
+    @Query(value = "SELECT name FROM convenio WHERE convenio.id = ?1 ", nativeQuery = true)
+    List<String> findNameByIdConvenio(Long convenioId);
+
+    @Query(value = "SELECT name FROM programas WHERE programas.id = ?1 ", nativeQuery = true)
+    List<String> findNameByIdPrograma(Long programaId);
+
+    @Query(value = "SELECT departamento_name FROM jhi_user_location WHERE jhi_user_location.user_id = ?1 ", nativeQuery = true)
+    List<String> findNameByIdDepartamento(Long departamentoId);
+
+    @Query(value = "SELECT municipio_name FROM jhi_user_location WHERE jhi_user_location.user_id = ?1 ", nativeQuery = true)
+    List<String> findNameByIdMunicipio(Long municipioName);
 }

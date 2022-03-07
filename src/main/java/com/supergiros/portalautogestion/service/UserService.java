@@ -112,6 +112,22 @@ public class UserService {
         return departamentosRepository.findIdByNamePrograma(programaName);
     }
 
+    public List<String> findNameByIdConvenio(Long convenioId) {
+        return departamentosRepository.findNameByIdConvenio(convenioId);
+    }
+
+    public List<String> findNameByIdPrograma(Long programaId) {
+        return departamentosRepository.findNameByIdPrograma(programaId);
+    }
+
+    public List<String> findNameByIdDepartamento(Long departamentoId) {
+        return departamentosRepository.findNameByIdDepartamento(departamentoId);
+    }
+
+    public List<String> findNameByIdMunicipio(Long municipioId) {
+        return departamentosRepository.findNameByIdMunicipio(municipioId);
+    }
+
     // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
 
     //     List<Long> idsLista= Collections.emptyList();

@@ -145,7 +145,43 @@ public class PublicUserResource {
     public Boolean searchInDB(String login, String documentType) {
         return userService.searchInDB(login, documentType);
     }
+
     // @GetMapping("/getDepartamentosId")
     // public List<Long> getDepartamentoId(@RequestBody List<String> )
 
+    /**
+     * Gets the id of programa using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findNameByIdConvenio")
+    public List<String> findNameByIdConvenio(Long convenioId) {
+        return userService.findNameByIdConvenio(convenioId);
+    }
+
+    /**
+     * Gets the id of programa using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findNameByIdPrograma")
+    public List<String> findNameByIdPrograma(Long programaId) {
+        return userService.findNameByIdPrograma(programaId);
+    }
+
+    /**
+     * Gets the id of programa using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findNameByIdDepartamento")
+    public List<String> findNameByIdDepartamento(Long departamentoId) {
+        return userService.findNameByIdDepartamento(departamentoId);
+    }
+
+    /**
+     * Gets the id of programa using its name.
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findNameByIdMunicipio")
+    public List<String> findNameByIdMunicipio(Long municipioId) {
+        return userService.findNameByIdMunicipio(municipioId);
+    }
 }
