@@ -27,7 +27,7 @@ public class Programas implements Serializable {
     @Column(name = "identificacion")
     private String identificacion;
 
-    @Column(name = "f_k_convenio")
+    @Column(name = "fk_convenio")
     private String fKConvenio;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here

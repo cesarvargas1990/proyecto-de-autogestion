@@ -50,9 +50,14 @@ export class TransaccionesNominaService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  findByDocument(numberDocument: number, typeDocument: string): Observable<EntityArrayResponseType> {
+  // findDepartmentsCodDaneById(ids: string[]): Observable<{}> {
+  //   return this.http
+  //     .get<string[]>(this.applicationConfigService.getEndpointFor('api/transacciones-nominas') + "/department", { params: ids});
+  // }
+
+  findByDocument(numberDocument: number, typeDocument: string, department: string): Observable<EntityArrayResponseType> {
     return this.http
-      .get<ITransaccionesNomina[]>(`${this.resourceUrl}/${typeDocument}/${numberDocument}`, { observe: 'response' })
+      .get<ITransaccionesNomina[]>(`${this.resourceUrl}/${typeDocument}/${numberDocument}/${department}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

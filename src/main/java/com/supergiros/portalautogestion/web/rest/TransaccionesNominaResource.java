@@ -2,6 +2,7 @@ package com.supergiros.portalautogestion.web.rest;
 
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
+import com.supergiros.portalautogestion.service.TransaccionesNominaService;
 import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,6 +37,9 @@ public class TransaccionesNominaResource {
     private String applicationName;
 
     private final TransaccionesNominaRepository transaccionesNominaRepository;
+
+    @Autowired
+    TransaccionesNominaService transaccionesNominaService;
 
     public TransaccionesNominaResource(TransaccionesNominaRepository transaccionesNominaRepository) {
         this.transaccionesNominaRepository = transaccionesNominaRepository;
@@ -311,17 +316,25 @@ public class TransaccionesNominaResource {
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
     }
 
-    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}")
     public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocument(
         @PathVariable("typeDocument") String typeDocument,
-        @PathVariable("numberDocument") Integer numberDocument
+        @PathVariable("numberDocument") Integer numberDocument,
+        @PathVariable("department") String department
     ) {
         List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocument(
             typeDocument,
-            numberDocument
+            numberDocument,
+            department
         );
         return transaccionesNomina;
     }
+
+    // @GetMapping("/transacciones-nominas/departments")
+    // public List<String> getDepartmentCodDaneById(@RequestBody List<Long> departmentsIds)
+    // {
+    //     return transaccionesNominaService.findCodDaneDepartamentos(departmentsIds);
+    // }
 
     /**
      * {@code DELETE  /transacciones-nominas/:id} : delete the "id" transaccionesNomina.
