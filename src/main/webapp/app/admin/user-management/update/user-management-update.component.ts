@@ -57,6 +57,7 @@ export class UserManagementUpdateComponent implements OnInit {
   emailCredentialsError = false;
   idCredentialsError = false;
   addLocationVerification = true;
+  saveReady = true;
 
   departamentoNumber = 0;
 
@@ -171,32 +172,28 @@ export class UserManagementUpdateComponent implements OnInit {
     //   this.convenioNameEdit = ConvenioNameResp
     // });
 
-    if (user.programa === 1) {
-      this.editForm.patchValue({ programa: 'Ingreso solidario' });
-    } else if (user.programa === 2) {
-      this.editForm.patchValue({ programa: 'Devolución IVA' });
-    } else if (user.programa === 3) {
-      this.editForm.patchValue({ programa: 'Colombia Mayor' });
-    } else if (user.programa === 4) {
-      this.editForm.patchValue({ programa: 'Jóvenes Transformadores' });
-    }
+    // if (user.programa === 1) {
+    //   this.editForm.patchValue({ programa: "Ingreso solidario" });
+    // }
+    // else if (user.programa === 2){
+    //   this.editForm.patchValue({ programa: "Devolución IVA" });
+
+    // }
+    // else if (user.programa === 3){
+    //   this.editForm.patchValue({ programa: "Colombia Mayor" });
+
+    // }
+    // else if (user.programa === 4){
+    //   this.editForm.patchValue({ programa: "Jóvenes Transformadores" });
+
+    // }
 
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
       documentType: user.documentType,
 
-      //convenio: user.convenio,
       convenio: user.convenio === 1 ? 'DPS – Departamento para la Prosperidad Social' : user.convenio,
-      //convenio: user.convenioName,
-
-      // programa: user.programa === 1 ?"Ingreso solidario": user.programa,
-      // programa: user.programa === 2 ?"Devolución IVA": user.convenio,
-      // programa: user.programa === 3 ?"Colombia Mayor": user.convenio,
-      // programa: user.programa === 4 ?"Jóvenes Transformadores": user.convenio,
-
-      //departamento: user.departamentoName,
-      //municipio: user.municipio,
       celphone: user.celphone,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -269,6 +266,8 @@ export class UserManagementUpdateComponent implements OnInit {
     for (let index = 0; index < this.municipiosList.length; index++) {
       this.municipiosListFull.push(this.municipiosListId[index]);
     }
+
+    this.saveReady = false;
   }
 
   private updateConvenio(user: User): void {

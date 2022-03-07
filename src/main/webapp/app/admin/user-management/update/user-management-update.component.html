@@ -455,7 +455,12 @@
 
           <div *ngIf="user">
             <div class="col-md-1">
-              <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" style="margin: 1rem">
+              <button
+                type="submit"
+                [disabled]="editForm.invalid || isSaving || this.saveReady"
+                class="btn btn-primary"
+                style="margin: 1rem"
+              >
                 <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
               </button>
             </div>
