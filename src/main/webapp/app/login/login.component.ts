@@ -55,9 +55,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
         next: sucessLogin => {
           this.authenticationError = false;
           this.statusError = false;
-          /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
           this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
-
           this.modalService.open(TwoFAModalComponent);
           this.modalService.dismissAll;
 

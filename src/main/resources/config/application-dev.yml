@@ -44,16 +44,16 @@ spring:
     # Remove 'faker' if you do not want the sample data to be loaded automatically
     contexts: dev, faker
   mail:
-    host: smtp.gmail.com
+    host: smtp.office365.com
     port: 587
-    username: recoverytest2612@gmail.com
-    password: gpoidggciophplbv
-    protocol: smtp
-    tls: true
+    username: notificacionessg@supergiros.com.co
+    password: Giros.2022
     properties.mail.smtp:
+      protocol: smtp
       auth: true
       starttls.enable: true
-      ssl.trust: smtp.gmail.com
+      ssl.protocol: TLSv1.2
+
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:

@@ -1,14 +1,20 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
+
 import { AccountService } from 'app/core/auth/account.service';
+
 import { Account } from 'app/core/auth/account.model';
+
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'jhi-twofa-modal',
+
   templateUrl: './twoFA-modal.component.html',
+
   providers: [NgbModalConfig, NgbModal],
 })
 export class TwoFAModalComponent implements OnInit, AfterViewInit {
@@ -16,9 +22,13 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   @ViewChild('content') myModal: string | undefined;
 
   tokenValidado = false;
+
   tokenError = false;
+
   pruebaesta = false;
+
   itsTwoFAON = true;
+
   account$?: Observable<Account | null>;
 
   twoFactorForm = this.fb.group({
@@ -27,19 +37,25 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
 
   constructor(
     private loginService: LoginService,
+
     private fb: FormBuilder,
+
     private accountService: AccountService,
+
     private modalService: NgbModal,
 
     config: NgbModalConfig
   ) {
     config.backdrop = 'static';
+
     config.keyboard = false;
     config.centered = true;
   }
+
   ngAfterViewInit(): void {
     this.open(this.myModal);
   }
+
   ngOnInit(): void {
     this.account$ = this.accountService.identity();
   }
@@ -58,6 +74,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
 
       error: wrongToken => {
         this.tokenValidado = false;
+
         this.tokenError = true;
       },
     });

@@ -68,7 +68,7 @@
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
             <select style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
-              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option>
+              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" required>{{ documenttypes }}</option>
             </select>
 
             <div
@@ -131,6 +131,7 @@
             </div>
           </div>
 
+          <!-- EDIT -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
             <select readonly style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
@@ -201,14 +202,13 @@
 
         <div class="form-row">
           <div class="col-md-2 mb-2">
-            <label class="form-control-label" jhiTranslate="userManagement.email">Email</label>
+            <label class="form-control-label">Email</label>
             <input maxlength="30" type="email" class="form-control" name="email" formControlName="email" />
 
-            <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
+            <!-- <div *ngIf="editForm.get('email')!.invalid && (editForm.get('email')!.dirty || editForm.get('email')!.touched)">
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('email')?.errors?.required"
-                jhiTranslate="entity.validation.required"
               >
                 This field is required.
               </small>
@@ -238,9 +238,9 @@
               >
                 Your email is invalid.
               </small>
-            </div>
+            </div> -->
 
-            <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div>
+            <!-- <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div> -->
           </div>
 
           <div class="col-md-1"></div>
@@ -318,7 +318,7 @@
                 </small>
               </div>
 
-              <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="Agregar departamento">
+              <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="departamentoName">
                 <fa-icon icon="check" value="Agregar departamento"></fa-icon>
                 Agregar Convenio
               </button>
@@ -443,7 +443,7 @@
           </select>
         </div> -->
 
-        <div class="form-row">
+        <div class="form-row" [hidden]="user.id">
           <div class="col-md-7 mb-8" style="margin: 2rem">
             <table class="table table-striped">
               <thead>

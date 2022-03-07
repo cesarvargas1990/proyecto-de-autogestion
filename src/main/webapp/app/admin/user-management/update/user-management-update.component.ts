@@ -14,6 +14,7 @@ import { GrillaManagementService } from '../service/grilla-management.service';
 })
 export class UserManagementUpdateComponent implements OnInit {
   user!: User;
+
   udmmodel!: udmModel;
 
   municipiosListFull: string[] = [];
@@ -55,24 +56,24 @@ export class UserManagementUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     login: ['', [Validators.required, Validators.minLength(5), Validators.maxLength(11)]],
-    documentType: [[Validators.required]],
+    documentType: ['', [Validators.required]],
     celphone: [
       '',
       [Validators.maxLength(50), Validators.required, Validators.pattern('^[0-9!$&*+=?^_`{|}~.-]+@[0-9-]+(?:\\.[0-9-]+)*$|^[_.@0-9-]+$')],
     ],
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.maxLength(50), Validators.required]],
-    email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email]],
+    email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email, Validators.required]],
 
-    convenio: [],
-    programa: [],
-    departamento: [],
-    municipio: [],
+    convenio: ['', [Validators.required]],
+    programa: ['', [Validators.required]],
+    departamento: ['', [Validators.required]],
+    municipio: ['', [Validators.required]],
 
     isMunicipios: [],
     activated: [],
     langKey: [],
-    authorities: [],
+    authorities: ['', [Validators.required]],
   });
 
   constructor(
@@ -89,6 +90,7 @@ export class UserManagementUpdateComponent implements OnInit {
         if (this.user.id === undefined) {
           this.user.activated = true;
         }
+
         this.updateForm(user);
       }
     });
@@ -158,8 +160,11 @@ export class UserManagementUpdateComponent implements OnInit {
       documentType: user.documentType,
 
       convenio: user.convenio,
+      // convenio: user.convenio === 1 ?"DPS – Departamento para la Prosperidad Social": user.convenio,
+      //convenio: user.convenioName,
+
       programa: user.programa,
-      departamento: user.departamento,
+      departamento: user.departamentoName,
       municipio: user.municipio,
       celphone: user.celphone,
       firstName: user.firstName,
@@ -200,6 +205,13 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateDepartamento(user: User): void {
     const ad = this.editForm.get(['departamento'])!.value.toString();
+
+    user.departamentoName = ad;
+
+    //  /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
+    //  console.log("FUUUUUUUUUUUUUUUUUUUUUUUUUL");
+    //  console.log(user.departamentoName);
+
     this.departamentoName = ad;
     this.userService.getIdDepartamentos(ad).subscribe(xx => (this.idDepartamento = xx));
   }
@@ -238,7 +250,9 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateConvenio(user: User): void {
     const ad = this.editForm.get(['convenio'])!.value.toString();
+
     this.convenioName = ad;
+    user.convenioName = this.convenioName;
 
     this.userService.getIdConvenios(ad).subscribe(xx => (this.idConvenio = xx));
   }
