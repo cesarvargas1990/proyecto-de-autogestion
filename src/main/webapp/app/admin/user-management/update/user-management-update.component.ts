@@ -58,7 +58,6 @@ export class UserManagementUpdateComponent implements OnInit {
   idCredentialsError = false;
   addLocationVerification = true;
   saveReady = true;
-
   departamentoNumber = 0;
 
   editForm = this.fb.group({
@@ -116,7 +115,13 @@ export class UserManagementUpdateComponent implements OnInit {
     this.updateUser(this.user);
     if (this.user.id !== undefined) {
       this.userService.update(this.user).subscribe({
-        next: () => this.onSaveSuccess(),
+        next: x => {
+          this.onSaveSuccess();
+          const udm = new udmModel(x.id, this.departamentosListFull, this.municipiosListFull);
+          this.userService.MakeinsertUDM(udm).subscribe();
+          this.municipiosListFull = [];
+          this.departamentosListFull = [];
+        },
         error: () => this.onSaveError(),
       });
     } else {
@@ -266,7 +271,6 @@ export class UserManagementUpdateComponent implements OnInit {
     for (let index = 0; index < this.municipiosList.length; index++) {
       this.municipiosListFull.push(this.municipiosListId[index]);
     }
-
     this.saveReady = false;
   }
 

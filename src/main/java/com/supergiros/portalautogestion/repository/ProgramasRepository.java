@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ProgramasRepository extends JpaRepository<Programas, Long> {
-    @Query("SELECT p FROM Programas p " + "where p.id = :nit ")
-    Optional<Programas> getProgramaNameByNit(@Param("nit") Long nit);
+    @Query("SELECT p FROM Programas p " + "where p.identificacion = :nit ")
+    Optional<Programas> getProgramaNameByNit(@Param("nit") String nit);
 }

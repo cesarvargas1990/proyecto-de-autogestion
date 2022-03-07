@@ -27,6 +27,10 @@ export class UserManagementService {
     return this.http.get<User>(`${this.resourceUrl}/${login}`);
   }
 
+  findDepartmentById(id: number): Observable<string[]> {
+    return this.http.get<string[]>(`${this.resourceUrl}/departamentos/${id}`);
+  }
+
   query(req?: Pagination): Observable<HttpResponse<IUser[]>> {
     const options = createRequestOption(req);
     return this.http.get<IUser[]>(this.resourceUrl, { params: options, observe: 'response' });

@@ -24,6 +24,9 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
     @Query("SELECT d FROM Departamentos d " + "where d.codDane = :codDane ")
     Optional<Departamentos> getDepartamentosNameByCodDane(@Param("codDane") Integer codDane);
 
+    @Query("SELECT d.codDane FROM Departamentos d " + "where d.id = :id ")
+    String getDepartamentosCodDaneById(@Param("id") Long id);
+
     @Query(value = "SELECT id FROM departamentos WHERE departamentos.name = ?1 ", nativeQuery = true)
     Long findIdByName(String departamentoName);
 

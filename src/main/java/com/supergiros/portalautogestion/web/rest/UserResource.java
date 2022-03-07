@@ -6,6 +6,7 @@ import com.supergiros.portalautogestion.repository.UserDepartamentoMunicipioRepo
 import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.security.AuthoritiesConstants;
 import com.supergiros.portalautogestion.service.MailService;
+import com.supergiros.portalautogestion.service.TransaccionesNominaService;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
@@ -21,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -89,6 +91,9 @@ public class UserResource {
     private final UserRepository userRepository;
 
     private final UserDepartamentoMunicipioRepository userDepartamentoMunicipioRepository;
+
+    @Autowired
+    TransaccionesNominaService transaccionesNominaService;
 
     private final MailService mailService;
 
@@ -201,6 +206,12 @@ public class UserResource {
     public ResponseEntity<AdminUserDTO> getUser(@PathVariable @Pattern(regexp = Constants.LOGIN_REGEX) String login) {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
+    }
+
+    @GetMapping("/users/departamentos/{id}")
+    public List<String> getDepartamentosUser(@PathVariable("id") Long id) {
+        log.debug("REST request to get User : {}", id);
+        return transaccionesNominaService.findCodDaneDepartamentos(userDepartamentoMunicipioRepository.getDepartamentosByIdUser(id));
     }
 
     /**
