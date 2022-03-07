@@ -52,7 +52,7 @@
 
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Fecha Pago</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Hora Pago</span></th>
-          <th scope="col"><span>PIN</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].pinPago !== null"><span>PIN</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].fKDepartamentoDePago !== null">
             <span>Departamento De Pago</span>
           </th>
@@ -70,7 +70,7 @@
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
-          <td>{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNomina.pinPago !== null">{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.fKDepartamentoDePago !== null">{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.fKMunicipioDePago !== null">{{ transaccionesNomina.fKMunicipioDePago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdConvenio ?? 'N/A' }}</td>
