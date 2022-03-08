@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface ConvenioRepository extends JpaRepository<Convenio, Long> {
-    @Query("SELECT c FROM Convenio c " + "where c.id = :nit ")
-    Optional<Convenio> getConvenioNameByNit(@Param("nit") Long nit);
+    @Query("SELECT c FROM Convenio c " + "where c.identificacion = :nit ")
+    Optional<Convenio> getConvenioNameByNit(@Param("nit") String nit);
 }

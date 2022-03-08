@@ -1,0 +1,11 @@
+{
+  "entity": {
+    "validation": {
+      "patternloginEmail": "Correo inválido",
+      "patternloginDocument": "Mínimo 5 caracteres",
+
+      "maxlength": "Entrada demasiado larga",
+      "required": "campo requerido"
+    }
+  }
+}

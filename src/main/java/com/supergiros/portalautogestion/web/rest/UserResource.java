@@ -208,12 +208,6 @@ public class UserResource {
         return ResponseUtil.wrapOrNotFound(userService.getUserWithAuthoritiesByLogin(login).map(AdminUserDTO::new));
     }
 
-    @GetMapping("/users/departamentos/{id}")
-    public List<String> getDepartamentosUser(@PathVariable("id") Long id) {
-        log.debug("REST request to get User : {}", id);
-        return transaccionesNominaService.findCodDaneDepartamentos(userDepartamentoMunicipioRepository.getDepartamentosByIdUser(id));
-    }
-
     /**
      * {@code DELETE /admin/users/:login} : delete the "login" User.
      *

@@ -23,4 +23,11 @@ public interface UserDepartamentoMunicipioRepository extends JpaRepository<UserD
 
     @Query("SELECT DISTINCT d.departamento_name FROM UserDepartamentoMunicipio d " + "where d.user_id = :idUser ")
     ArrayList<Long> getDepartamentosByIdUser(@Param("idUser") Long idUser);
+
+    @Modifying
+    @Query(value = "DELETE FROM jhi_user_location where user_id= ?1 ", nativeQuery = true)
+    void deleteCurrentLocation(@Param("idUser") Long idUser);
+
+    @Query(value = "Select * FROM jhi_user_location where user_id= ?1", nativeQuery = true)
+    Optional<List<UserDepartamentoMunicipio>> hasALocation(@Param("idUser") Long idUser);
 }
