@@ -12,7 +12,7 @@ import { User } from '../user-management.model';
 @Injectable({ providedIn: 'root' })
 export class UserManagementService {
   private resourceUrl = this.applicationConfigService.getEndpointFor('api/admin/users');
-
+  private resourceUrl2 = this.applicationConfigService.getEndpointFor('api/users');
   constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
 
   create(user: IUser): Observable<IUser> {
@@ -28,7 +28,7 @@ export class UserManagementService {
   }
 
   findDepartmentById(id: number): Observable<string[]> {
-    return this.http.get<string[]>(`${this.resourceUrl}/departamentos/${id}`);
+    return this.http.get<string[]>(`${this.resourceUrl2}/departamentos/${id}`);
   }
 
   query(req?: Pagination): Observable<HttpResponse<IUser[]>> {
