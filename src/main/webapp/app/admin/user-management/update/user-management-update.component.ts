@@ -263,10 +263,12 @@ export class UserManagementUpdateComponent implements OnInit {
     if (this.municipioName === '-TODOS-') {
       this.addLocationVerification = true;
       this.saveReady = false;
+      this.departamentosListFull = ['1000'];
+      this.municipiosListFull = ['1'];
     } else {
-      this.saveReady = false;
-      this.addLocationVerification = false;
       this.saveReady = true;
+      this.addLocationVerification = false;
+      //this.saveReady = true;
     }
   }
 
@@ -274,6 +276,7 @@ export class UserManagementUpdateComponent implements OnInit {
     for (let index = 0; index < this.municipiosList.length; index++) {
       this.municipiosListFull.push(this.municipiosListId[index]);
     }
+    this.saveReady = false;
   }
 
   private updateConvenio(user: User): void {
