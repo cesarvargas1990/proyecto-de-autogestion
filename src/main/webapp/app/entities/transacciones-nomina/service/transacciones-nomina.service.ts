@@ -61,6 +61,12 @@ export class TransaccionesNominaService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  findByDocumentAllDepartments(numberDocument: number, typeDocument: string): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<ITransaccionesNomina[]>(`${this.resourceUrl}/${typeDocument}/${numberDocument}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http

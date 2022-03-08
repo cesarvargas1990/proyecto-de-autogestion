@@ -330,6 +330,18 @@ public class TransaccionesNominaResource {
         return transaccionesNomina;
     }
 
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
+    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocumentAllDepartments(
+        @PathVariable("typeDocument") String typeDocument,
+        @PathVariable("numberDocument") Integer numberDocument
+    ) {
+        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartments(
+            typeDocument,
+            numberDocument
+        );
+        return transaccionesNomina;
+    }
+
     // @GetMapping("/transacciones-nominas/departments")
     // public List<String> getDepartmentCodDaneById(@RequestBody List<Long> departmentsIds)
     // {

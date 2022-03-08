@@ -153,9 +153,50 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
   send(): any {
     let lokesea: ITransaccionesNomina[] = [];
-    for (let index = 0; index < this.departmentOfUser.length; index++) {
+    if (this.departmentOfUser[0] !== '99999') {
+      for (let index = 0; index < this.departmentOfUser.length; index++) {
+        this.transaccionesNominaService
+          .findByDocument(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument, this.departmentOfUser[index])
+          .subscribe({
+            next: (res: HttpResponse<ITransaccionesNomina[]>) => {
+              this.isLoading = false;
+              this.transaccionesNominas2 = res.body ?? [];
+
+              lokesea = lokesea.concat(this.transaccionesNominas2);
+
+              for (let i = 0; i < lokesea.length; i++) {
+                if (lokesea[i].fKDepartamentoDePago !== null && lokesea[i].fKDepartamentoDePago !== undefined) {
+                  this.codDaneDepto(lokesea[i].fKDepartamentoDePago);
+                  this.codDaneMunicipio(lokesea[i].fKMunicipioDePago);
+
+                  setTimeout(() => {
+                    lokesea[i].fKDepartamentoDePago = this.department.name;
+                    lokesea[i].fKMunicipioDePago = this.municipio.name;
+                  }, 100);
+                }
+                if (lokesea[i].fKIdConvenio !== null && lokesea[i].fKIdPrograma !== null) {
+                  this.nitConvenio(lokesea[i].fKIdConvenio);
+                  this.nitProgramas(lokesea[i].fKIdPrograma);
+
+                  setTimeout(() => {
+                    lokesea[i].fKIdConvenio = this.convenio.name;
+                    lokesea[i].fKIdPrograma = this.programas.name;
+                  }, 100);
+                }
+              }
+
+              setTimeout(() => {
+                this.transaccionesNominas = lokesea;
+              }, 100);
+            },
+            error: () => {
+              this.isLoading = false;
+            },
+          });
+      }
+    } else {
       this.transaccionesNominaService
-        .findByDocument(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument, this.departmentOfUser[index])
+        .findByDocumentAllDepartments(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument)
         .subscribe({
           next: (res: HttpResponse<ITransaccionesNomina[]>) => {
             this.isLoading = false;
@@ -186,7 +227,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
             setTimeout(() => {
               this.transaccionesNominas = lokesea;
-            }, 100);
+            }, 300);
           },
           error: () => {
             this.isLoading = false;
