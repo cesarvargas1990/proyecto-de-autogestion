@@ -262,9 +262,11 @@ export class UserManagementUpdateComponent implements OnInit {
 
     if (this.municipioName === '-TODOS-') {
       this.addLocationVerification = true;
-      this.saveReady = true;
-    } else {
       this.saveReady = false;
+      this.departamentosListFull = ['1000'];
+      this.municipiosListFull = ['1'];
+    } else {
+      this.saveReady = true;
       this.addLocationVerification = false;
       //this.saveReady = true;
     }
