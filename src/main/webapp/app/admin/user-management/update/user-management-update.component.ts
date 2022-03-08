@@ -262,8 +262,10 @@ export class UserManagementUpdateComponent implements OnInit {
 
     if (this.municipioName === '-TODOS-') {
       this.addLocationVerification = true;
+      this.saveReady = false;
     } else {
       this.addLocationVerification = false;
+      this.saveReady = true;
     }
   }
 
