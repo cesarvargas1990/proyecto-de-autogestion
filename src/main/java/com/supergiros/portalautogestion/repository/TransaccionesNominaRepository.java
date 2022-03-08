@@ -68,4 +68,14 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         @Param("numberDocument") Integer numberDocument,
         @Param("department") String department
     );
+
+    @Query(
+        "SELECT t FROM TransaccionesNomina t " +
+        "where t.tipoDocumentoBenef = :typeDocument " +
+        "and t.numeroDocumentoBenef = :numberDocument"
+    )
+    List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAllDepartments(
+        @Param("typeDocument") String typeDocument,
+        @Param("numberDocument") Integer numberDocument
+    );
 }
