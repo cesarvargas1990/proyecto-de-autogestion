@@ -1,12 +1,12 @@
-drop table if exists convenio;
-drop table if exists departamentos;
-drop table if exists jhi_authority;
-drop table if exists jhi_user;
-drop table if exists jhi_user_authority;
-drop table if exists municipio;
-drop table if exists programas;
-drop table if exists transacciones_nomina;
-drop table if exists jhi_user_location;
+drop table if exists convenio CASCADE;
+drop table if exists departamentos CASCADE;
+drop table if exists jhi_authority CASCADE;
+drop table if exists jhi_user CASCADE;
+drop table if exists jhi_user_authority CASCADE;
+drop table if exists municipio CASCADE;
+drop table if exists programas CASCADE;
+drop table if exists transacciones_nomina CASCADE;
+drop table if exists jhi_user_location CASCADE;
 ----------------------------------------
 CREATE TABLE convenio(
     id serial primary key,
