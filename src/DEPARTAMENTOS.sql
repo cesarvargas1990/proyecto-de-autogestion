@@ -1,4 +1,5 @@
-
+Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('1','-TODOS-','99999');
+commit;
 Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('19','NORTE DE SANTANDER','54');
 commit;
 Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('20','QUINDIO','63');
@@ -41,7 +42,7 @@ Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('23','SUCRE','70');
 commit;
 Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('24','TOLIMA','73');
 commit;
-Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('18','NARIÑO','52');
+Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('18','NARIï¿½O','52');
 commit;
 Insert into DEPARTAMENTO (ID,NOMBRE,CODIGO_DANE) values ('33','VAUPES','97');
 commit;
