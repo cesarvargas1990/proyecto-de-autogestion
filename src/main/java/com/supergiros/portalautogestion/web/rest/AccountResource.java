@@ -212,6 +212,7 @@ public class AccountResource {
 
         if (!user.isPresent()) {
             throw new AccountResourceException("No user was found for this reset key");
+            //return el jwt
         }
     }
 
