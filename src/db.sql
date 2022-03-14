@@ -1,12 +1,12 @@
-drop table if exists convenio;
-drop table if exists departamentos;
-drop table if exists jhi_authority;
-drop table if exists jhi_user;
-drop table if exists jhi_user_authority;
-drop table if exists municipio;
-drop table if exists programas;
-drop table if exists transacciones_nomina;
-drop table if exists jhi_user_location;
+drop table if exists convenio CASCADE;
+drop table if exists departamentos CASCADE;
+drop table if exists jhi_authority CASCADE;
+drop table if exists jhi_user CASCADE;
+drop table if exists jhi_user_authority CASCADE;
+drop table if exists municipio CASCADE;
+drop table if exists programas CASCADE;
+drop table if exists transacciones_nomina CASCADE;
+drop table if exists jhi_user_location CASCADE;
 ----------------------------------------
 CREATE TABLE convenio(
     id serial primary key,
@@ -15,7 +15,7 @@ CREATE TABLE convenio(
 );
 INSERT INTO convenio(name,identificacion)
 VALUES
-('DPS - Departamento para la Prosperidad Social','0');
+('DPS - Departamento para la Prosperidad Social','900039533');
 ---------------------------------------------------
 CREATE TABLE jhi_authority
 (
@@ -62,6 +62,7 @@ CREATE TABLE jhi_user
 
 INSERT INTO jhi_user(login, password_hash, first_name,last_name,email,image_url,activated,lang_key,activation_key,reset_key,created_by,created_date,reset_date,last_modified_by,last_modified_date,document_type,celphone,fk_convenio,fk_programa,fk_departamento,fk_municipio,first_time) 
 VALUES
+('adminprov','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'admin','admin','gabriel.salazar@supergiros.com.co',null,TRUE,'es',null,null,'system',null,null,0000000000,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','3000000000',1,1,5,187,FALSE),
 ('admin','$2a$10$kPkZWPLuhk7d1QMb/nCY2uHfei3RABqPC11gGcwIUd.R5h9zGcAIu', 'admin','admin','lucila.popo@supergiros.com.co',null,TRUE,'es',null,null,'system',null,null,0000000000,CURRENT_TIMESTAMP,'CC - Cédula de ciudadanía','3000000000',1,1,5,187,FALSE);
 -------------------------------------------------------------------------------------------------
 
@@ -96,10 +97,9 @@ CREATE TABLE programas(
 );
 INSERT INTO programas(name,identificacion,fk_convenio)
 VALUES
-('Ingreso solidario','10',1),
-('Devolución IVA','20',1),
-('Colombia Mayor','30',1),
-('Jóvenes Transformadores','40',1);
+
+('Devolución IVA','9000395338',1);
+
 
 --------------------------------------------------------------
 CREATE TABLE jhi_user_location(
@@ -111,9 +111,8 @@ CREATE TABLE jhi_user_location(
 );
 INSERT INTO jhi_user_location(user_id,departamento_name,municipio_name)
 VALUES
-(1,'24','1033'),
-(1,'24','1034'),
-(1,'24','1035');
+(1,'1000','1'),
+(2,'1000','1');
 
 
 ------------------------------------------------------------------------------------------------
