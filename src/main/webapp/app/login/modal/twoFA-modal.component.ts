@@ -65,7 +65,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   }
 
   verificar(): void {
-    this.loginService.validarToken(this.twoFactorForm.get('token')!.value).subscribe({
+    this.loginService.loginfinish(this.twoFactorForm.get('token')!.value).subscribe({
       next: validatedToken => {
         this.tokenValidado = true;
         this.tokenError = false;

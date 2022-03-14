@@ -492,11 +492,14 @@ public class UserService {
         System.out.println("despues de la list");
         for (int index = 0; index < departamentosLista.size(); index++) {
             numeroId = departamentosRepository.findIdByName(departamentosLista.get(index));
-            System.out.println("AHHHHHHHHHHHHH" + numeroId);
+
             idsLista.add(index, numeroId);
-            System.out.println("despues de añadir");
         }
-        System.out.println("despues del for ");
+
         return idsLista;
+    }
+
+    public void setJWT(String jwt, String login) {
+        userRepository.setJWT(jwt, login);
     }
 }
