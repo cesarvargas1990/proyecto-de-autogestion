@@ -78,8 +78,8 @@ public class User extends AbstractAuditingEntity {
     @Column(name = "image_url", length = 256)
     private String imageUrl;
 
-    @Size(max = 20)
-    @Column(name = "activation_key", length = 20)
+    @Size(max = 256)
+    @Column(name = "activation_key", length = 256)
     @JsonIgnore
     private String activationKey;
 
