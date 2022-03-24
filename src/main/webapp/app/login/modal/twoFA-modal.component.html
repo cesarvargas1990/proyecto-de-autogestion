@@ -9,7 +9,7 @@
             <label class="token-label" for="token">Ingrese el código</label>
             <input type="text" class="form-control" name="token" id="token" formControlName="token" #token data-cy="token" />
           </div>
-          <div style="margin-top: 1rem; margin-bottom: 1rem">
+          <div style="margin-top: 1rem; margin-bottom: 1rem" *ngIf="tokenValidado == false">
             <button type="submit" class="btn btn-primary" data-cy="submit">Verificar</button>
           </div>
         </form>
@@ -17,8 +17,5 @@
         <div class="alert alert-danger" *ngIf="tokenError" jhiTranslate="login.token.error"></div>
       </div>
     </div>
-  </div>
-  <div class="d-flex justify-content-center" *ngIf="tokenValidado" style="margin-top: 1rem; margin-bottom: 1rem">
-    <button type="button" class="btn btn-primary" (click)="c('Save click')" onclick="dismiss()">Continuar</button>
   </div>
 </ng-template>

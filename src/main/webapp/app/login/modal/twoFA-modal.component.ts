@@ -27,7 +27,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
 
   tokenError = false;
 
-  pruebaesta = false;
+  pruebaesta = true;
 
   itsTwoFAON = true;
 
@@ -75,8 +75,8 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
         this.tokenError = false;
         this.pruebaesta = false;
         setTimeout(() => {
-          window.location.reload();
-        }, 300);
+          this.modalService.dismissAll();
+        }, 800);
       },
 
       error: wrongToken => {
