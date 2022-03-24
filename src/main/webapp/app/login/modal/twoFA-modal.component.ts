@@ -8,6 +8,8 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { Account } from 'app/core/auth/account.model';
 
+import { Router } from '@angular/router';
+
 import { Observable } from 'rxjs';
 
 @Component({
@@ -44,6 +46,8 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
 
     private modalService: NgbModal,
 
+    private router: Router,
+
     config: NgbModalConfig
   ) {
     config.backdrop = 'static';
@@ -70,6 +74,9 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
         this.tokenValidado = true;
         this.tokenError = false;
         this.pruebaesta = false;
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
       },
 
       error: wrongToken => {
