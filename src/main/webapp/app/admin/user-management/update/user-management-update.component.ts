@@ -123,7 +123,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
           this.userService.findMunicipiosNameByID(this.user.id).subscribe(x => {
             this.municipiosListNameFull = x;
-            this.municipioName = this.municipiosListNameFull.toString();
+            //this.municipioName = this.municipiosListNameFull.toString();
             this.editForm.patchValue({
               municipio: this.municipiosListNameFull,
             });
@@ -274,6 +274,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   private addDepartamentoAndMunicipio(user: User): void {
     const ad = this.editForm.get(['municipio'])!.value;
     this.municipiosList = ad;
+
     // for (let index = 0; index < ad.length; index++) {
     //   if (ad[index]==='--TODOS--'){
 
@@ -291,7 +292,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       });
     }
 
-    user.departamentos = this.departamentoName;
+    if (ad.length === this.municipio.length) {
+      this.municipioName = 'Todos los Municipios';
+    } else {
+      user.departamentos = this.departamentoName;
+    }
 
     if (this.municipioName === '-TODOS-') {
       this.addLocationVerification = true;
