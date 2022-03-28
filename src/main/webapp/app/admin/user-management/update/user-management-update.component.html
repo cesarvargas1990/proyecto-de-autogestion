@@ -5,7 +5,7 @@
 
       <div *ngIf="user">
         <jhi-alert-error></jhi-alert-error>
-
+        <!-- EDIT -->
         <div class="form-group" [hidden]="!user.id">
           <label jhiTranslate="global.field.id">ID</label>
           <input type="text" class="form-control" name="id" formControlName="id" readonly />
@@ -62,9 +62,9 @@
               </small>
             </div>
           </div>
+          <div class="col-md-1" [hidden]="user.id"></div>
 
-          <div class="col-md-1"></div>
-
+          <!-- CREAR -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
             <select style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
@@ -88,7 +88,7 @@
           </div>
 
           <div class="col-md-1"></div>
-
+          <!-- CREAR -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label class="form-control-label">Número de documento</label>
             <input
@@ -157,7 +157,7 @@
           </div>
 
           <div class="col-md-1"></div>
-
+          <!-- EDIT -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.login" class="form-control-label">Número de documento</label>
             <input
@@ -312,11 +312,6 @@
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
-
-              <button type="button" class="btn-dark btn-secondary" (click)="sqlprograma()" value="Mostrar municipios">
-                <fa-icon icon="list"></fa-icon>
-              </button>
-
               <button type="button" class="btn-info btn-secondary" (click)="sqlAddAgreements()" value="Mostrar municipios">
                 <fa-icon icon="save"></fa-icon>
                 Agregar Programa
@@ -324,13 +319,17 @@
             </div>
           </div>
 
-          <div class="col-md-1"></div>
+          <div class="col-md-1">
+            <!-- <button type="button" class="btn-dark btn-secondary" (click)="sqlprograma()" value="Mostrar municipios">
+              <fa-icon icon="list"></fa-icon>
+            </button> -->
+          </div>
 
           <div class="col-md-2 mb-2">
             <div class="form-group">
               <label class="form-control-label">Departamento</label>
 
-              <select class="form-control" name="departamento" formControlName="departamento">
+              <select class="form-control" multiple name="departamento" formControlName="departamento" type="checkbox">
                 <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}</option>
               </select>
 
@@ -358,7 +357,8 @@
 
           <div class="col-md-1"></div>
 
-          <div class="col-md-2 mb-2">
+          <!-- MUNICIPIO: CREAR -->
+          <div class="col-md-2 mb-2" [hidden]="user.id">
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
@@ -377,15 +377,41 @@
                 </small>
               </div>
 
-              <button
-                type="button"
-                class="btn-info btn-dark"
-                (click)="sqlmunicipio()"
-                value="Mostrar municipios"
-                style="margin-bottom: 1rem"
-              >
+              <!-- <button type="button" class="btn-info btn-dark" (click)="sqlmunicipio()" value="Mostrar municipios"
+                style="margin-bottom: 1rem">
                 <fa-icon icon="list"></fa-icon>
+              </button> -->
+              <button type="button" class="btn-info btn-secondary" (click)="sqlAddLocation()" value="Mostrar municipios">
+                <fa-icon icon="save"></fa-icon>
+                Agregar Municipio
               </button>
+            </div>
+          </div>
+
+          <!-- MUNICIPIO: EDITAR -->
+          <div class="col-md-2 mb-2" [hidden]="!user.id">
+            <div class="form-group">
+              <label class="form-control-label">Municipio</label>
+
+              <select class="form-control" multiple name="municipio" formControlName="municipio">
+                <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
+              </select>
+
+              <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('municipio')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+
+              <!-- <button type="button" class="btn-info btn-dark" (click)="sqlmunicipio()" value="Mostrar municipios"
+                style="margin-bottom: 1rem">
+                <fa-icon icon="list"></fa-icon>
+              </button> -->
               <button type="button" class="btn-info btn-secondary" (click)="sqlAddLocation()" value="Mostrar municipios">
                 <fa-icon icon="save"></fa-icon>
                 Agregar Municipio
@@ -399,31 +425,47 @@
             <table class="table table-striped">
               <thead>
                 <tr>
-                  <th scope="col"><span>Convenio</span></th>
-                  <th scope="col"><span>Id</span></th>
+                  <th scope="col" style="text-align: center"><span>Convenio</span></th>
+                  <!-- <th scope="col"><span>Id</span></th> -->
 
-                  <th scope="col"><span>Programa</span></th>
-                  <th scope="col"><span>Id</span></th>
+                  <th scope="col" style="text-align: center"><span>Programa</span></th>
+                  <!-- <th scope="col"><span>Id</span></th> -->
 
-                  <th scope="col"><span>Departamento</span></th>
-                  <th scope="col"><span>Municipio</span></th>
+                  <th scope="col" style="text-align: center"><span>Departamento</span></th>
+                  <th scope="col" style="text-align: center"><span>Municipio</span></th>
+                  <th scope="col" style="text-align: center"><span>Agregar Vinculación</span></th>
                 </tr>
               </thead>
 
               <tbody *ngIf="user">
                 <tr>
-                  <td>{{ convenioName }}</td>
-                  <td>{{ convenioNIT }}</td>
+                  <td style="text-align: center">{{ convenioName }}</td>
+                  <!-- <td>{{ convenioNIT }}</td> -->
 
-                  <td>{{ programaName }}</td>
-                  <td>{{ programaNIT }}</td>
+                  <td style="text-align: center">{{ programaName }}</td>
+                  <!-- <td>{{ programaNIT }}</td> -->
 
-                  <td>{{ departamentoName }}</td>
-                  <td>{{ municipioName }}</td>
+                  <td style="text-align: center">{{ departamentoName }}</td>
+                  <td style="text-align: center">{{ municipioName }}</td>
 
-                  <td>
+                  <!-- <td>
                     <div *ngFor="let authority of user.authorities">
                       <span class="badge badge-info">{{ authority }}</span>
+                    </div>
+                  </td> -->
+                  <td>
+                    <div *ngIf="user">
+                      <div class="col-md-0">
+                        <button
+                          type="button"
+                          [disabled]="this.addLocationVerification"
+                          class="btn btn-secondary"
+                          (click)="sqlAddNewLocation()"
+                          style="margin: 1rem"
+                        >
+                          <fa-icon></fa-icon>&nbsp;<span>Agregar Vinculación</span>
+                        </button>
+                      </div>
                     </div>
                   </td>
                 </tr>
@@ -431,29 +473,13 @@
             </table>
           </div>
 
-          <div *ngIf="user">
-            <div class="col-md-1">
-              <button
-                type="button"
-                [disabled]="this.addLocationVerification"
-                class="btn btn-secondary"
-                (click)="sqlAddNewLocation()"
-                style="margin: 1rem"
-              >
-                <fa-icon icon="user-plus"></fa-icon>&nbsp;<span>Locación</span>
-              </button>
-            </div>
-          </div>
-
+          <div class="col-md-3"></div>
           <div *ngIf="user">
             <div class="col-md-1">
               <button type="button" class="btn btn-secondary" (click)="previousState()" style="margin: 1rem">
                 <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
               </button>
             </div>
-          </div>
-
-          <div *ngIf="user">
             <div class="col-md-1">
               <button
                 type="submit"

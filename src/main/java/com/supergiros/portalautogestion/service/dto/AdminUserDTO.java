@@ -5,6 +5,7 @@ import com.supergiros.portalautogestion.domain.Authority;
 import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import javax.validation.constraints.*;
@@ -47,6 +48,10 @@ public class AdminUserDTO {
 
     private Long departamento;
 
+    private String departamentos;
+
+    //private List<String> departamentosName;
+
     private Long municipio;
 
     @NotNull
@@ -86,6 +91,9 @@ public class AdminUserDTO {
         this.convenio = user.getConvenio();
         this.programa = user.getPrograma();
         this.departamento = user.getDepartamento();
+        this.departamentos = user.getDepartamentos();
+        // this.departamentosName = user.getDepartamentosName();
+
         this.municipio = user.getMunicipio();
         this.activated = user.isActivated();
         this.imageUrl = user.getImageUrl();
@@ -186,6 +194,22 @@ public class AdminUserDTO {
     public void setDepartamento(Long departamento) {
         this.departamento = departamento;
     }
+
+    public String getDepartamentos() {
+        return departamentos;
+    }
+
+    public void setDepartamentos(String departamentos) {
+        this.departamentos = departamentos;
+    }
+
+    // public List<String> getDepartamentosName() {
+    //     return departamentosName;
+    // }
+
+    // public void setDepartamentosName(List<String> departamentosName) {
+    //     this.departamentosName = departamentosName;
+    // }
 
     public Long getMunicipio() {
         return municipio;
