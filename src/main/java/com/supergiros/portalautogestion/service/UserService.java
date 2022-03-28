@@ -228,7 +228,7 @@ public class UserService {
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
-        newUser.setDepartamentos(userDTO.getDepartamentos());
+        //newUser.setDepartamentos(userDTO.getDepartamentos());
         if (userDTO.getEmail() != null) {
             newUser.setEmail(userDTO.getEmail().toLowerCase());
         }
@@ -262,7 +262,7 @@ public class UserService {
         user.setConvenio(userDTO.getConvenio());
         user.setPrograma(userDTO.getPrograma());
         user.setDepartamento(userDTO.getDepartamento());
-        user.setDepartamentos(userDTO.getDepartamentos());
+        //user.setDepartamentos(userDTO.getDepartamentos());
         user.setMunicipio(userDTO.getMunicipio());
         user.setDocumentType(userDTO.getDocumentType());
         user.setCelphone(userDTO.getCelphone());
@@ -317,7 +317,7 @@ public class UserService {
                 user.setConvenio(userDTO.getConvenio());
                 user.setPrograma(userDTO.getPrograma());
                 user.setDepartamento(userDTO.getDepartamento());
-                user.setDepartamentos(userDTO.getDepartamentos());
+                // user.setDepartamentos(userDTO.getDepartamentos());
                 user.setMunicipio(userDTO.getMunicipio());
                 user.setDocumentType(userDTO.getDocumentType());
                 user.setCelphone(userDTO.getCelphone());

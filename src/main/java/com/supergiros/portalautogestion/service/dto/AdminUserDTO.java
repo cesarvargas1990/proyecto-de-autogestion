@@ -48,7 +48,7 @@ public class AdminUserDTO {
 
     private Long departamento;
 
-    private String departamentos;
+    // private String departamentos;
 
     //private List<String> departamentosName;
 
@@ -91,7 +91,7 @@ public class AdminUserDTO {
         this.convenio = user.getConvenio();
         this.programa = user.getPrograma();
         this.departamento = user.getDepartamento();
-        this.departamentos = user.getDepartamentos();
+        // this.departamentos = user.getDepartamentos();
         // this.departamentosName = user.getDepartamentosName();
 
         this.municipio = user.getMunicipio();
@@ -195,13 +195,13 @@ public class AdminUserDTO {
         this.departamento = departamento;
     }
 
-    public String getDepartamentos() {
-        return departamentos;
-    }
+    // public String getDepartamentos() {
+    //     return departamentos;
+    // }
 
-    public void setDepartamentos(String departamentos) {
-        this.departamentos = departamentos;
-    }
+    // public void setDepartamentos(String departamentos) {
+    //     this.departamentos = departamentos;
+    // }
 
     // public List<String> getDepartamentosName() {
     //     return departamentosName;

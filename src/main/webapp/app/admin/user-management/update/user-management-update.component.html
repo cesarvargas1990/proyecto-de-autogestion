@@ -325,7 +325,39 @@
             </button> -->
           </div>
 
-          <div class="col-md-2 mb-2">
+          <!-- CREAR -->
+          <div class="col-md-2 mb-2" [hidden]="user.id">
+            <div class="form-group">
+              <label class="form-control-label">Departamento</label>
+
+              <select class="form-control" name="departamento" formControlName="departamento" type="checkbox">
+                <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}</option>
+              </select>
+
+              <div
+                *ngIf="
+                  editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
+                "
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+
+              <button type="button" class="btn-info btn-secondary" (click)="sqlask()" value="Agregar departamento">
+                <fa-icon icon="check"></fa-icon>
+                Agregar Departamento
+              </button>
+            </div>
+          </div>
+
+          <!-- EDIT -->
+          <div class="col-md-2 mb-2" [hidden]="!user.id">
             <div class="form-group">
               <label class="form-control-label">Departamento</label>
 
@@ -446,7 +478,7 @@
                   <!-- <td>{{ programaNIT }}</td> -->
 
                   <td style="text-align: center">{{ departamentoName }}</td>
-                  <td style="text-align: center">{{ municipioName }}</td>
+                  <td class="text-break" style="text-align: center">{{ municipioName }}</td>
 
                   <!-- <td>
                     <div *ngFor="let authority of user.authorities">
@@ -473,7 +505,7 @@
             </table>
           </div>
 
-          <div class="col-md-3"></div>
+          <div class="col-md-2"></div>
           <div *ngIf="user">
             <div class="col-md-1">
               <button type="button" class="btn btn-secondary" (click)="previousState()" style="margin: 1rem">

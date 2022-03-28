@@ -274,6 +274,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   private addDepartamentoAndMunicipio(user: User): void {
     const ad = this.editForm.get(['municipio'])!.value;
     this.municipiosList = ad;
+    // for (let index = 0; index < ad.length; index++) {
+    //   if (ad[index]==='--TODOS--'){
+
+    //   }
+    // }
     this.municipioName = ad.toString();
 
     for (let index = 0; index < ad.length; index++) {

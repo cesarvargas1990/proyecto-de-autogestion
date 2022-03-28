@@ -129,11 +129,11 @@ public class User extends AbstractAuditingEntity {
     @Column(name = "fk_departamento", length = 20)
     private Long departamento;
 
-    //@Column(name = "departamentos", length = 20)
-    private String departamentos;
+    // //@Column(name = "departamentos", length = 20)
+    // private String departamentos;
 
-    // @Column(name = "departamentos_name")
-    // private List<String> departamentosName;
+    // // @Column(name = "departamentos_name")
+    // // private List<String> departamentosName;
 
     @Column(name = "fk_municipio", length = 20)
     private Long municipio;
@@ -326,13 +326,13 @@ public class User extends AbstractAuditingEntity {
         this.departamento = departamento;
     }
 
-    public String getDepartamentos() {
-        return departamentos;
-    }
+    // public String getDepartamentos() {
+    //     return departamentos;
+    // }
 
-    public void setDepartamentos(String departamentos) {
-        this.departamentos = departamentos;
-    }
+    // public void setDepartamentos(String departamentos) {
+    //     this.departamentos = departamentos;
+    // }
 
     // public List<String> getDepartamentosName() {
     //     return departamentosName;
