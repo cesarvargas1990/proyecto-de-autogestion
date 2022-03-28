@@ -1,13 +1,23 @@
 package com.supergiros.portalautogestion.web.rest;
 
+import com.supergiros.portalautogestion.domain.Convenio;
+import com.supergiros.portalautogestion.domain.Departamentos;
+import com.supergiros.portalautogestion.domain.Municipio;
+import com.supergiros.portalautogestion.domain.Programas;
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
+import com.supergiros.portalautogestion.repository.ConvenioRepository;
+import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.MunicipioRepository;
+import com.supergiros.portalautogestion.repository.ProgramasRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.service.TransaccionesNominaService;
 import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
+import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,6 +50,18 @@ public class TransaccionesNominaResource {
 
     @Autowired
     TransaccionesNominaService transaccionesNominaService;
+
+    @Autowired
+    DepartamentosRepository departamentosRepository;
+
+    @Autowired
+    MunicipioRepository municipioRepository;
+
+    @Autowired
+    ConvenioRepository convenioRepository;
+
+    @Autowired
+    ProgramasRepository programaRepository;
 
     public TransaccionesNominaResource(TransaccionesNominaRepository transaccionesNominaRepository) {
         this.transaccionesNominaRepository = transaccionesNominaRepository;
@@ -331,7 +353,7 @@ public class TransaccionesNominaResource {
     }
 
     @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
-    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocumentAllDepartments(
+    public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocumentAllDepartments(
         @PathVariable("typeDocument") String typeDocument,
         @PathVariable("numberDocument") Integer numberDocument
     ) {
@@ -339,7 +361,56 @@ public class TransaccionesNominaResource {
             typeDocument,
             numberDocument
         );
-        return transaccionesNomina;
+
+        log.info(
+            "                                                                                                          " +
+            transaccionesNomina
+        );
+
+        List<TransaccionesNominaListDTO> transaccionesNominas2 = new ArrayList<TransaccionesNominaListDTO>();
+
+        for (int i = 0; i < transaccionesNomina.size(); i++) {
+            TransaccionesNominaListDTO transaccionesWithChange = new TransaccionesNominaListDTO();
+
+            transaccionesWithChange.setTipoDocumentoBenef(transaccionesNomina.get(i).getTipoDocumentoBenef());
+            transaccionesWithChange.setNumeroDocumentoBenef(transaccionesNomina.get(i).getNumeroDocumentoBenef());
+            transaccionesWithChange.setFechaPago(transaccionesNomina.get(i).getFechaPago());
+            transaccionesWithChange.setHoraPago(transaccionesNomina.get(i).getHoraPago());
+            transaccionesWithChange.setPinPago(transaccionesNomina.get(i).getPinPago());
+            transaccionesWithChange.setfKDepartamentoDePago(transaccionesNomina.get(i).getfKDepartamentoDePago());
+            transaccionesWithChange.setfKMunicipioDePago(transaccionesNomina.get(i).getfKMunicipioDePago());
+            transaccionesWithChange.setfKIdConvenio(transaccionesNomina.get(i).getfKIdConvenio());
+            transaccionesWithChange.setfKIdPrograma(transaccionesNomina.get(i).getfKIdPrograma());
+            transaccionesWithChange.setValorGiro(transaccionesNomina.get(i).getValorGiro());
+            transaccionesWithChange.setEstado(transaccionesNomina.get(i).getEstado());
+            transaccionesWithChange.setMotivoAnulacion(transaccionesNomina.get(i).getMotivoAnulacion());
+
+            if (transaccionesNomina.get(i).getfKDepartamentoDePago() != null && transaccionesNomina.get(i).getfKMunicipioDePago() != null) {
+                Departamentos departamentosNombre = departamentosRepository
+                    .getDepartamentosNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKDepartamentoDePago()))
+                    .orElse(null);
+                Municipio municipiosNombre = municipioRepository
+                    .getMunicipioNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKMunicipioDePago()))
+                    .orElse(null);
+                transaccionesWithChange.setfKMunicipioDePago(municipiosNombre.getName());
+                transaccionesWithChange.setfKDepartamentoDePago(departamentosNombre.getName());
+            }
+            if (transaccionesNomina.get(i).getfKIdConvenio() != null && transaccionesNomina.get(i).getfKIdPrograma() != null) {
+                Programas programasNombre = programaRepository
+                    .getProgramaNameByNit(transaccionesNomina.get(i).getfKIdPrograma())
+                    .orElse(null);
+                Convenio conveniosNombre = convenioRepository
+                    .getConvenioNameByNit(transaccionesNomina.get(i).getfKIdConvenio())
+                    .orElse(null);
+                transaccionesWithChange.setfKIdConvenio(conveniosNombre.getName());
+                transaccionesWithChange.setfKIdPrograma(programasNombre.getName());
+            }
+
+            transaccionesNominas2.add(transaccionesWithChange);
+            // transaccionesNomina.get(i).setfKDepartamentoDePago(transaccionesWithChange.getfKDepartamento());
+
+        }
+        return transaccionesNominas2;
     }
 
     // @GetMapping("/transacciones-nominas/departments")
