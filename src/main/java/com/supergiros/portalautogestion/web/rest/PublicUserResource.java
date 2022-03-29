@@ -1,6 +1,5 @@
 package com.supergiros.portalautogestion.web.rest;
 
-import aj.org.objectweb.asm.Type;
 import com.supergiros.portalautogestion.service.UserService;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
 import java.util.*;
@@ -34,10 +33,12 @@ public class PublicUserResource {
     }
 
     /**
-     * {@code GET /users} : get all users with only the public informations - calling this are allowed for anyone.
+     * {@code GET /users} : get all users with only the public informations -
+     * calling this are allowed for anyone.
      *
      * @param pageable the pagination information.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body all users.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body
+     *         all users.
      */
     @GetMapping("/users")
     public ResponseEntity<List<UserDTO>> getAllPublicUsers(@org.springdoc.api.annotations.ParameterObject Pageable pageable) {
@@ -57,6 +58,7 @@ public class PublicUserResource {
 
     /**
      * Gets a list of all roles.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/authorities")
@@ -66,6 +68,7 @@ public class PublicUserResource {
 
     /**
      * Gets a list of all departamentos.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getDepartamentos")
@@ -75,24 +78,37 @@ public class PublicUserResource {
 
     /**
      * Gets the id of Departamento using its name.
+     *
      * @return a string list of all roles.
      */
-    @GetMapping("/getIdDepartamentos")
-    public Long getIdDepartamentos(String departamentoName) {
-        return userService.findIdByName(departamentoName);
+    @GetMapping("/findIdByMultiplesName")
+    public List<Long> findIdByMultiplesName(String[] departamentoName) {
+        return userService.findIdByMultiplesName(departamentoName);
     }
 
     /**
-     * Gets a list of all municipios.
+     * Gets the id of Departamento using its name.
+     *
      * @return a string list of all roles.
      */
-    @GetMapping("/getMunicipios")
-    public List<String> getMunicipios(Long fkDepartmanento) {
-        return userService.getMunicipiosName(fkDepartmanento);
+    @GetMapping("/findIdByMultipleName")
+    public Long findIdByMultipleName(String departamentoName) {
+        return userService.findIdByMultipleName(departamentoName);
+    }
+
+    /**
+     * Gets the id of Departamento using its name.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findDepartamentosIDByMunicipioName")
+    public String findDepartamentosIDByMunicipioName(String municipioName) {
+        return userService.findDepartamentosIDByMunicipioName(municipioName);
     }
 
     /**
      * Gets the id of Municipio using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getIdMunicipios")
@@ -102,6 +118,7 @@ public class PublicUserResource {
 
     /**
      * Gets a list of all convenios.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getConvenio")
@@ -110,7 +127,8 @@ public class PublicUserResource {
     }
 
     /**
-     * Gets the id of convenio  using its name.
+     * Gets the id of convenio using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getIdConvenio")
@@ -121,6 +139,7 @@ public class PublicUserResource {
 
     /**
      * Gets a list of all programas.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getProgramas")
@@ -130,6 +149,7 @@ public class PublicUserResource {
 
     /**
      * Gets the id of programa using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/getIdProgramas")
@@ -137,8 +157,70 @@ public class PublicUserResource {
         return userService.findIdByNamePrograma(programaName);
     }
 
+    @GetMapping("/findDepartamentosNameByID")
+    public List<String> findDepartamentosNameByID(Long IdUser) {
+        return userService.findDepartamentosNameByID(IdUser);
+    }
+
+    @GetMapping("/findMunicipiosNameByID")
+    public List<String> findMunicipiosNameByID(Long IdUser) {
+        return userService.findMunicipiosNameByID(IdUser);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getMunicipios")
+    public List<String> getMunicipios(Long fkDepartmanento) {
+        return userService.getMunicipiosName(fkDepartmanento);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getMultiplesMunicipios")
+    public List<String> getMunicipios(Long[] fkDepartmanento) {
+        return userService.getMunicipiosNames(fkDepartmanento);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findProgramaName")
+    public String findProgramaName(Long IdUser) {
+        return userService.findProgramaName(IdUser);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findProgramasName")
+    public Long findProgramasName(Long IdUser, String programaName) {
+        return userService.findProgramasName(IdUser, programaName);
+    }
+
+    /**
+     * Gets a list of all municipios.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findConvenioID")
+    public Long findConvenioID(Long IdUser) {
+        return userService.findConvenioID(IdUser);
+    }
+
+    //DUDOSOS
     /**
      * Gets a boolean confirmation if document type and document number exist in DB.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/searchInDB")
@@ -151,6 +233,7 @@ public class PublicUserResource {
 
     /**
      * Gets the id of programa using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/findNameByIdConvenio")
@@ -160,6 +243,7 @@ public class PublicUserResource {
 
     /**
      * Gets the id of programa using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/findNameByIdPrograma")
@@ -169,6 +253,7 @@ public class PublicUserResource {
 
     /**
      * Gets the id of programa using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/findNameByIdDepartamento")
@@ -178,10 +263,41 @@ public class PublicUserResource {
 
     /**
      * Gets the id of programa using its name.
+     *
      * @return a string list of all roles.
      */
     @GetMapping("/findNameByIdMunicipio")
     public List<String> findNameByIdMunicipio(Long municipioId) {
         return userService.findNameByIdMunicipio(municipioId);
+    }
+
+    /**
+     * Gets the id of Departamento using its name.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getIdDepartamentos")
+    public Long getIdDepartamentos(String departamentoName) {
+        return userService.findIdByName(departamentoName);
+    }
+
+    /**
+     * Gets the id of Departamento using its name.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/getDepartamentosIDByMunicipiosName")
+    public Long getDepartamentosIDByMunicipiosName(String municipioName) {
+        return userService.findDepartamentosIDByMunicipiosName(municipioName);
+    }
+
+    /**
+     * Gets the id of Departamento using its name.
+     *
+     * @return a string list of all roles.
+     */
+    @GetMapping("/findMultiplesDepartamentosIDByMunicipiosName")
+    public List<String> findMultiplesDepartamentosIDByMunicipiosName(String[] municipioName) {
+        return userService.findMultiplesDepartamentosIDByMunicipiosName(municipioName);
     }
 }

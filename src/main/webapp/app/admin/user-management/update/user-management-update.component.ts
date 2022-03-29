@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { GrillaManagementService } from '../service/grilla-management.service';
   selector: 'jhi-user-mgmt-update',
   templateUrl: './user-management-update.component.html',
 })
-export class UserManagementUpdateComponent implements OnInit {
+export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   user!: User;
 
   udmmodel!: udmModel;
@@ -20,10 +20,16 @@ export class UserManagementUpdateComponent implements OnInit {
   municipiosListFull: string[] = [];
   departamentosListFull: string[] = [];
 
+  departamentosListNameFull: string[] = [];
+  municipiosListNameFull: string[] = [];
+
+  municipiosListIDFull: number[] = [];
+
   convenioNameEdit: string[] = [];
   programaNameEdit: string[] = [];
-  departamentoNameEdit: string[] = [];
-  municipioNameEdit: string[] = [];
+
+  convenioNIT!: string;
+  programaNIT!: string;
 
   municipiosListId: string[] = [];
   municipiosList: string[] = [];
@@ -31,6 +37,7 @@ export class UserManagementUpdateComponent implements OnInit {
 
   languages = LANGUAGES;
   documenttypes = DOCUMENTTYPE;
+
   authorities: string[] = [];
   departamento: string[] = [];
   municipio: string[] = [];
@@ -42,15 +49,10 @@ export class UserManagementUpdateComponent implements OnInit {
   convenioName!: string;
   programaName!: string;
 
-  isMunicipios = false;
-
-  idDepartamento!: number;
+  idDepartamentos: number[] = [];
   idConvenio!: number;
   validadorCelphone!: number;
   validadorEmail!: string;
-
-  convenioNIT!: string;
-  programaNIT!: string;
 
   isSaving = false;
   celphoneCredentialsError = false;
@@ -58,7 +60,6 @@ export class UserManagementUpdateComponent implements OnInit {
   idCredentialsError = false;
   addLocationVerification = true;
   saveReady = true;
-  departamentoNumber = 0;
 
   editForm = this.fb.group({
     id: [],
@@ -71,13 +72,10 @@ export class UserManagementUpdateComponent implements OnInit {
     firstName: ['', [Validators.required]],
     lastName: ['', [Validators.maxLength(50), Validators.required]],
     email: ['', [Validators.minLength(5), Validators.maxLength(254), Validators.email, Validators.required]],
-
     convenio: ['', [Validators.required]],
     programa: ['', [Validators.required]],
     departamento: ['', [Validators.required]],
     municipio: ['', [Validators.required]],
-
-    isMunicipios: [],
     activated: [],
     langKey: [],
     authorities: ['', [Validators.required]],
@@ -90,19 +88,70 @@ export class UserManagementUpdateComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  ngAfterViewInit(): void {
+    this.route.data.subscribe(({ user }) => {
+      if (user) {
+        this.user = user;
+        this.updateForm(user);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.route.data.subscribe(({ user }) => {
       if (user) {
         this.user = user;
         if (this.user.id === undefined) {
           this.user.activated = true;
-        }
+        } else {
+          this.userService.getDepartamentosName(this.user.id).subscribe(x => {
+            this.departamentosListNameFull = x;
+            //MUESTRA LOS MUNICIPIOS EN EL FRONTEND
+            for (let index = 0; index < this.departamentosListNameFull.length; index++) {
+              this.userService.getIdMultipleDepartamentos(this.departamentosListNameFull[index]).subscribe(xx => {
+                this.municipiosListIDFull.push(xx);
+                this.userService.getMultiplesMunicipios(this.municipiosListIDFull).subscribe(xxx => {
+                  this.municipio = xxx;
+                });
+              });
+            }
+            this.departamentoName = this.departamentosListNameFull.toString();
+            this.editForm.patchValue({
+              departamento: this.departamentosListNameFull,
+            });
+          });
 
-        this.updateForm(user);
+          this.userService.findMunicipiosNameByID(this.user.id).subscribe(x => {
+            this.municipiosListNameFull = x;
+            //this.municipioName = this.municipiosListNameFull.toString();
+            this.editForm.patchValue({
+              municipio: this.municipiosListNameFull,
+            });
+          });
+
+          this.userService.findConvenioID(this.user.id).subscribe(x => {
+            this.userService.getProgramas(Number(x)).subscribe(xx => {
+              this.programa = xx;
+              this.programaName = xx.toString();
+              this.convenioName = 'DPS – Departamento para la Prosperidad Social';
+
+              // for (let index = 0; index < xx.length; index++) {
+              //   //const element = array[index];
+              //   this.userService.findProgramasName(Number(this.user.id!),(xx[index])).subscribe(xxx =>{
+              //     if((xxx) === ((this.user.programa)?.toString())){
+              //     }
+              //   });
+              // }
+            });
+          });
+
+          // this.userService.findProgramaName(this.user.id).subscribe(x =>{});
+        }
       }
     });
-    this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
+
     this.userService.getDepartamentos().subscribe(departamentosName => (this.departamento = departamentosName));
+    this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
     this.userService.getConvenios().subscribe(conveniosName => (this.convenio = conveniosName));
   }
 
@@ -167,38 +216,12 @@ export class UserManagementUpdateComponent implements OnInit {
   }
 
   private updateForm(user: User): void {
-    //this.userService.getNameConvenio(Number(user.convenio)).subscribe(xx =>{ this.convenioNameEdit = xx});
-    //this.userService.getNamePrograma((user.programa)!).subscribe(xxx =>{ this.programaNameEdit = xxx});
-    //this.userService.getNameDepartamento(Number(user.id)).subscribe(xx =>this.departamentoNameEdit= (xx));
-    //this.userService.getNameMunicipio((user.id)!).subscribe(xxx =>{ this.municipioNameEdit = xxx});
-
-    // this.userService.getNameConvenio(Number(user.convenio)).subscribe(ConvenioNameResp => {
-
-    //   this.convenioNameEdit = ConvenioNameResp
-    // });
-
-    // if (user.programa === 1) {
-    //   this.editForm.patchValue({ programa: "Ingreso solidario" });
-    // }
-    // else if (user.programa === 2){
-    //   this.editForm.patchValue({ programa: "Devolución IVA" });
-
-    // }
-    // else if (user.programa === 3){
-    //   this.editForm.patchValue({ programa: "Colombia Mayor" });
-
-    // }
-    // else if (user.programa === 4){
-    //   this.editForm.patchValue({ programa: "Jóvenes Transformadores" });
-
-    // }
-
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
       documentType: user.documentType,
-
       convenio: user.convenio === 1 ? 'DPS – Departamento para la Prosperidad Social' : user.convenio,
+      programa: user.programa === 1 ? 'Devolución IVA' : user.programa,
       celphone: user.celphone,
       firstName: user.firstName,
       lastName: user.lastName,
@@ -212,7 +235,6 @@ export class UserManagementUpdateComponent implements OnInit {
   private updateUser(user: User): void {
     user.login = this.editForm.get(['login'])!.value;
     user.documentType = this.editForm.get(['documentType'])!.value;
-
     this.validadorCelphone = this.editForm.get(['celphone'])!.value;
     if (this.validadorCelphone.toString().startsWith('3')) {
       user.celphone = this.editForm.get(['celphone'])!.value;
@@ -220,7 +242,6 @@ export class UserManagementUpdateComponent implements OnInit {
     } else {
       this.celphoneCredentialsError = true;
     }
-
     user.firstName = this.editForm.get(['firstName'])!.value;
     user.email = this.editForm.get(['email'])!.value;
     // if (this.validadorEmail.toString().endsWith('@supergiros.com.co')) {
@@ -229,7 +250,6 @@ export class UserManagementUpdateComponent implements OnInit {
     // } else {
     //   this.emailCredentialsError = true;
     // }
-
     user.lastName = this.editForm.get(['lastName'])!.value;
     user.activated = this.editForm.get(['activated'])!.value;
     user.langKey = this.editForm.get(['langKey'])!.value;
@@ -238,26 +258,44 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateDepartamento(user: User): void {
     const ad = this.editForm.get(['departamento'])!.value.toString();
-    //user.departamentoName = ad;
     this.departamentoName = ad;
-    this.userService.getIdDepartamentos(ad).subscribe(xx => (this.idDepartamento = xx));
+    this.userService.getIdMultiplesDepartamentos(ad).subscribe(xx => {
+      //MUESTRA LOS MUNICIPIOS EN EL FRONTEND
+      this.idDepartamentos = xx;
+      this.userService.getMultiplesMunicipios(this.idDepartamentos).subscribe(xxx => (this.municipio = xxx));
+    });
   }
 
+  //Este botón ya no existe, llama la función SQLMUNICIPIO()
   private updateMunicipio(user: User): void {
-    this.userService.getMunicipios(this.idDepartamento).subscribe(xxx => (this.municipio = xxx));
+    this.userService.getMultiplesMunicipios(this.idDepartamentos).subscribe(xxx => (this.municipio = xxx));
   }
 
   private addDepartamentoAndMunicipio(user: User): void {
-    //user.departamento = this.idDepartamento;
-    this.departamentosList = this.idDepartamento.toString();
     const ad = this.editForm.get(['municipio'])!.value;
     this.municipiosList = ad;
 
-    this.municipioName = ad.toString();
-    for (let index = 0; index < ad.length; index++) {
-      this.userService.getIdMunicipios(ad[index]).subscribe(xx => (this.municipiosListId[index] = xx.toString()));
+    // for (let index = 0; index < ad.length; index++) {
+    //   if (ad[index]==='--TODOS--'){
 
-      this.departamentosListFull.push(this.idDepartamento.toString());
+    //   }
+    // }
+    this.municipioName = ad.toString();
+
+    for (let index = 0; index < ad.length; index++) {
+      this.userService.findDepartamentosIDByMunicipioName(ad[index]).subscribe(x => {
+        this.idDepartamentos.push(Number(x));
+        this.departamentosListFull.push(x);
+      });
+      this.userService.getIdMunicipios(ad[index]).subscribe(xx => {
+        this.municipiosListId[index] = xx.toString();
+      });
+    }
+
+    if (ad.length === this.municipio.length) {
+      this.municipioName = 'Todos los Municipios';
+    } else {
+      user.departamentos = this.departamentoName;
     }
 
     if (this.municipioName === '-TODOS-') {
@@ -268,7 +306,6 @@ export class UserManagementUpdateComponent implements OnInit {
     } else {
       this.saveReady = true;
       this.addLocationVerification = false;
-      //this.saveReady = true;
     }
   }
 
@@ -281,15 +318,17 @@ export class UserManagementUpdateComponent implements OnInit {
 
   private updateConvenio(user: User): void {
     const ad = this.editForm.get(['convenio'])!.value.toString();
-
     this.convenioName = ad;
     user.convenioName = this.convenioName;
-
-    this.userService.getIdConvenios(ad).subscribe(xx => (this.idConvenio = xx));
+    this.userService.getIdConvenios(ad).subscribe(xx => {
+      this.idConvenio = xx;
+      this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
+    });
   }
 
+  //El botón que lo llama esta comentado, el botón llama a la funcion SQLPROGRAMA()
   private updatePrograma(user: User): void {
-    const ad = this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
+    this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
   }
 
   private addConvenioAndPrograma(user: User): void {

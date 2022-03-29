@@ -2,7 +2,6 @@ package com.supergiros.portalautogestion.service;
 
 import com.supergiros.portalautogestion.config.Constants;
 import com.supergiros.portalautogestion.domain.Authority;
-import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.domain.User;
 import com.supergiros.portalautogestion.repository.AuthorityRepository;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
@@ -13,8 +12,6 @@ import com.supergiros.portalautogestion.security.SecurityUtils;
 import com.supergiros.portalautogestion.service.dto.AdminUserDTO;
 import com.supergiros.portalautogestion.service.dto.UserDTO;
 import com.supergiros.portalautogestion.service.dto.UserDepartamentoMunicipioDTO;
-import com.supergiros.portalautogestion.service.mapper.UserMapper;
-import java.io.Console;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -74,16 +71,28 @@ public class UserService {
         return departamentosRepository.getDepartamentosName();
     }
 
-    public Long findIdByName(String departamentoName) {
-        return departamentosRepository.findIdByName(departamentoName);
+    public List<Long> findIdByMultiplesName(String[] departamentoName) {
+        List<Long> Departamentos = new ArrayList();
+        for (int index = 0; index < departamentoName.length; index++) {
+            Departamentos.add(departamentosRepository.findIdByName(departamentoName[index]));
+        }
+        return Departamentos;
     }
 
-    public List<String> getMunicipiosName(Long fkDepartmanento) {
-        return departamentosRepository.getMunicipiosName(fkDepartmanento);
+    public Long findIdByMultipleName(String departamentoName) {
+        Long Departamento;
+        Departamento = (departamentosRepository.findIdByName(departamentoName));
+
+        return Departamento;
     }
 
     public Long findIdByNameMunicipio(String municipioName) {
         return departamentosRepository.findIdByNameMunicipio(municipioName);
+    }
+
+    public String findDepartamentosIDByMunicipioName(String municipioName) {
+        String departamentoId = (departamentosRepository.findDepartamentosIDByMunicipioName(municipioName)).toString();
+        return departamentoId;
     }
 
     public void userDMInsert(UserDepartamentoMunicipioDTO udmDTO) {
@@ -116,41 +125,25 @@ public class UserService {
         return departamentosRepository.findIdByNamePrograma(programaName);
     }
 
-    public List<String> findNameByIdConvenio(Long convenioId) {
-        return departamentosRepository.findNameByIdConvenio(convenioId);
+    public List<String> findDepartamentosNameByID(Long IdUser) {
+        return departamentosRepository.findDepartamentosNameByID(IdUser);
     }
 
-    public List<String> findNameByIdPrograma(Long programaId) {
-        return departamentosRepository.findNameByIdPrograma(programaId);
+    public List<String> findMunicipiosNameByID(Long IdUser) {
+        return departamentosRepository.findMunicipiosNameByID(IdUser);
     }
 
-    public List<String> findNameByIdDepartamento(Long departamentoId) {
-        return departamentosRepository.findNameByIdDepartamento(departamentoId);
+    public String findProgramaName(Long IdUser) {
+        return (departamentosRepository.findProgramaName(IdUser)).toString();
     }
 
-    public List<String> findNameByIdMunicipio(Long municipioId) {
-        return departamentosRepository.findNameByIdMunicipio(municipioId);
+    //Intento2
+    public Long findProgramasName(Long IdUser, String programaName) {
+        return departamentosRepository.findProgramasName(IdUser, programaName);
     }
 
-    // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
-
-    //     List<Long> idsLista= Collections.emptyList();
-
-    //     for (int index = 0; index < departamentosLista.length; index++) {
-    //         Optional<Departamentos> departamento = departamentosRepository.findListbyId(string);
-    //         idsLista.add(departamento.get().getId());
-    //     }
-
-    //     return idsLista;
-    // }
-
-    // @Transactional(readOnly = true)
-    // public List<String> getAuthorities() {
-    //     return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
-    // }
-
-    public Boolean searchInDB(String login, String documentType) {
-        return departamentosRepository.searchInDB(login, documentType);
+    public Long findConvenioID(Long IdUser) {
+        return departamentosRepository.findConvenioID(IdUser);
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -235,6 +228,7 @@ public class UserService {
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
+        //newUser.setDepartamentos(userDTO.getDepartamentos());
         if (userDTO.getEmail() != null) {
             newUser.setEmail(userDTO.getEmail().toLowerCase());
         }
@@ -268,6 +262,7 @@ public class UserService {
         user.setConvenio(userDTO.getConvenio());
         user.setPrograma(userDTO.getPrograma());
         user.setDepartamento(userDTO.getDepartamento());
+        //user.setDepartamentos(userDTO.getDepartamentos());
         user.setMunicipio(userDTO.getMunicipio());
         user.setDocumentType(userDTO.getDocumentType());
         user.setCelphone(userDTO.getCelphone());
@@ -322,6 +317,7 @@ public class UserService {
                 user.setConvenio(userDTO.getConvenio());
                 user.setPrograma(userDTO.getPrograma());
                 user.setDepartamento(userDTO.getDepartamento());
+                // user.setDepartamentos(userDTO.getDepartamentos());
                 user.setMunicipio(userDTO.getMunicipio());
                 user.setDocumentType(userDTO.getDocumentType());
                 user.setCelphone(userDTO.getCelphone());
@@ -361,7 +357,8 @@ public class UserService {
     }
 
     /**
-     * Update basic information (first name, last name, email, language) for the current user.
+     * Update basic information (first name, last name, email, language) for the
+     * current user.
      *
      * @param firstName first name of user.
      * @param lastName  last name of user.
@@ -423,6 +420,11 @@ public class UserService {
         return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
     }
 
+    @Transactional(readOnly = true)
+    public List<String> getAuthorities() {
+        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
+    }
+
     /**
      * Not activated users should be automatically deleted after 3 days.
      * <p>
@@ -441,12 +443,9 @@ public class UserService {
 
     /**
      * Gets a list of all the authorities.
+     *
      * @return a list of all the authorities.
      */
-    @Transactional(readOnly = true)
-    public List<String> getAuthorities() {
-        return authorityRepository.findAll().stream().map(Authority::getName).collect(Collectors.toList());
-    }
 
     private void clearUserCaches(User user) {
         Objects.requireNonNull(cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE)).evict(user.getLogin());
@@ -486,6 +485,69 @@ public class UserService {
             });
     }
 
+    public void setJWT(String jwt, String login) {
+        userRepository.setJWT(jwt, login);
+    }
+
+    public Long findIdByName(String departamentoName) {
+        return departamentosRepository.findIdByName(departamentoName);
+    }
+
+    public List<String> getMunicipiosName(Long fkDepartmanento) {
+        return departamentosRepository.getMunicipiosName(fkDepartmanento);
+    }
+
+    public List<String> getMunicipiosNames(Long[] fkDepartmanento) {
+        List<String> Municipios = new ArrayList();
+        for (int index = 0; index < fkDepartmanento.length; index++) {
+            Municipios.addAll(departamentosRepository.getMunicipiosName(fkDepartmanento[index]));
+        }
+        return Municipios;
+    }
+
+    //DUDOSOS
+
+    public Long findDepartamentosIDByMunicipiosName(String municipioName) {
+        return departamentosRepository.findDepartamentosIDByMunicipiosName(municipioName);
+    }
+
+    public List<String> findMultiplesDepartamentosIDByMunicipiosName(String[] municipioName) {
+        List<String> Departamentos = new ArrayList();
+        for (int index = 0; index < municipioName.length; index++) {
+            Departamentos.addAll((departamentosRepository.findMultiplesDepartamentosIDByMunicipiosName(municipioName[index])));
+            System.out.print(
+                "AQUIIIIIIIIIIIIIII Departamentos completo: " + Departamentos + " Departamento[i]: " + Departamentos.get(index)
+            );
+        }
+        return Departamentos;
+    }
+
+    public List<String> findNameByIdConvenio(Long convenioId) {
+        return departamentosRepository.findNameByIdConvenio(convenioId);
+    }
+
+    public List<String> findNameByIdPrograma(Long programaId) {
+        return departamentosRepository.findNameByIdPrograma(programaId);
+    }
+
+    public List<String> findNameByIdDepartamento(Long departamentoId) {
+        return departamentosRepository.findNameByIdDepartamento(departamentoId);
+    }
+
+    public List<String> findNameByIdMunicipio(Long municipioId) {
+        return departamentosRepository.findNameByIdMunicipio(municipioId);
+    }
+
+    // public List<Long> findIdsDepartamentos(List <String> departamentosLista){
+    // List<Long> idsLista= Collections.emptyList();
+    // for (int index = 0; index < departamentosLista.length; index++) {
+    // Optional<Departamentos> departamento =
+    // departamentosRepository.findListbyId(string);
+    // idsLista.add(departamento.get().getId());
+    // }
+    // return idsLista;
+    // }
+
     public List<Long> findIdsDepartamentos(List<String> departamentosLista) {
         System.out.println("inicio");
         List<Long> idsLista = new ArrayList<>();
@@ -499,7 +561,7 @@ public class UserService {
         return idsLista;
     }
 
-    public void setJWT(String jwt, String login) {
-        userRepository.setJWT(jwt, login);
+    public Boolean searchInDB(String login, String documentType) {
+        return departamentosRepository.searchInDB(login, documentType);
     }
 }
