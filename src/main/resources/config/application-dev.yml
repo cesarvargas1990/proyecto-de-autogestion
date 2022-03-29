@@ -33,8 +33,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/portalautogestion
-    username: postgres
-    password: postgres
+    username: usr_portal
+    password: GirosPortalConvenios.2022
     #username: postgres
     #password: postgres
     hikari:
@@ -103,7 +103,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://agconvenios.supergiros.com.co:8083
+    base-url: https://agconvenios.supergiros.com.co
   logging:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
