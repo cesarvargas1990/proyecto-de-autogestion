@@ -133,7 +133,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
               this.programaName = xx.toString();
-              this.convenioName = 'DPS – Departamento para la Prosperidad Social';
+              this.convenioName = 'DPS - Departamento para la Prosperidad Social';
 
               // for (let index = 0; index < xx.length; index++) {
               //   //const element = array[index];
@@ -220,7 +220,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       id: user.id,
       login: user.login,
       documentType: user.documentType,
-      convenio: user.convenio === 1 ? 'DPS – Departamento para la Prosperidad Social' : user.convenio,
+      convenio: user.convenio === 1 ? 'DPS - Departamento para la Prosperidad Social' : user.convenio,
       programa: user.programa === 1 ? 'Devolución IVA' : user.programa,
       celphone: user.celphone,
       firstName: user.firstName,
