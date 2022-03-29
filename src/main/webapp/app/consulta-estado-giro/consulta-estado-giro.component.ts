@@ -164,27 +164,6 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
               lokesea = lokesea.concat(this.transaccionesNominas2);
 
-              for (let i = 0; i < lokesea.length; i++) {
-                if (lokesea[i].fKDepartamentoDePago !== null && lokesea[i].fKDepartamentoDePago !== undefined) {
-                  this.codDaneDepto(lokesea[i].fKDepartamentoDePago);
-                  this.codDaneMunicipio(lokesea[i].fKMunicipioDePago);
-
-                  setTimeout(() => {
-                    lokesea[i].fKDepartamentoDePago = this.department.name;
-                    lokesea[i].fKMunicipioDePago = this.municipio.name;
-                  }, 100);
-                }
-                if (lokesea[i].fKIdConvenio !== null && lokesea[i].fKIdPrograma !== null) {
-                  this.nitConvenio(lokesea[i].fKIdConvenio);
-                  this.nitProgramas(lokesea[i].fKIdPrograma);
-
-                  setTimeout(() => {
-                    lokesea[i].fKIdConvenio = this.convenio.name;
-                    lokesea[i].fKIdPrograma = this.programas.name;
-                  }, 100);
-                }
-              }
-
               setTimeout(() => {
                 this.transaccionesNominas = lokesea;
               }, 100);
@@ -203,27 +182,6 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
             this.transaccionesNominas2 = res.body ?? [];
 
             lokesea = lokesea.concat(this.transaccionesNominas2);
-
-            for (let i = 0; i < lokesea.length; i++) {
-              if (lokesea[i].fKDepartamentoDePago !== null && lokesea[i].fKDepartamentoDePago !== undefined) {
-                this.codDaneDepto(lokesea[i].fKDepartamentoDePago);
-                this.codDaneMunicipio(lokesea[i].fKMunicipioDePago);
-
-                setTimeout(() => {
-                  lokesea[i].fKDepartamentoDePago = this.department.name;
-                  lokesea[i].fKMunicipioDePago = this.municipio.name;
-                }, 100);
-              }
-              if (lokesea[i].fKIdConvenio !== null && lokesea[i].fKIdPrograma !== null) {
-                this.nitConvenio(lokesea[i].fKIdConvenio);
-                this.nitProgramas(lokesea[i].fKIdPrograma);
-
-                setTimeout(() => {
-                  lokesea[i].fKIdConvenio = this.convenio.name;
-                  lokesea[i].fKIdPrograma = this.programas.name;
-                }, 100);
-              }
-            }
 
             setTimeout(() => {
               this.transaccionesNominas = lokesea;
