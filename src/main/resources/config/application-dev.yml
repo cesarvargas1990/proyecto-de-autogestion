@@ -32,7 +32,7 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://localhost:5432/portalautogestion
+    url: jdbc:postgresql://10.196.19.24:8080/portalautogestion
     username: postgres
     password: postgres
     #username: postgres
