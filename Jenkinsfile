@@ -18,7 +18,7 @@ pipeline {
                     if (fileExists("./settings.xml")){
                         sh ("mvn -s settings.xml package -Pdev  -DskipTest=true -Dmaven.test.skip=true")
                     } else{
-                        sh ("mvn package -Pdev -DskipTest=true -Dmaven.test.skip=true")
+                        sh ("mvn package -Dmaven.test.skip=true -DskipTest=true")
 
                     }
                 }
