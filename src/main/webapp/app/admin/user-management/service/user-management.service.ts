@@ -164,9 +164,9 @@ export class UserManagementService {
     );
   }
 
-  getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
-    return this.http.get<string[]>(
-      this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
-    );
-  }
+  // getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
+  //   return this.http.get<string[]>(
+  //     this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
+  //   );
+  // }
 }

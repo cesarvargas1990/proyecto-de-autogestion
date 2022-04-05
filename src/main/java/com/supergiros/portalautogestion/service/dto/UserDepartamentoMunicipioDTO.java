@@ -7,7 +7,7 @@ public class UserDepartamentoMunicipioDTO {
     // @NotNull
     private Long userId;
 
-    // @NotNull
+     @NotNull
     private String[] municipioName;
 
     // @NotNull
