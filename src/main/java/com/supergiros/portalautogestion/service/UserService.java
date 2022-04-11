@@ -105,6 +105,7 @@ public class UserService {
 
         for (int i = 0; i < municipioName.length; i++) {
             userDepartamentoMunicipioRepository.userDMInsert(userId, departamentoName[i], municipioName[i]);
+            //log.debug("MUNICIPIOOOOOOOOOOOOOOOOOOOOOOS: {}", municipioName[i]);
         }
     }
 
