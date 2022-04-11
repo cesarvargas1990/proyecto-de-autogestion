@@ -46,7 +46,7 @@
         <!-- Dependency versions -->
         <jhipster-dependencies.version>7.6.0</jhipster-dependencies.version>
         <!-- The spring-boot version should match the one managed by
-        https://mvnrepository.com/artifact/tech.jhipster/jhipster-dependencies/${jhipster-dependencies.version} -->
+            ${jhipster-dependencies.version} -->
         <spring-boot.version>2.6.3</spring-boot.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
@@ -99,9 +99,12 @@
                 <version>${jhipster-dependencies.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+
             </dependency>
+
             <!-- jhipster-needle-maven-add-dependency-management -->
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
@@ -121,6 +124,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.logging.log4j</groupId>
+                    <artifactId>log4j-to-slf4j</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
@@ -219,17 +228,13 @@
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 <!-- Logging -->
-    	<!-- <exclusions>
-	    	<exclusion>
-	    		<groupId>org.springframework.boot</groupId>
-	    		<artifactId>spring-boot-starter-logging</artifactId>
-	    	</exclusion>
-    	</exclusions>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.17.1</version>
-        </dependency> -->
+
+
+
+
+        
+
+
 
 
 
@@ -332,6 +337,9 @@
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
+            
+
+
 
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
