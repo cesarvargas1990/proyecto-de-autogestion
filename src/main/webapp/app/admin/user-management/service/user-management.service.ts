@@ -104,6 +104,14 @@ export class UserManagementService {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findMunicipiosNameByID?IdUser=' + `${IdUser}`));
   }
 
+  findMunicipiosNameByIDAndDepartamento(IdUser: number, departamentoId: number[]): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor(
+        'api/findMunicipiosNameByIDAndDepartamento?IdUser=' + `${IdUser}` + '&departamentoId=' + `${departamentoId}`
+      )
+    );
+  }
+
   //NO FUNCIONA
   findProgramaName(IdUser: number): Observable<string> {
     return this.http.get<string>(this.applicationConfigService.getEndpointFor('api/findProgramaName?IdUser=' + `${IdUser}`));
@@ -164,9 +172,9 @@ export class UserManagementService {
     );
   }
 
-  getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
-    return this.http.get<string[]>(
-      this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
-    );
-  }
+  // getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
+  //   return this.http.get<string[]>(
+  //     this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
+  //   );
+  // }
 }

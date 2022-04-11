@@ -56,12 +56,19 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
     @Query(value = "SELECT DISTINCT municipio.fk_departamento FROM municipio WHERE municipio.name = ?1 ", nativeQuery = true)
     String findDepartamentosIDByMunicipioName(String municipioName);
 
-    //TRAER INFO
+    //TRAER INFO ON INIT
     @Query(
         value = "SELECT DISTINCT name FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE jhi_user_location.user_id = ?1 ",
         nativeQuery = true
     )
     List<String> findMunicipiosNameByID(Long IdUser);
+
+    //TRAER INFO EDICIÓN
+    @Query(
+        value = "SELECT DISTINCT name FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE jhi_user_location.user_id = ?1 AND municipio.fk_departamento= ?2 ",
+        nativeQuery = true
+    )
+    List<String> findMunicipiosNameByIDAndDepartamento(Long IdUser, Long departamentoId);
 
     //TRAER Convenio
     @Query(
@@ -86,7 +93,7 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
 
     //DUDOSOS
 
-    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 OR municipio.fk_departamento = 35 ", nativeQuery = true)
+    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 ", nativeQuery = true)
     List<String> getMunicipiosName(Long fkDepartmanento);
 
     @Query(

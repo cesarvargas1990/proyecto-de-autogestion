@@ -5,7 +5,7 @@
 
       <div *ngIf="user">
         <jhi-alert-error></jhi-alert-error>
-        <!-- EDIT -->
+        <!-- EDIT: MOSTRAR ID -->
         <div class="form-group" [hidden]="!user.id">
           <label jhiTranslate="global.field.id">ID</label>
           <input type="text" class="form-control" name="id" formControlName="id" readonly />
@@ -64,12 +64,28 @@
           </div>
           <div class="col-md-1" [hidden]="user.id"></div>
 
-          <!-- CREAR -->
+          <!-- CREAR: TIPO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
-            <select style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
-              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" required>{{ documenttypes }}</option>
-            </select>
+            <!-- <select style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
+              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" required>{{ documenttypes }}
+              </option>
+            </select> -->
+            <!-- TIPO DE DOCUMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
+
+            <div class="drop-container">
+              <ng-multiselect-dropdown
+                name="documentType"
+                formControlName="documentType"
+                [settings]="dropdownSettingsdocumenttypes"
+                [placeholder]="'Seleccionar Tipo Documento'"
+                class="form-row"
+                [data]="documenttypes.sort()"
+                >{{ documenttypes }}
+              </ng-multiselect-dropdown>
+            </div>
+
+            <!-- TIPO DE DOCUMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 
             <div
               *ngIf="
@@ -88,7 +104,7 @@
           </div>
 
           <div class="col-md-1"></div>
-          <!-- CREAR -->
+          <!-- CREAR: NÚMERO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label class="form-control-label">Número de documento</label>
             <input
@@ -133,7 +149,7 @@
             <div class="alert alert-danger" *ngIf="idCredentialsError" jhiTranslate="userManagement.idCredentialsError"></div>
           </div>
 
-          <!-- EDIT -->
+          <!-- EDIT: TIPO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
             <select readonly style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
@@ -157,7 +173,7 @@
           </div>
 
           <div class="col-md-1"></div>
-          <!-- EDIT -->
+          <!-- EDIT: NÚMERO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.login" class="form-control-label">Número de documento</label>
             <input
@@ -237,31 +253,54 @@
             <div class="alert alert-danger" *ngIf="celphoneCredentialsError" jhiTranslate="userManagement.celphoneCredentialsError"></div>
           </div>
 
-          <div class="col-md-2"></div>
+          <div class="col-md-1"></div>
 
           <div class="col-md-1">
             <label class="form-control-label">¿Activado?</label>
-
             <label class="form-check-label" for="activated">
               <input
                 style="vertical-align: bottom"
-                class="form-check-input"
+                class="form-row"
+                style="margin: 1rem"
                 type="checkbox"
                 id="activated"
                 name="activated"
                 formControlName="activated"
               />
-              <span jhiTranslate="userManagement.activated">Activated</span>
+              <!-- <span jhiTranslate="userManagement.activated">Activated</span> -->
             </label>
           </div>
 
-          <div class="col-md-1 mb-1"></div>
+          <div class="col-md-1">
+            <!-- <div class="d-flex justify-content-left"> -->
+
+            <!-- </div> -->
+          </div>
+
+          <div class="col-md-1"></div>
 
           <div class="col-md-2 mb-2">
             <label style="text-align: center" jhiTranslate="userManagement.profiles">Profiles</label>
-            <select class="form-control" multiple name="authority" formControlName="authorities">
+
+            <!-- <select class="form-control" multiple name="authority" formControlName="authorities">
               <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select>
+            </select> -->
+
+            <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+
+            <div class="drop-container">
+              <ng-multiselect-dropdown
+                name="authority"
+                formControlName="authorities"
+                [settings]="dropdownSettings"
+                [placeholder]="'Seleccionar Rol'"
+                class="form-row"
+                [data]="authorities"
+                >{{ authorities }}
+              </ng-multiselect-dropdown>
+            </div>
+
+            <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
           </div>
         </div>
 
@@ -270,9 +309,25 @@
             <div class="form-group">
               <label class="form-control-label">Convenio</label>
 
-              <select class="form-control" name="convenio" formControlName="convenio">
+              <!-- <select class="form-control" name="convenio" formControlName="convenio">
                 <option *ngFor="let convenio of convenio.sort()" [value]="convenio">{{ convenio }}</option>
-              </select>
+              </select> -->
+
+              <!-- CONVENIOOOOOOOOOOOOOOOOOOOOO -->
+
+              <div class="drop-container">
+                <ng-multiselect-dropdown
+                  name="convenio"
+                  formControlName="convenio"
+                  [settings]="dropdownSettingsdocumenttypes"
+                  [placeholder]="'Seleccionar Convenio'"
+                  class="form-row"
+                  [data]="convenio.sort()"
+                  >{{ convenio }}
+                </ng-multiselect-dropdown>
+              </div>
+
+              <!-- CONVENIOOOOOOOOOOOOOOOOOOOOO -->
 
               <div *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
                 <small
@@ -284,12 +339,12 @@
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
-
-              <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="departamentoName">
-                <fa-icon icon="check" value="Agregar departamento"></fa-icon>
-                Agregar Convenio
-              </button>
             </div>
+
+            <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="departamentoName">
+              <fa-icon value="Agregar departamento"></fa-icon>
+              Agregar Convenio
+            </button>
           </div>
 
           <div class="col-md-1"></div>
@@ -298,9 +353,25 @@
             <div class="form-group">
               <label class="form-control-label">Programa</label>
 
-              <select class="form-control" name="programa" formControlName="programa">
+              <!-- <select class="form-control" name="programa" formControlName="programa">
                 <option *ngFor="let programa of programa.sort()" [value]="programa">{{ programa }}</option>
-              </select>
+              </select> -->
+
+              <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
+
+              <div class="drop-container">
+                <ng-multiselect-dropdown
+                  name="programa"
+                  formControlName="programa"
+                  [settings]="dropdownSettingsdocumenttypes"
+                  [placeholder]="'Seleccionar Programa'"
+                  class="form-row"
+                  [data]="programa.sort()"
+                  >{{ programa }}
+                </ng-multiselect-dropdown>
+              </div>
+
+              <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
 
               <div *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
                 <small
@@ -312,91 +383,100 @@
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
-              <button type="button" class="btn-info btn-secondary" (click)="sqlAddAgreements()" value="Mostrar municipios">
-                <fa-icon icon="save"></fa-icon>
-                Agregar Programa
-              </button>
             </div>
-          </div>
 
-          <div class="col-md-1">
-            <!-- <button type="button" class="btn-dark btn-secondary" (click)="sqlprograma()" value="Mostrar municipios">
-              <fa-icon icon="list"></fa-icon>
-            </button> -->
-          </div>
-
-          <!-- CREAR -->
-          <div class="col-md-2 mb-2" [hidden]="user.id">
-            <div class="form-group">
-              <label class="form-control-label">Departamento</label>
-
-              <select class="form-control" name="departamento" formControlName="departamento" type="checkbox">
-                <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}</option>
-              </select>
-
-              <div
-                *ngIf="
-                  editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
-                "
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
-                  jhiTranslate="entity.validation.maxlength"
-                  [translateValues]="{ max: 50 }"
-                >
-                  This field cannot be longer than 50 characters.
-                </small>
-              </div>
-
-              <button type="button" class="btn-info btn-secondary" (click)="sqlask()" value="Agregar departamento">
-                <fa-icon icon="check"></fa-icon>
-                Agregar Departamento
-              </button>
-            </div>
-          </div>
-
-          <!-- EDIT -->
-          <div class="col-md-2 mb-2" [hidden]="!user.id">
-            <div class="form-group">
-              <label class="form-control-label">Departamento</label>
-
-              <select class="form-control" multiple name="departamento" formControlName="departamento" type="checkbox">
-                <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}</option>
-              </select>
-
-              <div
-                *ngIf="
-                  editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
-                "
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
-                  jhiTranslate="entity.validation.maxlength"
-                  [translateValues]="{ max: 50 }"
-                >
-                  This field cannot be longer than 50 characters.
-                </small>
-              </div>
-
-              <button type="button" class="btn-info btn-secondary" (click)="sqlask()" value="Agregar departamento">
-                <fa-icon icon="check"></fa-icon>
-                Agregar Departamento
-              </button>
-            </div>
+            <button type="button" class="btn-info btn-secondary" (click)="sqlAddAgreements()" value="Mostrar municipios">
+              <fa-icon></fa-icon>
+              Agregar Programa
+            </button>
           </div>
 
           <div class="col-md-1"></div>
 
-          <!-- MUNICIPIO: CREAR -->
+          <!-- EDIT: y CREAR: DEPARTAMENTO -->
+          <!-- <div class="col-md-2 mb-2" [hidden]="!user.id"> -->
+          <div class="col-md-2 mb-2">
+            <div class="form-group">
+              <label class="form-control-label">Departamento</label>
+
+              <!-- <select type="checkbox" class="form-control" multiple name="departamento" formControlName="departamento"
+                type="checkbox">
+                <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}
+                </option>
+              </select> -->
+
+              <!-- DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS -->
+
+              <div class="drop-container">
+                <ng-multiselect-dropdown
+                  name="departamento"
+                  formControlName="departamento"
+                  [placeholder]="'Seleccionar Departamento'"
+                  class="form-row"
+                  [settings]="dropdownSettingsDepartamento"
+                  [data]="dropdownList.sort()"
+                  >{{ departamento }}
+                </ng-multiselect-dropdown>
+              </div>
+
+              <!-- DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS -->
+
+              <div
+                *ngIf="
+                  editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
+                "
+              >
+                <small
+                  class="form-text text-danger"
+                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength"
+                  [translateValues]="{ max: 50 }"
+                >
+                  This field cannot be longer than 50 characters.
+                </small>
+              </div>
+            </div>
+
+            <button
+              type="button"
+              class="btn-info btn-secondary"
+              (click)="sqlask()"
+              value="Agregar departamento"
+              ngbTooltip="Control+Click para mantener cambios  o multiple selección"
+              [openDelay]="10"
+              [closeDelay]="100"
+            >
+              <fa-icon></fa-icon>
+              Agregar Departamento
+            </button>
+          </div>
+
+          <div class="col-md-1"></div>
+
+          <!-- CREAR: MUNICIPIO -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
-              <select class="form-control" multiple name="municipio" formControlName="municipio">
+              <!-- <select class="form-control" multiple name="municipio" formControlName="municipio">
                 <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
-              </select>
+              </select> -->
+
+              <!-- MUNICIPIOOOOOOOOOOOOOS -->
+
+              <div class="drop-container">
+                <ng-multiselect-dropdown
+                  name="municipio"
+                  formControlName="municipio"
+                  [settings]="dropdownSettings"
+                  [placeholder]="'Seleccionar Municipio'"
+                  class="form-row"
+                  [data]="municipio.sort()"
+                  >{{ municipio }}
+                </ng-multiselect-dropdown>
+              </div>
+
+              <!-- MUNICIPIOOOOOOOOOOOOOS -->
 
               <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
                 <small
@@ -408,26 +488,31 @@
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
-
-              <!-- <button type="button" class="btn-info btn-dark" (click)="sqlmunicipio()" value="Mostrar municipios"
-                style="margin-bottom: 1rem">
-                <fa-icon icon="list"></fa-icon>
-              </button> -->
-              <button type="button" class="btn-info btn-secondary" (click)="sqlAddLocation()" value="Mostrar municipios">
-                <fa-icon icon="save"></fa-icon>
-                Agregar Municipio
-              </button>
             </div>
+
+            <button
+              type="button"
+              class="btn-info btn-secondary"
+              (click)="sqlAddLocation()"
+              value="Mostrar municipios"
+              ngbTooltip="Control+Click para mantener cambios o multiple selección.  Control+A para seleccionar todo."
+              [openDelay]="10"
+              [closeDelay]="100"
+            >
+              <span class="spinner-border spinner-border-sm" role="status" [hidden]="this.addMunicipiosVerification"></span>
+              <fa-icon></fa-icon>
+              Agregar Municipio
+            </button>
           </div>
 
-          <!-- MUNICIPIO: EDITAR -->
+          <!-- EDIT: MUNICIPIO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
-              <select class="form-control" multiple name="municipio" formControlName="municipio">
+              <!-- <select class="form-control" multiple name="municipio" formControlName="municipio">
                 <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
-              </select>
+              </select> -->
 
               <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
                 <small
@@ -440,29 +525,45 @@
                 </small>
               </div>
 
-              <!-- <button type="button" class="btn-info btn-dark" (click)="sqlmunicipio()" value="Mostrar municipios"
-                style="margin-bottom: 1rem">
-                <fa-icon icon="list"></fa-icon>
-              </button> -->
-              <button type="button" class="btn-info btn-secondary" (click)="sqlAddLocation()" value="Mostrar municipios">
-                <fa-icon icon="save"></fa-icon>
-                Agregar Municipio
-              </button>
+              <!-- MUNICIPIOOOOOOOOOOOOOS -->
+              <div class="drop-container">
+                <ng-multiselect-dropdown
+                  name="municipio"
+                  formControlName="municipio"
+                  [settings]="dropdownSettings"
+                  [placeholder]="'Seleccionar Municipio'"
+                  class="form-row"
+                  [data]="municipio.sort()"
+                  >{{ municipio }}
+                </ng-multiselect-dropdown>
+              </div>
+              <!-- MUNICIPIOOOOOOOOOOOOOS -->
             </div>
+
+            <button
+              type="button"
+              class="btn-info btn-secondary"
+              (click)="sqlAddLocation()"
+              value="Mostrar municipios"
+              ngbTooltip="Control+Click para mantener cambios o multiple selección.  Control+A para seleccionar todo."
+              [openDelay]="10"
+              [closeDelay]="100"
+            >
+              <span class="spinner-border spinner-border-sm" role="status" [hidden]="this.addMunicipiosVerification"></span>
+              <fa-icon icon="save"></fa-icon>
+
+              Agregar Municipio
+            </button>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="col-md-7 mb-8" style="margin: 2rem">
+          <div class="col-md-11" style="margin: 2rem">
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th scope="col" style="text-align: center"><span>Convenio</span></th>
-                  <!-- <th scope="col"><span>Id</span></th> -->
-
                   <th scope="col" style="text-align: center"><span>Programa</span></th>
-                  <!-- <th scope="col"><span>Id</span></th> -->
-
                   <th scope="col" style="text-align: center"><span>Departamento</span></th>
                   <th scope="col" style="text-align: center"><span>Municipio</span></th>
                   <th scope="col" style="text-align: center"><span>Agregar Vinculación</span></th>
@@ -472,31 +573,30 @@
               <tbody *ngIf="user">
                 <tr>
                   <td style="text-align: center">{{ convenioName }}</td>
-                  <!-- <td>{{ convenioNIT }}</td> -->
-
                   <td style="text-align: center">{{ programaName }}</td>
-                  <!-- <td>{{ programaNIT }}</td> -->
-
                   <td style="text-align: center">{{ departamentoName }}</td>
                   <td class="text-break" style="text-align: center">{{ municipioName }}</td>
-
-                  <!-- <td>
-                    <div *ngFor="let authority of user.authorities">
-                      <span class="badge badge-info">{{ authority }}</span>
-                    </div>
-                  </td> -->
                   <td>
                     <div *ngIf="user">
-                      <div class="col-md-0">
-                        <button
-                          type="button"
-                          [disabled]="this.addLocationVerification"
-                          class="btn btn-secondary"
-                          (click)="sqlAddNewLocation()"
-                          style="margin: 1rem"
-                        >
-                          <fa-icon></fa-icon>&nbsp;<span>Agregar Vinculación</span>
-                        </button>
+                      <div class="d-flex justify-content-center">
+                        <div class="col-md-0">
+                          <button
+                            type="button"
+                            [disabled]="this.addLocationVerification"
+                            class="btn btn-success"
+                            (click)="sqlAddNewLocation()"
+                            style="margin: 1rem"
+                          >
+                            <fa-icon></fa-icon>&nbsp;
+                            <span
+                              class="spinner-border spinner-border-sm"
+                              role="status"
+                              style=""
+                              [hidden]="this.addLocationVerification2"
+                            ></span>
+                            <span>Agregar Vinculación</span>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </td>
@@ -505,23 +605,17 @@
             </table>
           </div>
 
-          <div class="col-md-2"></div>
+          <div class="col-md-4"></div>
+
           <div *ngIf="user">
-            <div class="col-md-1">
-              <button type="button" class="btn btn-secondary" (click)="previousState()" style="margin: 1rem">
-                <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
-              </button>
-            </div>
-            <div class="col-md-1">
-              <button
-                type="submit"
-                [disabled]="editForm.invalid || isSaving || this.saveReady"
-                class="btn btn-primary"
-                style="margin: 1rem"
-              >
-                <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
-              </button>
-            </div>
+            <button type="button" class="btn btn-danger" (click)="previousState()" style="margin: 1rem">
+              <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+            </button>
+          </div>
+          <div *ngIf="user">
+            <button type="submit" [disabled]="editForm.invalid || isSaving || this.saveReady" class="btn btn-primary" style="margin: 1rem">
+              <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+            </button>
           </div>
         </div>
       </div>
