@@ -67,10 +67,6 @@
           <!-- CREAR: TIPO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
-            <!-- <select style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
-              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" required>{{ documenttypes }}
-              </option>
-            </select> -->
             <!-- TIPO DE DOCUMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 
             <div class="drop-container">
@@ -267,24 +263,14 @@
                 name="activated"
                 formControlName="activated"
               />
-              <!-- <span jhiTranslate="userManagement.activated">Activated</span> -->
             </label>
           </div>
 
-          <div class="col-md-1">
-            <!-- <div class="d-flex justify-content-left"> -->
-
-            <!-- </div> -->
-          </div>
-
+          <div class="col-md-1"></div>
           <div class="col-md-1"></div>
 
           <div class="col-md-2 mb-2">
             <label style="text-align: center" jhiTranslate="userManagement.profiles">Profiles</label>
-
-            <!-- <select class="form-control" multiple name="authority" formControlName="authorities">
-              <option *ngFor="let authority of authorities" [value]="authority">{{ authority }}</option>
-            </select> -->
 
             <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
 
@@ -308,11 +294,6 @@
           <div class="col-md-2 mb-2">
             <div class="form-group">
               <label class="form-control-label">Convenio</label>
-
-              <!-- <select class="form-control" name="convenio" formControlName="convenio">
-                <option *ngFor="let convenio of convenio.sort()" [value]="convenio">{{ convenio }}</option>
-              </select> -->
-
               <!-- CONVENIOOOOOOOOOOOOOOOOOOOOO -->
 
               <div class="drop-container">
@@ -352,10 +333,6 @@
           <div class="col-md-2 mb-2">
             <div class="form-group">
               <label class="form-control-label">Programa</label>
-
-              <!-- <select class="form-control" name="programa" formControlName="programa">
-                <option *ngFor="let programa of programa.sort()" [value]="programa">{{ programa }}</option>
-              </select> -->
 
               <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
 
@@ -398,12 +375,6 @@
           <div class="col-md-2 mb-2">
             <div class="form-group">
               <label class="form-control-label">Departamento</label>
-
-              <!-- <select type="checkbox" class="form-control" multiple name="departamento" formControlName="departamento"
-                type="checkbox">
-                <option *ngFor="let departamento of departamento.sort()" [value]="departamento">{{ departamento }}
-                </option>
-              </select> -->
 
               <!-- DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS -->
 
@@ -458,10 +429,6 @@
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
 
-              <!-- <select class="form-control" multiple name="municipio" formControlName="municipio">
-                <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
-              </select> -->
-
               <!-- MUNICIPIOOOOOOOOOOOOOS -->
 
               <div class="drop-container">
@@ -503,16 +470,19 @@
               <fa-icon></fa-icon>
               Agregar Municipio
             </button>
+
+            <div
+              class="alert alert-danger"
+              *ngIf="idMunicipiosError"
+              jhiTranslate="userManagement.idMunicipiosError"
+              dismiss-on-timeout="100"
+            ></div>
           </div>
 
           <!-- EDIT: MUNICIPIO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <div class="form-group">
               <label class="form-control-label">Municipio</label>
-
-              <!-- <select class="form-control" multiple name="municipio" formControlName="municipio">
-                <option *ngFor="let municipio of municipio.sort()" [value]="municipio">{{ municipio }}</option>
-              </select> -->
 
               <div *ngIf="editForm.get('municipio')!.invalid && (editForm.get('municipio')!.dirty || editForm.get('municipio')!.touched)">
                 <small
@@ -554,6 +524,13 @@
 
               Agregar Municipio
             </button>
+
+            <div
+              class="alert alert-danger"
+              *ngIf="idMunicipiosError"
+              jhiTranslate="userManagement.idMunicipiosError"
+              dismiss-on-timeout="100"
+            ></div>
           </div>
         </div>
 

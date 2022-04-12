@@ -8,6 +8,7 @@ import { UserManagementService } from '../service/user-management.service';
 import { GrillaManagementService } from '../service/grilla-management.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadingModalComponent } from '../modal/loadingModal.component';
+import { timeout } from 'rxjs';
 
 @Component({
   selector: 'jhi-user-mgmt-update',
@@ -72,6 +73,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   celphoneCredentialsError = false;
   emailCredentialsError = false;
   idCredentialsError = false;
+  idMunicipiosError = false;
   addMunicipiosVerification = true;
   addLocationVerification = true;
   addLocationVerification2 = true;
@@ -186,10 +188,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
+      selectAllText: 'Seleccionar Todos',
+      unSelectAllText: 'Limpiar busqueda',
       itemsShowLimit: 0,
       allowSearchFilter: true,
+      noDataAvailablePlaceholderText: 'No hay información disponible',
       // enableCheckAll: false
     };
     this.dropdownSettingsdocumenttypes = {
@@ -201,6 +204,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       itemsShowLimit: 0,
       allowSearchFilter: true,
       enableCheckAll: false,
+      noDataAvailablePlaceholderText: 'No hay información disponible',
     };
     this.dropdownSettingsDepartamento = {
       singleSelection: false,
@@ -211,6 +215,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       itemsShowLimit: 0,
       allowSearchFilter: true,
       enableCheckAll: false,
+      noDataAvailablePlaceholderText: 'No hay información disponible',
     };
   }
 
@@ -313,11 +318,28 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
   private updateDepartamento(user: User): void {
     let ad = this.editForm.get(['departamento'])!.value;
+
+    //Se selecciona -TODOS-
     if (ad.indexOf('-TODOS-') >= 0) {
       ad = '-TODOS-';
+      this.municipio = [];
+      this.editForm.patchValue({
+        municipio: [],
+      });
       this.departamentoName = ad.toString();
+      this.municipioName = '';
     } else {
       this.departamentoName = ad.toString();
+    }
+
+    //Se vuelve a dar "agregar departamento" despúes de dar "agregar municipio" e interactuar, hay dos opciones:
+    //1. Se agrega un dep que no estaba           ->  Actualizar lista municipios disponible y mantiene los seleccionados de los deps que estaban
+    //2. se cambian totalmente el departamento    ->  Actualizar lista municipios disponibles y borra los seleccionados de los dep anteriores
+    if (this.departamentosListFull.length !== 0) {
+      this.departamentosListFull = [];
+      this.municipiosListFull = [];
+      this.addLocationVerification = true;
+      this.saveReady = true;
     }
 
     this.userService.getIdMultiplesDepartamentos(ad).subscribe(xx => {
@@ -340,12 +362,6 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
         }
       });
     });
-    if (this.departamentosListFull.length !== 0) {
-      this.departamentosListFull = [];
-      this.municipiosListFull = [];
-      this.addLocationVerification = true;
-      this.saveReady = true;
-    }
   }
 
   private addDepartamentoAndMunicipio(user: User): void {
@@ -354,29 +370,40 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     this.municipioName = ad.toString();
     this.idDepartamentos2 = [];
     this.addLocationVerification2 = false;
-    this.municipioName = ad.toString();
-    this.municipioName = 'Todos los Municipios de ' + this.departamentoName;
+    if (this.municipio.length === ad.length) {
+      this.municipioName = 'Todos los Municipios de ' + this.departamentoName;
+    } else {
+      this.municipioName = ad.toString();
+    }
 
-    //AQUI SE INICIA EL MODAL
-    this.modalService.open(loadingModalComponent);
+    if (ad.length !== 0) {
+      //AQUI SE INICIA EL MODAL
+      this.modalService.open(loadingModalComponent);
 
-    for (let index = 0; index < ad.length; index++) {
-      this.userService.findDepartamentosIDByMunicipioName(ad[index]).subscribe(x => {
-        this.departamentosListFull.push(x);
-      });
+      for (let index = 0; index < ad.length; index++) {
+        this.userService.findDepartamentosIDByMunicipioName(ad[index]).subscribe(x => {
+          this.departamentosListFull.push(x);
+        });
 
-      this.userService.getIdMunicipios(ad[index]).subscribe({
-        next: xx => {
-          this.municipiosListId[index] = xx.toString();
-          if (index === ad.length - 1) {
-            this.verificationMunicipiosFinish = true;
-            this.addLocationVerification = false;
-            this.addLocationVerification2 = true;
-            this.modalService.dismissAll();
-            //AQUI SE TERMINA EL MODAL
-          }
-        },
-      });
+        this.userService.getIdMunicipios(ad[index]).subscribe({
+          next: xx => {
+            this.municipiosListId[index] = xx.toString();
+            /* eslint-disable */
+            /* eslint-enable */
+
+            if (index === ad.length - 1) {
+              this.verificationMunicipiosFinish = true;
+              this.addLocationVerification = false;
+              this.addLocationVerification2 = true;
+              this.modalService.dismissAll();
+              //AQUI SE TERMINA EL MODAL
+            }
+          },
+        });
+      }
+      this.idMunicipiosError = false;
+    } else {
+      this.idMunicipiosError = true;
     }
 
     if (this.municipioName === '-TODOS-') {
