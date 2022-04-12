@@ -1,6 +1,8 @@
 <div class="row justify-content-center" style="background-color: #ccc5c517">
+
   <div class="col-11">
-    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm" style="background-color: #ccc5c517">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm"
+      style="background-color: #ccc5c517">
       <h2 id="myUserLabel" jhiTranslate="userManagement.home.createOrEditLabel">Create or edit a User</h2>
 
       <div *ngIf="user">
@@ -14,24 +16,14 @@
         <div class="form-row">
           <div class="col-md-2">
             <label class="form-control-label" jhiTranslate="userManagement.firstName">First Name</label>
-            <input
-              type="text"
-              style="text-transform: uppercase"
-              class="form-control"
-              pattern="[A-Za-zñÑ ]{2,30}"
-              name="firstName"
-              formControlName="firstName"
-              maxlength="20"
-              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209  || event.charCode == 241 || event.charCode >= 65 && event.charCode <= 90)"
-            />
+            <input type="text" style="text-transform: uppercase" class="form-control" pattern="[A-Za-zñÑ ]{2,30}"
+              name="firstName" formControlName="firstName" maxlength="20"
+              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209  || event.charCode == 241 || event.charCode >= 65 && event.charCode <= 90)" />
 
-            <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('firstName')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+            <div
+              *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('firstName')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
             </div>
@@ -41,23 +33,13 @@
 
           <div class="col-md-2 mb-2">
             <label jhiTranslate="userManagement.lastName">Last Name</label>
-            <input
-              type="text"
-              style="text-transform: uppercase"
-              class="form-control"
-              pattern="[A-Za-zñÑ ]{4,30}"
-              name="lastName"
-              formControlName="lastName"
-              maxlength="20"
-              onkeypress="return(event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)"
-            />
-            <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('lastName')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+            <input type="text" style="text-transform: uppercase" class="form-control" pattern="[A-Za-zñÑ ]{4,30}"
+              name="lastName" formControlName="lastName" maxlength="20"
+              onkeypress="return(event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)" />
+            <div
+              *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('lastName')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
             </div>
@@ -83,17 +65,11 @@
 
             <!-- TIPO DE DOCUMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO -->
 
-            <div
-              *ngIf="
+            <div *ngIf="
                 editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)
-              "
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('documentType')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+              ">
+              <small class="form-text text-danger" *ngIf="editForm.get('documentType')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
             </div>
@@ -103,66 +79,46 @@
           <!-- CREAR: NÚMERO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="user.id">
             <label class="form-control-label">Número de documento</label>
-            <input
-              type="text"
-              style="text-transform: uppercase"
-              class="form-control"
-              required
-              pattern="[A-Za-z0-9]{5,11}"
-              name="login"
-              formControlName="login"
-              maxlength="11"
-              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )"
-            />
+            <input type="text" style="text-transform: uppercase" class="form-control" required
+              pattern="[A-Za-z0-9]{5,11}" name="login" formControlName="login" maxlength="11"
+              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )" />
 
-            <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.required"
-                jhiTranslate="entity.validation.required"
-              >
+            <div
+              *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required"
+                jhiTranslate="entity.validation.required">
                 This field is required.
               </small>
 
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
 
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.pattern"
-                jhiTranslate="entity.validation.patternloginDocument"
-              >
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.pattern"
+                jhiTranslate="entity.validation.patternloginDocument">
                 This field can only contain letters, digits and e-mail addresses.
               </small>
             </div>
 
-            <div class="alert alert-danger" *ngIf="idCredentialsError" jhiTranslate="userManagement.idCredentialsError"></div>
+            <div class="alert alert-danger" *ngIf="idCredentialsError" jhiTranslate="userManagement.idCredentialsError">
+            </div>
           </div>
 
           <!-- EDIT: TIPO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.documentType" class="form-control-label">Tipo de Documento</label>
-            <select readonly style="text-align: left" class="form-control" name="documentType" formControlName="documentType">
-              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" disabled>{{ documenttypes }}</option>
+            <select readonly style="text-align: left" class="form-control" name="documentType"
+              formControlName="documentType">
+              <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes" disabled>{{ documenttypes }}
+              </option>
             </select>
 
-            <div
-              *ngIf="
+            <div *ngIf="
                 editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)
-              "
-            >
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('documentType')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+              ">
+              <small class="form-text text-danger" *ngIf="editForm.get('documentType')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
             </div>
@@ -172,42 +128,24 @@
           <!-- EDIT: NÚMERO DE DOCUMENTO -->
           <div class="col-md-2 mb-2" [hidden]="!user.id">
             <label jhiTranslate="userManagement.login" class="form-control-label">Número de documento</label>
-            <input
-              readonly
-              type="text"
-              style="text-transform: uppercase"
-              class="form-control"
-              required
-              pattern="[A-Za-z0-9]{5,11}"
-              name="login"
-              formControlName="login"
-              maxlength="11"
-              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )"
-            />
+            <input readonly type="text" style="text-transform: uppercase" class="form-control" required
+              pattern="[A-Za-z0-9]{5,11}" name="login" formControlName="login" maxlength="11"
+              onkeypress="return (event.charCode >= 97 && event.charCode <= 122 || event.charCode >= 48 && event.charCode <= 57 || event.charCode >= 65 && event.charCode <= 90 )" />
 
-            <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.required"
-                jhiTranslate="entity.validation.required"
-              >
+            <div
+              *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.required"
+                jhiTranslate="entity.validation.required">
                 This field is required.
               </small>
 
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
 
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('login')?.errors?.pattern"
-                jhiTranslate="entity.validation.patternloginDocument"
-              >
+              <small class="form-text text-danger" *ngIf="editForm.get('login')?.errors?.pattern"
+                jhiTranslate="entity.validation.patternloginDocument">
                 This field can only contain letters, digits and e-mail addresses.
               </small>
             </div>
@@ -219,34 +157,26 @@
             <label class="form-control-label">Email</label>
             <input maxlength="50" type="email" class="form-control" name="email" formControlName="email" />
 
-            <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div>
+            <div class="alert alert-danger" *ngIf="emailCredentialsError"
+              jhiTranslate="userManagement.emailCredentialsError"></div>
           </div>
 
           <div class="col-md-1"></div>
 
           <div class="col-md-2 mb-2">
             <label class="form-control-label">Celular</label>
-            <input
-              maxlength="10"
-              onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
-              type="text"
-              class="form-control"
-              pattern="[0-9]{10}"
-              name="celphone"
-              formControlName="celphone"
-            />
+            <input maxlength="10" onkeypress="return (event.charCode >= 48 && event.charCode <= 57)" type="text"
+              class="form-control" pattern="[0-9]{10}" name="celphone" formControlName="celphone" />
 
-            <div *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
-              <small
-                class="form-text text-danger"
-                *ngIf="editForm.get('celphone')?.errors?.maxlength"
-                jhiTranslate="entity.validation.maxlength"
-                [translateValues]="{ max: 50 }"
-              >
+            <div
+              *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
+              <small class="form-text text-danger" *ngIf="editForm.get('celphone')?.errors?.maxlength"
+                jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                 This field cannot be longer than 50 characters.
               </small>
             </div>
-            <div class="alert alert-danger" *ngIf="celphoneCredentialsError" jhiTranslate="userManagement.celphoneCredentialsError"></div>
+            <div class="alert alert-danger" *ngIf="celphoneCredentialsError"
+              jhiTranslate="userManagement.celphoneCredentialsError"></div>
           </div>
 
           <div class="col-md-1"></div>
@@ -310,13 +240,10 @@
 
               <!-- CONVENIOOOOOOOOOOOOOOOOOOOOO -->
 
-              <div *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('convenio')?.errors?.maxlength"
-                  jhiTranslate="entity.validation.maxlength"
-                  [translateValues]="{ max: 50 }"
-                >
+              <div
+                *ngIf="editForm.get('convenio')!.invalid && (editForm.get('convenio')!.dirty || editForm.get('convenio')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('convenio')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
@@ -328,7 +255,7 @@
             </button>
           </div>
 
-          <div class="col-md-1"></div>
+          <div class="col-md-1"> </div>
 
           <div class="col-md-2 mb-2">
             <div class="form-group">
@@ -350,13 +277,10 @@
 
               <!-- PROGRAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA -->
 
-              <div *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('programa')?.errors?.maxlength"
-                  jhiTranslate="entity.validation.maxlength"
-                  [translateValues]="{ max: 50 }"
-                >
+              <div
+                *ngIf="editForm.get('programa')!.invalid && (editForm.get('programa')!.dirty || editForm.get('programa')!.touched)">
+                <small class="form-text text-danger" *ngIf="editForm.get('programa')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
@@ -392,17 +316,11 @@
 
               <!-- DEPARTAMENTOOOOOOOOOOOOOOOOOOOOOOOOOOOOS -->
 
-              <div
-                *ngIf="
+              <div *ngIf="
                   editForm.get('departamento')!.invalid && (editForm.get('departamento')!.dirty || editForm.get('departamento')!.touched)
-                "
-              >
-                <small
-                  class="form-text text-danger"
-                  *ngIf="editForm.get('departamento')?.errors?.maxlength"
-                  jhiTranslate="entity.validation.maxlength"
-                  [translateValues]="{ max: 50 }"
-                >
+                ">
+                <small class="form-text text-danger" *ngIf="editForm.get('departamento')?.errors?.maxlength"
+                  jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
                   This field cannot be longer than 50 characters.
                 </small>
               </div>
