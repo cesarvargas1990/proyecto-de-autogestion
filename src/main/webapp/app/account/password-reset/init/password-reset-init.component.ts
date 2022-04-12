@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { PasswordResetInitService } from './password-reset-init.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResetModalComponent } from 'app/account/password-reset/modal/reset-modal.component';
-import { environment } from 'Configs/configs';
+import { SITE_KEY_CAPTCHA } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-password-reset-init',
@@ -35,7 +35,7 @@ export class PasswordResetInitComponent implements AfterViewInit {
     if (this.email) {
       this.email.nativeElement.focus();
     }
-    this.siteKeyCaptcha = environment.siteKeyCaptcha;
+    this.siteKeyCaptcha = SITE_KEY_CAPTCHA;
   }
 
   requestReset(): void {
