@@ -174,8 +174,6 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     this.addLocationVerification = true;
     this.addLocationVerification2 = true;
     this.addMunicipiosVerification = true;
-
-    //this.userService.getDepartamentos().subscribe(departamentosName => (this.departamento = departamentosName));
     this.userService.getDepartamentos().subscribe(departamentosName => {
       this.departamento = departamentosName;
       this.lengthDepartamentoList = departamentosName.length;
@@ -315,11 +313,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
   private updateDepartamento(user: User): void {
     let ad = this.editForm.get(['departamento'])!.value;
-    //const ad2 = this.editForm.get(['departamento'])!.value;
-    //this.departamentoName = ad;
-
     if (ad.indexOf('-TODOS-') >= 0) {
-      //this.departamentoName = "Todos los Departamentos"+(ad.indexOf("-TODOS-")).toString();
       ad = '-TODOS-';
       this.departamentoName = ad.toString();
     } else {
@@ -331,14 +325,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       this.addMunicipiosVerification = false;
       this.nameDepartamentos = ad;
       this.idDepartamentos = xx; //Lista tamaño n con id de departamentos
-
       this.userService.getMultiplesMunicipios(this.idDepartamentos).subscribe(xxx => {
         this.municipio = xxx;
         this.addMunicipiosVerification = true;
 
         if (this.EditOrCreate === false) {
-          // /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-          // console.log("this.user.id= " + (this.user.id) + "  this.idDepartamentos= " + this.idDepartamentos);
           this.userService.findMunicipiosNameByIDAndDepartamento(this.user.id!, this.idDepartamentos).subscribe(x => {
             this.municipiosListNameFullEmpty = [];
             this.municipiosListNameFullEmpty = x;
@@ -363,20 +354,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     this.municipioName = ad.toString();
     this.idDepartamentos2 = [];
     this.addLocationVerification2 = false;
-
-    // if (ad.length > 1230) {
-    //   this.municipioName = 'Todos los Municipios';
-    //   this.departamentosListFull = ['1000'];
-    //   this.municipiosListId = ['1'];
-    //   this.addLocationVerification = true;
-    //   this.verificationMunicipiosFinish = true;
-    //             this.addLocationVerification = false;
-    //             this.addLocationVerification2 = true;
-
-    // } else {
-
     this.municipioName = ad.toString();
-
     this.municipioName = 'Todos los Municipios de ' + this.departamentoName;
 
     //AQUI SE INICIA EL MODAL
@@ -400,8 +378,6 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
         },
       });
     }
-
-    //}
 
     if (this.municipioName === '-TODOS-') {
       this.addLocationVerification = true;
