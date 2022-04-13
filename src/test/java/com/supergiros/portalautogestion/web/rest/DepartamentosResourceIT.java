@@ -29,9 +29,6 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class DepartamentosResourceIT {
 
-    private static final Integer DEFAULT_ID_DEPARTAMENTOS = 1;
-    private static final Integer UPDATED_ID_DEPARTAMENTOS = 2;
-
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -62,10 +59,7 @@ class DepartamentosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Departamentos createEntity(EntityManager em) {
-        Departamentos departamentos = new Departamentos()
-            .idDepartamentos(DEFAULT_ID_DEPARTAMENTOS)
-            .name(DEFAULT_NAME)
-            .codDane(DEFAULT_COD_DANE);
+        Departamentos departamentos = new Departamentos().name(DEFAULT_NAME).codDane(DEFAULT_COD_DANE);
         return departamentos;
     }
 
@@ -76,10 +70,7 @@ class DepartamentosResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Departamentos createUpdatedEntity(EntityManager em) {
-        Departamentos departamentos = new Departamentos()
-            .idDepartamentos(UPDATED_ID_DEPARTAMENTOS)
-            .name(UPDATED_NAME)
-            .codDane(UPDATED_COD_DANE);
+        Departamentos departamentos = new Departamentos().name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
         return departamentos;
     }
 
@@ -101,7 +92,6 @@ class DepartamentosResourceIT {
         List<Departamentos> departamentosList = departamentosRepository.findAll();
         assertThat(departamentosList).hasSize(databaseSizeBeforeCreate + 1);
         Departamentos testDepartamentos = departamentosList.get(departamentosList.size() - 1);
-        assertThat(testDepartamentos.getIdDepartamentos()).isEqualTo(DEFAULT_ID_DEPARTAMENTOS);
         assertThat(testDepartamentos.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testDepartamentos.getCodDane()).isEqualTo(DEFAULT_COD_DANE);
     }
@@ -136,7 +126,6 @@ class DepartamentosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(departamentos.getId().intValue())))
-            .andExpect(jsonPath("$.[*].idDepartamentos").value(hasItem(DEFAULT_ID_DEPARTAMENTOS)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].codDane").value(hasItem(DEFAULT_COD_DANE)));
     }
@@ -153,7 +142,6 @@ class DepartamentosResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(departamentos.getId().intValue()))
-            .andExpect(jsonPath("$.idDepartamentos").value(DEFAULT_ID_DEPARTAMENTOS))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.codDane").value(DEFAULT_COD_DANE));
     }
@@ -177,7 +165,7 @@ class DepartamentosResourceIT {
         Departamentos updatedDepartamentos = departamentosRepository.findById(departamentos.getId()).get();
         // Disconnect from session so that the updates on updatedDepartamentos are not directly saved in db
         em.detach(updatedDepartamentos);
-        updatedDepartamentos.idDepartamentos(UPDATED_ID_DEPARTAMENTOS).name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
+        updatedDepartamentos.name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(
@@ -191,7 +179,6 @@ class DepartamentosResourceIT {
         List<Departamentos> departamentosList = departamentosRepository.findAll();
         assertThat(departamentosList).hasSize(databaseSizeBeforeUpdate);
         Departamentos testDepartamentos = departamentosList.get(departamentosList.size() - 1);
-        assertThat(testDepartamentos.getIdDepartamentos()).isEqualTo(UPDATED_ID_DEPARTAMENTOS);
         assertThat(testDepartamentos.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDepartamentos.getCodDane()).isEqualTo(UPDATED_COD_DANE);
     }
@@ -264,7 +251,7 @@ class DepartamentosResourceIT {
         Departamentos partialUpdatedDepartamentos = new Departamentos();
         partialUpdatedDepartamentos.setId(departamentos.getId());
 
-        partialUpdatedDepartamentos.name(UPDATED_NAME);
+        partialUpdatedDepartamentos.codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(
@@ -278,9 +265,8 @@ class DepartamentosResourceIT {
         List<Departamentos> departamentosList = departamentosRepository.findAll();
         assertThat(departamentosList).hasSize(databaseSizeBeforeUpdate);
         Departamentos testDepartamentos = departamentosList.get(departamentosList.size() - 1);
-        assertThat(testDepartamentos.getIdDepartamentos()).isEqualTo(DEFAULT_ID_DEPARTAMENTOS);
-        assertThat(testDepartamentos.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testDepartamentos.getCodDane()).isEqualTo(DEFAULT_COD_DANE);
+        assertThat(testDepartamentos.getName()).isEqualTo(DEFAULT_NAME);
+        assertThat(testDepartamentos.getCodDane()).isEqualTo(UPDATED_COD_DANE);
     }
 
     @Test
@@ -295,7 +281,7 @@ class DepartamentosResourceIT {
         Departamentos partialUpdatedDepartamentos = new Departamentos();
         partialUpdatedDepartamentos.setId(departamentos.getId());
 
-        partialUpdatedDepartamentos.idDepartamentos(UPDATED_ID_DEPARTAMENTOS).name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
+        partialUpdatedDepartamentos.name(UPDATED_NAME).codDane(UPDATED_COD_DANE);
 
         restDepartamentosMockMvc
             .perform(
@@ -309,7 +295,6 @@ class DepartamentosResourceIT {
         List<Departamentos> departamentosList = departamentosRepository.findAll();
         assertThat(departamentosList).hasSize(databaseSizeBeforeUpdate);
         Departamentos testDepartamentos = departamentosList.get(departamentosList.size() - 1);
-        assertThat(testDepartamentos.getIdDepartamentos()).isEqualTo(UPDATED_ID_DEPARTAMENTOS);
         assertThat(testDepartamentos.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testDepartamentos.getCodDane()).isEqualTo(UPDATED_COD_DANE);
     }

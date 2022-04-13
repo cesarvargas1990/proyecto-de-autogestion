@@ -2,6 +2,8 @@ package com.supergiros.portalautogestion.web.rest;
 
 import com.supergiros.portalautogestion.domain.Departamentos;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.UserDepartamentoMunicipioRepository;
+import com.supergiros.portalautogestion.service.TransaccionesNominaService;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -10,6 +12,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,6 +34,12 @@ public class DepartamentosResource {
 
     @Value("${jhipster.clientApp.name}")
     private String applicationName;
+
+    @Autowired
+    TransaccionesNominaService transaccionesNominaService;
+
+    @Autowired
+    UserDepartamentoMunicipioRepository userDepartamentoMunicipioRepository;
 
     private final DepartamentosRepository departamentosRepository;
 
@@ -123,9 +132,6 @@ public class DepartamentosResource {
         Optional<Departamentos> result = departamentosRepository
             .findById(departamentos.getId())
             .map(existingDepartamentos -> {
-                if (departamentos.getIdDepartamentos() != null) {
-                    existingDepartamentos.setIdDepartamentos(departamentos.getIdDepartamentos());
-                }
                 if (departamentos.getName() != null) {
                     existingDepartamentos.setName(departamentos.getName());
                 }
@@ -167,6 +173,13 @@ public class DepartamentosResource {
         return ResponseUtil.wrapOrNotFound(departamentos);
     }
 
+    @GetMapping("/departamentos/codDane/{codDane}")
+    public ResponseEntity<Departamentos> getDepartamentosByCodDane(@PathVariable("codDane") Integer codDane) {
+        log.debug("REST request to get Departamentos : {}", codDane);
+        Optional<Departamentos> departamentos = departamentosRepository.getDepartamentosNameByCodDane(codDane);
+        return ResponseUtil.wrapOrNotFound(departamentos);
+    }
+
     /**
      * {@code DELETE  /departamentos/:id} : delete the "id" departamentos.
      *
@@ -181,5 +194,11 @@ public class DepartamentosResource {
             .noContent()
             .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
+    }
+
+    @GetMapping("/users/departamentos/{id}")
+    public List<String> getDepartamentosUser(@PathVariable("id") Long id) {
+        log.debug("REST request to get User : {}", id);
+        return transaccionesNominaService.findCodDaneDepartamentos(userDepartamentoMunicipioRepository.getDepartamentosByIdUser(id));
     }
 }

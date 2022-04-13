@@ -1,15 +1,29 @@
 package com.supergiros.portalautogestion.web.rest;
 
+import com.supergiros.portalautogestion.domain.Convenio;
+import com.supergiros.portalautogestion.domain.Departamentos;
+import com.supergiros.portalautogestion.domain.Municipio;
+import com.supergiros.portalautogestion.domain.Programas;
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
+import com.supergiros.portalautogestion.repository.ConvenioRepository;
+import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.MunicipioRepository;
+import com.supergiros.portalautogestion.repository.ProgramasRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
+import com.supergiros.portalautogestion.service.TransaccionesNominaService;
+import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
+import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
+import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,6 +48,21 @@ public class TransaccionesNominaResource {
 
     private final TransaccionesNominaRepository transaccionesNominaRepository;
 
+    @Autowired
+    TransaccionesNominaService transaccionesNominaService;
+
+    @Autowired
+    DepartamentosRepository departamentosRepository;
+
+    @Autowired
+    MunicipioRepository municipioRepository;
+
+    @Autowired
+    ConvenioRepository convenioRepository;
+
+    @Autowired
+    ProgramasRepository programaRepository;
+
     public TransaccionesNominaResource(TransaccionesNominaRepository transaccionesNominaRepository) {
         this.transaccionesNominaRepository = transaccionesNominaRepository;
     }
@@ -57,6 +86,66 @@ public class TransaccionesNominaResource {
             .created(new URI("/api/transacciones-nominas/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PutMapping("/transacciones-nominas/red-pagadora")
+    public RespuestaDTO createTransaccionesNominaRedPagadora(@RequestBody TransaccionesNominaDTO transaccionesNominaDTO)
+        throws URISyntaxException {
+        RespuestaDTO respuestaDTO = new RespuestaDTO();
+        TransaccionesNomina transaccionesNomina = new TransaccionesNomina();
+        transaccionesNomina.setEstado(transaccionesNominaDTO.getEstado());
+        transaccionesNomina.setPeriodoPago(transaccionesNominaDTO.getPeriodoPago());
+        transaccionesNomina.setTipoDocumentoBenef(transaccionesNominaDTO.getTipoDocumento());
+        transaccionesNomina.setNumeroDocumentoBenef(transaccionesNominaDTO.getIdentificacion());
+        transaccionesNomina.setfKDepartamentoDePago(transaccionesNominaDTO.getDepartamento());
+        transaccionesNomina.setPinPago(transaccionesNominaDTO.getReferencia_control());
+        transaccionesNomina.setfKIdConvenio(transaccionesNominaDTO.getConvenio());
+        transaccionesNomina.setfKIdPrograma(transaccionesNominaDTO.getPrograma());
+        transaccionesNomina.setNombreUnoPago(transaccionesNominaDTO.getNombre1());
+        transaccionesNomina.setNombreDosPago(transaccionesNominaDTO.getNombre2());
+        transaccionesNomina.setApellidoUnoPago(transaccionesNominaDTO.getApellido1());
+        transaccionesNomina.setApellidoDosPago(transaccionesNominaDTO.getApellido2());
+        transaccionesNomina.setFechaPago(transaccionesNominaDTO.getFechaDePago());
+        transaccionesNomina.setHoraPago(transaccionesNominaDTO.getHoraDePago());
+        transaccionesNomina.setValorGiro(transaccionesNominaDTO.getValorDePago());
+        transaccionesNomina.setMotivoAnulacion(transaccionesNominaDTO.getMotivoAnulacion());
+        transaccionesNomina.setfKMunicipioDePago(transaccionesNominaDTO.getMunicipio());
+
+        int result = transaccionesNominaRepository.updateTransaccionesNomina(
+            transaccionesNomina.getEstado(),
+            transaccionesNomina.getPeriodoPago(),
+            transaccionesNomina.getTipoDocumentoBenef(),
+            transaccionesNomina.getNumeroDocumentoBenef(),
+            transaccionesNomina.getfKDepartamentoDePago(),
+            transaccionesNomina.getfKMunicipioDePago(),
+            transaccionesNomina.getPinPago(),
+            transaccionesNomina.getfKIdConvenio(),
+            transaccionesNomina.getfKIdPrograma(),
+            transaccionesNomina.getNombreUnoPago(),
+            transaccionesNomina.getNombreDosPago(),
+            transaccionesNomina.getApellidoUnoPago(),
+            transaccionesNomina.getApellidoDosPago(),
+            transaccionesNomina.getFechaPago(),
+            transaccionesNomina.getHoraPago(),
+            transaccionesNomina.getValorGiro(),
+            transaccionesNomina.getMotivoAnulacion()
+        );
+
+        if (result == 0) {
+            respuestaDTO.setIdentificacion(transaccionesNomina.getNumeroDocumentoBenef());
+            respuestaDTO.setResultado("NO ACTUALIZADO");
+            respuestaDTO.setCodigo("400");
+            respuestaDTO.setDescripcion("ERROR");
+
+            return respuestaDTO;
+        } else {
+            respuestaDTO.setIdentificacion(transaccionesNomina.getNumeroDocumentoBenef());
+            respuestaDTO.setResultado("ACTUALIZADO");
+            respuestaDTO.setCodigo("200");
+            respuestaDTO.setDescripcion("OK");
+
+            return respuestaDTO;
+        }
     }
 
     /**
@@ -160,32 +249,8 @@ public class TransaccionesNominaResource {
                 if (transaccionesNomina.getHoraPago() != null) {
                     existingTransaccionesNomina.setHoraPago(transaccionesNomina.getHoraPago());
                 }
-                if (transaccionesNomina.getPinPago() != null) {
-                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
-                }
-                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
-                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
-                }
-                if (transaccionesNomina.getfKMunicipioDePago() != null) {
-                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
-                }
-                if (transaccionesNomina.getfKDepartamento() != null) {
-                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
-                }
-                if (transaccionesNomina.getfKMunicipio() != null) {
-                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
-                }
-                if (transaccionesNomina.getfKIdConvenio() != null) {
-                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
-                }
-                if (transaccionesNomina.getfKIdPrograma() != null) {
-                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
-                }
                 if (transaccionesNomina.getFechaDePago() != null) {
                     existingTransaccionesNomina.setFechaDePago(transaccionesNomina.getFechaDePago());
-                }
-                if (transaccionesNomina.getValorGiro() != null) {
-                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
                 if (transaccionesNomina.getEstado() != null) {
                     existingTransaccionesNomina.setEstado(transaccionesNomina.getEstado());
@@ -213,6 +278,30 @@ public class TransaccionesNominaResource {
                 }
                 if (transaccionesNomina.getSolicitudAutorizacion() != null) {
                     existingTransaccionesNomina.setSolicitudAutorizacion(transaccionesNomina.getSolicitudAutorizacion());
+                }
+                if (transaccionesNomina.getPinPago() != null) {
+                    existingTransaccionesNomina.setPinPago(transaccionesNomina.getPinPago());
+                }
+                if (transaccionesNomina.getfKDepartamentoDePago() != null) {
+                    existingTransaccionesNomina.setfKDepartamentoDePago(transaccionesNomina.getfKDepartamentoDePago());
+                }
+                if (transaccionesNomina.getfKMunicipioDePago() != null) {
+                    existingTransaccionesNomina.setfKMunicipioDePago(transaccionesNomina.getfKMunicipioDePago());
+                }
+                if (transaccionesNomina.getfKDepartamento() != null) {
+                    existingTransaccionesNomina.setfKDepartamento(transaccionesNomina.getfKDepartamento());
+                }
+                if (transaccionesNomina.getfKMunicipio() != null) {
+                    existingTransaccionesNomina.setfKMunicipio(transaccionesNomina.getfKMunicipio());
+                }
+                if (transaccionesNomina.getfKIdConvenio() != null) {
+                    existingTransaccionesNomina.setfKIdConvenio(transaccionesNomina.getfKIdConvenio());
+                }
+                if (transaccionesNomina.getfKIdPrograma() != null) {
+                    existingTransaccionesNomina.setfKIdPrograma(transaccionesNomina.getfKIdPrograma());
+                }
+                if (transaccionesNomina.getValorGiro() != null) {
+                    existingTransaccionesNomina.setValorGiro(transaccionesNomina.getValorGiro());
                 }
 
                 return existingTransaccionesNomina;
@@ -248,6 +337,87 @@ public class TransaccionesNominaResource {
         Optional<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
     }
+
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}")
+    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+        @PathVariable("typeDocument") String typeDocument,
+        @PathVariable("numberDocument") Integer numberDocument,
+        @PathVariable("department") String department
+    ) {
+        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocument(
+            typeDocument,
+            numberDocument,
+            department
+        );
+        return transaccionesNomina;
+    }
+
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
+    public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocumentAllDepartments(
+        @PathVariable("typeDocument") String typeDocument,
+        @PathVariable("numberDocument") Integer numberDocument
+    ) {
+        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartments(
+            typeDocument,
+            numberDocument
+        );
+
+        log.info(
+            "                                                                                                          " +
+            transaccionesNomina
+        );
+
+        List<TransaccionesNominaListDTO> transaccionesNominas2 = new ArrayList<TransaccionesNominaListDTO>();
+
+        for (int i = 0; i < transaccionesNomina.size(); i++) {
+            TransaccionesNominaListDTO transaccionesWithChange = new TransaccionesNominaListDTO();
+
+            transaccionesWithChange.setTipoDocumentoBenef(transaccionesNomina.get(i).getTipoDocumentoBenef());
+            transaccionesWithChange.setNumeroDocumentoBenef(transaccionesNomina.get(i).getNumeroDocumentoBenef());
+            transaccionesWithChange.setFechaPago(transaccionesNomina.get(i).getFechaPago());
+            transaccionesWithChange.setHoraPago(transaccionesNomina.get(i).getHoraPago());
+            transaccionesWithChange.setPinPago(transaccionesNomina.get(i).getPinPago());
+            transaccionesWithChange.setfKDepartamentoDePago(transaccionesNomina.get(i).getfKDepartamentoDePago());
+            transaccionesWithChange.setfKMunicipioDePago(transaccionesNomina.get(i).getfKMunicipioDePago());
+            transaccionesWithChange.setfKIdConvenio(transaccionesNomina.get(i).getfKIdConvenio());
+            transaccionesWithChange.setfKIdPrograma(transaccionesNomina.get(i).getfKIdPrograma());
+            transaccionesWithChange.setValorGiro(transaccionesNomina.get(i).getValorGiro());
+            transaccionesWithChange.setEstado(transaccionesNomina.get(i).getEstado());
+            transaccionesWithChange.setMotivoAnulacion(transaccionesNomina.get(i).getMotivoAnulacion());
+
+            if (transaccionesNomina.get(i).getfKDepartamentoDePago() != null && transaccionesNomina.get(i).getfKMunicipioDePago() != null) {
+                Departamentos departamentosNombre = departamentosRepository
+                    .getDepartamentosNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKDepartamentoDePago()))
+                    .orElse(null);
+                Municipio municipiosNombre = municipioRepository
+                    .getMunicipioNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKMunicipioDePago()))
+                    .orElse(null);
+                transaccionesWithChange.setfKMunicipioDePago(municipiosNombre.getName());
+                transaccionesWithChange.setfKDepartamentoDePago(departamentosNombre.getName());
+            }
+            if (transaccionesNomina.get(i).getfKIdConvenio() != null && transaccionesNomina.get(i).getfKIdPrograma() != null) {
+                Programas programasNombre = programaRepository
+                    .getProgramaNameByNit(transaccionesNomina.get(i).getfKIdPrograma())
+                    .orElse(null);
+                Convenio conveniosNombre = convenioRepository
+                    .getConvenioNameByNit(transaccionesNomina.get(i).getfKIdConvenio())
+                    .orElse(null);
+                transaccionesWithChange.setfKIdConvenio(conveniosNombre.getName());
+                transaccionesWithChange.setfKIdPrograma(programasNombre.getName());
+            }
+
+            transaccionesNominas2.add(transaccionesWithChange);
+            // transaccionesNomina.get(i).setfKDepartamentoDePago(transaccionesWithChange.getfKDepartamento());
+
+        }
+        return transaccionesNominas2;
+    }
+
+    // @GetMapping("/transacciones-nominas/departments")
+    // public List<String> getDepartmentCodDaneById(@RequestBody List<Long> departmentsIds)
+    // {
+    //     return transaccionesNominaService.findCodDaneDepartamentos(departmentsIds);
+    // }
 
     /**
      * {@code DELETE  /transacciones-nominas/:id} : delete the "id" transaccionesNomina.

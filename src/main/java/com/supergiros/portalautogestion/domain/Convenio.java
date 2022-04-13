@@ -21,9 +21,6 @@ public class Convenio implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_convenio")
-    private Integer idConvenio;
-
     @Column(name = "name")
     private String name;
 
@@ -43,19 +40,6 @@ public class Convenio implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdConvenio() {
-        return this.idConvenio;
-    }
-
-    public Convenio idConvenio(Integer idConvenio) {
-        this.setIdConvenio(idConvenio);
-        return this;
-    }
-
-    public void setIdConvenio(Integer idConvenio) {
-        this.idConvenio = idConvenio;
     }
 
     public String getName() {
@@ -108,7 +92,6 @@ public class Convenio implements Serializable {
     public String toString() {
         return "Convenio{" +
             "id=" + getId() +
-            ", idConvenio=" + getIdConvenio() +
             ", name='" + getName() + "'" +
             ", identificacion='" + getIdentificacion() + "'" +
             "}";

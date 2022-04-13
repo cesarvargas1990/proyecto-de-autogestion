@@ -21,16 +21,13 @@ public class Programas implements Serializable {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "id_programas")
-    private Integer idProgramas;
-
     @Column(name = "name")
     private String name;
 
     @Column(name = "identificacion")
     private String identificacion;
 
-    @Column(name = "f_k_convenio")
+    @Column(name = "fk_convenio")
     private String fKConvenio;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
@@ -46,19 +43,6 @@ public class Programas implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Integer getIdProgramas() {
-        return this.idProgramas;
-    }
-
-    public Programas idProgramas(Integer idProgramas) {
-        this.setIdProgramas(idProgramas);
-        return this;
-    }
-
-    public void setIdProgramas(Integer idProgramas) {
-        this.idProgramas = idProgramas;
     }
 
     public String getName() {
@@ -124,7 +108,6 @@ public class Programas implements Serializable {
     public String toString() {
         return "Programas{" +
             "id=" + getId() +
-            ", idProgramas=" + getIdProgramas() +
             ", name='" + getName() + "'" +
             ", identificacion='" + getIdentificacion() + "'" +
             ", fKConvenio='" + getfKConvenio() + "'" +

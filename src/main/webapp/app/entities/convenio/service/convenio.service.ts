@@ -34,6 +34,10 @@ export class ConvenioService {
     return this.http.get<IConvenio>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
+  findByNit(nit: number): Observable<EntityResponseType> {
+    return this.http.get<IConvenio>(`${this.resourceUrl}/nit/${nit}`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IConvenio[]>(this.resourceUrl, { params: options, observe: 'response' });

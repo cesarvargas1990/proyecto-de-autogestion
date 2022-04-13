@@ -123,9 +123,6 @@ public class ConvenioResource {
         Optional<Convenio> result = convenioRepository
             .findById(convenio.getId())
             .map(existingConvenio -> {
-                if (convenio.getIdConvenio() != null) {
-                    existingConvenio.setIdConvenio(convenio.getIdConvenio());
-                }
                 if (convenio.getName() != null) {
                     existingConvenio.setName(convenio.getName());
                 }
@@ -164,6 +161,13 @@ public class ConvenioResource {
     public ResponseEntity<Convenio> getConvenio(@PathVariable Long id) {
         log.debug("REST request to get Convenio : {}", id);
         Optional<Convenio> convenio = convenioRepository.findById(id);
+        return ResponseUtil.wrapOrNotFound(convenio);
+    }
+
+    @GetMapping("/convenios/nit/{nit}")
+    public ResponseEntity<Convenio> getConveniosByNit(@PathVariable("nit") String nit) {
+        log.debug("REST request to get Convenios : {}", nit);
+        Optional<Convenio> convenio = convenioRepository.getConvenioNameByNit(nit);
         return ResponseUtil.wrapOrNotFound(convenio);
     }
 

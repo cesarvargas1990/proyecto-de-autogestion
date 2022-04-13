@@ -27,7 +27,7 @@ module.exports = async (config, options, targetOptions) => {
       }),
       new WebpackNotifierPlugin({
         title: 'Portalautogestion',
-        contentImage: path.join(__dirname, 'logo-jhipster.png'),
+        contentImage: path.join(__dirname, 'logo_supergiros.png'),
       })
     );
   }
@@ -103,6 +103,7 @@ module.exports = async (config, options, targetOptions) => {
       // If you use an API server, in `prod` mode, you will need to enable CORS
       // (see the `jhipster.cors` common JHipster property in the `application-*.yml` configurations)
       SERVER_API_URL: JSON.stringify(environment.SERVER_API_URL),
+      __SITE_KEY_CAPTCHA__: JSON.stringify(environment.__SITE_KEY_CAPTCHA__),
     }),
     new MergeJsonWebpackPlugin({
       output: {

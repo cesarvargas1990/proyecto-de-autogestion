@@ -47,17 +47,7 @@
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.apellidoDosPago">Apellido Dos Pago</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaPago">Fecha Pago</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.horaPago">Hora Pago</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.pinPago">Pin Pago</span></th>
-          <th scope="col">
-            <span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamentoDePago">F K Departamento De Pago</span>
-          </th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipioDePago">F K Municipio De Pago</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamento">F K Departamento</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipio">F K Municipio</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdConvenio">F K Id Convenio</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdPrograma">F K Id Programa</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fechaDePago">Fecha De Pago</span></th>
-          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.valorGiro">Valor Giro</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.estado">Estado</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.periodoPago">Periodo Pago</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.motivoAnulacion">Motivo Anulacion</span></th>
@@ -69,6 +59,16 @@
           <th scope="col">
             <span jhiTranslate="portalautogestionApp.transaccionesNomina.solicitudAutorizacion">Solicitud Autorizacion</span>
           </th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.pinPago">Pin Pago</span></th>
+          <th scope="col">
+            <span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamentoDePago">F K Departamento De Pago</span>
+          </th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipioDePago">F K Municipio De Pago</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKDepartamento">F K Departamento</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKMunicipio">F K Municipio</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdConvenio">F K Id Convenio</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.fKIdPrograma">F K Id Programa</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.transaccionesNomina.valorGiro">Valor Giro</span></th>
           <th scope="col"></th>
         </tr>
       </thead>
@@ -89,15 +89,7 @@
           <td>{{ transaccionesNomina.apellidoDosPago }}</td>
           <td>{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
           <td>{{ transaccionesNomina.horaPago }}</td>
-          <td>{{ transaccionesNomina.pinPago }}</td>
-          <td>{{ transaccionesNomina.fKDepartamentoDePago }}</td>
-          <td>{{ transaccionesNomina.fKMunicipioDePago }}</td>
-          <td>{{ transaccionesNomina.fKDepartamento }}</td>
-          <td>{{ transaccionesNomina.fKMunicipio }}</td>
-          <td>{{ transaccionesNomina.fKIdConvenio }}</td>
-          <td>{{ transaccionesNomina.fKIdPrograma }}</td>
           <td>{{ transaccionesNomina.fechaDePago | formatMediumDate }}</td>
-          <td>{{ transaccionesNomina.valorGiro }}</td>
           <td>{{ transaccionesNomina.estado }}</td>
           <td>{{ transaccionesNomina.periodoPago }}</td>
           <td>{{ transaccionesNomina.motivoAnulacion }}</td>
@@ -107,6 +99,14 @@
           <td>{{ transaccionesNomina.redPagadora }}</td>
           <td>{{ transaccionesNomina.observacionControl }}</td>
           <td>{{ transaccionesNomina.solicitudAutorizacion }}</td>
+          <td>{{ transaccionesNomina.pinPago }}</td>
+          <td>{{ transaccionesNomina.fKDepartamentoDePago }}</td>
+          <td>{{ transaccionesNomina.fKMunicipioDePago }}</td>
+          <td>{{ transaccionesNomina.fKDepartamento }}</td>
+          <td>{{ transaccionesNomina.fKMunicipio }}</td>
+          <td>{{ transaccionesNomina.fKIdConvenio }}</td>
+          <td>{{ transaccionesNomina.fKIdPrograma }}</td>
+          <td>{{ transaccionesNomina.valorGiro }}</td>
           <td class="text-right">
             <div class="btn-group">
               <button

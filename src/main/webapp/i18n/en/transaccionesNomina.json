@@ -30,15 +30,7 @@
       "apellidoDosPago": "Apellido Dos Pago",
       "fechaPago": "Fecha Pago",
       "horaPago": "Hora Pago",
-      "pinPago": "Pin Pago",
-      "fKDepartamentoDePago": "F K Departamento De Pago",
-      "fKMunicipioDePago": "F K Municipio De Pago",
-      "fKDepartamento": "F K Departamento",
-      "fKMunicipio": "F K Municipio",
-      "fKIdConvenio": "F K Id Convenio",
-      "fKIdPrograma": "F K Id Programa",
       "fechaDePago": "Fecha De Pago",
-      "valorGiro": "Valor Giro",
       "estado": "Estado",
       "periodoPago": "Periodo Pago",
       "motivoAnulacion": "Motivo Anulacion",
@@ -47,7 +39,15 @@
       "nota": "Nota",
       "redPagadora": "Red Pagadora",
       "observacionControl": "Observacion Control",
-      "solicitudAutorizacion": "Solicitud Autorizacion"
+      "solicitudAutorizacion": "Solicitud Autorizacion",
+      "pinPago": "Pin Pago",
+      "fKDepartamentoDePago": "F K Departamento De Pago",
+      "fKMunicipioDePago": "F K Municipio De Pago",
+      "fKDepartamento": "F K Departamento",
+      "fKMunicipio": "F K Municipio",
+      "fKIdConvenio": "F K Id Convenio",
+      "fKIdPrograma": "F K Id Programa",
+      "valorGiro": "Valor Giro"
     }
   }
 }

@@ -14,15 +14,7 @@ export interface ITransaccionesNomina {
   apellidoDosPago?: string | null;
   fechaPago?: dayjs.Dayjs | null;
   horaPago?: string | null;
-  pinPago?: number | null;
-  fKDepartamentoDePago?: number | null;
-  fKMunicipioDePago?: number | null;
-  fKDepartamento?: number | null;
-  fKMunicipio?: number | null;
-  fKIdConvenio?: number | null;
-  fKIdPrograma?: number | null;
   fechaDePago?: dayjs.Dayjs | null;
-  valorGiro?: number | null;
   estado?: string | null;
   periodoPago?: string | null;
   motivoAnulacion?: string | null;
@@ -32,6 +24,14 @@ export interface ITransaccionesNomina {
   redPagadora?: string | null;
   observacionControl?: string | null;
   solicitudAutorizacion?: string | null;
+  pinPago?: string | null;
+  fKDepartamentoDePago?: string | null;
+  fKMunicipioDePago?: string | null;
+  fKDepartamento?: string | null;
+  fKMunicipio?: string | null;
+  fKIdConvenio?: string | null;
+  fKIdPrograma?: string | null;
+  valorGiro?: string | null;
 }
 
 export class TransaccionesNomina implements ITransaccionesNomina {
@@ -49,15 +49,7 @@ export class TransaccionesNomina implements ITransaccionesNomina {
     public apellidoDosPago?: string | null,
     public fechaPago?: dayjs.Dayjs | null,
     public horaPago?: string | null,
-    public pinPago?: number | null,
-    public fKDepartamentoDePago?: number | null,
-    public fKMunicipioDePago?: number | null,
-    public fKDepartamento?: number | null,
-    public fKMunicipio?: number | null,
-    public fKIdConvenio?: number | null,
-    public fKIdPrograma?: number | null,
     public fechaDePago?: dayjs.Dayjs | null,
-    public valorGiro?: number | null,
     public estado?: string | null,
     public periodoPago?: string | null,
     public motivoAnulacion?: string | null,
@@ -66,7 +58,15 @@ export class TransaccionesNomina implements ITransaccionesNomina {
     public nota?: string | null,
     public redPagadora?: string | null,
     public observacionControl?: string | null,
-    public solicitudAutorizacion?: string | null
+    public solicitudAutorizacion?: string | null,
+    public pinPago?: string | null,
+    public fKDepartamentoDePago?: string | null,
+    public fKMunicipioDePago?: string | null,
+    public fKDepartamento?: string | null,
+    public fKMunicipio?: string | null,
+    public fKIdConvenio?: string | null,
+    public fKIdPrograma?: string | null,
+    public valorGiro?: string | null
   ) {}
 }
 
