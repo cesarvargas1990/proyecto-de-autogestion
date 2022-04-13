@@ -33,6 +33,7 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.convenio.idConvenio">Id Convenio</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.convenio.name">Name</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.convenio.identificacion">Identificacion</span></th>
           <th scope="col"></th>
@@ -43,6 +44,7 @@
           <td>
             <a [routerLink]="['/convenio', convenio.id, 'view']">{{ convenio.id }}</a>
           </td>
+          <td>{{ convenio.idConvenio }}</td>
           <td>{{ convenio.name }}</td>
           <td>{{ convenio.identificacion }}</td>
           <td class="text-right">

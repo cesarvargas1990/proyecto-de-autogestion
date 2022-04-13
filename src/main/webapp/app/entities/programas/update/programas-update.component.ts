@@ -17,6 +17,7 @@ export class ProgramasUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    idProgramas: [],
     name: [],
     identificacion: [],
     fKConvenio: [],
@@ -66,6 +67,7 @@ export class ProgramasUpdateComponent implements OnInit {
   protected updateForm(programas: IProgramas): void {
     this.editForm.patchValue({
       id: programas.id,
+      idProgramas: programas.idProgramas,
       name: programas.name,
       identificacion: programas.identificacion,
       fKConvenio: programas.fKConvenio,
@@ -76,6 +78,7 @@ export class ProgramasUpdateComponent implements OnInit {
     return {
       ...new Programas(),
       id: this.editForm.get(['id'])!.value,
+      idProgramas: this.editForm.get(['idProgramas'])!.value,
       name: this.editForm.get(['name'])!.value,
       identificacion: this.editForm.get(['identificacion'])!.value,
       fKConvenio: this.editForm.get(['fKConvenio'])!.value,

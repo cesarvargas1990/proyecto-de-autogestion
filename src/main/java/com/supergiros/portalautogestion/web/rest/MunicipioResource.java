@@ -123,6 +123,9 @@ public class MunicipioResource {
         Optional<Municipio> result = municipioRepository
             .findById(municipio.getId())
             .map(existingMunicipio -> {
+                if (municipio.getIdMunicipio() != null) {
+                    existingMunicipio.setIdMunicipio(municipio.getIdMunicipio());
+                }
                 if (municipio.getName() != null) {
                     existingMunicipio.setName(municipio.getName());
                 }
@@ -164,13 +167,6 @@ public class MunicipioResource {
     public ResponseEntity<Municipio> getMunicipio(@PathVariable Long id) {
         log.debug("REST request to get Municipio : {}", id);
         Optional<Municipio> municipio = municipioRepository.findById(id);
-        return ResponseUtil.wrapOrNotFound(municipio);
-    }
-
-    @GetMapping("/municipios/codDane/{codDane}")
-    public ResponseEntity<Municipio> getMunicipiosByCodDane(@PathVariable("codDane") Integer codDane) {
-        log.debug("REST request to get Municipios : {}", codDane);
-        Optional<Municipio> municipio = municipioRepository.getMunicipioNameByCodDane(codDane);
         return ResponseUtil.wrapOrNotFound(municipio);
     }
 

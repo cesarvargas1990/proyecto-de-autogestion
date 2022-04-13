@@ -71,7 +71,8 @@ class MunicipioGatlingTest extends Simulation {
             .post("/api/municipios")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "name":"SAMPLE_TEXT"
+                "idMunicipio":"0"
+                , "name":"SAMPLE_TEXT"
                 , "codDane":"0"
                 , "fKIdDepartamento":"0"
                 }""")).asJson

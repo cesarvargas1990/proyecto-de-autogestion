@@ -34,6 +34,7 @@ entity TransaccionesNomina {
 
 
 entity Departamentos {
+    IdDepartamentos Integer,
     Name String,
     CodDane Integer
 }
@@ -41,6 +42,7 @@ entity Departamentos {
 
 
 entity Municipio {
+    IdMunicipio Integer,
     Name String,
     CodDane Integer,
     FKIdDepartamento Integer,
@@ -50,14 +52,16 @@ entity Municipio {
 
 
 entity Convenio {
+    IdConvenio Integer,
     Name String,
     Identificacion String
-    ProgramaAsociado String
 }
 
 
 
 entity Programas {
+    IdProgramas Integer,
     Name String,
     Identificacion String,
+    FKConvenio String
 }

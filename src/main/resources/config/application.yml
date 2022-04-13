@@ -185,7 +185,7 @@ jhipster:
   #   allow-credentials: true
   #   max-age: 1800
   mail:
-    from: notificacionessg@supergiros.com.co
+    from: portalautogestion@localhost
   api-docs:
     default-include-pattern: ${server.servlet.context-path:}/api/**
     management-include-pattern: ${server.servlet.context-path:}/management/**
@@ -199,8 +199,7 @@ jhipster:
     license: unlicensed
     license-url:
   security:
-    content-security-policy: "default-src 'self' ; frame-src www.google.com/recaptcha/ 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com script-src https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ ; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
-    #content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
+    content-security-policy: "default-src 'self'; frame-src 'self' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://storage.googleapis.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:"
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class

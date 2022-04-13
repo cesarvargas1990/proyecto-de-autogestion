@@ -1,6 +1,6 @@
 {
   "home": {
-    "title": "¡Bienvenido, Al portal de autogestión!",
+    "title": "¡Bienvenido, Java Hipster!",
     "subtitle": "Esta es su página de inicio",
     "logged": {
       "message": "Está conectado como \"{{username}}\"."
@@ -14,11 +14,6 @@
       "follow": "contacto @jhipster en Twitter"
     },
     "like": "Si te gusta JHipster, danos una estrella en",
-    "github": "GitHub",
-    "footer": {
-      "lineaAtencion": "<strong>Linea de atención : </strong> 01 8000 413 767.",
-      "PBX": "<strong>PBX: </strong> (602) 5190600",
-      "horaAtencion": "<strong>Horario de atención: </strong> lunes a sábado de 7:00 a.m. a 9:00 p.m. <br>Domingos y festivos de 8:00 a.m. a 8:00  pm<br>"
-    }
+    "github": "GitHub"
   }
 }

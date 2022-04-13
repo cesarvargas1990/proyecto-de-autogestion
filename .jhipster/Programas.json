@@ -6,6 +6,10 @@
   "entityTableName": "programas",
   "fields": [
     {
+      "fieldName": "idProgramas",
+      "fieldType": "Integer"
+    },
+    {
       "fieldName": "name",
       "fieldType": "String"
     },

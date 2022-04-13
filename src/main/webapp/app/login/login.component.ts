@@ -1,11 +1,9 @@
 import { Component, ViewChild, OnInit, AfterViewInit, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { LoginModalComponent } from './modal/login-modal.component';
+
 import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
-import { TwoFAModalComponent } from './modal/twoFA-modal.component';
 
 @Component({
   selector: 'jhi-login',
@@ -16,7 +14,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   username!: ElementRef;
 
   authenticationError = false;
-  statusError = false;
+
   loginForm = this.fb.group({
     username: [null, [Validators.required]],
     password: [null, [Validators.required]],
@@ -27,8 +25,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     private accountService: AccountService,
     private loginService: LoginService,
     private router: Router,
-    private fb: FormBuilder,
-    private modalService: NgbModal
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -46,30 +43,20 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   login(): void {
     this.loginService
-      .logininit({
+      .login({
         username: this.loginForm.get('username')!.value,
         password: this.loginForm.get('password')!.value,
         rememberMe: this.loginForm.get('rememberMe')!.value,
       })
       .subscribe({
-        next: sucessLogin => {
+        next: () => {
           this.authenticationError = false;
-          this.statusError = false;
-          this.loginService.createToken(this.loginForm.get('username')!.value).subscribe();
-          this.modalService.open(TwoFAModalComponent);
-          this.modalService.dismissAll;
-
-          this.router.navigate(['']);
-        },
-        error: errorLogin => {
-          if (errorLogin.error.detail === 'Usuario Deshabilitado') {
-            this.statusError = true;
-            this.authenticationError = false;
-          } else {
-            this.authenticationError = true;
-            this.statusError = false;
+          if (!this.router.getCurrentNavigation()) {
+            // There were no routing during login (eg from navigationToStoredUrl)
+            this.router.navigate(['']);
           }
         },
+        error: () => (this.authenticationError = true),
       });
   }
 }

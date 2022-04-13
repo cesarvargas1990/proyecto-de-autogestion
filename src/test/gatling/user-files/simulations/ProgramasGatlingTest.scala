@@ -71,7 +71,8 @@ class ProgramasGatlingTest extends Simulation {
             .post("/api/programas")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "name":"SAMPLE_TEXT"
+                "idProgramas":"0"
+                , "name":"SAMPLE_TEXT"
                 , "identificacion":"SAMPLE_TEXT"
                 , "fKConvenio":"SAMPLE_TEXT"
                 }""")).asJson

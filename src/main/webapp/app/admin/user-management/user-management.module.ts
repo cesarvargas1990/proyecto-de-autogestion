@@ -8,10 +8,8 @@ import { UserManagementUpdateComponent } from './update/user-management-update.c
 import { UserManagementDeleteDialogComponent } from './delete/user-management-delete-dialog.component';
 import { userManagementRoute } from './user-management.route';
 
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
-
 @NgModule({
-  imports: [SharedModule, RouterModule.forChild(userManagementRoute), NgMultiSelectDropDownModule.forRoot()],
+  imports: [SharedModule, RouterModule.forChild(userManagementRoute)],
   declarations: [
     UserManagementComponent,
     UserManagementDetailComponent,

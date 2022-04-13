@@ -28,8 +28,6 @@
         "style": "kebab-case"
       }
     ],
-    "@typescript-eslint/restrict-template-expressions": ["warn", { "allowNumber": true }],
-
     "@angular-eslint/directive-selector": [
       "error",
       {

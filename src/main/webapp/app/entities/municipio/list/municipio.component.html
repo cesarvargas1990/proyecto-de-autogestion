@@ -33,6 +33,7 @@
       <thead>
         <tr>
           <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="portalautogestionApp.municipio.idMunicipio">Id Municipio</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.municipio.name">Name</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.municipio.codDane">Cod Dane</span></th>
           <th scope="col"><span jhiTranslate="portalautogestionApp.municipio.fKIdDepartamento">F K Id Departamento</span></th>
@@ -44,6 +45,7 @@
           <td>
             <a [routerLink]="['/municipio', municipio.id, 'view']">{{ municipio.id }}</a>
           </td>
+          <td>{{ municipio.idMunicipio }}</td>
           <td>{{ municipio.name }}</td>
           <td>{{ municipio.codDane }}</td>
           <td>{{ municipio.fKIdDepartamento }}</td>
