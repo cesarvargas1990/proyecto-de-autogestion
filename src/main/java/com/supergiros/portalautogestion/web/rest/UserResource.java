@@ -232,8 +232,6 @@ public class UserResource {
     @PostMapping("/insertUDM")
     @PreAuthorize("hasAuthority(\"" + AuthoritiesConstants.ADMIN + "\")")
     public void userDMInserted(@RequestBody UserDepartamentoMunicipioDTO udmDTO) {
-        
-
         userService.userDMInsert(udmDTO);
     }
 }

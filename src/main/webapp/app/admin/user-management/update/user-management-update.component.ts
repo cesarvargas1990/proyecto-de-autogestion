@@ -15,7 +15,6 @@ import { timeout } from 'rxjs';
   templateUrl: './user-management-update.component.html',
 })
 export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
-
   user!: User;
 
   udmmodel!: udmModel;
@@ -162,8 +161,6 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
             this.editForm.patchValue({
               municipio: this.municipiosListNameFull,
             });
-
-
           });
 
           this.userService.findConvenioID(this.user.id).subscribe(x => {
@@ -371,6 +368,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       this.addLocationVerification = true;
       this.saveReady = true;
     }
+  }
 
   private addDepartamentoAndMunicipio(user: User): void {
     const ad = this.editForm.get(['municipio'])!.value;
