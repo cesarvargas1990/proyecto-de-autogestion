@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { PasswordResetInitService } from './password-reset-init.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResetModalComponent } from 'app/account/password-reset/modal/reset-modal.component';
+import { SITE_KEY_CAPTCHA } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-password-reset-init',
@@ -17,7 +18,7 @@ export class PasswordResetInitComponent implements AfterViewInit {
   emailEnmascarado = '';
   emailEnviado = false;
   stringSeguro: any;
-
+  siteKeyCaptcha!: string;
   success = false;
   resetRequestForm = this.fb.group({
     email: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[A-Z0-9-]*$')]],
@@ -34,6 +35,7 @@ export class PasswordResetInitComponent implements AfterViewInit {
     if (this.email) {
       this.email.nativeElement.focus();
     }
+    this.siteKeyCaptcha = SITE_KEY_CAPTCHA;
   }
 
   requestReset(): void {
