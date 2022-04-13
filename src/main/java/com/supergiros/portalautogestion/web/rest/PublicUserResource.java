@@ -167,15 +167,20 @@ public class PublicUserResource {
         return userService.findMunicipiosNameByID(IdUser);
     }
 
-    /**
-     * Gets a list of all municipios.
-     *
-     * @return a string list of all roles.
-     */
-    @GetMapping("/getMunicipios")
-    public List<String> getMunicipios(Long fkDepartmanento) {
-        return userService.getMunicipiosName(fkDepartmanento);
+    @GetMapping("/findMunicipiosNameByIDAndDepartamento")
+    public List<String> findMunicipiosNameByIDAndDepartamento(Long IdUser, Long[] departamentoId) {
+        return userService.findMunicipiosNameByIDAndDepartamento(IdUser, departamentoId);
     }
+
+    // /**
+    //  * Gets a list of all municipios.
+    //  *
+    //  * @return a string list of all roles.
+    //  */
+    // @GetMapping("/getMunicipios")
+    // public List<String> getMunicipios(Long fkDepartmanento) {
+    //     return userService.getMunicipiosName(fkDepartmanento);
+    // }
 
     /**
      * Gets a list of all municipios.

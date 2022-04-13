@@ -6,7 +6,6 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { Pagination } from 'app/core/request/request.model';
 import { IUser } from '../user-management.model';
 import { udmModel } from '../user-management.model';
-
 import { User } from '../user-management.model';
 
 @Injectable({ providedIn: 'root' })
@@ -66,11 +65,14 @@ export class UserManagementService {
     );
   }
 
+  /* eslint-disable */
+
   getMultiplesMunicipios(fkDepartmanento: number[]): Observable<string[]> {
     return this.http.get<string[]>(
       this.applicationConfigService.getEndpointFor('api/getMultiplesMunicipios?fkDepartmanento=' + `${fkDepartmanento}`)
     );
   }
+  /* eslint-enable */
 
   getIdMunicipios(municipioName: string): Observable<number> {
     return this.http.get<number>(this.applicationConfigService.getEndpointFor('api/getIdMunicipios?municipioName=' + `${municipioName}`));
@@ -103,6 +105,17 @@ export class UserManagementService {
   findMunicipiosNameByID(IdUser: number): Observable<string[]> {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findMunicipiosNameByID?IdUser=' + `${IdUser}`));
   }
+  /* eslint-disable */
+
+  findMunicipiosNameByIDAndDepartamento(IdUser: number, departamentoId: number[]): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor(
+        'api/findMunicipiosNameByIDAndDepartamento?IdUser=' + `${IdUser}` + '&departamentoId=' + `${departamentoId}`
+      )
+    );
+  }
+
+  /* eslint-enable */
 
   //NO FUNCIONA
   findProgramaName(IdUser: number): Observable<string> {
@@ -164,9 +177,9 @@ export class UserManagementService {
     );
   }
 
-  getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
-    return this.http.get<string[]>(
-      this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
-    );
-  }
+  // getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
+  //   return this.http.get<string[]>(
+  //     this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
+  //   );
+  // }
 }
