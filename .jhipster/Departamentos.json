@@ -6,6 +6,10 @@
   "entityTableName": "departamentos",
   "fields": [
     {
+      "fieldName": "idDepartamentos",
+      "fieldType": "Integer"
+    },
+    {
       "fieldName": "name",
       "fieldType": "String"
     },

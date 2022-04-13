@@ -36,10 +36,6 @@ export class DepartamentosService {
     return this.http.get<IDepartamentos>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
-  findByCodDane(codDane: number): Observable<EntityResponseType> {
-    return this.http.get<IDepartamentos>(`${this.resourceUrl}/codDane/${codDane}`, { observe: 'response' });
-  }
-
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http.get<IDepartamentos[]>(this.resourceUrl, { params: options, observe: 'response' });

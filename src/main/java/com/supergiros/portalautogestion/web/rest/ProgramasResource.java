@@ -123,6 +123,9 @@ public class ProgramasResource {
         Optional<Programas> result = programasRepository
             .findById(programas.getId())
             .map(existingProgramas -> {
+                if (programas.getIdProgramas() != null) {
+                    existingProgramas.setIdProgramas(programas.getIdProgramas());
+                }
                 if (programas.getName() != null) {
                     existingProgramas.setName(programas.getName());
                 }
@@ -165,13 +168,6 @@ public class ProgramasResource {
         log.debug("REST request to get Programas : {}", id);
         Optional<Programas> programas = programasRepository.findById(id);
         return ResponseUtil.wrapOrNotFound(programas);
-    }
-
-    @GetMapping("/programas/nit/{nit}")
-    public ResponseEntity<Programas> getProgramassByNit(@PathVariable("nit") String nit) {
-        log.debug("REST request to get Programass : {}", nit);
-        Optional<Programas> programa = programasRepository.getProgramaNameByNit(nit);
-        return ResponseUtil.wrapOrNotFound(programa);
     }
 
     /**

@@ -21,6 +21,7 @@ describe('Convenio Service', () => {
 
     elemDefault = {
       id: 0,
+      idConvenio: 0,
       name: 'AAAAAAA',
       identificacion: 'AAAAAAA',
     };
@@ -58,6 +59,7 @@ describe('Convenio Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          idConvenio: 1,
           name: 'BBBBBB',
           identificacion: 'BBBBBB',
         },
@@ -76,7 +78,8 @@ describe('Convenio Service', () => {
     it('should partial update a Convenio', () => {
       const patchObject = Object.assign(
         {
-          name: 'BBBBBB',
+          idConvenio: 1,
+          identificacion: 'BBBBBB',
         },
         new Convenio()
       );
@@ -96,6 +99,7 @@ describe('Convenio Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          idConvenio: 1,
           name: 'BBBBBB',
           identificacion: 'BBBBBB',
         },
@@ -149,7 +153,7 @@ describe('Convenio Service', () => {
       });
 
       it('should add only unique Convenio to an array', () => {
-        const convenioArray: IConvenio[] = [{ id: 123 }, { id: 456 }, { id: 99770 }];
+        const convenioArray: IConvenio[] = [{ id: 123 }, { id: 456 }, { id: 33131 }];
         const convenioCollection: IConvenio[] = [{ id: 123 }];
         expectedResult = service.addConvenioToCollectionIfMissing(convenioCollection, ...convenioArray);
         expect(expectedResult).toHaveLength(3);

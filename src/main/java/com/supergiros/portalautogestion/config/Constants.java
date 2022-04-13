@@ -10,7 +10,6 @@ public final class Constants {
 
     public static final String SYSTEM = "system";
     public static final String DEFAULT_LANGUAGE = "es";
-    public static final Integer TOKEN_DURATION = 5;
 
     private Constants() {}
 }

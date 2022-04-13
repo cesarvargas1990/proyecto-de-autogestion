@@ -29,6 +29,9 @@ import org.springframework.transaction.annotation.Transactional;
 @WithMockUser
 class ConvenioResourceIT {
 
+    private static final Integer DEFAULT_ID_CONVENIO = 1;
+    private static final Integer UPDATED_ID_CONVENIO = 2;
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
@@ -59,7 +62,7 @@ class ConvenioResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Convenio createEntity(EntityManager em) {
-        Convenio convenio = new Convenio().name(DEFAULT_NAME).identificacion(DEFAULT_IDENTIFICACION);
+        Convenio convenio = new Convenio().idConvenio(DEFAULT_ID_CONVENIO).name(DEFAULT_NAME).identificacion(DEFAULT_IDENTIFICACION);
         return convenio;
     }
 
@@ -70,7 +73,7 @@ class ConvenioResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Convenio createUpdatedEntity(EntityManager em) {
-        Convenio convenio = new Convenio().name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
+        Convenio convenio = new Convenio().idConvenio(UPDATED_ID_CONVENIO).name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
         return convenio;
     }
 
@@ -92,6 +95,7 @@ class ConvenioResourceIT {
         List<Convenio> convenioList = convenioRepository.findAll();
         assertThat(convenioList).hasSize(databaseSizeBeforeCreate + 1);
         Convenio testConvenio = convenioList.get(convenioList.size() - 1);
+        assertThat(testConvenio.getIdConvenio()).isEqualTo(DEFAULT_ID_CONVENIO);
         assertThat(testConvenio.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testConvenio.getIdentificacion()).isEqualTo(DEFAULT_IDENTIFICACION);
     }
@@ -126,6 +130,7 @@ class ConvenioResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(convenio.getId().intValue())))
+            .andExpect(jsonPath("$.[*].idConvenio").value(hasItem(DEFAULT_ID_CONVENIO)))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
             .andExpect(jsonPath("$.[*].identificacion").value(hasItem(DEFAULT_IDENTIFICACION)));
     }
@@ -142,6 +147,7 @@ class ConvenioResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(convenio.getId().intValue()))
+            .andExpect(jsonPath("$.idConvenio").value(DEFAULT_ID_CONVENIO))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME))
             .andExpect(jsonPath("$.identificacion").value(DEFAULT_IDENTIFICACION));
     }
@@ -165,7 +171,7 @@ class ConvenioResourceIT {
         Convenio updatedConvenio = convenioRepository.findById(convenio.getId()).get();
         // Disconnect from session so that the updates on updatedConvenio are not directly saved in db
         em.detach(updatedConvenio);
-        updatedConvenio.name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
+        updatedConvenio.idConvenio(UPDATED_ID_CONVENIO).name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
 
         restConvenioMockMvc
             .perform(
@@ -179,6 +185,7 @@ class ConvenioResourceIT {
         List<Convenio> convenioList = convenioRepository.findAll();
         assertThat(convenioList).hasSize(databaseSizeBeforeUpdate);
         Convenio testConvenio = convenioList.get(convenioList.size() - 1);
+        assertThat(testConvenio.getIdConvenio()).isEqualTo(UPDATED_ID_CONVENIO);
         assertThat(testConvenio.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testConvenio.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
     }
@@ -251,7 +258,7 @@ class ConvenioResourceIT {
         Convenio partialUpdatedConvenio = new Convenio();
         partialUpdatedConvenio.setId(convenio.getId());
 
-        partialUpdatedConvenio.name(UPDATED_NAME);
+        partialUpdatedConvenio.idConvenio(UPDATED_ID_CONVENIO);
 
         restConvenioMockMvc
             .perform(
@@ -265,7 +272,8 @@ class ConvenioResourceIT {
         List<Convenio> convenioList = convenioRepository.findAll();
         assertThat(convenioList).hasSize(databaseSizeBeforeUpdate);
         Convenio testConvenio = convenioList.get(convenioList.size() - 1);
-        assertThat(testConvenio.getName()).isEqualTo(UPDATED_NAME);
+        assertThat(testConvenio.getIdConvenio()).isEqualTo(UPDATED_ID_CONVENIO);
+        assertThat(testConvenio.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testConvenio.getIdentificacion()).isEqualTo(DEFAULT_IDENTIFICACION);
     }
 
@@ -281,7 +289,7 @@ class ConvenioResourceIT {
         Convenio partialUpdatedConvenio = new Convenio();
         partialUpdatedConvenio.setId(convenio.getId());
 
-        partialUpdatedConvenio.name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
+        partialUpdatedConvenio.idConvenio(UPDATED_ID_CONVENIO).name(UPDATED_NAME).identificacion(UPDATED_IDENTIFICACION);
 
         restConvenioMockMvc
             .perform(
@@ -295,6 +303,7 @@ class ConvenioResourceIT {
         List<Convenio> convenioList = convenioRepository.findAll();
         assertThat(convenioList).hasSize(databaseSizeBeforeUpdate);
         Convenio testConvenio = convenioList.get(convenioList.size() - 1);
+        assertThat(testConvenio.getIdConvenio()).isEqualTo(UPDATED_ID_CONVENIO);
         assertThat(testConvenio.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testConvenio.getIdentificacion()).isEqualTo(UPDATED_IDENTIFICACION);
     }

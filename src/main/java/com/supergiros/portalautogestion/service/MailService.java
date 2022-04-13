@@ -3,14 +3,8 @@ package com.supergiros.portalautogestion.service;
 import com.supergiros.portalautogestion.domain.User;
 import java.nio.charset.StandardCharsets;
 import java.util.Locale;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
 import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -86,27 +80,15 @@ public class MailService {
     @Async
     public void sendEmailFromTemplate(User user, String templateName, String titleKey) {
         if (user.getEmail() == null) {
-            log.debug("No hay una cuenta asociada a'{}'", user.getLogin());
+            log.debug("Email doesn't exist for user '{}'", user.getLogin());
             return;
         }
-
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
-
         context.setVariable(USER, user);
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
-
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
-
-        // //desde aqui todo es para añadir la imagen esa
-        // MimeMultipart multipart = new MimeMultipart("related");
-        // BodyPart messBodyPart= new MimeBodyPart();
-        // messBodyPart.setContent(content,"text/html");
-        // multipart.addBodyPart(messBodyPart);
-        // messBodyPart= new MimeBodyPart();
-        // DataSource fds = new FileDataSource("file")
-
         sendEmail(user.getEmail(), subject, content, false, true);
     }
 
@@ -126,11 +108,5 @@ public class MailService {
     public void sendPasswordResetMail(User user) {
         log.debug("Sending password reset email to '{}'", user.getEmail());
         sendEmailFromTemplate(user, "mail/passwordResetEmail", "email.reset.title");
-    }
-
-    @Async
-    public void sendTwoFactorMail(User user) {
-        log.debug("Sending password reset email to '{}'", user.getEmail());
-        sendEmailFromTemplate(user, "mail/twoFactorEmail", "email.TwoFactor.title");
     }
 }

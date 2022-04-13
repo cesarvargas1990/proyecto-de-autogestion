@@ -10,8 +10,6 @@ import { Account } from 'app/core/auth/account.model';
 import { UserManagementService } from '../service/user-management.service';
 import { User } from '../user-management.model';
 import { UserManagementDeleteDialogComponent } from '../delete/user-management-delete-dialog.component';
-import { DOCUMENTTYPE } from 'app/config/documentType.constants';
-import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -20,50 +18,28 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class UserManagementComponent implements OnInit {
   currentAccount: Account | null = null;
   users: User[] | null = null;
-
   isLoading = false;
   totalItems = 0;
   itemsPerPage = ITEMS_PER_PAGE;
   page!: number;
   predicate!: string;
   ascending!: boolean;
-  documenttypes = DOCUMENTTYPE;
-  user!: User;
-  isShown!: boolean;
-  isShownlist!: boolean;
-  aplicarfiltro!: string;
-
-  loginString!: string;
-  documentTypeString!: string;
-  searchCredentialsError = false;
-  activated!: boolean;
-  desactivated!: boolean;
-  aplicarFiltro = true;
-  removerFiltro!: boolean;
-
-  editForm = this.fb.group({
-    documentType: [[Validators.required]],
-    login: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-  });
 
   constructor(
     private userService: UserManagementService,
     private accountService: AccountService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private modalService: NgbModal,
-    private fb: FormBuilder,
-    private route: ActivatedRoute
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
     this.accountService.identity().subscribe(account => (this.currentAccount = account));
     this.handleNavigation();
-    //this.updateForm(user);
   }
 
   setActive(user: User, isActivated: boolean): void {
-    this.userService.update({ ...user, activated: isActivated }).subscribe();
+    this.userService.update({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
   }
 
   trackIdentity(index: number, item: User): number {
@@ -83,8 +59,6 @@ export class UserManagementComponent implements OnInit {
 
   loadAll(): void {
     this.isLoading = true;
-    this.isShownlist = true;
-
     this.userService
       .query({
         page: this.page - 1,
@@ -109,57 +83,6 @@ export class UserManagementComponent implements OnInit {
       },
     });
   }
-
-  toggleShow(): void {
-    this.documentTypeString = this.editForm.get(['documentType'])!.value.toString();
-    this.loginString = this.editForm.get(['login'])!.value;
-
-    this.userService.find(this.loginString).subscribe({
-      next: xx => {
-        if (xx.documentType === this.documentTypeString) {
-          this.user = xx;
-          this.isShown = !this.isShown;
-          this.isShownlist = !this.isShownlist;
-          this.searchCredentialsError = false;
-          this.activated = xx.activated!;
-          this.removerFiltro = this.aplicarFiltro;
-          this.aplicarFiltro = !this.removerFiltro;
-        } else {
-          this.searchCredentialsError = true;
-        }
-      },
-    });
-  }
-
-  activateOrdesactivate(user: User): void {
-    this.desactivated = this.activated;
-
-    this.activated = !this.activated;
-
-    this.setActive(user, this.activated);
-  }
-
-  search(): void {
-    // this.userService.find(this.editForm.value.login).subscribe(xx =>
-    //   this.user = xx);
-    const a = 1;
-  }
-
-  // private updateForm(user: User): void {
-
-  //   this.editForm.patchValue({
-  //     loginSearch: user.loginSearch,
-  //     documentTypeSearch: user.documentTypeSearch,
-  //   });
-
-  // }
-
-  // private updateUser(user: User): void {
-
-  //   user.documentTypeSearch = this.editForm.get(['documentTypeSearch'])!.value;
-  //   user.loginSearch = this.editForm.get(['loginSearch'])!.value;
-
-  // }
 
   private handleNavigation(): void {
     combineLatest([this.activatedRoute.data, this.activatedRoute.queryParamMap]).subscribe(([data, params]) => {

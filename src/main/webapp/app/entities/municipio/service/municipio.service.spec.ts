@@ -21,6 +21,7 @@ describe('Municipio Service', () => {
 
     elemDefault = {
       id: 0,
+      idMunicipio: 0,
       name: 'AAAAAAA',
       codDane: 0,
       fKIdDepartamento: 0,
@@ -59,6 +60,7 @@ describe('Municipio Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          idMunicipio: 1,
           name: 'BBBBBB',
           codDane: 1,
           fKIdDepartamento: 1,
@@ -76,7 +78,12 @@ describe('Municipio Service', () => {
     });
 
     it('should partial update a Municipio', () => {
-      const patchObject = Object.assign({}, new Municipio());
+      const patchObject = Object.assign(
+        {
+          fKIdDepartamento: 1,
+        },
+        new Municipio()
+      );
 
       const returnedFromService = Object.assign(patchObject, elemDefault);
 
@@ -93,6 +100,7 @@ describe('Municipio Service', () => {
       const returnedFromService = Object.assign(
         {
           id: 1,
+          idMunicipio: 1,
           name: 'BBBBBB',
           codDane: 1,
           fKIdDepartamento: 1,
@@ -147,7 +155,7 @@ describe('Municipio Service', () => {
       });
 
       it('should add only unique Municipio to an array', () => {
-        const municipioArray: IMunicipio[] = [{ id: 123 }, { id: 456 }, { id: 62945 }];
+        const municipioArray: IMunicipio[] = [{ id: 123 }, { id: 456 }, { id: 93412 }];
         const municipioCollection: IMunicipio[] = [{ id: 123 }];
         expectedResult = service.addMunicipioToCollectionIfMissing(municipioCollection, ...municipioArray);
         expect(expectedResult).toHaveLength(3);

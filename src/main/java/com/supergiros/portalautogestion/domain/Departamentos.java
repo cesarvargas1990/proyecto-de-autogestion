@@ -21,6 +21,9 @@ public class Departamentos implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "id_departamentos")
+    private Integer idDepartamentos;
+
     @Column(name = "name")
     private String name;
 
@@ -40,6 +43,19 @@ public class Departamentos implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getIdDepartamentos() {
+        return this.idDepartamentos;
+    }
+
+    public Departamentos idDepartamentos(Integer idDepartamentos) {
+        this.setIdDepartamentos(idDepartamentos);
+        return this;
+    }
+
+    public void setIdDepartamentos(Integer idDepartamentos) {
+        this.idDepartamentos = idDepartamentos;
     }
 
     public String getName() {
@@ -92,12 +108,9 @@ public class Departamentos implements Serializable {
     public String toString() {
         return "Departamentos{" +
             "id=" + getId() +
+            ", idDepartamentos=" + getIdDepartamentos() +
             ", name='" + getName() + "'" +
             ", codDane=" + getCodDane() +
             "}";
-    }
-
-    public static long getSerialversionuid() {
-        return serialVersionUID;
     }
 }

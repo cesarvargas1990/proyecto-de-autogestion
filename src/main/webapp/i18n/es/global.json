@@ -1,14 +1,17 @@
 {
   "global": {
-    "title": "Portal de autogestión SuperGIROS",
+    "title": "Portalautogestion",
     "browsehappy": "Está usando un navegador <strong>no actualizado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=es\">actualice su navegador</a> para mejorar su experiencia.",
     "menu": {
       "home": "Inicio",
       "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
-      "autogestion": {
-        "main": "Autogestión",
-        "estadoGiro": "Consulta estado de giro",
-
+      "entities": {
+        "main": "Entidades",
+        "transaccionesNomina": "Transacciones Nomina",
+        "departamentos": "Departamentos",
+        "municipio": "Municipio",
+        "convenio": "Convenio",
+        "programas": "Programas",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
@@ -36,7 +39,7 @@
     },
     "form": {
       "username.label": "Usuario",
-      "username.placeholder": "Número de documento",
+      "username.placeholder": "Nombre de usuario",
       "currentpassword.label": "Contraseña actual",
       "currentpassword.placeholder": "Contraseña actual",
       "newpassword.label": "Nueva contraseña",
@@ -127,7 +130,7 @@
     "url.not.found": "No existe",
     "NotNull": "¡El campo {{fieldName}} no puede estar vacío!",
     "Size": "¡El campo {{fieldName}} no cumple con los requisitos de tamaño mínimo/máximo!",
-    "userexists": "¡El número de documento ya existe!",
+    "userexists": "¡El nombre de usuario ya existe!",
     "emailexists": "¡La cuenta de correo ya está en uso!",
     "idexists": "Un/a nuevo/a {{entityName}} no puede tener ID",
     "idnull": "ID inválido",

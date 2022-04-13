@@ -18,6 +18,7 @@
         "title": "Convenio"
       },
       "id": "ID",
+      "idConvenio": "Id Convenio",
       "name": "Name",
       "identificacion": "Identificacion"
     }

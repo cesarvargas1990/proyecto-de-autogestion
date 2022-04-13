@@ -17,6 +17,7 @@ export class MunicipioUpdateComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
+    idMunicipio: [],
     name: [],
     codDane: [],
     fKIdDepartamento: [],
@@ -66,6 +67,7 @@ export class MunicipioUpdateComponent implements OnInit {
   protected updateForm(municipio: IMunicipio): void {
     this.editForm.patchValue({
       id: municipio.id,
+      idMunicipio: municipio.idMunicipio,
       name: municipio.name,
       codDane: municipio.codDane,
       fKIdDepartamento: municipio.fKIdDepartamento,
@@ -76,6 +78,7 @@ export class MunicipioUpdateComponent implements OnInit {
     return {
       ...new Municipio(),
       id: this.editForm.get(['id'])!.value,
+      idMunicipio: this.editForm.get(['idMunicipio'])!.value,
       name: this.editForm.get(['name'])!.value,
       codDane: this.editForm.get(['codDane'])!.value,
       fKIdDepartamento: this.editForm.get(['fKIdDepartamento'])!.value,

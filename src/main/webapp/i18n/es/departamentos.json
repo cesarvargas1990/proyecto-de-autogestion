@@ -18,6 +18,7 @@
         "title": "Departamentos"
       },
       "id": "ID",
+      "idDepartamentos": "Id Departamentos",
       "name": "Name",
       "codDane": "Cod Dane"
     }

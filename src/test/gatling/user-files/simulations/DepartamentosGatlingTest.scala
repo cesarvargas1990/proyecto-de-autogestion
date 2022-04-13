@@ -71,7 +71,8 @@ class DepartamentosGatlingTest extends Simulation {
             .post("/api/departamentos")
             .headers(headers_http_authenticated)
             .body(StringBody("""{
-                "name":"SAMPLE_TEXT"
+                "idDepartamentos":"0"
+                , "name":"SAMPLE_TEXT"
                 , "codDane":"0"
                 }""")).asJson
             .check(status.is(201))

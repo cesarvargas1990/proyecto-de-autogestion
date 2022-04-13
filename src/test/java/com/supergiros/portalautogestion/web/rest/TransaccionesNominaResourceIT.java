@@ -67,8 +67,32 @@ class TransaccionesNominaResourceIT {
     private static final String DEFAULT_HORA_PAGO = "AAAAAAAAAA";
     private static final String UPDATED_HORA_PAGO = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_PIN_PAGO = 1;
+    private static final Integer UPDATED_PIN_PAGO = 2;
+
+    private static final Integer DEFAULT_F_K_DEPARTAMENTO_DE_PAGO = 1;
+    private static final Integer UPDATED_F_K_DEPARTAMENTO_DE_PAGO = 2;
+
+    private static final Integer DEFAULT_F_K_MUNICIPIO_DE_PAGO = 1;
+    private static final Integer UPDATED_F_K_MUNICIPIO_DE_PAGO = 2;
+
+    private static final Integer DEFAULT_F_K_DEPARTAMENTO = 1;
+    private static final Integer UPDATED_F_K_DEPARTAMENTO = 2;
+
+    private static final Integer DEFAULT_F_K_MUNICIPIO = 1;
+    private static final Integer UPDATED_F_K_MUNICIPIO = 2;
+
+    private static final Integer DEFAULT_F_K_ID_CONVENIO = 1;
+    private static final Integer UPDATED_F_K_ID_CONVENIO = 2;
+
+    private static final Integer DEFAULT_F_K_ID_PROGRAMA = 1;
+    private static final Integer UPDATED_F_K_ID_PROGRAMA = 2;
+
     private static final LocalDate DEFAULT_FECHA_DE_PAGO = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_FECHA_DE_PAGO = LocalDate.now(ZoneId.systemDefault());
+
+    private static final Integer DEFAULT_VALOR_GIRO = 1;
+    private static final Integer UPDATED_VALOR_GIRO = 2;
 
     private static final String DEFAULT_ESTADO = "AAAAAAAAAA";
     private static final String UPDATED_ESTADO = "BBBBBBBBBB";
@@ -96,30 +120,6 @@ class TransaccionesNominaResourceIT {
 
     private static final String DEFAULT_SOLICITUD_AUTORIZACION = "AAAAAAAAAA";
     private static final String UPDATED_SOLICITUD_AUTORIZACION = "BBBBBBBBBB";
-
-    private static final String DEFAULT_PIN_PAGO = "AAAAAAAAAA";
-    private static final String UPDATED_PIN_PAGO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_DEPARTAMENTO_DE_PAGO = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_DEPARTAMENTO_DE_PAGO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_MUNICIPIO_DE_PAGO = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_MUNICIPIO_DE_PAGO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_DEPARTAMENTO = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_DEPARTAMENTO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_MUNICIPIO = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_MUNICIPIO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_ID_CONVENIO = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_ID_CONVENIO = "BBBBBBBBBB";
-
-    private static final String DEFAULT_F_K_ID_PROGRAMA = "AAAAAAAAAA";
-    private static final String UPDATED_F_K_ID_PROGRAMA = "BBBBBBBBBB";
-
-    private static final String DEFAULT_VALOR_GIRO = "AAAAAAAAAA";
-    private static final String UPDATED_VALOR_GIRO = "BBBBBBBBBB";
 
     private static final String ENTITY_API_URL = "/api/transacciones-nominas";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
@@ -158,7 +158,15 @@ class TransaccionesNominaResourceIT {
             .apellidoDosPago(DEFAULT_APELLIDO_DOS_PAGO)
             .fechaPago(DEFAULT_FECHA_PAGO)
             .horaPago(DEFAULT_HORA_PAGO)
+            .pinPago(DEFAULT_PIN_PAGO)
+            .fKDepartamentoDePago(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO)
+            .fKMunicipioDePago(DEFAULT_F_K_MUNICIPIO_DE_PAGO)
+            .fKDepartamento(DEFAULT_F_K_DEPARTAMENTO)
+            .fKMunicipio(DEFAULT_F_K_MUNICIPIO)
+            .fKIdConvenio(DEFAULT_F_K_ID_CONVENIO)
+            .fKIdPrograma(DEFAULT_F_K_ID_PROGRAMA)
             .fechaDePago(DEFAULT_FECHA_DE_PAGO)
+            .valorGiro(DEFAULT_VALOR_GIRO)
             .estado(DEFAULT_ESTADO)
             .periodoPago(DEFAULT_PERIODO_PAGO)
             .motivoAnulacion(DEFAULT_MOTIVO_ANULACION)
@@ -167,15 +175,7 @@ class TransaccionesNominaResourceIT {
             .nota(DEFAULT_NOTA)
             .redPagadora(DEFAULT_RED_PAGADORA)
             .observacionControl(DEFAULT_OBSERVACION_CONTROL)
-            .solicitudAutorizacion(DEFAULT_SOLICITUD_AUTORIZACION)
-            .pinPago(DEFAULT_PIN_PAGO)
-            .fKDepartamentoDePago(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO)
-            .fKMunicipioDePago(DEFAULT_F_K_MUNICIPIO_DE_PAGO)
-            .fKDepartamento(DEFAULT_F_K_DEPARTAMENTO)
-            .fKMunicipio(DEFAULT_F_K_MUNICIPIO)
-            .fKIdConvenio(DEFAULT_F_K_ID_CONVENIO)
-            .fKIdPrograma(DEFAULT_F_K_ID_PROGRAMA)
-            .valorGiro(DEFAULT_VALOR_GIRO);
+            .solicitudAutorizacion(DEFAULT_SOLICITUD_AUTORIZACION);
         return transaccionesNomina;
     }
 
@@ -199,7 +199,15 @@ class TransaccionesNominaResourceIT {
             .apellidoDosPago(UPDATED_APELLIDO_DOS_PAGO)
             .fechaPago(UPDATED_FECHA_PAGO)
             .horaPago(UPDATED_HORA_PAGO)
+            .pinPago(UPDATED_PIN_PAGO)
+            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
+            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
+            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
+            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
+            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
+            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
             .fechaDePago(UPDATED_FECHA_DE_PAGO)
+            .valorGiro(UPDATED_VALOR_GIRO)
             .estado(UPDATED_ESTADO)
             .periodoPago(UPDATED_PERIODO_PAGO)
             .motivoAnulacion(UPDATED_MOTIVO_ANULACION)
@@ -208,15 +216,7 @@ class TransaccionesNominaResourceIT {
             .nota(UPDATED_NOTA)
             .redPagadora(UPDATED_RED_PAGADORA)
             .observacionControl(UPDATED_OBSERVACION_CONTROL)
-            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION)
-            .pinPago(UPDATED_PIN_PAGO)
-            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
-            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
-            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
-            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
-            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
-            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
-            .valorGiro(UPDATED_VALOR_GIRO);
+            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION);
         return transaccionesNomina;
     }
 
@@ -252,7 +252,15 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getApellidoDosPago()).isEqualTo(DEFAULT_APELLIDO_DOS_PAGO);
         assertThat(testTransaccionesNomina.getFechaPago()).isEqualTo(DEFAULT_FECHA_PAGO);
         assertThat(testTransaccionesNomina.getHoraPago()).isEqualTo(DEFAULT_HORA_PAGO);
+        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(DEFAULT_PIN_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(DEFAULT_F_K_MUNICIPIO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO);
+        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(DEFAULT_F_K_MUNICIPIO);
+        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(DEFAULT_F_K_ID_CONVENIO);
+        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(DEFAULT_F_K_ID_PROGRAMA);
         assertThat(testTransaccionesNomina.getFechaDePago()).isEqualTo(DEFAULT_FECHA_DE_PAGO);
+        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(DEFAULT_VALOR_GIRO);
         assertThat(testTransaccionesNomina.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testTransaccionesNomina.getPeriodoPago()).isEqualTo(DEFAULT_PERIODO_PAGO);
         assertThat(testTransaccionesNomina.getMotivoAnulacion()).isEqualTo(DEFAULT_MOTIVO_ANULACION);
@@ -262,14 +270,6 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getRedPagadora()).isEqualTo(DEFAULT_RED_PAGADORA);
         assertThat(testTransaccionesNomina.getObservacionControl()).isEqualTo(DEFAULT_OBSERVACION_CONTROL);
         assertThat(testTransaccionesNomina.getSolicitudAutorizacion()).isEqualTo(DEFAULT_SOLICITUD_AUTORIZACION);
-        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(DEFAULT_PIN_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(DEFAULT_F_K_MUNICIPIO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO);
-        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(DEFAULT_F_K_MUNICIPIO);
-        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(DEFAULT_F_K_ID_CONVENIO);
-        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(DEFAULT_F_K_ID_PROGRAMA);
-        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(DEFAULT_VALOR_GIRO);
     }
 
     @Test
@@ -316,7 +316,15 @@ class TransaccionesNominaResourceIT {
             .andExpect(jsonPath("$.[*].apellidoDosPago").value(hasItem(DEFAULT_APELLIDO_DOS_PAGO)))
             .andExpect(jsonPath("$.[*].fechaPago").value(hasItem(DEFAULT_FECHA_PAGO.toString())))
             .andExpect(jsonPath("$.[*].horaPago").value(hasItem(DEFAULT_HORA_PAGO)))
+            .andExpect(jsonPath("$.[*].pinPago").value(hasItem(DEFAULT_PIN_PAGO)))
+            .andExpect(jsonPath("$.[*].fKDepartamentoDePago").value(hasItem(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO)))
+            .andExpect(jsonPath("$.[*].fKMunicipioDePago").value(hasItem(DEFAULT_F_K_MUNICIPIO_DE_PAGO)))
+            .andExpect(jsonPath("$.[*].fKDepartamento").value(hasItem(DEFAULT_F_K_DEPARTAMENTO)))
+            .andExpect(jsonPath("$.[*].fKMunicipio").value(hasItem(DEFAULT_F_K_MUNICIPIO)))
+            .andExpect(jsonPath("$.[*].fKIdConvenio").value(hasItem(DEFAULT_F_K_ID_CONVENIO)))
+            .andExpect(jsonPath("$.[*].fKIdPrograma").value(hasItem(DEFAULT_F_K_ID_PROGRAMA)))
             .andExpect(jsonPath("$.[*].fechaDePago").value(hasItem(DEFAULT_FECHA_DE_PAGO.toString())))
+            .andExpect(jsonPath("$.[*].valorGiro").value(hasItem(DEFAULT_VALOR_GIRO)))
             .andExpect(jsonPath("$.[*].estado").value(hasItem(DEFAULT_ESTADO)))
             .andExpect(jsonPath("$.[*].periodoPago").value(hasItem(DEFAULT_PERIODO_PAGO)))
             .andExpect(jsonPath("$.[*].motivoAnulacion").value(hasItem(DEFAULT_MOTIVO_ANULACION)))
@@ -325,15 +333,7 @@ class TransaccionesNominaResourceIT {
             .andExpect(jsonPath("$.[*].nota").value(hasItem(DEFAULT_NOTA)))
             .andExpect(jsonPath("$.[*].redPagadora").value(hasItem(DEFAULT_RED_PAGADORA)))
             .andExpect(jsonPath("$.[*].observacionControl").value(hasItem(DEFAULT_OBSERVACION_CONTROL)))
-            .andExpect(jsonPath("$.[*].solicitudAutorizacion").value(hasItem(DEFAULT_SOLICITUD_AUTORIZACION)))
-            .andExpect(jsonPath("$.[*].pinPago").value(hasItem(DEFAULT_PIN_PAGO)))
-            .andExpect(jsonPath("$.[*].fKDepartamentoDePago").value(hasItem(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO)))
-            .andExpect(jsonPath("$.[*].fKMunicipioDePago").value(hasItem(DEFAULT_F_K_MUNICIPIO_DE_PAGO)))
-            .andExpect(jsonPath("$.[*].fKDepartamento").value(hasItem(DEFAULT_F_K_DEPARTAMENTO)))
-            .andExpect(jsonPath("$.[*].fKMunicipio").value(hasItem(DEFAULT_F_K_MUNICIPIO)))
-            .andExpect(jsonPath("$.[*].fKIdConvenio").value(hasItem(DEFAULT_F_K_ID_CONVENIO)))
-            .andExpect(jsonPath("$.[*].fKIdPrograma").value(hasItem(DEFAULT_F_K_ID_PROGRAMA)))
-            .andExpect(jsonPath("$.[*].valorGiro").value(hasItem(DEFAULT_VALOR_GIRO)));
+            .andExpect(jsonPath("$.[*].solicitudAutorizacion").value(hasItem(DEFAULT_SOLICITUD_AUTORIZACION)));
     }
 
     @Test
@@ -360,7 +360,15 @@ class TransaccionesNominaResourceIT {
             .andExpect(jsonPath("$.apellidoDosPago").value(DEFAULT_APELLIDO_DOS_PAGO))
             .andExpect(jsonPath("$.fechaPago").value(DEFAULT_FECHA_PAGO.toString()))
             .andExpect(jsonPath("$.horaPago").value(DEFAULT_HORA_PAGO))
+            .andExpect(jsonPath("$.pinPago").value(DEFAULT_PIN_PAGO))
+            .andExpect(jsonPath("$.fKDepartamentoDePago").value(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO))
+            .andExpect(jsonPath("$.fKMunicipioDePago").value(DEFAULT_F_K_MUNICIPIO_DE_PAGO))
+            .andExpect(jsonPath("$.fKDepartamento").value(DEFAULT_F_K_DEPARTAMENTO))
+            .andExpect(jsonPath("$.fKMunicipio").value(DEFAULT_F_K_MUNICIPIO))
+            .andExpect(jsonPath("$.fKIdConvenio").value(DEFAULT_F_K_ID_CONVENIO))
+            .andExpect(jsonPath("$.fKIdPrograma").value(DEFAULT_F_K_ID_PROGRAMA))
             .andExpect(jsonPath("$.fechaDePago").value(DEFAULT_FECHA_DE_PAGO.toString()))
+            .andExpect(jsonPath("$.valorGiro").value(DEFAULT_VALOR_GIRO))
             .andExpect(jsonPath("$.estado").value(DEFAULT_ESTADO))
             .andExpect(jsonPath("$.periodoPago").value(DEFAULT_PERIODO_PAGO))
             .andExpect(jsonPath("$.motivoAnulacion").value(DEFAULT_MOTIVO_ANULACION))
@@ -369,15 +377,7 @@ class TransaccionesNominaResourceIT {
             .andExpect(jsonPath("$.nota").value(DEFAULT_NOTA))
             .andExpect(jsonPath("$.redPagadora").value(DEFAULT_RED_PAGADORA))
             .andExpect(jsonPath("$.observacionControl").value(DEFAULT_OBSERVACION_CONTROL))
-            .andExpect(jsonPath("$.solicitudAutorizacion").value(DEFAULT_SOLICITUD_AUTORIZACION))
-            .andExpect(jsonPath("$.pinPago").value(DEFAULT_PIN_PAGO))
-            .andExpect(jsonPath("$.fKDepartamentoDePago").value(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO))
-            .andExpect(jsonPath("$.fKMunicipioDePago").value(DEFAULT_F_K_MUNICIPIO_DE_PAGO))
-            .andExpect(jsonPath("$.fKDepartamento").value(DEFAULT_F_K_DEPARTAMENTO))
-            .andExpect(jsonPath("$.fKMunicipio").value(DEFAULT_F_K_MUNICIPIO))
-            .andExpect(jsonPath("$.fKIdConvenio").value(DEFAULT_F_K_ID_CONVENIO))
-            .andExpect(jsonPath("$.fKIdPrograma").value(DEFAULT_F_K_ID_PROGRAMA))
-            .andExpect(jsonPath("$.valorGiro").value(DEFAULT_VALOR_GIRO));
+            .andExpect(jsonPath("$.solicitudAutorizacion").value(DEFAULT_SOLICITUD_AUTORIZACION));
     }
 
     @Test
@@ -412,7 +412,15 @@ class TransaccionesNominaResourceIT {
             .apellidoDosPago(UPDATED_APELLIDO_DOS_PAGO)
             .fechaPago(UPDATED_FECHA_PAGO)
             .horaPago(UPDATED_HORA_PAGO)
+            .pinPago(UPDATED_PIN_PAGO)
+            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
+            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
+            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
+            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
+            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
+            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
             .fechaDePago(UPDATED_FECHA_DE_PAGO)
+            .valorGiro(UPDATED_VALOR_GIRO)
             .estado(UPDATED_ESTADO)
             .periodoPago(UPDATED_PERIODO_PAGO)
             .motivoAnulacion(UPDATED_MOTIVO_ANULACION)
@@ -421,15 +429,7 @@ class TransaccionesNominaResourceIT {
             .nota(UPDATED_NOTA)
             .redPagadora(UPDATED_RED_PAGADORA)
             .observacionControl(UPDATED_OBSERVACION_CONTROL)
-            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION)
-            .pinPago(UPDATED_PIN_PAGO)
-            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
-            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
-            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
-            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
-            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
-            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
-            .valorGiro(UPDATED_VALOR_GIRO);
+            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION);
 
         restTransaccionesNominaMockMvc
             .perform(
@@ -455,7 +455,15 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getApellidoDosPago()).isEqualTo(UPDATED_APELLIDO_DOS_PAGO);
         assertThat(testTransaccionesNomina.getFechaPago()).isEqualTo(UPDATED_FECHA_PAGO);
         assertThat(testTransaccionesNomina.getHoraPago()).isEqualTo(UPDATED_HORA_PAGO);
+        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(UPDATED_F_K_DEPARTAMENTO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(UPDATED_F_K_DEPARTAMENTO);
+        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(UPDATED_F_K_MUNICIPIO);
+        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(UPDATED_F_K_ID_CONVENIO);
+        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(UPDATED_F_K_ID_PROGRAMA);
         assertThat(testTransaccionesNomina.getFechaDePago()).isEqualTo(UPDATED_FECHA_DE_PAGO);
+        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(UPDATED_VALOR_GIRO);
         assertThat(testTransaccionesNomina.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testTransaccionesNomina.getPeriodoPago()).isEqualTo(UPDATED_PERIODO_PAGO);
         assertThat(testTransaccionesNomina.getMotivoAnulacion()).isEqualTo(UPDATED_MOTIVO_ANULACION);
@@ -465,14 +473,6 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getRedPagadora()).isEqualTo(UPDATED_RED_PAGADORA);
         assertThat(testTransaccionesNomina.getObservacionControl()).isEqualTo(UPDATED_OBSERVACION_CONTROL);
         assertThat(testTransaccionesNomina.getSolicitudAutorizacion()).isEqualTo(UPDATED_SOLICITUD_AUTORIZACION);
-        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(UPDATED_F_K_DEPARTAMENTO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(UPDATED_F_K_DEPARTAMENTO);
-        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(UPDATED_F_K_MUNICIPIO);
-        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(UPDATED_F_K_ID_CONVENIO);
-        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(UPDATED_F_K_ID_PROGRAMA);
-        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(UPDATED_VALOR_GIRO);
     }
 
     @Test
@@ -554,15 +554,15 @@ class TransaccionesNominaResourceIT {
             .nombreDosPago(UPDATED_NOMBRE_DOS_PAGO)
             .apellidoDosPago(UPDATED_APELLIDO_DOS_PAGO)
             .horaPago(UPDATED_HORA_PAGO)
-            .fechaDePago(UPDATED_FECHA_DE_PAGO)
-            .periodoPago(UPDATED_PERIODO_PAGO)
-            .motivoAnulacion(UPDATED_MOTIVO_ANULACION)
-            .fechaVigencia(UPDATED_FECHA_VIGENCIA)
-            .redPagadora(UPDATED_RED_PAGADORA)
-            .observacionControl(UPDATED_OBSERVACION_CONTROL)
             .pinPago(UPDATED_PIN_PAGO)
             .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
-            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO);
+            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
+            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
+            .fechaDePago(UPDATED_FECHA_DE_PAGO)
+            .valorGiro(UPDATED_VALOR_GIRO)
+            .periodoPago(UPDATED_PERIODO_PAGO)
+            .fechaVigencia(UPDATED_FECHA_VIGENCIA)
+            .redPagadora(UPDATED_RED_PAGADORA);
 
         restTransaccionesNominaMockMvc
             .perform(
@@ -588,24 +588,24 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getApellidoDosPago()).isEqualTo(UPDATED_APELLIDO_DOS_PAGO);
         assertThat(testTransaccionesNomina.getFechaPago()).isEqualTo(DEFAULT_FECHA_PAGO);
         assertThat(testTransaccionesNomina.getHoraPago()).isEqualTo(UPDATED_HORA_PAGO);
+        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(UPDATED_F_K_DEPARTAMENTO);
+        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(UPDATED_F_K_MUNICIPIO);
+        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(DEFAULT_F_K_ID_CONVENIO);
+        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(DEFAULT_F_K_ID_PROGRAMA);
         assertThat(testTransaccionesNomina.getFechaDePago()).isEqualTo(UPDATED_FECHA_DE_PAGO);
+        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(UPDATED_VALOR_GIRO);
         assertThat(testTransaccionesNomina.getEstado()).isEqualTo(DEFAULT_ESTADO);
         assertThat(testTransaccionesNomina.getPeriodoPago()).isEqualTo(UPDATED_PERIODO_PAGO);
-        assertThat(testTransaccionesNomina.getMotivoAnulacion()).isEqualTo(UPDATED_MOTIVO_ANULACION);
+        assertThat(testTransaccionesNomina.getMotivoAnulacion()).isEqualTo(DEFAULT_MOTIVO_ANULACION);
         assertThat(testTransaccionesNomina.getFechaVigencia()).isEqualTo(UPDATED_FECHA_VIGENCIA);
         assertThat(testTransaccionesNomina.getFechaCargue()).isEqualTo(DEFAULT_FECHA_CARGUE);
         assertThat(testTransaccionesNomina.getNota()).isEqualTo(DEFAULT_NOTA);
         assertThat(testTransaccionesNomina.getRedPagadora()).isEqualTo(UPDATED_RED_PAGADORA);
-        assertThat(testTransaccionesNomina.getObservacionControl()).isEqualTo(UPDATED_OBSERVACION_CONTROL);
+        assertThat(testTransaccionesNomina.getObservacionControl()).isEqualTo(DEFAULT_OBSERVACION_CONTROL);
         assertThat(testTransaccionesNomina.getSolicitudAutorizacion()).isEqualTo(DEFAULT_SOLICITUD_AUTORIZACION);
-        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(DEFAULT_F_K_DEPARTAMENTO);
-        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(DEFAULT_F_K_MUNICIPIO);
-        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(UPDATED_F_K_ID_CONVENIO);
-        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(DEFAULT_F_K_ID_PROGRAMA);
-        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(DEFAULT_VALOR_GIRO);
     }
 
     @Test
@@ -633,7 +633,15 @@ class TransaccionesNominaResourceIT {
             .apellidoDosPago(UPDATED_APELLIDO_DOS_PAGO)
             .fechaPago(UPDATED_FECHA_PAGO)
             .horaPago(UPDATED_HORA_PAGO)
+            .pinPago(UPDATED_PIN_PAGO)
+            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
+            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
+            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
+            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
+            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
+            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
             .fechaDePago(UPDATED_FECHA_DE_PAGO)
+            .valorGiro(UPDATED_VALOR_GIRO)
             .estado(UPDATED_ESTADO)
             .periodoPago(UPDATED_PERIODO_PAGO)
             .motivoAnulacion(UPDATED_MOTIVO_ANULACION)
@@ -642,15 +650,7 @@ class TransaccionesNominaResourceIT {
             .nota(UPDATED_NOTA)
             .redPagadora(UPDATED_RED_PAGADORA)
             .observacionControl(UPDATED_OBSERVACION_CONTROL)
-            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION)
-            .pinPago(UPDATED_PIN_PAGO)
-            .fKDepartamentoDePago(UPDATED_F_K_DEPARTAMENTO_DE_PAGO)
-            .fKMunicipioDePago(UPDATED_F_K_MUNICIPIO_DE_PAGO)
-            .fKDepartamento(UPDATED_F_K_DEPARTAMENTO)
-            .fKMunicipio(UPDATED_F_K_MUNICIPIO)
-            .fKIdConvenio(UPDATED_F_K_ID_CONVENIO)
-            .fKIdPrograma(UPDATED_F_K_ID_PROGRAMA)
-            .valorGiro(UPDATED_VALOR_GIRO);
+            .solicitudAutorizacion(UPDATED_SOLICITUD_AUTORIZACION);
 
         restTransaccionesNominaMockMvc
             .perform(
@@ -676,7 +676,15 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getApellidoDosPago()).isEqualTo(UPDATED_APELLIDO_DOS_PAGO);
         assertThat(testTransaccionesNomina.getFechaPago()).isEqualTo(UPDATED_FECHA_PAGO);
         assertThat(testTransaccionesNomina.getHoraPago()).isEqualTo(UPDATED_HORA_PAGO);
+        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(UPDATED_F_K_DEPARTAMENTO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
+        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(UPDATED_F_K_DEPARTAMENTO);
+        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(UPDATED_F_K_MUNICIPIO);
+        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(UPDATED_F_K_ID_CONVENIO);
+        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(UPDATED_F_K_ID_PROGRAMA);
         assertThat(testTransaccionesNomina.getFechaDePago()).isEqualTo(UPDATED_FECHA_DE_PAGO);
+        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(UPDATED_VALOR_GIRO);
         assertThat(testTransaccionesNomina.getEstado()).isEqualTo(UPDATED_ESTADO);
         assertThat(testTransaccionesNomina.getPeriodoPago()).isEqualTo(UPDATED_PERIODO_PAGO);
         assertThat(testTransaccionesNomina.getMotivoAnulacion()).isEqualTo(UPDATED_MOTIVO_ANULACION);
@@ -686,14 +694,6 @@ class TransaccionesNominaResourceIT {
         assertThat(testTransaccionesNomina.getRedPagadora()).isEqualTo(UPDATED_RED_PAGADORA);
         assertThat(testTransaccionesNomina.getObservacionControl()).isEqualTo(UPDATED_OBSERVACION_CONTROL);
         assertThat(testTransaccionesNomina.getSolicitudAutorizacion()).isEqualTo(UPDATED_SOLICITUD_AUTORIZACION);
-        assertThat(testTransaccionesNomina.getPinPago()).isEqualTo(UPDATED_PIN_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamentoDePago()).isEqualTo(UPDATED_F_K_DEPARTAMENTO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKMunicipioDePago()).isEqualTo(UPDATED_F_K_MUNICIPIO_DE_PAGO);
-        assertThat(testTransaccionesNomina.getfKDepartamento()).isEqualTo(UPDATED_F_K_DEPARTAMENTO);
-        assertThat(testTransaccionesNomina.getfKMunicipio()).isEqualTo(UPDATED_F_K_MUNICIPIO);
-        assertThat(testTransaccionesNomina.getfKIdConvenio()).isEqualTo(UPDATED_F_K_ID_CONVENIO);
-        assertThat(testTransaccionesNomina.getfKIdPrograma()).isEqualTo(UPDATED_F_K_ID_PROGRAMA);
-        assertThat(testTransaccionesNomina.getValorGiro()).isEqualTo(UPDATED_VALOR_GIRO);
     }
 
     @Test
