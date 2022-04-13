@@ -3,7 +3,7 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
-
+import { LoginModalComponent } from './login-modal.component';
 import { AccountService } from 'app/core/auth/account.service';
 
 import { Account } from 'app/core/auth/account.model';
@@ -76,6 +76,12 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
         this.pruebaesta = false;
         setTimeout(() => {
           this.modalService.dismissAll();
+          if (validatedToken?.firstTime) {
+            this.loginService.validarPrimerLogin(validatedToken.login).subscribe(() => {
+              this.modalService.open(LoginModalComponent);
+              this.router.navigate(['/account/password']);
+            });
+          }
         }, 800);
       },
 
