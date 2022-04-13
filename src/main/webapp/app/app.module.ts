@@ -28,9 +28,12 @@ import { ErrorComponent } from './layouts/error/error.component';
 import { ConsultaEstadoGiroComponent } from './consulta-estado-giro/consulta-estado-giro.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 @NgModule({
   imports: [
     BrowserModule,
+    NgMultiSelectDropDownModule.forRoot(),
     SharedModule,
     HomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
