@@ -13,7 +13,7 @@
     </div>
   </h2>
 
-  <jhi-alert-error></jhi-alert-error>
+  <jhi-alert-error> </jhi-alert-error>
 
   <jhi-alert></jhi-alert>
 
@@ -106,25 +106,7 @@
             </td>
             <td>{{ user.login }}</td>
             <td>{{ user.email }}</td>
-            <td>
-              <!-- <button
-                class="btn btn-secondary btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.activated"
-                jhiTranslate="userManagement.activated"
-              >
-                Deactivated
-              </button>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.desactivated"
-                [disabled]=""
-                jhiTranslate="userManagement.deactivated"
-              >
-                Activated
-              </button> -->
-            </td>
+            <td></td>
             <td>
               <div *ngFor="let authority of user.authorities">
                 <span class="badge badge-info">{{ authority }}</span>

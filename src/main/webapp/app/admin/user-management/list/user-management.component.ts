@@ -36,6 +36,7 @@ export class UserManagementComponent implements OnInit {
   loginString!: string;
   documentTypeString!: string;
   searchCredentialsError = false;
+  searchUserError = false;
   activated!: boolean;
   desactivated!: boolean;
   aplicarFiltro = true;
