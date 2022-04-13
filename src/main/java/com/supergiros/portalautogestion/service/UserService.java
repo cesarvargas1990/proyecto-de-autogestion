@@ -105,6 +105,7 @@ public class UserService {
 
         for (int i = 0; i < municipioName.length; i++) {
             userDepartamentoMunicipioRepository.userDMInsert(userId, departamentoName[i], municipioName[i]);
+            //log.debug("MUNICIPIOOOOOOOOOOOOOOOOOOOOOOS: {}", municipioName[i]);
         }
     }
 
@@ -131,6 +132,15 @@ public class UserService {
 
     public List<String> findMunicipiosNameByID(Long IdUser) {
         return departamentosRepository.findMunicipiosNameByID(IdUser);
+    }
+
+    public List<String> findMunicipiosNameByIDAndDepartamento(Long IdUser, Long[] departamentoId) {
+        List<String> Departamentos = new ArrayList();
+
+        for (int i = 0; i < departamentoId.length; i++) {
+            Departamentos.addAll(departamentosRepository.findMunicipiosNameByIDAndDepartamento(IdUser, departamentoId[i]));
+        }
+        return Departamentos;
     }
 
     public String findProgramaName(Long IdUser) {
@@ -493,9 +503,9 @@ public class UserService {
         return departamentosRepository.findIdByName(departamentoName);
     }
 
-    public List<String> getMunicipiosName(Long fkDepartmanento) {
-        return departamentosRepository.getMunicipiosName(fkDepartmanento);
-    }
+    // public List<String> getMunicipiosName(Long fkDepartmanento) {
+    //     return departamentosRepository.getMunicipiosName(fkDepartmanento);
+    // }
 
     public List<String> getMunicipiosNames(Long[] fkDepartmanento) {
         List<String> Municipios = new ArrayList();

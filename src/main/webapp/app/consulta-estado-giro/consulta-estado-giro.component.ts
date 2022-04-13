@@ -166,7 +166,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
               setTimeout(() => {
                 this.transaccionesNominas = lokesea;
-              }, 300);
+              }, 100);
             },
             error: () => {
               this.isLoading = false;
