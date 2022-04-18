@@ -29,7 +29,7 @@
   </div> -->
 
   <form name="editForm" role="form" [formGroup]="editForm">
-    <div class="alert alert-danger alert-dismissible" id="alert" name="alert" *ngIf="searchCredentialsError">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="searchCredentialsError">
       <!-- <a  class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
       <!-- <button type="button" class="alert-close" data-bs-dismiss="alert">x</button> -->
 
@@ -39,6 +39,9 @@
       <!-- <a  class="close" data-dismiss="alert" aria-label="close" (onClick)="close(alert)">&times;</a> -->
 
       <!-- <button type="button" class="close" data-dismiss="alert alert-danger">x</button> -->
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   </form>
 
