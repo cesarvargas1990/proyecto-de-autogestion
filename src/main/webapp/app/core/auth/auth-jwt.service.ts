@@ -35,9 +35,6 @@ export class AuthServerProvider {
     return this.http.post<HttpStatusCode>(this.applicationConfigService.getEndpointFor('api/authenticate'), credentials);
   }
 
-  firstLogin(login: string): Observable<void> {
-    return this.http.put<void>(this.applicationConfigService.getEndpointFor('/api/admin/user/firstLogin'), login);
-  }
   logout(): Observable<void> {
     return new Observable(observer => {
       this.localStorageService.clear('authenticationToken');
