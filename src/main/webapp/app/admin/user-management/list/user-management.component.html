@@ -99,26 +99,26 @@
       <table class="table table-striped" aria-describedby="user-management-page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
-            <th scope="col" jhiSortBy="id">
+            <th scope="col">
               <span jhiTranslate="global.field.id">ID</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="login">
+            <th scope="col">
               <span>Número de Documento</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="email">
+            <th scope="col">
               <span jhiTranslate="userManagement.email">Email</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col"></th>
 
             <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
-            <th scope="col" jhiSortBy="createdDate">
+            <th scope="col">
               <span jhiTranslate="userManagement.createdDate">Created Date</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="lastModifiedBy">
+            <th scope="col">
               <span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
@@ -247,24 +247,24 @@
         </tbody>
       </table>
     </div>
-  </div>
 
-  <div>
-    <div *ngIf="users">
-      <div class="row justify-content-center">
-        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
-      </div>
+    <div>
+      <div *ngIf="users">
+        <div class="row justify-content-center">
+          <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
+        </div>
 
-      <div class="row justify-content-center">
-        <ngb-pagination
-          [collectionSize]="totalItems"
-          [(page)]="page"
-          [pageSize]="itemsPerPage"
-          [maxSize]="5"
-          [rotate]="true"
-          [boundaryLinks]="true"
-          (pageChange)="transition()"
-        ></ngb-pagination>
+        <div class="row justify-content-center">
+          <ngb-pagination
+            [collectionSize]="totalItems"
+            [(page)]="page"
+            [pageSize]="itemsPerPage"
+            [maxSize]="5"
+            [rotate]="true"
+            [boundaryLinks]="true"
+            (pageChange)="transition()"
+          ></ngb-pagination>
+        </div>
       </div>
     </div>
   </div>
