@@ -154,7 +154,10 @@ export class UserManagementComponent implements OnInit {
   }
 
   close(alert: Alert): void {
-    alert.close;
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
+  closeAlert(): void {
+    this.searchCredentialsError = false;
   }
 
   // private updateForm(user: User): void {
