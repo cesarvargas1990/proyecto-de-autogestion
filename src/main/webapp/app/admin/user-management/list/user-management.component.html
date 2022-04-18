@@ -13,7 +13,34 @@
     </div>
   </h2>
 
-  <jhi-alert-error></jhi-alert-error>
+  <!-- <jhi-alert-error > </jhi-alert-error> -->
+
+  <!-- <div class="alerts" role="alert">
+    <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
+      <ngb-alert *ngIf="alert.message" [type]="alert.type" (closed)="close(alert)">
+        <pre [innerHTML]="alert.message"></pre>
+      </ngb-alert>
+    </div>
+  </div> -->
+
+  <!-- <div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+  </div> -->
+
+  <form name="editForm" role="form" [formGroup]="editForm">
+    <div class="alert alert-danger alert-dismissible" id="alert" name="alert" *ngIf="searchCredentialsError">
+      <!-- <a  class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+      <!-- <button type="button" class="alert-close" data-bs-dismiss="alert">x</button> -->
+
+      <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button> -->
+
+      <div jhiTranslate="userManagement.searchCredentialsError"></div>
+      <!-- <a  class="close" data-dismiss="alert" aria-label="close" (onClick)="close(alert)">&times;</a> -->
+
+      <!-- <button type="button" class="close" data-dismiss="alert alert-danger">x</button> -->
+    </div>
+  </form>
 
   <jhi-alert></jhi-alert>
 
@@ -63,7 +90,8 @@
       </div>
     </div>
 
-    <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
+    <!-- <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError">
+    </div> -->
   </form>
 
   <div *ngIf="isShown">
@@ -106,25 +134,7 @@
             </td>
             <td>{{ user.login }}</td>
             <td>{{ user.email }}</td>
-            <td>
-              <!-- <button
-                class="btn btn-secondary btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.activated"
-                jhiTranslate="userManagement.activated"
-              >
-                Deactivated
-              </button>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.desactivated"
-                [disabled]=""
-                jhiTranslate="userManagement.deactivated"
-              >
-                Activated
-              </button> -->
-            </td>
+            <td></td>
             <td>
               <div *ngFor="let authority of user.authorities">
                 <span class="badge badge-info">{{ authority }}</span>

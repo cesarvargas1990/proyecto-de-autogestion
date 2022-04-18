@@ -29,7 +29,7 @@
     "createdDate": "Fecha de creación",
     "lastModifiedBy": "Modificado por",
     "lastModifiedDate": "Fecha de modificación",
-    "searchCredentialsError": "Las credenciales de busqueda no coinciden",
+    "searchCredentialsError": "Los datos ingresados en la búsqueda no son correctos, verificar tipo y numero de documento.",
     "celphoneCredentialsError": "El número de celular debe iniciar con 3",
     "emailCredentialsError": "El correo electrónico no es acorde al dominio",
     "idMunicipiosError": "Debe seleccionar algún municipio"

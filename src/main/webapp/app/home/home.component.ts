@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/auth/account.model';
+import { Alert, AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-home',
@@ -13,6 +14,7 @@ import { Account } from 'app/core/auth/account.model';
 })
 export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
+  alerts: Alert[] = [];
 
   private readonly destroy$ = new Subject<void>();
 
@@ -32,5 +34,17 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  close(alert: Alert): void {
+    alert.close?.(this.alerts);
+  }
+
+  setClasses(alert: Alert): { [key: string]: boolean } {
+    const classes = { 'jhi-toast': Boolean(alert.toast) };
+    if (alert.position) {
+      return { ...classes, [alert.position]: true };
+    }
+    return classes;
   }
 }
