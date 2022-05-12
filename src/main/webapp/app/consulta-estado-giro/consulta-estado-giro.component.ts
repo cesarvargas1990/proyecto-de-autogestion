@@ -177,8 +177,8 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
             this.formSearch.value.numberDocument,
             this.formSearch.value.typeDocument,
             this.departmentOfUser[index],
-            this.nitConvenioUserLogged,
-            this.isAdmin
+            this.nitConvenioUserLogged
+            //this.isAdmin,
           )
           .subscribe({
             next: (res: HttpResponse<ITransaccionesNomina[]>) => {
