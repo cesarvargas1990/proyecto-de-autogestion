@@ -70,16 +70,20 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   dropdownSettings = {};
   dropdownSettingsdocumenttypes = {};
   dropdownSettingsDepartamento = {};
+  dropdownSettingsConvenios = {};
 
   isSaving = false;
   celphoneCredentialsError = false;
   emailCredentialsError = false;
   idCredentialsError = false;
   idMunicipiosError = false;
+  idConveniosError = false;
+
   addMunicipiosVerification = true;
   addLocationVerification = true;
   addLocationVerification2 = true;
   EditOrCreate = true;
+  thisUserisAdmin = false;
 
   saveReady = true;
   verificationMunicipiosFinish = false;
@@ -129,7 +133,17 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
         if (this.user.id === undefined) {
           this.user.activated = true;
           this.EditOrCreate = true;
+          /* eslint-disable */
+          this.thisUserisAdmin = true;
+          console.log('es admin?: ' + this.thisUserisAdmin);
         } else {
+          if (this.user.authorities?.includes('ROLE_ADMIN')) {
+            this.thisUserisAdmin = true;
+          } else {
+            this.thisUserisAdmin = false;
+          }
+          console.log('es admin?: ' + this.thisUserisAdmin);
+          /* eslint-enable */
           this.EditOrCreate = false;
 
           this.userService.getDepartamentosName(this.user.id).subscribe(x => {
@@ -166,7 +180,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
           });
 
           this.userService.findConvenioID(this.user.id).subscribe(x => {
+            /* eslint-disable */
             console.log(x);
+
+            /* eslint-disable */
+
             this.userService.getNameConvenio(Number(x)).subscribe(nameconvenio => (this.convenioName = nameconvenio.toString()));
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
@@ -222,6 +240,32 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       enableCheckAll: false,
       noDataAvailablePlaceholderText: 'No hay información disponible',
     };
+
+    if (this.thisUserisAdmin === true) {
+      this.dropdownSettingsConvenios = {
+        singleSelection: false,
+        idField: 'item_id',
+        textField: 'item_text',
+        selectAllText: 'Seleccionar Todos',
+        unSelectAllText: 'Limpiar busqueda',
+        itemsShowLimit: 0,
+        allowSearchFilter: true,
+        noDataAvailablePlaceholderText: 'No hay información disponible',
+        // enableCheckAll: false
+      };
+    } else {
+      this.dropdownSettingsConvenios = {
+        singleSelection: true,
+        idField: 'item_id',
+        textField: 'item_text',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 0,
+        allowSearchFilter: true,
+        enableCheckAll: false,
+        noDataAvailablePlaceholderText: 'No hay información disponible',
+      };
+    }
   }
 
   previousState(): void {
@@ -439,13 +483,36 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
   private updateConvenio(user: User): void {
     const ad = this.editForm.get(['convenio'])!.value.toString();
+    /* eslint-disable */
     console.log(ad);
+
+    /* eslint-disable */
     this.convenioName = ad;
     user.convenioName = this.convenioName;
     this.userService.getIdConvenios(ad).subscribe(xx => {
       this.idConvenio = xx;
+      /* eslint-disable */
       console.log(xx);
-      this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
+      /* eslint-disable */
+
+      if (user.authorities?.includes('ROLE_ADMIN')) {
+        /* eslint-disable */
+        this.idConveniosError = false;
+        this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
+        console.log(this.idConveniosError);
+        /* eslint-disable */
+      } else {
+        /* eslint-disable */
+        if (this.editForm.get(['convenio'])!.value.length > 1) {
+          this.idConveniosError = true;
+          console.log('Entro en los dos IF, ' + this.idConveniosError + ' ' + this.editForm.get(['convenio'])!.value.length);
+        } else {
+          this.idConveniosError = false;
+          this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
+          console.log('NO ENTRO EN LOS IF');
+        }
+        /* eslint-disable */
+      }
     });
   }
 
