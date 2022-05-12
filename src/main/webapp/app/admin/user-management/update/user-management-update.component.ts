@@ -15,6 +15,8 @@ import { timeout } from 'rxjs';
   templateUrl: './user-management-update.component.html',
 })
 export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
+  /* eslint-disable */
+
   user!: User;
 
   udmmodel!: udmModel;
@@ -164,10 +166,13 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
           });
 
           this.userService.findConvenioID(this.user.id).subscribe(x => {
+            console.log(x);
+            this.userService.getNameConvenio(Number(x)).subscribe(nameconvenio => (this.convenioName = nameconvenio.toString()));
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
               this.programaName = xx.toString();
-              this.convenioName = 'DPS - Departamento para la Prosperidad Social';
+
+              // this.convenioName = 'DPS - Departamento para la Prosperidad Social';
             });
           });
         }
@@ -434,10 +439,12 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
   private updateConvenio(user: User): void {
     const ad = this.editForm.get(['convenio'])!.value.toString();
+    console.log(ad);
     this.convenioName = ad;
     user.convenioName = this.convenioName;
     this.userService.getIdConvenios(ad).subscribe(xx => {
       this.idConvenio = xx;
+      console.log(xx);
       this.userService.getProgramas(this.idConvenio).subscribe(xxx => (this.programa = xxx));
     });
   }
@@ -458,4 +465,5 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   private onSaveError(): void {
     this.isSaving = false;
   }
+  /* eslint-enable */
 }

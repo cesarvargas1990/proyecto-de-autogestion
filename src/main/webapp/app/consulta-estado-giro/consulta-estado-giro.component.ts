@@ -25,6 +25,7 @@ import { elementAt, Observable, Subject, takeUntil } from 'rxjs';
   styleUrls: ['./consulta-estado-giro.component.scss'],
 })
 export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
+  /* eslint-disable */
   department!: IDepartamentos;
   departmentOfUser!: string[];
   municipio!: IMunicipio;
@@ -36,6 +37,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   account$?: Observable<Account | null>;
   nameDept?: string;
   isLoading = false;
+  convenioUserLogged!: number;
+  nitConvenioUserLogged!: string;
+  isAdmin = false;
 
   public formSearch!: FormGroup;
 
@@ -130,12 +134,25 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     });
     return this.programas;
   }
+  // getNitConvenioUser(): string{
+  //   return this.convenioService.find(this)
+  // }
 
   getDataUser(): void {
     this.account$?.subscribe({
       next: user => {
         this.idUserLogin = user?.id ?? 0;
+        console.log(user);
+        this.convenioUserLogged = user?.convenio ?? 0;
+        if (user?.authorities[1] === 'ROLE_ADMIN' || user?.authorities[0] === 'ROLE_ADMIN') {
+          this.isAdmin = true;
+        }
 
+        this.convenioService.find(this.convenioUserLogged).subscribe({
+          next: convenio => {
+            this.nitConvenioUserLogged = convenio?.body?.identificacion ?? 'invalido';
+          },
+        });
         this.userService.findDepartmentById(this.idUserLogin).subscribe({
           next: (res: string[]) => {
             this.departmentOfUser = res;
@@ -156,7 +173,13 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     if (this.departmentOfUser[0] !== '99999') {
       for (let index = 0; index < this.departmentOfUser.length; index++) {
         this.transaccionesNominaService
-          .findByDocument(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument, this.departmentOfUser[index])
+          .findByDocument(
+            this.formSearch.value.numberDocument,
+            this.formSearch.value.typeDocument,
+            this.departmentOfUser[index],
+            this.nitConvenioUserLogged,
+            this.isAdmin
+          )
           .subscribe({
             next: (res: HttpResponse<ITransaccionesNomina[]>) => {
               this.isLoading = false;
@@ -166,7 +189,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
               setTimeout(() => {
                 this.transaccionesNominas = lokesea;
-              }, 100);
+              }, 300);
             },
             error: () => {
               this.isLoading = false;
@@ -199,7 +222,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    console.log('oninit');
     this.account$ = this.accountService.identity();
+
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
@@ -209,4 +234,5 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
       numberDocument: [''],
     });
   }
+  /* eslint-enable */
 }

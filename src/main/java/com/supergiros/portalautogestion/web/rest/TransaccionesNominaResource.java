@@ -338,18 +338,65 @@ public class TransaccionesNominaResource {
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
     }
 
-    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}")
-    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}/{convenio}/{isAdmin}")
+    public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
         @PathVariable("typeDocument") String typeDocument,
         @PathVariable("numberDocument") Integer numberDocument,
-        @PathVariable("department") String department
+        @PathVariable("department") String department,
+        @PathVariable("convenio") String convenio,
+        @PathVariable("isAdmin") Boolean isAdmin
     ) {
         List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocument(
             typeDocument,
             numberDocument,
-            department
+            department,
+            convenio
         );
-        return transaccionesNomina;
+
+        List<TransaccionesNominaListDTO> transaccionesNominas2 = new ArrayList<TransaccionesNominaListDTO>();
+
+        for (int i = 0; i < transaccionesNomina.size(); i++) {
+            TransaccionesNominaListDTO transaccionesWithChange = new TransaccionesNominaListDTO();
+
+            transaccionesWithChange.setTipoDocumentoBenef(transaccionesNomina.get(i).getTipoDocumentoBenef());
+            transaccionesWithChange.setNumeroDocumentoBenef(transaccionesNomina.get(i).getNumeroDocumentoBenef());
+            transaccionesWithChange.setFechaPago(transaccionesNomina.get(i).getFechaPago());
+            transaccionesWithChange.setHoraPago(transaccionesNomina.get(i).getHoraPago());
+            transaccionesWithChange.setPinPago(transaccionesNomina.get(i).getPinPago());
+            transaccionesWithChange.setfKDepartamentoDePago(transaccionesNomina.get(i).getfKDepartamentoDePago());
+            transaccionesWithChange.setfKMunicipioDePago(transaccionesNomina.get(i).getfKMunicipioDePago());
+            transaccionesWithChange.setfKIdConvenio(transaccionesNomina.get(i).getfKIdConvenio());
+            transaccionesWithChange.setfKIdPrograma(transaccionesNomina.get(i).getfKIdPrograma());
+            transaccionesWithChange.setValorGiro(transaccionesNomina.get(i).getValorGiro());
+            transaccionesWithChange.setEstado(transaccionesNomina.get(i).getEstado());
+            transaccionesWithChange.setMotivoAnulacion(transaccionesNomina.get(i).getMotivoAnulacion());
+
+            if (transaccionesNomina.get(i).getfKDepartamentoDePago() != null && transaccionesNomina.get(i).getfKMunicipioDePago() != null) {
+                Departamentos departamentosNombre = departamentosRepository
+                    .getDepartamentosNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKDepartamentoDePago()))
+                    .orElse(null);
+                Municipio municipiosNombre = municipioRepository
+                    .getMunicipioNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKMunicipioDePago()))
+                    .orElse(null);
+                transaccionesWithChange.setfKMunicipioDePago(municipiosNombre.getName());
+                transaccionesWithChange.setfKDepartamentoDePago(departamentosNombre.getName());
+            }
+            if (transaccionesNomina.get(i).getfKIdConvenio() != null && transaccionesNomina.get(i).getfKIdPrograma() != null) {
+                Programas programasNombre = programaRepository
+                    .getProgramaNameByNit(transaccionesNomina.get(i).getfKIdPrograma())
+                    .orElse(null);
+                Convenio conveniosNombre = convenioRepository
+                    .getConvenioNameByNit(transaccionesNomina.get(i).getfKIdConvenio())
+                    .orElse(null);
+                transaccionesWithChange.setfKIdConvenio(conveniosNombre.getName());
+                transaccionesWithChange.setfKIdPrograma(programasNombre.getName());
+            }
+
+            transaccionesNominas2.add(transaccionesWithChange);
+            // transaccionesNomina.get(i).setfKDepartamentoDePago(transaccionesWithChange.getfKDepartamento());
+
+        }
+        return transaccionesNominas2;
     }
 
     @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
