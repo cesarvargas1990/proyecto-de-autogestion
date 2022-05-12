@@ -37,9 +37,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   account$?: Observable<Account | null>;
   nameDept?: string;
   isLoading = false;
-  convenioUserLogged!: number;
-  nitConvenioUserLogged!: string;
-  isAdmin = false;
+  programaUserLogged!: number;
+  nitprogramaUserLogged!: string;
+  isAdmin!: boolean;
 
   public formSearch!: FormGroup;
 
@@ -143,14 +143,10 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
       next: user => {
         this.idUserLogin = user?.id ?? 0;
         console.log(user);
-        this.convenioUserLogged = user?.convenio ?? 0;
-        if (user?.authorities[1] === 'ROLE_ADMIN' || user?.authorities[0] === 'ROLE_ADMIN') {
-          this.isAdmin = true;
-        }
-
-        this.convenioService.find(this.convenioUserLogged).subscribe({
-          next: convenio => {
-            this.nitConvenioUserLogged = convenio?.body?.identificacion ?? 'invalido';
+        this.programaUserLogged = user?.programa ?? 0;
+        this.programasService.find(this.programaUserLogged).subscribe({
+          next: programa => {
+            this.nitprogramaUserLogged = programa?.body?.identificacion ?? 'invalido';
           },
         });
         this.userService.findDepartmentById(this.idUserLogin).subscribe({
@@ -169,36 +165,17 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   }
 
   send(): any {
+    console.log(this.nitprogramaUserLogged);
     let lokesea: ITransaccionesNomina[] = [];
-    if (this.departmentOfUser[0] !== '99999') {
-      for (let index = 0; index < this.departmentOfUser.length; index++) {
-        this.transaccionesNominaService
-          .findByDocument(
-            this.formSearch.value.numberDocument,
-            this.formSearch.value.typeDocument,
-            this.departmentOfUser[index],
-            this.nitConvenioUserLogged,
-            this.isAdmin
-          )
-          .subscribe({
-            next: (res: HttpResponse<ITransaccionesNomina[]>) => {
-              this.isLoading = false;
-              this.transaccionesNominas2 = res.body ?? [];
 
-              lokesea = lokesea.concat(this.transaccionesNominas2);
-
-              setTimeout(() => {
-                this.transaccionesNominas = lokesea;
-              }, 300);
-            },
-            error: () => {
-              this.isLoading = false;
-            },
-          });
-      }
-    } else {
+    for (let index = 0; index < this.departmentOfUser.length; index++) {
       this.transaccionesNominaService
-        .findByDocumentAllDepartments(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument)
+        .findByDocument(
+          this.formSearch.value.numberDocument,
+          this.formSearch.value.typeDocument,
+          this.departmentOfUser[index],
+          this.nitprogramaUserLogged
+        )
         .subscribe({
           next: (res: HttpResponse<ITransaccionesNomina[]>) => {
             this.isLoading = false;
@@ -216,7 +193,6 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
         });
     }
   }
-
   trackId(index: number, item: ITransaccionesNomina): number {
     return item.id!;
   }

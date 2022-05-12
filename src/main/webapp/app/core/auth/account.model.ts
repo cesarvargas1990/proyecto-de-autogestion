@@ -10,6 +10,6 @@ export class Account {
     public imageUrl: string | null,
     public firstTime: boolean,
     public id: number,
-    public convenio: number
+    public programa: number
   ) {}
 }
