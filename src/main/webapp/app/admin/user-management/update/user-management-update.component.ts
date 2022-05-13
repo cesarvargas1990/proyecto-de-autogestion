@@ -33,6 +33,8 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   convenioNameEdit: string[] = [];
   programaNameEdit: string[] = [];
 
+  authoritiesAccess!: string[];
+
   convenioNIT!: string;
   programaNIT!: string;
 
@@ -72,6 +74,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   dropdownSettingsDepartamento = {};
   dropdownSettingsConvenios = {};
 
+  convenioActive = true;
   isSaving = false;
   celphoneCredentialsError = false;
   emailCredentialsError = false;
@@ -185,10 +188,20 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
 
             /* eslint-disable */
 
-            this.userService.getNameConvenio(Number(x)).subscribe(nameconvenio => (this.convenioName = nameconvenio.toString()));
+            this.userService.getNameConvenio(Number(x)).subscribe(nameconvenio => {
+              this.convenioName = nameconvenio.toString();
+              this.editForm.patchValue({
+                convenio: nameconvenio,
+              });
+            });
+
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
               this.programaName = xx.toString();
+
+              this.editForm.patchValue({
+                programa: this.programa,
+              });
 
               // this.convenioName = 'DPS - Departamento para la Prosperidad Social';
             });
@@ -204,11 +217,17 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       this.lengthDepartamentoList = departamentosName.length;
       this.dropdownList = departamentosName;
     });
-    this.userService.authorities().subscribe(authorities => (this.authorities = authorities));
-    this.userService.getConvenios().subscribe(conveniosName => (this.convenio = conveniosName));
+    this.userService.authorities().subscribe(authorities => {
+      this.authorities = authorities;
+      this.authoritiesAccess = new Array(authorities.length - 1);
+    });
+    this.userService.getConvenios().subscribe(conveniosName => {
+      conveniosName.splice(conveniosName.length - 1, 1);
+      this.convenio = conveniosName;
+    });
 
     this.dropdownSettings = {
-      singleSelection: false,
+      singleSelection: true,
       idField: 'item_id',
       textField: 'item_text',
       selectAllText: 'Seleccionar Todos',
@@ -242,6 +261,8 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     };
 
     if (this.thisUserisAdmin === true) {
+      this.convenioActive = false;
+
       this.dropdownSettingsConvenios = {
         singleSelection: false,
         idField: 'item_id',
@@ -324,13 +345,73 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     const a = '1';
   }
 
+  onItemSelect(item: any, user: User): void {
+    /* eslint-disable */
+    this.authoritiesAccess.pop();
+    this.authoritiesAccess.push(item);
+    console.log('Inserta: ' + this.authoritiesAccess);
+    if (this.authoritiesAccess?.includes('ROLE_ADMIN')) {
+      this.convenio = ['Todos los convenios'];
+      this.programa = ['Todos los programas'];
+
+      this.editForm.setValue(['Todos los programas'])!;
+
+      user.convenio = 99999;
+      user.programa = 99999;
+
+      this.dropdownSettingsConvenios = {
+        singleSelection: false,
+        idField: 'item_id',
+        textField: 'item_text',
+        selectAllText: 'Seleccionar Todos',
+        unSelectAllText: 'Limpiar busqueda',
+        itemsShowLimit: 0,
+        allowSearchFilter: true,
+        noDataAvailablePlaceholderText: 'No hay información disponible',
+        // enableCheckAll: false
+      };
+
+      this.convenioActive = false;
+      console.log('Item es: ' + this.authoritiesAccess + ' y convenio esta: ' + this.convenioActive);
+    } else {
+      this.convenioActive = true;
+
+      this.dropdownSettingsConvenios = {
+        singleSelection: true,
+        idField: 'item_id',
+        textField: 'item_text',
+        selectAllText: 'Select All',
+        unSelectAllText: 'UnSelect All',
+        itemsShowLimit: 0,
+        allowSearchFilter: true,
+        enableCheckAll: false,
+        noDataAvailablePlaceholderText: 'No hay información disponible',
+      };
+    }
+    /* eslint-disable */
+  }
+  onSelectAll(items: any) {
+    /* eslint-disable */
+    /* eslint-disable */
+  }
+  onDeSelect(items: any) {
+    /* eslint-disable */
+    this.convenioActive = true;
+
+    this.authoritiesAccess.pop();
+    console.log('Elimina: ' + this.authoritiesAccess);
+    /* eslint-disable */
+  }
+
   private updateForm(user: User): void {
     this.editForm.patchValue({
       id: user.id,
       login: user.login,
       documentType: user.documentType,
-      convenio: user.convenio === 1 ? 'DPS - Departamento para la Prosperidad Social' : user.convenio,
-      programa: user.programa === 1 ? 'Devolución IVA' : user.programa,
+      //convenio: user.convenio === 1 ? 'DPS - Departamento para la Prosperidad Social' : user.convenio,
+      //programa: user.programa === 1 ? 'Devolución IVA' : user.programa,
+      convenio: user.convenio,
+      programa: user.programa,
       celphone: user.celphone,
       firstName: user.firstName,
       lastName: user.lastName,

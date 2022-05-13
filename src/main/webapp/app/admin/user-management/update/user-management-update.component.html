@@ -282,6 +282,9 @@
                 [placeholder]="'Seleccionar Rol'"
                 class="form-row"
                 [data]="authorities"
+                (onSelect)="onItemSelect($event, user)"
+                (onSelectAll)="onSelectAll($event)"
+                (onDeSelect)="onDeSelect($event)"
                 >{{ authorities }}
               </ng-multiselect-dropdown>
             </div>
@@ -301,6 +304,7 @@
                   name="convenio"
                   formControlName="convenio"
                   [settings]="dropdownSettingsConvenios"
+                  [disabled]="!this.convenioActive"
                   [placeholder]="'Seleccionar Convenio'"
                   class="form-row"
                   [data]="convenio.sort()"
@@ -322,7 +326,13 @@
               </div>
             </div>
 
-            <button type="button" class="btn-info btn-secondary" (click)="sqlconvenio()" value="departamentoName">
+            <button
+              type="button"
+              class="btn-info btn-secondary"
+              [disabled]="!this.convenioActive"
+              (click)="sqlconvenio()"
+              value="departamentoName"
+            >
               <fa-icon value="Agregar departamento"></fa-icon>
               Agregar Convenio
             </button>
@@ -343,6 +353,7 @@
                   name="programa"
                   formControlName="programa"
                   [settings]="dropdownSettingsdocumenttypes"
+                  [disabled]="!this.convenioActive"
                   [placeholder]="'Seleccionar Programa'"
                   class="form-row"
                   [data]="programa.sort()"
@@ -364,7 +375,13 @@
               </div>
             </div>
 
-            <button type="button" class="btn-info btn-secondary" (click)="sqlAddAgreements()" value="Mostrar municipios">
+            <button
+              type="button"
+              class="btn-info btn-secondary"
+              [disabled]="!this.convenioActive"
+              (click)="sqlAddAgreements()"
+              value="Mostrar municipios"
+            >
               <fa-icon></fa-icon>
               Agregar Programa
             </button>
