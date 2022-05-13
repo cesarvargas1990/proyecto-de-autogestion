@@ -8,7 +8,7 @@ import { UserManagementService } from '../service/user-management.service';
 import { GrillaManagementService } from '../service/grilla-management.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadingModalComponent } from '../modal/loadingModal.component';
-import { timeout } from 'rxjs';
+import { empty, timeout } from 'rxjs';
 
 @Component({
   selector: 'jhi-user-mgmt-update',
@@ -137,7 +137,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
           this.user.activated = true;
           this.EditOrCreate = true;
           /* eslint-disable */
-          this.thisUserisAdmin = true;
+          this.thisUserisAdmin = false;
           console.log('es admin?: ' + this.thisUserisAdmin);
         } else {
           if (this.user.authorities?.includes('ROLE_ADMIN')) {
@@ -354,8 +354,12 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       this.convenio = ['Todos los convenios'];
       this.programa = ['Todos los programas'];
 
-      this.editForm.setValue(['Todos los programas'])!;
+      //this.editForm.setValue(['Todos los programas'])!;
+      this.editForm.get(['convenio'])?.setValue('Todos los convenios');
+      this.editForm.get(['programa'])?.setValue('Todos los programas');
 
+      this.convenioName = 'Todos los convenios';
+      this.programaName = 'Todos los programas';
       user.convenio = 99999;
       user.programa = 99999;
 
@@ -375,6 +379,13 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       console.log('Item es: ' + this.authoritiesAccess + ' y convenio esta: ' + this.convenioActive);
     } else {
       this.convenioActive = true;
+
+      this.convenioName = '';
+      this.programaName = '';
+      //this.editForm.setValue(['Todos los programas'])!;
+      this.editForm.get(['convenio'])?.setValue('');
+      this.editForm.get(['programa'])?.setValue('');
+      this.programa = [];
 
       this.dropdownSettingsConvenios = {
         singleSelection: true,
