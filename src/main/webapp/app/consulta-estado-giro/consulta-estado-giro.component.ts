@@ -174,7 +174,8 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
           this.formSearch.value.numberDocument,
           this.formSearch.value.typeDocument,
           this.departmentOfUser[index],
-          this.nitprogramaUserLogged
+          this.nitprogramaUserLogged,
+          this.formSearch.value.idNomina
         )
         .subscribe({
           next: (res: HttpResponse<ITransaccionesNomina[]>) => {
@@ -208,6 +209,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     this.formSearch = this.formBuilder.group({
       typeDocument: [''],
       numberDocument: [''],
+      idNomina: [''],
     });
   }
   /* eslint-enable */

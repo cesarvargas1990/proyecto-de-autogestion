@@ -62,13 +62,13 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
         "and t.fKDepartamento = :department " +
-        "and t.fKIdConvenio = :convenio "
+        "and t.fKIdPrograma = :programa "
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
         @Param("department") String department,
-        @Param("convenio") String convenio
+        @Param("programa") String programa
     );
 
     @Query(
@@ -76,14 +76,14 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
         "and t.fKDepartamento = :department " +
-        "and t.fKIdConvenio = :convenio " +
+        "and t.fKIdPrograma = :programa " +
         "and t.observacionControl = :idNomina"
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
         @Param("department") String department,
-        @Param("convenio") String convenio,
+        @Param("programa") String programa,
         @Param("idNomina") String idNomina
     );
 
@@ -91,25 +91,25 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         "SELECT t FROM TransaccionesNomina t " +
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
-        "and t.fKIdConvenio = :convenio "
+        "and t.fKIdPrograma = :programa "
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
-        @Param("convenio") String convenio
+        @Param("programa") String programa
     );
 
     @Query(
         "SELECT t FROM TransaccionesNomina t " +
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
-        "and t.fKIdConvenio = :convenio " +
+        "and t.fKIdPrograma = :programa " +
         "and t.observacionControl = :idNomina"
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
-        @Param("convenio") String convenio,
+        @Param("programa") String programa,
         @Param("idNomina") String idNomina
     );
 

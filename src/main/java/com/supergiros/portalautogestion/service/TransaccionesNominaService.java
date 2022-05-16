@@ -82,9 +82,14 @@ public class TransaccionesNominaService {
                 }
             } else {
                 transaccionesNominas = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument);
+                System.out.println("----------------------------------------------------------------------");
+                System.out.println(
+                    "LO QUE TRAE EL REPO" +
+                    transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument)
+                );
             }
         }
-
+        System.out.println("ANTES DEL MAPPER" + transaccionesNominas);
         return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominas);
     }
 }

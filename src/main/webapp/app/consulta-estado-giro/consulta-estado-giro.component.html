@@ -5,10 +5,6 @@
     <div class="row m-3">
       <form [formGroup]="formSearch" (submit)="send()">
         <div class="row">
-          <div class="mr-2">
-            <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
-          </div>
-
           <div>
             <select class="form-control" aria-label="name documentType select example" name="documentType" formControlName="typeDocument">
               <option selected value="">Tipo De Documento</option>
@@ -20,6 +16,12 @@
               <option value="NIT">NIT</option>
               <!-- <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option> -->
             </select>
+          </div>
+          <div class="mr-2">
+            <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
+          </div>
+          <div class="mr-2">
+            <input class="form-control" placeholder="Numero de nómina (OPCIONAL)" type="text" formControlName="idNomina" />
           </div>
 
           <div class="col">
@@ -62,6 +64,7 @@
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulación</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>id de nómina</span></th>
         </tr>
       </thead>
       <tbody>
@@ -78,6 +81,7 @@
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.motivoAnulacion !== null">{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNominas![0].idNomina !== null">{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
         </tr>
       </tbody>
     </table>
@@ -103,10 +107,11 @@
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
           <th scope="col"><span>Motivo Anulación</span></th>
+          <th scope="col"><span>Pin de Nómina</span></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let transaccionesNomina of transaccionesNominas; trackBy: trackId" data-cy="entityTable">
+        <tr *ngFor="let transaccionesNomina of transaccionesNominas; index as i; trackBy: trackId" data-cy="entityTable">
           <td>{{ transaccionesNomina.tipoDocumentoBenef ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
@@ -120,6 +125,7 @@
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
         </tr>
       </tbody>
     </table>

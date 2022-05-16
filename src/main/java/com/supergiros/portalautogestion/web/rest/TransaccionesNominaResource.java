@@ -338,14 +338,25 @@ public class TransaccionesNominaResource {
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
     }
 
-    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}/{programa}/{idNomina}")
+    // @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}/{programa}/{idNomina}")
+    // public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+    //     @PathVariable("typeDocument") String typeDocument,
+    //     @PathVariable("numberDocument") Integer numberDocument,
+    //     @PathVariable("department") String department,
+    //     @PathVariable("programa") String programa,
+    //     @PathVariable("idNomina") String idNomina
+    // ) {
+    //     return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, department, programa, idNomina);
+    // }
+    @GetMapping("/transacciones-nominas/search")
     public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
-        @PathVariable("typeDocument") String typeDocument,
-        @PathVariable("numberDocument") Integer numberDocument,
-        @PathVariable("department") String department,
-        @PathVariable("programa") String programa,
-        @PathVariable("idNomina") String idNomina
+        @RequestParam("typeDocument") String typeDocument,
+        @RequestParam("numberDocument") Integer numberDocument,
+        @RequestParam("department") String department,
+        @RequestParam("programa") String programa,
+        @RequestParam(name = "idNomina", defaultValue = "0") String idNomina
     ) {
+        System.out.println(idNomina);
         return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, department, programa, idNomina);
     }
 

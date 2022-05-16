@@ -32,6 +32,7 @@ export interface ITransaccionesNomina {
   fKIdConvenio?: string | null;
   fKIdPrograma?: string | null;
   valorGiro?: string | null;
+  idNomina?: string | null;
 }
 
 export class TransaccionesNomina implements ITransaccionesNomina {
@@ -66,7 +67,8 @@ export class TransaccionesNomina implements ITransaccionesNomina {
     public fKMunicipio?: string | null,
     public fKIdConvenio?: string | null,
     public fKIdPrograma?: string | null,
-    public valorGiro?: string | null
+    public valorGiro?: string | null,
+    public idNomina?: string | null
   ) {}
 }
 
