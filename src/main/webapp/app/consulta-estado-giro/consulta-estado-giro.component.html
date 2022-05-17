@@ -5,7 +5,7 @@
     <div class="row m-3">
       <form [formGroup]="formSearch" (submit)="send()">
         <div class="row">
-          <div>
+          <div class="mr-1">
             <select class="form-control" aria-label="name documentType select example" name="documentType" formControlName="typeDocument">
               <option selected value="">Tipo De Documento</option>
               <option value="TI">TI</option>
@@ -17,13 +17,12 @@
               <!-- <option *ngFor="let documenttypes of documenttypes" [value]="documenttypes">{{ documenttypes }}</option> -->
             </select>
           </div>
-          <div class="mr-2">
+          <div class="mr-1">
             <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
           </div>
-          <div class="mr-2">
+          <div class="mr-1">
             <input class="form-control" placeholder="Numero de nómina (OPCIONAL)" type="text" formControlName="idNomina" />
           </div>
-
           <div class="col">
             <button class="btn btn-primary jh-create-entity create-transacciones-nomina">
               <fa-icon icon="search"></fa-icon>

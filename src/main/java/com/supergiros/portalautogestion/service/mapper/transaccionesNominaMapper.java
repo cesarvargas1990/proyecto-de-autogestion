@@ -33,8 +33,6 @@ public class transaccionesNominaMapper {
     public List<TransaccionesNominaListDTO> transaccionesNominaMap(List<TransaccionesNomina> transaccionesNomina) {
         List<TransaccionesNominaListDTO> transaccionesNominas2 = new ArrayList<TransaccionesNominaListDTO>();
         for (int i = 0; i < transaccionesNomina.size(); i++) {
-            System.out.println("inicio ciclo " + i);
-
             TransaccionesNominaListDTO transaccionesWithChange = new TransaccionesNominaListDTO();
 
             transaccionesWithChange.setTipoDocumentoBenef(transaccionesNomina.get(i).getTipoDocumentoBenef());
@@ -72,8 +70,6 @@ public class transaccionesNominaMapper {
             }
 
             transaccionesNominas2.add(transaccionesWithChange);
-            // transaccionesNomina.get(i).setfKDepartamentoDePago(transaccionesWithChange.getfKDepartamento());
-            System.out.println("fin ciclo " + i);
         }
         return transaccionesNominas2;
     }
