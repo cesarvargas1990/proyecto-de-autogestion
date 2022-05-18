@@ -9,6 +9,7 @@ import { GrillaManagementService } from '../service/grilla-management.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { loadingModalComponent } from '../modal/loadingModal.component';
 import { empty, timeout } from 'rxjs';
+import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'jhi-user-mgmt-update',
@@ -55,7 +56,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   municipioName!: string;
   convenioName!: string;
   programaName!: string;
-
+  convenioCache: string[] = [];
   lengthDepartamentoList!: number;
 
   idDepartamentos: number[] = [];
@@ -193,12 +194,13 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
               this.editForm.patchValue({
                 convenio: nameconvenio,
               });
+              console.log('ey' + this.convenioName);
             });
 
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
               this.programaName = xx.toString();
-
+              console.log('hola' + this.programaName);
               this.editForm.patchValue({
                 programa: this.programa,
               });
@@ -222,8 +224,9 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
       this.authoritiesAccess = new Array(authorities.length - 1);
     });
     this.userService.getConvenios().subscribe(conveniosName => {
-      conveniosName.splice(conveniosName.length - 1, 1);
+      conveniosName.splice(conveniosName.indexOf('-TODOS-'), 1);
       this.convenio = conveniosName;
+      this.convenioCache = conveniosName;
     });
 
     this.dropdownSettings = {
@@ -398,6 +401,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
         enableCheckAll: false,
         noDataAvailablePlaceholderText: 'No hay información disponible',
       };
+      this.convenio = this.convenioCache;
     }
     /* eslint-disable */
   }
