@@ -42,9 +42,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   nitprogramaUserLogged!: string;
   isAdmin!: boolean;
   blob!: Blob;
-
+  errorTirilla = false;
   pinNomina!: string;
-  documentNumber!: string;
+  documentNumber!: string | undefined;
 
   public formSearch!: FormGroup;
 
@@ -222,18 +222,32 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
   //tirillas
 
-  displayTirilla(): void {
-    console.log('ver tirillla');
+  displayTirilla(i: number): void {
+    console.log('ver tirillla', i);
   }
-  downloadTirilla(): void {
-    this.transaccionesNominaService.findTirillas('138905212561030923540', '1143980628').subscribe(data => {
-      this.blob = new Blob([data], { type: 'application/pdf' });
+  downloadTirilla(index: number): void {
+    this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
+    this.documentNumber != this.transaccionesNominas[index].numeroDocumentoBenef?.toString;
 
-      var downloadURL = window.URL.createObjectURL(data);
-      var link = document.createElement('a');
-      link.href = downloadURL;
-      link.download = this.pinNomina + '-' + this.documentNumber + '.pdf';
-      link.click();
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber!).subscribe({
+      next: data => {
+        this.blob = new Blob([data], { type: 'application/pdf' });
+
+        var downloadURL = window.URL.createObjectURL(data);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = this.pinNomina + '-' + this.documentNumber + '.pdf';
+        link.click();
+      },
+
+      error: error => {
+        if (error.status === 412) {
+          this.errorTirilla = true;
+          setTimeout(() => {
+            this.errorTirilla = false;
+          }, 3000);
+        }
+      },
     });
 
     /* eslint-enable */
