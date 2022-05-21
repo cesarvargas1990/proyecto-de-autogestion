@@ -9,11 +9,15 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TransaccionesNominaService {
+
+    private final Logger log = LoggerFactory.getLogger(TransaccionesNominaService.class);
 
     @Autowired
     DepartamentosRepository departamentosRepository;
@@ -91,10 +95,14 @@ public class TransaccionesNominaService {
                 );
             }
         }
-        for (int index = 0; index < transaccionesNominas.size(); index++) {
-            if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
-                transaccionesNominas.remove(index);
+        try {
+            for (int index = 0; index < transaccionesNominas.size(); index++) {
+                if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
+                    transaccionesNominas.remove(index);
+                }
             }
+        } catch (NullPointerException e) {
+            log.info("no se encontro el campo fecha de vigencia  para un elemento");
         }
 
         System.out.println("ANTES DEL MAPPER" + transaccionesNominas);
