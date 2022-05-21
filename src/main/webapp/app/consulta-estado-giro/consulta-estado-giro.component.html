@@ -64,6 +64,9 @@
           <th scope="col"><span>Estado</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulación</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>id de nómina</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null">
+            <span>Tirilla</span><i class="fa fa-download" aria-hidden="true"></i>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -81,6 +84,14 @@
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.motivoAnulacion !== null">{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNominas![0].idNomina !== null">{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNomina.horaPago !== null">
+            <button mat-raised-button color="accent" (click)="downloadTirilla()">
+              <fa-icon icon="file-download"></fa-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="displayTirilla()">
+              <fa-icon icon="eye"></fa-icon>
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -107,6 +118,7 @@
           <th scope="col"><span>Estado</span></th>
           <th scope="col"><span>Motivo Anulación</span></th>
           <th scope="col"><span>Pin de Nómina</span></th>
+          <th scope="col"><span>Tirilla</span></th>
         </tr>
       </thead>
       <tbody>
@@ -125,6 +137,15 @@
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNomina.horaPago !== null">
+            <button mat-raised-button color="accent" (click)="downloadTirilla()">
+              <fa-icon icon="file-download"></fa-icon>
+            </button>
+            <button mat-raised-button color="accent" (click)="displayTirilla()">
+              <fa-icon icon="eye"></fa-icon>
+            </button>
+          </td>
+          <td *ngIf="transaccionesNomina.horaPago === null">N/A</td>
         </tr>
       </tbody>
     </table>

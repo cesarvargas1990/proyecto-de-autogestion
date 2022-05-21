@@ -194,13 +194,11 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
               this.editForm.patchValue({
                 convenio: nameconvenio,
               });
-              console.log('ey' + this.convenioName);
             });
 
             this.userService.getProgramas(Number(x)).subscribe(xx => {
               this.programa = xx;
               this.programaName = xx.toString();
-              console.log('hola' + this.programaName);
               this.editForm.patchValue({
                 programa: this.programa,
               });

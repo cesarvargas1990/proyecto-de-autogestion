@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'app/admin/user-management/service/user-management.service';
+import { SITE_KEY_CAPTCHA, TIRILLA_URI } from 'app/app.constants';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { IConvenio } from 'app/entities/convenio/convenio.model';
@@ -40,6 +41,10 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   programaUserLogged!: number;
   nitprogramaUserLogged!: string;
   isAdmin!: boolean;
+  blob!: Blob;
+
+  pinNomina!: string;
+  documentNumber!: string;
 
   public formSearch!: FormGroup;
 
@@ -183,9 +188,11 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
             this.transaccionesNominas2 = res.body ?? [];
 
             lokesea = lokesea.concat(this.transaccionesNominas2);
+            this.documentNumber = this.formSearch.value.numberDocument;
 
             setTimeout(() => {
               this.transaccionesNominas = lokesea;
+              this.pinNomina = this.transaccionesNominas[0].pinPago ?? 'nulo';
             }, 300);
           },
           error: () => {
@@ -212,5 +219,23 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
       idNomina: [''],
     });
   }
-  /* eslint-enable */
+
+  //tirillas
+
+  displayTirilla(): void {
+    console.log('ver tirillla');
+  }
+  downloadTirilla(): void {
+    this.transaccionesNominaService.findTirillas('138905212561030923540', '1143980628').subscribe(data => {
+      this.blob = new Blob([data], { type: 'application/pdf' });
+
+      var downloadURL = window.URL.createObjectURL(data);
+      var link = document.createElement('a');
+      link.href = downloadURL;
+      link.download = this.pinNomina + '-' + this.documentNumber + '.pdf';
+      link.click();
+    });
+
+    /* eslint-enable */
+  }
 }
