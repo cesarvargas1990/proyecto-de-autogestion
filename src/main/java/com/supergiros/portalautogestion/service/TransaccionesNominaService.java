@@ -5,6 +5,8 @@ import com.supergiros.portalautogestion.repository.DepartamentosRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.service.mapper.transaccionesNominaMapper;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -89,6 +91,12 @@ public class TransaccionesNominaService {
                 );
             }
         }
+        for (int index = 0; index < transaccionesNominas.size(); index++) {
+            if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
+                transaccionesNominas.remove(index);
+            }
+        }
+
         System.out.println("ANTES DEL MAPPER" + transaccionesNominas);
         return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominas);
     }
