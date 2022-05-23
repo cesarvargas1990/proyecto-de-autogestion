@@ -46,6 +46,12 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   pinNomina!: string;
   documentNumber!: string | undefined;
 
+  fechaPagoVal!: boolean;
+  horaPagoVal!: boolean;
+  departamentoPagoVal!: boolean;
+  municipioPagoVal!: boolean;
+  motivoAnulacion!: boolean;
+
   public formSearch!: FormGroup;
 
   account: Account | null = null;
@@ -172,7 +178,11 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   send(): any {
     console.log(this.nitprogramaUserLogged);
     let lokesea: ITransaccionesNomina[] = [];
-
+    this.fechaPagoVal = false;
+    this.horaPagoVal = false;
+    this.departamentoPagoVal = false;
+    this.municipioPagoVal = false;
+    this.motivoAnulacion = false;
     for (let index = 0; index < this.departmentOfUser.length; index++) {
       this.transaccionesNominaService
         .findByDocument(
@@ -189,11 +199,13 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
             lokesea = lokesea.concat(this.transaccionesNominas2);
             this.documentNumber = this.formSearch.value.numberDocument;
-
+            if (lokesea.length > 1) {
+              this.validarCammpos(lokesea);
+            }
             setTimeout(() => {
               this.transaccionesNominas = lokesea;
               this.pinNomina = this.transaccionesNominas[0].pinPago ?? 'nulo';
-            }, 300);
+            }, 900);
           },
           error: () => {
             this.isLoading = false;
@@ -274,7 +286,27 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
         }
       },
     });
+  }
 
+  validarCammpos(transaccionesNominasVal: ITransaccionesNomina[]): void {
+    console.log(transaccionesNominasVal);
+    for (let index = 0; index < transaccionesNominasVal.length; index++) {
+      if (transaccionesNominasVal[index].fechaPago) {
+        this.fechaPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].horaPago) {
+        this.horaPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].fKDepartamentoDePago) {
+        this.departamentoPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].fKMunicipioDePago) {
+        this.municipioPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].motivoAnulacion) {
+        this.motivoAnulacion = true;
+      }
+    }
     /* eslint-enable */
   }
 }
