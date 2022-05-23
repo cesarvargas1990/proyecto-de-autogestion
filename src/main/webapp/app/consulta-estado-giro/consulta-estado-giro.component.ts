@@ -222,8 +222,33 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
   //tirillas
 
-  displayTirilla(i: number): void {
-    console.log('ver tirillla', i);
+  displayTirilla(index: number): void {
+    this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
+    this.documentNumber != this.transaccionesNominas[index].numeroDocumentoBenef?.toString;
+
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber!).subscribe({
+      next: (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' });
+        var fileURL = URL.createObjectURL(file);
+        console.log('la url es: ', fileURL);
+        // if you want to open PDF in new tab
+        window.open(fileURL);
+        var a = document.createElement('a');
+        a.href = fileURL;
+        a.target = '_blank';
+
+        document.body.appendChild(a);
+        a.click();
+      },
+      error: error => {
+        if (error.status === 412) {
+          this.errorTirilla = true;
+          setTimeout(() => {
+            this.errorTirilla = false;
+          }, 3000);
+        }
+      },
+    });
   }
   downloadTirilla(index: number): void {
     this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
