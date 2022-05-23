@@ -124,19 +124,20 @@
           <th scope="col">
             <span># Documento Beneficiario</span>
           </th>
-          <th scope="col" *ngIf="fechaPagoVal === true"><span>Fecha Pago</span></th>
-          <th scope="col" *ngIf="horaPagoVal === true"><span>Hora Pago</span></th>
+
+          <th scope="col"><span>Fecha Pago</span></th>
+          <th scope="col"><span>Hora Pago</span></th>
           <th scope="col"><span>PIN</span></th>
-          <th scope="col" *ngIf="departamentoPagoVal === true">
+          <th scope="col">
             <span>Departamento De Pago</span>
           </th>
-          <th scope="col" *ngIf="municipioPagoVal === true"><span>Municipio De Pago</span></th>
+          <th scope="col"><span>Municipio De Pago</span></th>
           <th scope="col"><span>Convenio</span></th>
           <th scope="col"><span>Programa</span></th>
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
-          <th scope="col" *ngIf="motivoAnulacion === true"><span>Motivo Anulación</span></th>
-          <th scope="col"><span> ID de programa </span></th>
+          <th scope="col"><span>Motivo Anulación</span></th>
+          <th scope="col"><span>ID de programa</span></th>
           <th scope="col"><span>Tirilla</span></th>
         </tr>
       </thead>
@@ -145,15 +146,17 @@
           <td>{{ transaccionesNomina.tipoDocumentoBenef ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
-          <td *ngIf="horaPagoVal === true">{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNomina.horaPago === null">N/A</td>
+          <td>{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
-          <td *ngIf="departamentoPagoVal === true">{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
-          <td *ngIf="municipioPagoVal === true">{{ transaccionesNomina.fKMunicipioDePago ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.fKMunicipioDePago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdConvenio ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdPrograma ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
-          <td *ngIf="motivoAnulacion === true">{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
+
           <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
 
           <td class="text-right" *ngIf="transaccionesNomina.horaPago !== null">
