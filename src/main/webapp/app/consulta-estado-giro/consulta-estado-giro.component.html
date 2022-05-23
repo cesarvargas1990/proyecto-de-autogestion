@@ -66,7 +66,7 @@
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulación</span></th>
-          <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>id de nómina</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>ID de programa</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null">
             <span>Tirilla</span><i class="fa fa-download" aria-hidden="true"></i>
           </th>
@@ -88,12 +88,29 @@
           <td *ngIf="transaccionesNomina.motivoAnulacion !== null">{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNominas![0].idNomina !== null">{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">
-            <button mat-raised-button color="accent" (click)="downloadTirilla(0)">
-              <fa-icon icon="file-download"></fa-icon>
-            </button>
-            <button mat-raised-button color="accent" (click)="displayTirilla(0)">
-              <fa-icon icon="eye"></fa-icon>
-            </button>
+            <div class="btn-group">
+              <button
+                type="submit"
+                class="btn btn-info btn-sm"
+                (click)="displayTirilla(0)"
+                data-toogle="tooltip"
+                data-placement="top"
+                title="Descargar"
+              >
+                <fa-icon icon="eye"></fa-icon>
+              </button>
+
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm"
+                (click)="downloadTirilla(0)"
+                data-toogle="tooltip"
+                data-placement="top"
+                title="Descargar"
+              >
+                <fa-icon icon="file-download"></fa-icon>
+              </button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -120,7 +137,7 @@
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
           <th scope="col"><span>Motivo Anulación</span></th>
-          <th scope="col"><span>Pin de Nómina</span></th>
+          <th scope="col"><span> ID de programa </span></th>
           <th scope="col"><span>Tirilla</span></th>
         </tr>
       </thead>
@@ -140,13 +157,31 @@
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
-          <td *ngIf="transaccionesNomina.horaPago !== null">
-            <button mat-raised-button color="accent" (click)="downloadTirilla(i)">
-              <fa-icon icon="file-download"></fa-icon>
-            </button>
-            <button mat-raised-button color="accent" (click)="displayTirilla(i)">
-              <fa-icon icon="eye"></fa-icon>
-            </button>
+
+          <td class="text-right" *ngIf="transaccionesNomina.horaPago !== null">
+            <div class="btn-group">
+              <button
+                type="submit"
+                class="btn btn-info btn-sm"
+                (click)="displayTirilla(i)"
+                data-toogle="tooltip"
+                data-placement="top"
+                title="Ver"
+              >
+                <fa-icon icon="eye"></fa-icon>
+              </button>
+
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm"
+                (click)="downloadTirilla(i)"
+                data-toogle="tooltip"
+                data-placement="top"
+                title="Descargar"
+              >
+                <fa-icon icon="file-download"></fa-icon>
+              </button>
+            </div>
           </td>
           <td *ngIf="transaccionesNomina.horaPago === null">N/A</td>
         </tr>
