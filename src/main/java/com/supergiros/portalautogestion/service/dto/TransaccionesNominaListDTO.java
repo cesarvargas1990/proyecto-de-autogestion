@@ -49,7 +49,7 @@ public class TransaccionesNominaListDTO implements Serializable {
 
     private String redPagadora;
 
-    private String observacionControl;
+    private String idNomina;
 
     private String solicitudAutorizacion;
 
@@ -237,12 +237,12 @@ public class TransaccionesNominaListDTO implements Serializable {
         this.redPagadora = redPagadora;
     }
 
-    public String getObservacionControl() {
-        return observacionControl;
+    public String getIdNomina() {
+        return idNomina;
     }
 
-    public void setObservacionControl(String observacionControl) {
-        this.observacionControl = observacionControl;
+    public void setIdNomina(String idNomina) {
+        this.idNomina = idNomina;
     }
 
     public String getSolicitudAutorizacion() {

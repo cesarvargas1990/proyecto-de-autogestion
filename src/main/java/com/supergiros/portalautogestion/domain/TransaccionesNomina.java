@@ -82,7 +82,7 @@ public class TransaccionesNomina implements Serializable {
     @Column(name = "red_pagadora")
     private String redPagadora;
 
-    @Column(name = "observacion_control")
+    @Column(name = "id_nomina")
     private String observacionControl;
 
     @Column(name = "solicitud_autorizacion")
