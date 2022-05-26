@@ -242,9 +242,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
       next: (data: Blob) => {
         var file = new Blob([data], { type: 'application/pdf' });
         var fileURL = URL.createObjectURL(file);
-        console.log('la url es: ', fileURL);
-        // if you want to open PDF in new tab
-        window.open(fileURL);
+        //window.open(fileURL);
         var a = document.createElement('a');
         a.href = fileURL;
         a.target = '_blank';
