@@ -21,7 +21,13 @@
             <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
           </div>
           <div class="mr-1">
-            <input class="form-control" style="width: 14rem" placeholder="ID de nómina (OPCIONAL)" type="text" formControlName="idNomina" />
+            <input
+              class="form-control"
+              style="width: 14rem"
+              placeholder="ID de programa (OPCIONAL)"
+              type="text"
+              formControlName="idNomina"
+            />
           </div>
           <div class="col" style="size: 5rem">
             <button class="btn btn-primary jh-create-entity create-transacciones-nomina">
@@ -95,7 +101,7 @@
                 (click)="displayTirilla(0)"
                 data-toogle="tooltip"
                 data-placement="top"
-                title="Descargar"
+                title="Visualizar"
               >
                 <fa-icon icon="eye"></fa-icon>
               </button>
@@ -167,7 +173,7 @@
                 (click)="displayTirilla(i)"
                 data-toogle="tooltip"
                 data-placement="top"
-                title="Ver"
+                title="Visualizar"
               >
                 <fa-icon icon="eye"></fa-icon>
               </button>
