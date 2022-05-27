@@ -38,9 +38,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   account$?: Observable<Account | null>;
   nameDept?: string;
   isLoading = false;
-  programaUserLogged!: number;
-  nitprogramaUserLogged!: string;
-  isAdmin!: boolean;
+
   blob!: Blob;
   errorTirilla = false;
   pinNomina!: string;
@@ -75,143 +73,40 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     this.getDataUser();
   }
 
-  codDaneDepto(codDane: any): IDepartamentos {
-    this.departamentosService.findByCodDane(codDane).subscribe({
-      next: (res: HttpResponse<IDepartamentos>) => {
-        this.isLoading = false;
-        this.department = res.body ?? this.department;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.department;
-  }
-
-  // idDepto(id: any): IDepartamentos {
-  //   this.departamentosService.find(id).subscribe({
-  //     next: (res: HttpResponse<IDepartamentos>) => {
-  //       this.isLoading = false;
-  //       this.departmentOfUser = res.body ?? this.departmentOfUser;
-  //     },
-  //     error: () => {
-  //       this.isLoading = false;
-  //     },
-  //   });
-  //   return this.departmentOfUser;
-  // }
-
-  codDaneMunicipio(codDane: any): IMunicipio {
-    this.municipioService.findByCodDane(codDane).subscribe({
-      next: (res: HttpResponse<IMunicipio>) => {
-        this.isLoading = false;
-        this.municipio = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.municipio;
-  }
-
-  nitConvenio(nit: any): IConvenio {
-    this.convenioService.findByNit(nit).subscribe({
-      next: (res: HttpResponse<IConvenio>) => {
-        this.isLoading = false;
-        this.convenio = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.convenio;
-  }
-
-  nitProgramas(nit: any): IProgramas {
-    this.programasService.findByNit(nit).subscribe({
-      next: (res: HttpResponse<IProgramas>) => {
-        this.isLoading = false;
-        this.programas = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.programas;
-  }
-  // getNitConvenioUser(): string{
-  //   return this.convenioService.find(this)
-  // }
-
   getDataUser(): void {
     this.account$?.subscribe({
       next: user => {
         this.idUserLogin = user?.id ?? 0;
-        console.log(user);
-        this.programaUserLogged = user?.programa ?? 0;
-        this.programasService.find(this.programaUserLogged).subscribe({
-          next: programa => {
-            this.nitprogramaUserLogged = programa?.body?.identificacion ?? 'invalido';
-          },
-        });
-        this.userService.findDepartmentById(this.idUserLogin).subscribe({
-          next: (res: string[]) => {
-            this.departmentOfUser = res;
-
-            /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-            // console.log(this.departmentOfUser);
-
-            /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-            // console.log(this.idUserLogin);
-          },
-        });
       },
     });
   }
 
   send(): any {
-    console.log(this.nitprogramaUserLogged);
     let lokesea: ITransaccionesNomina[] = [];
     this.fechaPagoVal = false;
     this.horaPagoVal = false;
     this.departamentoPagoVal = false;
     this.municipioPagoVal = false;
     this.motivoAnulacion = false;
-    for (let index = 0; index < this.departmentOfUser.length; index++) {
-      this.transaccionesNominaService
-        .findByDocument(
-          this.formSearch.value.numberDocument,
-          this.formSearch.value.typeDocument,
-          this.departmentOfUser[index],
-          this.nitprogramaUserLogged,
-          this.formSearch.value.idNomina
-        )
-        .subscribe({
-          next: (res: HttpResponse<ITransaccionesNomina[]>) => {
-            this.isLoading = false;
-            this.transaccionesNominas2 = res.body ?? [];
+    this.transaccionesNominaService
+      .findByDocument(
+        this.formSearch.value.numberDocument,
+        this.formSearch.value.typeDocument,
+        this.formSearch.value.idNomina,
+        this.idUserLogin
+      )
+      .subscribe({
+        next: (res: HttpResponse<ITransaccionesNomina[]>) => {
+          this.isLoading = false;
+          this.transaccionesNominas2 = res.body ?? [];
 
-            lokesea = lokesea.concat(this.transaccionesNominas2);
-            this.documentNumber = this.formSearch.value.numberDocument;
-            if (lokesea.length > 1) {
-              this.validarCammpos(lokesea);
-            }
-            setTimeout(() => {
-              this.transaccionesNominas = lokesea;
-              this.pinNomina = this.transaccionesNominas[0].pinPago ?? 'nulo';
-            }, 900);
-          },
-          error: () => {
-            this.isLoading = false;
-          },
-        });
-    }
+          this.transaccionesNominas = lokesea;
+          this.pinNomina = this.transaccionesNominas[0].pinPago ?? 'nulo';
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+      });
   }
   trackId(index: number, item: ITransaccionesNomina): number {
     return item.id!;

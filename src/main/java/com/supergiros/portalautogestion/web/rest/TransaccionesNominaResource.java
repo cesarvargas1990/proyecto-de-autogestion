@@ -352,8 +352,7 @@ public class TransaccionesNominaResource {
     public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
         @RequestParam("typeDocument") String typeDocument,
         @RequestParam("numberDocument") Integer numberDocument,
-        @RequestParam("department") String department,
-        @RequestParam("programa") String programa,
+        @RequestParam("idUser") Integer idUser,
         @RequestParam(name = "idNomina", defaultValue = "0") String idNomina
     ) {
         System.out.println(idNomina);
