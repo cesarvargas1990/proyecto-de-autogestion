@@ -42,7 +42,7 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   blob!: Blob;
   errorTirilla = false;
   pinNomina!: string;
-  documentNumber!: string | undefined;
+  documentNumber?: string;
 
   fechaPagoVal!: boolean;
   horaPagoVal!: boolean;
@@ -90,18 +90,15 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     this.motivoAnulacion = false;
     this.transaccionesNominaService
       .findByDocument(
-        this.formSearch.value.numberDocument,
         this.formSearch.value.typeDocument,
+        this.formSearch.value.numberDocument,
         this.formSearch.value.idNomina,
         this.idUserLogin
       )
       .subscribe({
         next: (res: HttpResponse<ITransaccionesNomina[]>) => {
           this.isLoading = false;
-          this.transaccionesNominas2 = res.body ?? [];
-
-          this.transaccionesNominas = lokesea;
-          this.pinNomina = this.transaccionesNominas[0].pinPago ?? 'nulo';
+          this.transaccionesNominas = res.body ?? [];
         },
         error: () => {
           this.isLoading = false;
@@ -131,9 +128,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
 
   displayTirilla(index: number): void {
     this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
-    this.documentNumber != this.transaccionesNominas[index].numeroDocumentoBenef?.toString;
-
-    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber!).subscribe({
+    this.documentNumber = this.transaccionesNominas[index].numeroDocumentoBenef?.toString() ?? 'nulo';
+    console.log(this.documentNumber);
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber).subscribe({
       next: (data: Blob) => {
         var file = new Blob([data], { type: 'application/pdf' });
         var fileURL = URL.createObjectURL(file);
@@ -157,9 +154,9 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   }
   downloadTirilla(index: number): void {
     this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
-    this.documentNumber != this.transaccionesNominas[index].numeroDocumentoBenef?.toString;
+    this.documentNumber = this.transaccionesNominas[index].numeroDocumentoBenef?.toString() ?? 'nulo';
 
-    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber!).subscribe({
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber).subscribe({
       next: data => {
         this.blob = new Blob([data], { type: 'application/pdf' });
 

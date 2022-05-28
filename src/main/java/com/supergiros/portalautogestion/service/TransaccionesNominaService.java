@@ -2,7 +2,10 @@ package com.supergiros.portalautogestion.service;
 
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.MunicipioRepository;
+import com.supergiros.portalautogestion.repository.ProgramasRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
+import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.service.mapper.transaccionesNominaMapper;
 import java.time.Instant;
@@ -23,6 +26,12 @@ public class TransaccionesNominaService {
     DepartamentosRepository departamentosRepository;
 
     @Autowired
+    MunicipioRepository municipioRepository;
+
+    @Autowired
+    ProgramasRepository programasRepository;
+
+    @Autowired
     TransaccionesNominaRepository transaccionesNominaRepository;
 
     @Autowired
@@ -39,19 +48,30 @@ public class TransaccionesNominaService {
     public List<TransaccionesNominaListDTO> searchTransacciones(
         String typeDocument,
         Integer numberDocument,
-        String department,
-        String programa,
+        Integer idUser,
         String idNomina
     ) {
+        //List<String> departamentos   = new ArrayList<>();
+        List<String> municipios = new ArrayList<>();
+        List<TransaccionesNomina> listaArray = new ArrayList<>();
+        //departamentos = departamentosRepository.findCodDaneUserList(idUser);
+
+        String programa = programasRepository.findNitProgramaUser(idUser);
+
+        municipios = municipioRepository.findCodDaneUserList(idUser);
+
+        System.out.println("MUNICHIPIOOOOOOOOO" + municipios);
+        listaArray = transaccionesNominaRepository.pruebo(municipios);
+
         List<TransaccionesNomina> transaccionesNominas = new ArrayList<TransaccionesNomina>();
         if (!idNomina.equals("0")) {
             if (!programa.equals("99999")) {
-                if (!department.equals("99999")) {
+                if (!municipios.contains("99999")) {
                     transaccionesNominas =
                         transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
                             typeDocument,
                             numberDocument,
-                            department,
+                            municipios,
                             programa,
                             idNomina
                         );
@@ -70,12 +90,12 @@ public class TransaccionesNominaService {
             }
         } else {
             if (!programa.equals("99999")) {
-                if (!department.equals("99999")) {
+                if (!municipios.contains("99999")) {
                     transaccionesNominas =
                         transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
                             typeDocument,
                             numberDocument,
-                            department,
+                            municipios,
                             programa
                         );
                 } else {
