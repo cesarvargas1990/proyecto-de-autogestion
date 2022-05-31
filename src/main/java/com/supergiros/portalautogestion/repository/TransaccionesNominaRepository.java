@@ -61,13 +61,13 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         "SELECT t FROM TransaccionesNomina t " +
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
-        "and t.fKDepartamento = :department " +
+        "and t.fKMunicipio IN :municipio " +
         "and t.fKIdPrograma = :programa "
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
-        @Param("department") String department,
+        @Param("municipio") List<String> municipio,
         @Param("programa") String programa
     );
 
@@ -75,14 +75,14 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         "SELECT t FROM TransaccionesNomina t " +
         "where t.tipoDocumentoBenef = :typeDocument " +
         "and t.numeroDocumentoBenef = :numberDocument " +
-        "and t.fKDepartamento = :department " +
+        "and t.fKMunicipio IN :municipio " +
         "and t.fKIdPrograma = :programa " +
         "and t.observacionControl = :idNomina"
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument,
-        @Param("department") String department,
+        @Param("municipio") List<String> municipio,
         @Param("programa") String programa,
         @Param("idNomina") String idNomina
     );
@@ -134,4 +134,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         @Param("typeDocument") String typeDocument,
         @Param("numberDocument") Integer numberDocument
     );
+
+    @Query("Select t FROM TransaccionesNomina t " + "WHERE f_k_municipio IN :municipios")
+    List<TransaccionesNomina> pruebo(@Param("municipios") List<String> municipios);
 }

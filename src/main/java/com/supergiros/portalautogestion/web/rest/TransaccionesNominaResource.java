@@ -352,12 +352,11 @@ public class TransaccionesNominaResource {
     public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
         @RequestParam("typeDocument") String typeDocument,
         @RequestParam("numberDocument") Integer numberDocument,
-        @RequestParam("department") String department,
-        @RequestParam("programa") String programa,
-        @RequestParam(name = "idNomina", defaultValue = "0") String idNomina
+        @RequestParam(name = "idNomina", defaultValue = "0") String idNomina,
+        @RequestParam("idUser") Integer idUser
     ) {
         System.out.println(idNomina);
-        return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, department, programa, idNomina);
+        return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, idUser, idNomina);
     }
 
     // @GetMapping("/transacciones-nominas/departments")

@@ -228,7 +228,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     });
 
     this.dropdownSettings = {
-      singleSelection: true,
+      singleSelection: false,
       idField: 'item_id',
       textField: 'item_text',
       selectAllText: 'Seleccionar Todos',

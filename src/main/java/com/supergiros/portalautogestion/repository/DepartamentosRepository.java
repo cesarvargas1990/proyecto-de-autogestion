@@ -122,4 +122,15 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
 
     @Query(value = "SELECT municipio_name FROM jhi_user_location WHERE jhi_user_location.user_id = ?1 ", nativeQuery = true)
     List<String> findNameByIdMunicipio(Long municipioName);
+
+    @Query(
+        value = "SELECT D.cod_dane FROM jhi_user " +
+        "as U INNER JOIN jhi_user_location" +
+        " as L ON U.id = L.user_id " +
+        "INNER JOIN departamentos as D " +
+        "ON CAST ( L.departamento_name AS BIGINT ) = D.id" +
+        " WHERE U.id= ?1",
+        nativeQuery = true
+    )
+    List<String> findCodDaneUserList(int userId);
 }
