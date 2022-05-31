@@ -53,15 +53,11 @@ public class TransaccionesNominaService {
     ) {
         //List<String> departamentos   = new ArrayList<>();
         List<String> municipios = new ArrayList<>();
-        List<TransaccionesNomina> listaArray = new ArrayList<>();
         //departamentos = departamentosRepository.findCodDaneUserList(idUser);
 
         String programa = programasRepository.findNitProgramaUser(idUser);
 
         municipios = municipioRepository.findCodDaneUserList(idUser);
-
-        System.out.println("MUNICHIPIOOOOOOOOO" + municipios);
-        listaArray = transaccionesNominaRepository.pruebo(municipios);
 
         List<TransaccionesNomina> transaccionesNominas = new ArrayList<TransaccionesNomina>();
         if (!idNomina.equals("0")) {
@@ -108,11 +104,6 @@ public class TransaccionesNominaService {
                 }
             } else {
                 transaccionesNominas = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument);
-                System.out.println("----------------------------------------------------------------------");
-                System.out.println(
-                    "LO QUE TRAE EL REPO" +
-                    transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument)
-                );
             }
         }
         try {
@@ -125,7 +116,6 @@ public class TransaccionesNominaService {
             log.info("no se encontro el campo fecha de vigencia  para un elemento");
         }
 
-        System.out.println("ANTES DEL MAPPER" + transaccionesNominas);
         return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominas);
     }
 }
