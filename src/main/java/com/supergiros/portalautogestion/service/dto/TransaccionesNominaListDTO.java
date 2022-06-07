@@ -11,7 +11,7 @@ public class TransaccionesNominaListDTO implements Serializable {
 
     private String tipoDocumentoBenef;
 
-    private Integer numeroDocumentoBenef;
+    private Long numeroDocumentoBenef;
 
     private String nombreUno;
 
@@ -85,11 +85,11 @@ public class TransaccionesNominaListDTO implements Serializable {
         this.tipoDocumentoBenef = tipoDocumentoBenef;
     }
 
-    public Integer getNumeroDocumentoBenef() {
+    public Long getNumeroDocumentoBenef() {
         return numeroDocumentoBenef;
     }
 
-    public void setNumeroDocumentoBenef(Integer numeroDocumentoBenef) {
+    public void setNumeroDocumentoBenef(Long numeroDocumentoBenef) {
         this.numeroDocumentoBenef = numeroDocumentoBenef;
     }
 

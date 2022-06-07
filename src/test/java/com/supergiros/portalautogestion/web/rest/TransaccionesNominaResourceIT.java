@@ -34,8 +34,8 @@ class TransaccionesNominaResourceIT {
     private static final String DEFAULT_TIPO_DOCUMENTO_BENEF = "AAAAAAAAAA";
     private static final String UPDATED_TIPO_DOCUMENTO_BENEF = "BBBBBBBBBB";
 
-    private static final Integer DEFAULT_NUMERO_DOCUMENTO_BENEF = 1;
-    private static final Integer UPDATED_NUMERO_DOCUMENTO_BENEF = 2;
+    private static final Long DEFAULT_NUMERO_DOCUMENTO_BENEF = 1L;
+    private static final Long UPDATED_NUMERO_DOCUMENTO_BENEF = 2L;
 
     private static final String DEFAULT_NOMBRE_UNO = "AAAAAAAAAA";
     private static final String UPDATED_NOMBRE_UNO = "BBBBBBBBBB";
