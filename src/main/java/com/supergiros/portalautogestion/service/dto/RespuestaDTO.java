@@ -2,7 +2,7 @@ package com.supergiros.portalautogestion.service.dto;
 
 public class RespuestaDTO {
 
-    private int identificacion;
+    private Long identificacion;
 
     private String resultado;
 
@@ -10,11 +10,11 @@ public class RespuestaDTO {
 
     private String descripcion;
 
-    public int getIdentificacion() {
+    public Long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(int identificacion) {
+    public void setIdentificacion(Long identificacion) {
         this.identificacion = identificacion;
     }
 

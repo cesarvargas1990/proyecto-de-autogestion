@@ -45,12 +45,7 @@ public class TransaccionesNominaService {
         return idsLista;
     }
 
-    public List<TransaccionesNominaListDTO> searchTransacciones(
-        String typeDocument,
-        Integer numberDocument,
-        Integer idUser,
-        String idNomina
-    ) {
+    public List<TransaccionesNominaListDTO> searchTransacciones(String typeDocument, Long numberDocument, Integer idUser, String idNomina) {
         //List<String> departamentos   = new ArrayList<>();
         List<String> municipios = new ArrayList<>();
         //departamentos = departamentosRepository.findCodDaneUserList(idUser);

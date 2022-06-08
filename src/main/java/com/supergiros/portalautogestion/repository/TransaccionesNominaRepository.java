@@ -41,7 +41,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
         @Param("estado") String estado,
         @Param("periodoDePago") String periodoDePago,
         @Param("tipoDocumento") String tipoDocumento,
-        @Param("numeroDocumento") Integer numeroDocumento,
+        @Param("numeroDocumento") Long numeroDocumento,
         @Param("departamento") String departamento,
         @Param("municipio") String municipio,
         @Param("pinPago") String pinPago,
@@ -66,7 +66,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument,
+        @Param("numberDocument") Long numberDocument,
         @Param("municipio") List<String> municipio,
         @Param("programa") String programa
     );
@@ -81,7 +81,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentUser(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument,
+        @Param("numberDocument") Long numberDocument,
         @Param("municipio") List<String> municipio,
         @Param("programa") String programa,
         @Param("idNomina") String idNomina
@@ -95,7 +95,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument,
+        @Param("numberDocument") Long numberDocument,
         @Param("programa") String programa
     );
 
@@ -108,7 +108,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument,
+        @Param("numberDocument") Long numberDocument,
         @Param("programa") String programa,
         @Param("idNomina") String idNomina
     );
@@ -121,7 +121,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAdmin(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument,
+        @Param("numberDocument") Long numberDocument,
         @Param("idNomina") String idNomina
     );
 
@@ -132,7 +132,7 @@ public interface TransaccionesNominaRepository extends JpaRepository<Transaccion
     )
     List<TransaccionesNomina> findByTypeDocumentAndNumerDocumentAdmin(
         @Param("typeDocument") String typeDocument,
-        @Param("numberDocument") Integer numberDocument
+        @Param("numberDocument") Long numberDocument
     );
 
     @Query("Select t FROM TransaccionesNomina t " + "WHERE f_k_municipio IN :municipios")

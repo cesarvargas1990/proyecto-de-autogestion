@@ -351,7 +351,7 @@ public class TransaccionesNominaResource {
     @GetMapping("/transacciones-nominas/search")
     public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
         @RequestParam("typeDocument") String typeDocument,
-        @RequestParam("numberDocument") Integer numberDocument,
+        @RequestParam("numberDocument") Long numberDocument,
         @RequestParam(name = "idNomina", defaultValue = "0") String idNomina,
         @RequestParam("idUser") Integer idUser
     ) {
