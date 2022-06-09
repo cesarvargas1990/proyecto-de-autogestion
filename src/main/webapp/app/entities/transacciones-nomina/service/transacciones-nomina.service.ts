@@ -85,7 +85,7 @@ export class TransaccionesNominaService {
       responseType: 'blob' as 'json',
     };
     return this.http.get(
-      this.applicationConfigService.getEndpointFor(TIRILLA_URI + 'download?pin=' + `${pin}` + '&numberDocument=' + `${documentNumber}`),
+      this.applicationConfigService.getEndpointFor('api/getTirilla?pin=' + `${pin}` + '&numberDocument=' + `${documentNumber}`),
       httpOptions
     );
   }
