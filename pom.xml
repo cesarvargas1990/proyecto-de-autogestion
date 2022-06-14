@@ -47,7 +47,7 @@
         <jhipster-dependencies.version>7.6.0</jhipster-dependencies.version>
         <!-- The spring-boot version should match the one managed by
             ${jhipster-dependencies.version} -->
-        <spring-boot.version>2.6.3</spring-boot.version>
+        <spring-boot.version>2.6.6</spring-boot.version>
         <!-- The hibernate version should match the one managed by
         https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-dependencies/${spring-boot.version} -->
         <hibernate.version>5.6.4.Final</hibernate.version>
@@ -134,6 +134,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.module</groupId>
             <artifactId>jackson-module-jaxb-annotations</artifactId>
+            <version>2.13.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.13.2.1</version>
         </dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -152,8 +158,24 @@
             <artifactId>springdoc-openapi-webmvc-core</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>5.3.20</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.3.20</version>
+        </dependency>
+        <dependency>
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-commons</artifactId>
+            <version>2.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>5.3.20</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -227,11 +249,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
 <!-- Logging -->
 
 
@@ -273,7 +290,13 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
+            <version>5.6.4</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>5.6.4</version>
         </dependency>
         <dependency>
             <groupId>com.tngtech.archunit</groupId>
@@ -334,12 +357,29 @@
             <artifactId>h2</artifactId>
             <scope>test</scope>
         </dependency>
+
+<!-- new versions -->
+
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>provided</scope>
-            <version>42.3.2</version>
+            
+            <version>42.3.3</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>2.6.6</version>
+        </dependency>
+
+
+
+        <!-- <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>5.3.20</version>
+        </dependency> -->
         <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
             
@@ -1028,6 +1068,7 @@
                 <dependency>
                     <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
+                    <version>42.3.3</version>
                 </dependency>
             </dependencies>
             <build>
@@ -1045,7 +1086,7 @@
                             <version>${liquibase.version}</version>
                             <configuration>
                                 <changeLogFile>${project.basedir}/src/main/resources/config/liquibase/master.xml</changeLogFile>
-                                <diffChangeLogFile>${project.basedir}/src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
+                                <diffChangeLogFile>${project.basedir}/src/main/reso urces/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                                 <driver>org.postgresql.Driver</driver>
                                 <url>jdbc:postgresql://localhost:5432/portalautogestion</url>
                                 <defaultSchemaName></defaultSchemaName>
@@ -1099,6 +1140,7 @@
                     <groupId>org.testcontainers</groupId>
                     <artifactId>postgresql</artifactId>
                     <scope>test</scope>
+                    <version>42.3.3</version>
                 </dependency>
                 <dependency>
                     <groupId>org.postgresql</groupId>
