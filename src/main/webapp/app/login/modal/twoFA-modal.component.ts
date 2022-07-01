@@ -3,10 +3,12 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import { FormBuilder, Validators } from '@angular/forms';
 import { ModalDismissReasons, NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from 'app/login/login.service';
-
+import { LoginModalComponent } from './login-modal.component';
 import { AccountService } from 'app/core/auth/account.service';
 
 import { Account } from 'app/core/auth/account.model';
+
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs';
 
@@ -25,7 +27,7 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
 
   tokenError = false;
 
-  pruebaesta = false;
+  pruebaesta = true;
 
   itsTwoFAON = true;
 
@@ -43,6 +45,8 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
     private accountService: AccountService,
 
     private modalService: NgbModal,
+
+    private router: Router,
 
     config: NgbModalConfig
   ) {
@@ -65,11 +69,20 @@ export class TwoFAModalComponent implements OnInit, AfterViewInit {
   }
 
   verificar(): void {
-    this.loginService.validarToken(this.twoFactorForm.get('token')!.value).subscribe({
+    this.loginService.loginfinish(this.twoFactorForm.get('token')!.value).subscribe({
       next: validatedToken => {
         this.tokenValidado = true;
         this.tokenError = false;
         this.pruebaesta = false;
+        setTimeout(() => {
+          this.modalService.dismissAll();
+          if (validatedToken?.firstTime) {
+            this.loginService.validarPrimerLogin(validatedToken.login).subscribe(() => {
+              this.modalService.open(LoginModalComponent);
+              this.router.navigate(['/account/password']);
+            });
+          }
+        }, 800);
       },
 
       error: wrongToken => {

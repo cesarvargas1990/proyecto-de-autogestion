@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpStatusCode } from '@angular/common/http';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { AuthServerProvider } from 'app/core/auth/auth-jwt.service';
@@ -17,8 +17,11 @@ export class LoginService {
     private authServerProvider: AuthServerProvider
   ) {}
 
-  login(credentials: Login): Observable<Account | null> {
-    return this.authServerProvider.login(credentials).pipe(mergeMap(() => this.accountService.identity(true)));
+  loginfinish(TwoFactor: string): Observable<Account | null> {
+    return this.authServerProvider.loginfinish(TwoFactor).pipe(mergeMap(() => this.accountService.identity(true)));
+  }
+  logininit(credentials: Login): Observable<HttpStatusCode> {
+    return this.authServerProvider.logininit(credentials);
   }
 
   logout(): void {

@@ -6,6 +6,7 @@ import com.supergiros.portalautogestion.config.Constants;
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import javax.persistence.*;
@@ -78,8 +79,8 @@ public class User extends AbstractAuditingEntity {
     @Column(name = "image_url", length = 256)
     private String imageUrl;
 
-    @Size(max = 20)
-    @Column(name = "activation_key", length = 20)
+    @Size(max = 256)
+    @Column(name = "activation_key", length = 256)
     @JsonIgnore
     private String activationKey;
 
@@ -127,6 +128,12 @@ public class User extends AbstractAuditingEntity {
     @JsonIgnore
     @Column(name = "fk_departamento", length = 20)
     private Long departamento;
+
+    // //@Column(name = "departamentos", length = 20)
+    // private String departamentos;
+
+    // // @Column(name = "departamentos_name")
+    // // private List<String> departamentosName;
 
     @Column(name = "fk_municipio", length = 20)
     private Long municipio;
@@ -318,6 +325,22 @@ public class User extends AbstractAuditingEntity {
     public void setDepartamento(Long departamento) {
         this.departamento = departamento;
     }
+
+    // public String getDepartamentos() {
+    //     return departamentos;
+    // }
+
+    // public void setDepartamentos(String departamentos) {
+    //     this.departamentos = departamentos;
+    // }
+
+    // public List<String> getDepartamentosName() {
+    //     return departamentosName;
+    // }
+
+    // public void setDepartamentosName(List<String> departamentosName) {
+    //     this.departamentosName = departamentosName;
+    // }
 
     public Long getMunicipio() {
         return municipio;

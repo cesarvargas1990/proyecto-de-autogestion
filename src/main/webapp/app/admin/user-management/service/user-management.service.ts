@@ -6,7 +6,6 @@ import { createRequestOption } from 'app/core/request/request-util';
 import { Pagination } from 'app/core/request/request.model';
 import { IUser } from '../user-management.model';
 import { udmModel } from '../user-management.model';
-
 import { User } from '../user-management.model';
 
 @Injectable({ providedIn: 'root' })
@@ -48,17 +47,32 @@ export class UserManagementService {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/getDepartamentos'));
   }
 
-  getIdDepartamentos(departamentoName: string): Observable<number> {
-    return this.http.get<number>(
-      this.applicationConfigService.getEndpointFor('api/getIdDepartamentos?departamentoName=' + `${departamentoName}`)
+  getIdMultiplesDepartamentos(departamentoName: string): Observable<number[]> {
+    return this.http.get<number[]>(
+      this.applicationConfigService.getEndpointFor('api/findIdByMultiplesName?departamentoName=' + `${departamentoName}`)
     );
   }
 
-  getMunicipios(fkDepartmanento: number): Observable<string[]> {
-    return this.http.get<string[]>(
-      this.applicationConfigService.getEndpointFor('api/getMunicipios?fkDepartmanento=' + `${fkDepartmanento}`)
+  getIdMultipleDepartamentos(departamentoName: string): Observable<number> {
+    return this.http.get<number>(
+      this.applicationConfigService.getEndpointFor('api/findIdByMultipleName?departamentoName=' + `${departamentoName}`)
     );
   }
+
+  findDepartamentosIDByMunicipioName(municipioName: string): Observable<string> {
+    return this.http.get<string>(
+      this.applicationConfigService.getEndpointFor('api/findDepartamentosIDByMunicipioName?municipioName=' + `${municipioName}`)
+    );
+  }
+
+  /* eslint-disable */
+
+  getMultiplesMunicipios(fkDepartmanento: number[]): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor('api/getMultiplesMunicipios?fkDepartmanento=' + `${fkDepartmanento}`)
+    );
+  }
+  /* eslint-enable */
 
   getIdMunicipios(municipioName: string): Observable<number> {
     return this.http.get<number>(this.applicationConfigService.getEndpointFor('api/getIdMunicipios?municipioName=' + `${municipioName}`));
@@ -80,16 +94,57 @@ export class UserManagementService {
     return this.http.get<number>(this.applicationConfigService.getEndpointFor('api/getIdProgramas?programaName=' + `${programaName}`));
   }
 
-  getBooleanSearchDB(login: string, documentType: string): Observable<true> {
-    return this.http.get<true>(
-      this.applicationConfigService.getEndpointFor('api/searchInDB?login=' + `${login}` + '&?documentType=' + `${documentType}`)
-    );
-  }
-
   MakeinsertUDM(udmmodel: udmModel): Observable<{}> {
     return this.http.post(this.applicationConfigService.getEndpointFor('api/admin/insertUDM'), udmmodel);
   }
 
+  getDepartamentosName(IdUser: number): Observable<string[]> {
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findDepartamentosNameByID?IdUser=' + `${IdUser}`));
+  }
+
+  findMunicipiosNameByID(IdUser: number): Observable<string[]> {
+    return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findMunicipiosNameByID?IdUser=' + `${IdUser}`));
+  }
+  /* eslint-disable */
+
+  findMunicipiosNameByIDAndDepartamento(IdUser: number, departamentoId: number[]): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor(
+        'api/findMunicipiosNameByIDAndDepartamento?IdUser=' + `${IdUser}` + '&departamentoId=' + `${departamentoId}`
+      )
+    );
+  }
+
+  /* eslint-enable */
+
+  //NO FUNCIONA
+  findProgramaName(IdUser: number): Observable<string> {
+    return this.http.get<string>(this.applicationConfigService.getEndpointFor('api/findProgramaName?IdUser=' + `${IdUser}`));
+  }
+
+  findProgramasName(IdUser: number, programaName: string): Observable<string> {
+    return this.http.get<string>(
+      this.applicationConfigService.getEndpointFor('api/findProgramasName?IdUser=' + `${IdUser}` + '&?programaName=' + `${programaName}`)
+    );
+  }
+
+  findConvenioID(IdUser: number): Observable<string> {
+    return this.http.get<string>(this.applicationConfigService.getEndpointFor('api/findConvenioID?IdUser=' + `${IdUser}`));
+  }
+
+  //DUDOSOS
+
+  getIdDepartamentos(departamentoName: string): Observable<number> {
+    return this.http.get<number>(
+      this.applicationConfigService.getEndpointFor('api/getIdDepartamentos?departamentoName=' + `${departamentoName}`)
+    );
+  }
+
+  getDepartamentosIDByMunicipiosName(municipioName: string): Observable<number> {
+    return this.http.get<number>(
+      this.applicationConfigService.getEndpointFor('api/getDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
+    );
+  }
   getNameConvenio(convenioId: number): Observable<string[]> {
     return this.http.get<string[]>(this.applicationConfigService.getEndpointFor('api/findNameByIdConvenio?convenioId=' + `${convenioId}`));
   }
@@ -109,4 +164,22 @@ export class UserManagementService {
       this.applicationConfigService.getEndpointFor('api/findNameByIdMunicipio?municipioId=' + `${municipioId}`)
     );
   }
+
+  getBooleanSearchDB(login: string, documentType: string): Observable<true> {
+    return this.http.get<true>(
+      this.applicationConfigService.getEndpointFor('api/searchInDB?login=' + `${login}` + '&?documentType=' + `${documentType}`)
+    );
+  }
+
+  getMunicipios(fkDepartmanento: number): Observable<string[]> {
+    return this.http.get<string[]>(
+      this.applicationConfigService.getEndpointFor('api/getMunicipios?fkDepartmanento=' + `${fkDepartmanento}`)
+    );
+  }
+
+  // getMultiplesDepartamentosIDByMunicipiosName(municipioName: string[]): Observable<string[]> {
+  //   return this.http.get<string[]>(
+  //     this.applicationConfigService.getEndpointFor('api/findMultiplesDepartamentosIDByMunicipiosName?municipioName=' + `${municipioName}`)
+  //   );
+  // }
 }

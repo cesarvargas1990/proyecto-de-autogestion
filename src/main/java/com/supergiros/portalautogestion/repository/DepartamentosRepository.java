@@ -30,9 +30,6 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
     @Query(value = "SELECT id FROM departamentos WHERE departamentos.name = ?1 ", nativeQuery = true)
     Long findIdByName(String departamentoName);
 
-    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 OR municipio.fk_departamento = 35 ", nativeQuery = true)
-    List<String> getMunicipiosName(Long fkDepartmanento);
-
     @Query(value = "SELECT id FROM municipio WHERE municipio.name = ?1 ", nativeQuery = true)
     Long findIdByNameMunicipio(String municipioName);
 
@@ -48,6 +45,69 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
     @Query(value = "SELECT id FROM programas WHERE programas.name = ?1 ", nativeQuery = true)
     Long findIdByNamePrograma(String programaName);
 
+    //TRAER INFO
+    @Query(
+        value = "SELECT DISTINCT name FROM jhi_user_location INNER JOIN departamentos ON (jhi_user_location.departamento_name) = CAST(departamentos.id as varchar) WHERE jhi_user_location.user_id = ?1 ",
+        nativeQuery = true
+    )
+    //@Query(value = "SELECT departamentos.name, municipio.name FROM jhi_user_location INNER JOIN departamentos ON (jhi_user_location.departamento_name) = CAST(departamentos.id as varchar) INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE jhi_user_location.user_id = ?1 ", nativeQuery = true)
+    List<String> findDepartamentosNameByID(Long IdUser);
+
+    @Query(value = "SELECT DISTINCT municipio.fk_departamento FROM municipio WHERE municipio.name = ?1 ", nativeQuery = true)
+    String findDepartamentosIDByMunicipioName(String municipioName);
+
+    //TRAER INFO ON INIT
+    @Query(
+        value = "SELECT DISTINCT name FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE jhi_user_location.user_id = ?1 ",
+        nativeQuery = true
+    )
+    List<String> findMunicipiosNameByID(Long IdUser);
+
+    //TRAER INFO EDICIÓN
+    @Query(
+        value = "SELECT DISTINCT name FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE jhi_user_location.user_id = ?1 AND municipio.fk_departamento= ?2 ",
+        nativeQuery = true
+    )
+    List<String> findMunicipiosNameByIDAndDepartamento(Long IdUser, Long departamentoId);
+
+    //TRAER Convenio
+    @Query(
+        value = "SELECT DISTINCT convenio.id FROM jhi_user INNER JOIN convenio ON (jhi_user.fk_convenio) = convenio.id  WHERE jhi_user.id = ?1 ",
+        nativeQuery = true
+    )
+    Long findConvenioID(Long IdUser);
+
+    //NO FUNCIONA
+    @Query(
+        value = "SELECT DISTINCT name FROM jhi_user INNER JOIN programas ON (jhi_user.fk_programa) = programas.id  WHERE jhi_user.id = ?1 ",
+        nativeQuery = true
+    )
+    String findProgramaName(Long IdUser);
+
+    //PRUEBA DE FUNCIONA
+    @Query(
+        value = "SELECT jhi_user.fk_programa FROM jhi_user INNER JOIN programas ON jhi_user.fk_programa = programas.id  WHERE jhi_user.id = ?1 AND programas.name= ?2 ",
+        nativeQuery = true
+    )
+    Long findProgramasName(Long IdUser, String programaName);
+
+    //DUDOSOS
+
+    @Query(value = "SELECT name FROM municipio WHERE municipio.fk_departamento = ?1 ", nativeQuery = true)
+    List<String> getMunicipiosName(Long fkDepartmanento);
+
+    @Query(
+        value = "SELECT DISTINCT municipio.fk_departamento FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE municipio.name= ?1 ",
+        nativeQuery = true
+    )
+    Long findDepartamentosIDByMunicipiosName(String municipioName);
+
+    @Query(
+        value = "SELECT DISTINCT municipio.fk_departamento FROM jhi_user_location INNER JOIN municipio ON (jhi_user_location.municipio_name) = CAST(municipio.id as varchar) WHERE municipio.name= ?1 ",
+        nativeQuery = true
+    )
+    List<String> findMultiplesDepartamentosIDByMunicipiosName(String municipioName);
+
     @Query(value = "SELECT id FROM jhi_user WHERE jhi_user.login = ?1 AND jhi_user.document_type = ?1 ", nativeQuery = true)
     Boolean searchInDB(String login, String documentType);
 
@@ -62,4 +122,15 @@ public interface DepartamentosRepository extends JpaRepository<Departamentos, Lo
 
     @Query(value = "SELECT municipio_name FROM jhi_user_location WHERE jhi_user_location.user_id = ?1 ", nativeQuery = true)
     List<String> findNameByIdMunicipio(Long municipioName);
+
+    @Query(
+        value = "SELECT D.cod_dane FROM jhi_user " +
+        "as U INNER JOIN jhi_user_location" +
+        " as L ON U.id = L.user_id " +
+        "INNER JOIN departamentos as D " +
+        "ON CAST ( L.departamento_name AS BIGINT ) = D.id" +
+        " WHERE U.id= ?1",
+        nativeQuery = true
+    )
+    List<String> findCodDaneUserList(int userId);
 }

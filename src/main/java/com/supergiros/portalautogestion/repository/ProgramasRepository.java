@@ -14,4 +14,14 @@ import org.springframework.stereotype.Repository;
 public interface ProgramasRepository extends JpaRepository<Programas, Long> {
     @Query("SELECT p FROM Programas p " + "where p.identificacion = :nit ")
     Optional<Programas> getProgramaNameByNit(@Param("nit") String nit);
+
+    @Query(
+        value = "SELECT identificacion " +
+        "FROM jhi_user AS u " +
+        "INNER JOIN programas AS p " +
+        "ON u.fk_programa = p.id " +
+        "WHERE U.id= ?1",
+        nativeQuery = true
+    )
+    String findNitProgramaUser(int userId);
 }

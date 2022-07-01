@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserManagementService } from 'app/admin/user-management/service/user-management.service';
+import { SITE_KEY_CAPTCHA, TIRILLA_URI } from 'app/app.constants';
 import { Account } from 'app/core/auth/account.model';
 import { AccountService } from 'app/core/auth/account.service';
 import { IConvenio } from 'app/entities/convenio/convenio.model';
@@ -25,6 +26,7 @@ import { elementAt, Observable, Subject, takeUntil } from 'rxjs';
   styleUrls: ['./consulta-estado-giro.component.scss'],
 })
 export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
+  /* eslint-disable */
   department!: IDepartamentos;
   departmentOfUser!: string[];
   municipio!: IMunicipio;
@@ -36,6 +38,17 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
   account$?: Observable<Account | null>;
   nameDept?: string;
   isLoading = false;
+
+  blob!: Blob;
+  errorTirilla = false;
+  pinNomina!: string;
+  documentNumber?: string;
+
+  fechaPagoVal!: boolean;
+  horaPagoVal!: boolean;
+  departamentoPagoVal!: boolean;
+  municipioPagoVal!: boolean;
+  motivoAnulacion!: boolean;
 
   public formSearch!: FormGroup;
 
@@ -60,188 +73,46 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     this.getDataUser();
   }
 
-  codDaneDepto(codDane: any): IDepartamentos {
-    this.departamentosService.findByCodDane(codDane).subscribe({
-      next: (res: HttpResponse<IDepartamentos>) => {
-        this.isLoading = false;
-        this.department = res.body ?? this.department;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.department;
-  }
-
-  // idDepto(id: any): IDepartamentos {
-  //   this.departamentosService.find(id).subscribe({
-  //     next: (res: HttpResponse<IDepartamentos>) => {
-  //       this.isLoading = false;
-  //       this.departmentOfUser = res.body ?? this.departmentOfUser;
-  //     },
-  //     error: () => {
-  //       this.isLoading = false;
-  //     },
-  //   });
-  //   return this.departmentOfUser;
-  // }
-
-  codDaneMunicipio(codDane: any): IMunicipio {
-    this.municipioService.findByCodDane(codDane).subscribe({
-      next: (res: HttpResponse<IMunicipio>) => {
-        this.isLoading = false;
-        this.municipio = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.municipio;
-  }
-
-  nitConvenio(nit: any): IConvenio {
-    this.convenioService.findByNit(nit).subscribe({
-      next: (res: HttpResponse<IConvenio>) => {
-        this.isLoading = false;
-        this.convenio = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.convenio;
-  }
-
-  nitProgramas(nit: any): IProgramas {
-    this.programasService.findByNit(nit).subscribe({
-      next: (res: HttpResponse<IProgramas>) => {
-        this.isLoading = false;
-        this.programas = res.body ?? this.department;
-        /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-        // console.log(codDane);
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-    return this.programas;
-  }
-
   getDataUser(): void {
     this.account$?.subscribe({
       next: user => {
         this.idUserLogin = user?.id ?? 0;
-
-        this.userService.findDepartmentById(this.idUserLogin).subscribe({
-          next: (res: string[]) => {
-            this.departmentOfUser = res;
-
-            /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-            // console.log(this.departmentOfUser);
-
-            /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
-            // console.log(this.idUserLogin);
-          },
-        });
       },
     });
   }
 
   send(): any {
     let lokesea: ITransaccionesNomina[] = [];
-    if (this.departmentOfUser[0] !== '99999') {
-      for (let index = 0; index < this.departmentOfUser.length; index++) {
-        this.transaccionesNominaService
-          .findByDocument(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument, this.departmentOfUser[index])
-          .subscribe({
-            next: (res: HttpResponse<ITransaccionesNomina[]>) => {
-              this.isLoading = false;
-              this.transaccionesNominas2 = res.body ?? [];
-
-              lokesea = lokesea.concat(this.transaccionesNominas2);
-
-              for (let i = 0; i < lokesea.length; i++) {
-                if (lokesea[i].fKDepartamentoDePago !== null && lokesea[i].fKDepartamentoDePago !== undefined) {
-                  this.codDaneDepto(lokesea[i].fKDepartamentoDePago);
-                  this.codDaneMunicipio(lokesea[i].fKMunicipioDePago);
-
-                  setTimeout(() => {
-                    lokesea[i].fKDepartamentoDePago = this.department.name;
-                    lokesea[i].fKMunicipioDePago = this.municipio.name;
-                  }, 100);
-                }
-                if (lokesea[i].fKIdConvenio !== null && lokesea[i].fKIdPrograma !== null) {
-                  this.nitConvenio(lokesea[i].fKIdConvenio);
-                  this.nitProgramas(lokesea[i].fKIdPrograma);
-
-                  setTimeout(() => {
-                    lokesea[i].fKIdConvenio = this.convenio.name;
-                    lokesea[i].fKIdPrograma = this.programas.name;
-                  }, 100);
-                }
-              }
-
-              setTimeout(() => {
-                this.transaccionesNominas = lokesea;
-              }, 100);
-            },
-            error: () => {
-              this.isLoading = false;
-            },
-          });
-      }
-    } else {
-      this.transaccionesNominaService
-        .findByDocumentAllDepartments(this.formSearch.value.numberDocument, this.formSearch.value.typeDocument)
-        .subscribe({
-          next: (res: HttpResponse<ITransaccionesNomina[]>) => {
-            this.isLoading = false;
-            this.transaccionesNominas2 = res.body ?? [];
-
-            lokesea = lokesea.concat(this.transaccionesNominas2);
-
-            for (let i = 0; i < lokesea.length; i++) {
-              if (lokesea[i].fKDepartamentoDePago !== null && lokesea[i].fKDepartamentoDePago !== undefined) {
-                this.codDaneDepto(lokesea[i].fKDepartamentoDePago);
-                this.codDaneMunicipio(lokesea[i].fKMunicipioDePago);
-
-                setTimeout(() => {
-                  lokesea[i].fKDepartamentoDePago = this.department.name;
-                  lokesea[i].fKMunicipioDePago = this.municipio.name;
-                }, 100);
-              }
-              if (lokesea[i].fKIdConvenio !== null && lokesea[i].fKIdPrograma !== null) {
-                this.nitConvenio(lokesea[i].fKIdConvenio);
-                this.nitProgramas(lokesea[i].fKIdPrograma);
-
-                setTimeout(() => {
-                  lokesea[i].fKIdConvenio = this.convenio.name;
-                  lokesea[i].fKIdPrograma = this.programas.name;
-                }, 100);
-              }
-            }
-
-            setTimeout(() => {
-              this.transaccionesNominas = lokesea;
-            }, 300);
-          },
-          error: () => {
-            this.isLoading = false;
-          },
-        });
-    }
+    this.fechaPagoVal = false;
+    this.horaPagoVal = false;
+    this.departamentoPagoVal = false;
+    this.municipioPagoVal = false;
+    this.motivoAnulacion = false;
+    this.transaccionesNominaService
+      .findByDocument(
+        this.formSearch.value.typeDocument,
+        this.formSearch.value.numberDocument,
+        this.formSearch.value.idNomina,
+        this.idUserLogin
+      )
+      .subscribe({
+        next: (res: HttpResponse<ITransaccionesNomina[]>) => {
+          this.isLoading = false;
+          this.transaccionesNominas = res.body ?? [];
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+      });
   }
-
   trackId(index: number, item: ITransaccionesNomina): number {
     return item.id!;
   }
 
   ngOnInit(): void {
+    console.log('oninit');
     this.account$ = this.accountService.identity();
+
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
@@ -249,6 +120,83 @@ export class ConsultaEstadoGiroComponent implements OnInit, AfterViewInit {
     this.formSearch = this.formBuilder.group({
       typeDocument: [''],
       numberDocument: [''],
+      idNomina: [''],
     });
+  }
+
+  //tirillas
+
+  displayTirilla(index: number): void {
+    this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
+    this.documentNumber = this.transaccionesNominas[index].numeroDocumentoBenef?.toString() ?? 'nulo';
+    console.log(this.documentNumber);
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber).subscribe({
+      next: (data: Blob) => {
+        var file = new Blob([data], { type: 'application/pdf' });
+        var fileURL = URL.createObjectURL(file);
+        //window.open(fileURL);
+        var a = document.createElement('a');
+        a.href = fileURL;
+        a.target = '_blank';
+
+        document.body.appendChild(a);
+        a.click();
+      },
+      error: error => {
+        if (error.status === 412) {
+          this.errorTirilla = true;
+          setTimeout(() => {
+            this.errorTirilla = false;
+          }, 3000);
+        }
+      },
+    });
+  }
+  downloadTirilla(index: number): void {
+    this.pinNomina = this.transaccionesNominas[index].pinPago ?? 'nulo';
+    this.documentNumber = this.transaccionesNominas[index].numeroDocumentoBenef?.toString() ?? 'nulo';
+
+    this.transaccionesNominaService.findTirillas(this.pinNomina, this.documentNumber).subscribe({
+      next: data => {
+        this.blob = new Blob([data], { type: 'application/pdf' });
+
+        var downloadURL = window.URL.createObjectURL(data);
+        var link = document.createElement('a');
+        link.href = downloadURL;
+        link.download = this.pinNomina + '-' + this.documentNumber + '.pdf';
+        link.click();
+      },
+
+      error: error => {
+        if (error.status === 412) {
+          this.errorTirilla = true;
+          setTimeout(() => {
+            this.errorTirilla = false;
+          }, 3000);
+        }
+      },
+    });
+  }
+
+  validarCammpos(transaccionesNominasVal: ITransaccionesNomina[]): void {
+    console.log(transaccionesNominasVal);
+    for (let index = 0; index < transaccionesNominasVal.length; index++) {
+      if (transaccionesNominasVal[index].fechaPago) {
+        this.fechaPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].horaPago) {
+        this.horaPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].fKDepartamentoDePago) {
+        this.departamentoPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].fKMunicipioDePago) {
+        this.municipioPagoVal = true;
+      }
+      if (transaccionesNominasVal[index].motivoAnulacion) {
+        this.motivoAnulacion = true;
+      }
+    }
+    /* eslint-enable */
   }
 }

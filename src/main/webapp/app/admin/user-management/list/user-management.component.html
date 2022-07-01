@@ -13,7 +13,37 @@
     </div>
   </h2>
 
-  <jhi-alert-error></jhi-alert-error>
+  <!-- <jhi-alert-error > </jhi-alert-error> -->
+
+  <!-- <div class="alerts" role="alert">
+    <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
+      <ngb-alert *ngIf="alert.message" [type]="alert.type" (closed)="close(alert)">
+        <pre [innerHTML]="alert.message"></pre>
+      </ngb-alert>
+    </div>
+  </div> -->
+
+  <!-- <div class="alert alert-danger alert-dismissible">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
+  </div> -->
+
+  <form name="editForm" role="form" [formGroup]="editForm">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="searchCredentialsError">
+      <!-- <a  class="close" data-dismiss="alert" aria-label="close">&times;</a> -->
+      <!-- <button type="button" class="alert-close" data-bs-dismiss="alert">x</button> -->
+
+      <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close" ><span aria-hidden="true">&times;</span></button> -->
+
+      <div jhiTranslate="userManagement.searchCredentialsError"></div>
+      <!-- <a  class="close" data-dismiss="alert" aria-label="close" (onClick)="close(alert)">&times;</a> -->
+
+      <!-- <button type="button" class="close" data-dismiss="alert alert-danger">x</button> -->
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="closeAlert()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </form>
 
   <jhi-alert></jhi-alert>
 
@@ -63,7 +93,8 @@
       </div>
     </div>
 
-    <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError"></div>
+    <!-- <div class="alert alert-danger" *ngIf="searchCredentialsError" jhiTranslate="userManagement.searchCredentialsError">
+    </div> -->
   </form>
 
   <div *ngIf="isShown">
@@ -71,26 +102,26 @@
       <table class="table table-striped" aria-describedby="user-management-page-heading">
         <thead>
           <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="transition()">
-            <th scope="col" jhiSortBy="id">
+            <th scope="col">
               <span jhiTranslate="global.field.id">ID</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="login">
+            <th scope="col">
               <span>Número de Documento</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="email">
+            <th scope="col">
               <span jhiTranslate="userManagement.email">Email</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
             <th scope="col"></th>
 
             <th scope="col"><span jhiTranslate="userManagement.profiles">Profiles</span></th>
-            <th scope="col" jhiSortBy="createdDate">
+            <th scope="col">
               <span jhiTranslate="userManagement.createdDate">Created Date</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
-            <th scope="col" jhiSortBy="lastModifiedBy">
+            <th scope="col">
               <span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span>
               <fa-icon icon="sort"></fa-icon>
             </th>
@@ -106,25 +137,7 @@
             </td>
             <td>{{ user.login }}</td>
             <td>{{ user.email }}</td>
-            <td>
-              <button
-                class="btn btn-secondary btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.activated"
-                jhiTranslate="userManagement.activated"
-              >
-                Deactivated
-              </button>
-              <button
-                class="btn btn-danger btn-sm"
-                (click)="activateOrdesactivate(user)"
-                *ngIf="this.desactivated"
-                [disabled]=""
-                jhiTranslate="userManagement.deactivated"
-              >
-                Activated
-              </button>
-            </td>
+            <td></td>
             <td>
               <div *ngFor="let authority of user.authorities">
                 <span class="badge badge-info">{{ authority }}</span>
@@ -145,7 +158,7 @@
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                 </button>
 
-                <button
+                <!-- <button
                   type="button"
                   (click)="deleteUser(user)"
                   class="btn btn-danger btn-sm"
@@ -153,7 +166,7 @@
                 >
                   <fa-icon icon="times"></fa-icon>
                   <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                </button>
+                </button> -->
               </div>
             </td>
           </tr>
@@ -237,24 +250,24 @@
         </tbody>
       </table>
     </div>
-  </div>
 
-  <div>
-    <div *ngIf="users">
-      <div class="row justify-content-center">
-        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
-      </div>
+    <div>
+      <div *ngIf="users">
+        <div class="row justify-content-center">
+          <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"> </jhi-item-count>
+        </div>
 
-      <div class="row justify-content-center">
-        <ngb-pagination
-          [collectionSize]="totalItems"
-          [(page)]="page"
-          [pageSize]="itemsPerPage"
-          [maxSize]="5"
-          [rotate]="true"
-          [boundaryLinks]="true"
-          (pageChange)="transition()"
-        ></ngb-pagination>
+        <div class="row justify-content-center">
+          <ngb-pagination
+            [collectionSize]="totalItems"
+            [(page)]="page"
+            [pageSize]="itemsPerPage"
+            [maxSize]="5"
+            [rotate]="true"
+            [boundaryLinks]="true"
+            (pageChange)="transition()"
+          ></ngb-pagination>
+        </div>
       </div>
     </div>
   </div>

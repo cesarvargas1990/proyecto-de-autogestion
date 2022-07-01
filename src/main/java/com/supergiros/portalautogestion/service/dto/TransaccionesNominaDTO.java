@@ -6,7 +6,7 @@ public class TransaccionesNominaDTO {
 
     private String tipoDocumento;
 
-    private int identificacion;
+    private Long identificacion;
 
     private String referencia_control;
 
@@ -158,11 +158,11 @@ public class TransaccionesNominaDTO {
         this.tipoDocumento = tipoDocumento;
     }
 
-    public int getIdentificacion() {
+    public Long getIdentificacion() {
         return identificacion;
     }
 
-    public void setIdentificacion(int identificacion) {
+    public void setIdentificacion(Long identificacion) {
         this.identificacion = identificacion;
     }
 

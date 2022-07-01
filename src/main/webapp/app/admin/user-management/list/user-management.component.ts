@@ -12,6 +12,7 @@ import { User } from '../user-management.model';
 import { UserManagementDeleteDialogComponent } from '../delete/user-management-delete-dialog.component';
 import { DOCUMENTTYPE } from 'app/config/documentType.constants';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Alert, AlertService } from 'app/core/util/alert.service';
 
 @Component({
   selector: 'jhi-user-mgmt',
@@ -20,6 +21,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class UserManagementComponent implements OnInit {
   currentAccount: Account | null = null;
   users: User[] | null = null;
+
+  alerts: Alert[] = [];
+  alert!: Alert;
 
   isLoading = false;
   totalItems = 0;
@@ -36,6 +40,7 @@ export class UserManagementComponent implements OnInit {
   loginString!: string;
   documentTypeString!: string;
   searchCredentialsError = false;
+  searchUserError = false;
   activated!: boolean;
   desactivated!: boolean;
   aplicarFiltro = true;
@@ -128,6 +133,9 @@ export class UserManagementComponent implements OnInit {
           this.searchCredentialsError = true;
         }
       },
+      error: wrongToken => {
+        this.searchCredentialsError = true;
+      },
     });
   }
 
@@ -143,6 +151,13 @@ export class UserManagementComponent implements OnInit {
     // this.userService.find(this.editForm.value.login).subscribe(xx =>
     //   this.user = xx);
     const a = 1;
+  }
+
+  close(alert: Alert): void {
+    this.alerts.splice(this.alerts.indexOf(alert), 1);
+  }
+  closeAlert(): void {
+    this.searchCredentialsError = false;
   }
 
   // private updateForm(user: User): void {

@@ -1,13 +1,23 @@
 package com.supergiros.portalautogestion.web.rest;
 
+import com.supergiros.portalautogestion.domain.Convenio;
+import com.supergiros.portalautogestion.domain.Departamentos;
+import com.supergiros.portalautogestion.domain.Municipio;
+import com.supergiros.portalautogestion.domain.Programas;
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
+import com.supergiros.portalautogestion.repository.ConvenioRepository;
+import com.supergiros.portalautogestion.repository.DepartamentosRepository;
+import com.supergiros.portalautogestion.repository.MunicipioRepository;
+import com.supergiros.portalautogestion.repository.ProgramasRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.service.TransaccionesNominaService;
 import com.supergiros.portalautogestion.service.dto.RespuestaDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaDTO;
+import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.web.rest.errors.BadRequestAlertException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,6 +50,18 @@ public class TransaccionesNominaResource {
 
     @Autowired
     TransaccionesNominaService transaccionesNominaService;
+
+    @Autowired
+    DepartamentosRepository departamentosRepository;
+
+    @Autowired
+    MunicipioRepository municipioRepository;
+
+    @Autowired
+    ConvenioRepository convenioRepository;
+
+    @Autowired
+    ProgramasRepository programaRepository;
 
     public TransaccionesNominaResource(TransaccionesNominaRepository transaccionesNominaRepository) {
         this.transaccionesNominaRepository = transaccionesNominaRepository;
@@ -316,30 +338,25 @@ public class TransaccionesNominaResource {
         return ResponseUtil.wrapOrNotFound(transaccionesNomina);
     }
 
-    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}")
-    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocument(
-        @PathVariable("typeDocument") String typeDocument,
-        @PathVariable("numberDocument") Integer numberDocument,
-        @PathVariable("department") String department
+    // @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}/{department}/{programa}/{idNomina}")
+    // public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+    //     @PathVariable("typeDocument") String typeDocument,
+    //     @PathVariable("numberDocument") Integer numberDocument,
+    //     @PathVariable("department") String department,
+    //     @PathVariable("programa") String programa,
+    //     @PathVariable("idNomina") String idNomina
+    // ) {
+    //     return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, department, programa, idNomina);
+    // }
+    @GetMapping("/transacciones-nominas/search")
+    public List<TransaccionesNominaListDTO> getTransaccionesNominaByTypeDocumentAndNumberDocument(
+        @RequestParam("typeDocument") String typeDocument,
+        @RequestParam("numberDocument") Long numberDocument,
+        @RequestParam(name = "idNomina", defaultValue = "0") String idNomina,
+        @RequestParam("idUser") Integer idUser
     ) {
-        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocument(
-            typeDocument,
-            numberDocument,
-            department
-        );
-        return transaccionesNomina;
-    }
-
-    @GetMapping("/transacciones-nominas/{typeDocument}/{numberDocument}")
-    public List<TransaccionesNomina> getTransaccionesNominaByTypeDocumentAndNumberDocumentAllDepartments(
-        @PathVariable("typeDocument") String typeDocument,
-        @PathVariable("numberDocument") Integer numberDocument
-    ) {
-        List<TransaccionesNomina> transaccionesNomina = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartments(
-            typeDocument,
-            numberDocument
-        );
-        return transaccionesNomina;
+        System.out.println(idNomina);
+        return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, idUser, idNomina);
     }
 
     // @GetMapping("/transacciones-nominas/departments")

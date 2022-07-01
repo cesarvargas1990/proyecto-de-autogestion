@@ -1,15 +1,16 @@
-import { Component, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PasswordResetInitService } from './password-reset-init.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResetModalComponent } from 'app/account/password-reset/modal/reset-modal.component';
+import { SITE_KEY_CAPTCHA } from 'app/app.constants';
 
 @Component({
   selector: 'jhi-password-reset-init',
   templateUrl: './password-reset-init.component.html',
 })
-export class PasswordResetInitComponent implements AfterViewInit {
+export class PasswordResetInitComponent implements AfterViewInit, OnInit {
   @ViewChild('email', { static: false })
   email?: ElementRef;
   captcha = ''; // empty = not yet proven to be a human, anything else = human
@@ -17,7 +18,7 @@ export class PasswordResetInitComponent implements AfterViewInit {
   emailEnmascarado = '';
   emailEnviado = false;
   stringSeguro: any;
-
+  siteKeyCaptcha!: string;
   success = false;
   resetRequestForm = this.fb.group({
     email: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[A-Z0-9-]*$')]],
@@ -29,11 +30,15 @@ export class PasswordResetInitComponent implements AfterViewInit {
     private router: Router,
     private modalService: NgbModal
   ) {}
+  ngOnInit(): void {
+    this.siteKeyCaptcha = SITE_KEY_CAPTCHA;
+  }
 
   ngAfterViewInit(): void {
     if (this.email) {
       this.email.nativeElement.focus();
     }
+    this.siteKeyCaptcha = SITE_KEY_CAPTCHA;
   }
 
   requestReset(): void {

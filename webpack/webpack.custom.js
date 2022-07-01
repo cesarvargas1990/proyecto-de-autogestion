@@ -103,6 +103,8 @@ module.exports = async (config, options, targetOptions) => {
       // If you use an API server, in `prod` mode, you will need to enable CORS
       // (see the `jhipster.cors` common JHipster property in the `application-*.yml` configurations)
       SERVER_API_URL: JSON.stringify(environment.SERVER_API_URL),
+      __SITE_KEY_CAPTCHA__: JSON.stringify(environment.__SITE_KEY_CAPTCHA__),
+      __TIRILLA_URI__: JSON.stringify(environment.__TIRILLA_URI__),
     }),
     new MergeJsonWebpackPlugin({
       output: {

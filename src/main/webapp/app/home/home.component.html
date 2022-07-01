@@ -37,4 +37,13 @@
 <!-- </div>
 </div> -->
 <div class="d-flex justify-content-center" style="margin-bottom: 1rem"><h1>¡Bienvenido al portal de autogestión de SuperGIROS!</h1></div>
+
+<!-- <div class="alerts" role="alert">
+  <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
+    <ngb-alert *ngIf="alert.message" [type]="alert.type" (closed)="close(alert)">
+      <pre [innerHTML]="alert.message"></pre>
+    </ngb-alert>
+  </div>
+</div> -->
+
 <img src="../../content/images/pantalla_inicio_3.png" class="card-img-top" alt="..." />

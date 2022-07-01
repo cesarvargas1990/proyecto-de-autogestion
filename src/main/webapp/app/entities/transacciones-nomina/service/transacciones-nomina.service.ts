@@ -9,6 +9,7 @@ import { DATE_FORMAT } from 'app/config/input.constants';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import { createRequestOption } from 'app/core/request/request-util';
 import { ITransaccionesNomina, getTransaccionesNominaIdentifier } from '../transacciones-nomina.model';
+import { TIRILLA_URI } from 'app/app.constants';
 
 export type EntityResponseType = HttpResponse<ITransaccionesNomina>;
 export type EntityArrayResponseType = HttpResponse<ITransaccionesNomina[]>;
@@ -55,9 +56,21 @@ export class TransaccionesNominaService {
   //     .get<string[]>(this.applicationConfigService.getEndpointFor('api/transacciones-nominas') + "/department", { params: ids});
   // }
 
-  findByDocument(numberDocument: number, typeDocument: string, department: string): Observable<EntityArrayResponseType> {
+  findByDocument(typeDocument: string, numberDocument: number, idNomina: string, idUser: number): Observable<EntityArrayResponseType> {
     return this.http
-      .get<ITransaccionesNomina[]>(`${this.resourceUrl}/${typeDocument}/${numberDocument}/${department}`, { observe: 'response' })
+      .get<ITransaccionesNomina[]>(
+        'api/transacciones-nominas/search?typeDocument=' +
+          `${typeDocument}` +
+          '&numberDocument=' +
+          `${numberDocument}` +
+          '&idNomina=' +
+          `${idNomina}` +
+          '&idUser=' +
+          `${idUser}`,
+        {
+          observe: 'response',
+        }
+      )
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
@@ -65,6 +78,16 @@ export class TransaccionesNominaService {
     return this.http
       .get<ITransaccionesNomina[]>(`${this.resourceUrl}/${typeDocument}/${numberDocument}`, { observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  findTirillas(pin: string, documentNumber: string): Observable<any> {
+    const httpOptions = {
+      responseType: 'blob' as 'json',
+    };
+    return this.http.get(
+      this.applicationConfigService.getEndpointFor('api/getTirilla?pin=' + `${pin}` + '&numberDocument=' + `${documentNumber}`),
+      httpOptions
+    );
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

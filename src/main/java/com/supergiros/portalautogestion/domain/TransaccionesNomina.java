@@ -26,7 +26,7 @@ public class TransaccionesNomina implements Serializable {
     private String tipoDocumentoBenef;
 
     @Column(name = "numero_documento_benef")
-    private Integer numeroDocumentoBenef;
+    private Long numeroDocumentoBenef;
 
     @Column(name = "nombre_uno")
     private String nombreUno;
@@ -82,7 +82,7 @@ public class TransaccionesNomina implements Serializable {
     @Column(name = "red_pagadora")
     private String redPagadora;
 
-    @Column(name = "observacion_control")
+    @Column(name = "id_nomina")
     private String observacionControl;
 
     @Column(name = "solicitud_autorizacion")
@@ -140,16 +140,16 @@ public class TransaccionesNomina implements Serializable {
         this.tipoDocumentoBenef = tipoDocumentoBenef;
     }
 
-    public Integer getNumeroDocumentoBenef() {
+    public Long getNumeroDocumentoBenef() {
         return this.numeroDocumentoBenef;
     }
 
-    public TransaccionesNomina numeroDocumentoBenef(Integer numeroDocumentoBenef) {
+    public TransaccionesNomina numeroDocumentoBenef(Long numeroDocumentoBenef) {
         this.setNumeroDocumentoBenef(numeroDocumentoBenef);
         return this;
     }
 
-    public void setNumeroDocumentoBenef(Integer numeroDocumentoBenef) {
+    public void setNumeroDocumentoBenef(Long numeroDocumentoBenef) {
         this.numeroDocumentoBenef = numeroDocumentoBenef;
     }
 
