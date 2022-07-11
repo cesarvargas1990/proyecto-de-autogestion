@@ -105,6 +105,13 @@
             >
               <small
                 class="form-text text-danger"
+                *ngIf="editForm.get('celphone')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
                 *ngIf="editForm.get('documentType')?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
                 [translateValues]="{ max: 50 }"
@@ -172,6 +179,13 @@
                 editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)
               "
             >
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('documentType')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('documentType')?.errors?.maxlength"
