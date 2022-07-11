@@ -28,6 +28,13 @@
             <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
               <small
                 class="form-text text-danger"
+                *ngIf="editForm.get('firstName')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
                 *ngIf="editForm.get('firstName')?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
                 [translateValues]="{ max: 50 }"
@@ -52,6 +59,14 @@
               onkeypress="return(event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)"
             />
             <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('lastName')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('lastName')?.errors?.maxlength"
@@ -218,7 +233,9 @@
           <div class="col-md-2 mb-2">
             <label class="form-control-label">Email</label>
             <input maxlength="50" type="email" class="form-control" name="email" formControlName="email" />
-
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
             <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div>
           </div>
 
@@ -237,6 +254,13 @@
             />
 
             <div *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('celphone')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('celphone')?.errors?.maxlength"
