@@ -19,7 +19,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   /* eslint-disable */
 
   user!: User;
-
+  states = ['ACTIVO', 'INACTIVO'];
   udmmodel!: udmModel;
 
   municipiosListFull: string[] = [];
@@ -139,14 +139,12 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
           this.EditOrCreate = true;
           /* eslint-disable */
           this.thisUserisAdmin = false;
-          console.log('es admin?: ' + this.thisUserisAdmin);
         } else {
           if (this.user.authorities?.includes('ROLE_ADMIN')) {
             this.thisUserisAdmin = true;
           } else {
             this.thisUserisAdmin = false;
           }
-          console.log('es admin?: ' + this.thisUserisAdmin);
           /* eslint-enable */
           this.EditOrCreate = false;
 
@@ -297,6 +295,13 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
   save(): void {
     this.isSaving = true;
     this.updateUser(this.user);
+
+    if (this.editForm.get(['activated'])!.value.toString() === 'ACTIVO') {
+      this.user.activated = true;
+    } else if (this.editForm.get(['activated'])!.value.toString() === 'INACTIVO') {
+      this.user.activated = false;
+    }
+    console.log(this.user.activated);
     if (this.user.id !== undefined) {
       this.userService.update(this.user).subscribe({
         next: x => {
@@ -454,7 +459,7 @@ export class UserManagementUpdateComponent implements OnInit, AfterViewInit {
     //   this.emailCredentialsError = true;
     // }
     user.lastName = this.editForm.get(['lastName'])!.value;
-    user.activated = this.editForm.get(['activated'])!.value;
+
     user.langKey = this.editForm.get(['langKey'])!.value;
     user.authorities = this.editForm.get(['authorities'])!.value;
   }

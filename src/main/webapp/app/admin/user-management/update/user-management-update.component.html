@@ -28,6 +28,13 @@
             <div *ngIf="editForm.get('firstName')!.invalid && (editForm.get('firstName')!.dirty || editForm.get('firstName')!.touched)">
               <small
                 class="form-text text-danger"
+                *ngIf="editForm.get('firstName')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
                 *ngIf="editForm.get('firstName')?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
                 [translateValues]="{ max: 50 }"
@@ -52,6 +59,14 @@
               onkeypress="return(event.charCode >= 97 && event.charCode <= 122 || event.charCode == 32 || event.charCode == 209 || event.charCode == 241  || event.charCode >= 65 && event.charCode <= 90)"
             />
             <div *ngIf="editForm.get('lastName')!.invalid && (editForm.get('lastName')!.dirty || editForm.get('lastName')!.touched)">
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('lastName')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('lastName')?.errors?.maxlength"
@@ -88,6 +103,13 @@
                 editForm.get('documentType')!.invalid && (editForm.get('documentType')!.dirty || editForm.get('documentType')!.touched)
               "
             >
+              <small
+                class="form-text text-danger"
+                *ngIf="editForm.get('celphone')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
               <small
                 class="form-text text-danger"
                 *ngIf="editForm.get('documentType')?.errors?.maxlength"
@@ -159,6 +181,13 @@
             >
               <small
                 class="form-text text-danger"
+                *ngIf="editForm.get('documentType')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
                 *ngIf="editForm.get('documentType')?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
                 [translateValues]="{ max: 50 }"
@@ -218,7 +247,9 @@
           <div class="col-md-2 mb-2">
             <label class="form-control-label">Email</label>
             <input maxlength="50" type="email" class="form-control" name="email" formControlName="email" />
-
+            <small class="form-text text-danger" *ngIf="editForm.get('email')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
             <div class="alert alert-danger" *ngIf="emailCredentialsError" jhiTranslate="userManagement.emailCredentialsError"></div>
           </div>
 
@@ -239,6 +270,13 @@
             <div *ngIf="editForm.get('celphone')!.invalid && (editForm.get('celphone')!.dirty || editForm.get('celphone')!.touched)">
               <small
                 class="form-text text-danger"
+                *ngIf="editForm.get('celphone')?.errors?.required"
+                jhiTranslate="entity.validation.required"
+              >
+                This field is required.
+              </small>
+              <small
+                class="form-text text-danger"
                 *ngIf="editForm.get('celphone')?.errors?.maxlength"
                 jhiTranslate="entity.validation.maxlength"
                 [translateValues]="{ max: 50 }"
@@ -251,15 +289,22 @@
 
           <div class="col-md-1"></div>
 
-          <div class="col-md-1">
-            <label class="form-control-label">Estado</label>
-            <select style="text-align: left" class="form-control" name="activated" formControlName="activated">
-              <option>Activo</option>
-              <option>Inactivo</option>
-            </select>
+          <div class="col-md-2 mb-1">
+            <label class="form-control-label">Estado de usuario </label>
+
+            <div class="drop-container">
+              <ng-multiselect-dropdown
+                name="activated"
+                formControlName="activated"
+                [settings]="dropdownSettingsdocumenttypes"
+                [placeholder]="'Seleccionar el estado del usuario'"
+                class="form-row"
+                [data]="states.sort()"
+                >{{ states }}
+              </ng-multiselect-dropdown>
+            </div>
           </div>
 
-          <div class="col-md-1"></div>
           <div class="col-md-1"></div>
 
           <div class="col-md-2 mb-2">
