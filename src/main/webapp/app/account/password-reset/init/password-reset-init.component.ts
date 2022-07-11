@@ -20,6 +20,7 @@ export class PasswordResetInitComponent implements AfterViewInit, OnInit {
   stringSeguro: any;
   siteKeyCaptcha!: string;
   success = false;
+  invalid!: boolean;
   resetRequestForm = this.fb.group({
     email: ['', [Validators.required, Validators.maxLength(20), Validators.pattern('^[A-Z0-9-]*$')]],
   });
@@ -45,12 +46,18 @@ export class PasswordResetInitComponent implements AfterViewInit, OnInit {
     this.passwordResetInitService.save(this.resetRequestForm.get(['email'])!.value).subscribe(loquellega => {
       /* eslint no-console: ["error", { allow: ["warn", "error"] }] */
       //this.emailEnmascarado=loquellega.email;
-
-      this.emailEnmascarado = this.enmascararMail(loquellega.email);
-      this.emailEnviado = true;
-      setTimeout(() => {
-        this.router.navigate(['account/reset/finish']);
-      }, 3000);
+      if (loquellega !== null) {
+        this.emailEnmascarado = this.enmascararMail(loquellega.email);
+        this.emailEnviado = true;
+        setTimeout(() => {
+          this.router.navigate(['account/reset/finish']);
+        }, 3000);
+      } else {
+        this.invalid = true;
+        setTimeout(() => {
+          this.invalid = false;
+        }, 5000);
+      }
     });
   }
   resolved(captchaResponse: string): void {

@@ -170,14 +170,14 @@ public class AccountResource {
     @PostMapping(path = "/account/reset-password/init")
     public User requestPasswordReset(@RequestBody String document) {
         Optional<User> user = userService.requestPasswordReset(document);
-        if (user.isPresent()) {
+        if (user.isPresent() && user.get().isActivated()) {
             mailService.sendPasswordResetMail(user.get());
             return user.get();
         } else {
             // Pretend the request has been successful to prevent checking which emails
             // really exist
             // but log that an invalid attempt has been made
-            log.warn("No estoy encontrando nada con ese documento");
+            log.warn("Solicitud de recuperacion para documento inexistente: " + document);
             return null;
         }
     }

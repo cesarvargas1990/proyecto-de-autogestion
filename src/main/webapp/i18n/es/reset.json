@@ -7,7 +7,8 @@
       },
       "messages": {
         "info": "Introduzca la dirección de correo electrónico que utilizó para registrarse",
-        "success": "Revise su correo electrónico para obtener más información sobre cómo restablecer su contraseña."
+        "success": "Revise su correo electrónico para obtener más información sobre cómo restablecer su contraseña.",
+        "invalid": "No es posible recuperar la contraseña debido a que el número de documento no se encuentra registrado o está inactivo"
       }
     },
     "finish": {
