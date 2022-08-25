@@ -1,6 +1,7 @@
 package com.supergiros.portalautogestion.repository;
 
 import com.supergiros.portalautogestion.domain.Programas;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.data.repository.query.Param;
@@ -23,5 +24,5 @@ public interface ProgramasRepository extends JpaRepository<Programas, Long> {
         "WHERE U.id= ?1",
         nativeQuery = true
     )
-    String findNitProgramaUser(int userId);
+    List<String> findNitProgramaUser(int userId);
 }
