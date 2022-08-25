@@ -355,7 +355,6 @@ public class TransaccionesNominaResource {
         @RequestParam(name = "idNomina", defaultValue = "0") String idNomina,
         @RequestParam("idUser") Integer idUser
     ) {
-        System.out.println(idNomina);
         return transaccionesNominaService.searchTransacciones(typeDocument, numberDocument, idUser, idNomina);
     }
 

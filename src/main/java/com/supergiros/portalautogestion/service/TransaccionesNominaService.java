@@ -6,6 +6,7 @@ import com.supergiros.portalautogestion.repository.MunicipioRepository;
 import com.supergiros.portalautogestion.repository.ProgramasRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.repository.UserRepository;
+import com.supergiros.portalautogestion.service.dto.TransaccionesMSDTO;
 import com.supergiros.portalautogestion.service.dto.TransaccionesNominaListDTO;
 import com.supergiros.portalautogestion.service.mapper.transaccionesNominaMapper;
 import java.time.Instant;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class TransaccionesNominaService {
 
-    private final Logger log = LoggerFactory.getLogger(TransaccionesNominaService.class);
+    private final Logger logger = LoggerFactory.getLogger(TransaccionesNominaService.class);
 
     @Autowired
     DepartamentosRepository departamentosRepository;
@@ -37,6 +38,9 @@ public class TransaccionesNominaService {
     @Autowired
     transaccionesNominaMapper transaccionesNominaMapper;
 
+    @Autowired
+    FacadeService facadeService;
+
     public List<String> findCodDaneDepartamentos(List<Long> departamentosIdLista) {
         List<String> idsLista = new ArrayList<>();
         for (int index = 0; index < departamentosIdLista.size(); index++) {
@@ -46,71 +50,42 @@ public class TransaccionesNominaService {
     }
 
     public List<TransaccionesNominaListDTO> searchTransacciones(String typeDocument, Long numberDocument, Integer idUser, String idNomina) {
-        //List<String> departamentos   = new ArrayList<>();
-        List<String> municipios = new ArrayList<>();
-        //departamentos = departamentosRepository.findCodDaneUserList(idUser);
+        TransaccionesMSDTO transaccionesMSDTO = new TransaccionesMSDTO();
+        transaccionesMSDTO.setDocument(numberDocument.toString());
+        List<String> programa = programasRepository.findNitProgramaUser(idUser);
 
-        String programa = programasRepository.findNitProgramaUser(idUser);
-
-        municipios = municipioRepository.findCodDaneUserList(idUser);
+        if (programa.get(0).equals("99999")) {
+            transaccionesMSDTO.setNIT(new ArrayList<>());
+            transaccionesMSDTO.setMunicipalities(new ArrayList<>());
+        } else if (!programa.get(0).equals("900490473")) {
+            transaccionesMSDTO.setNIT(programa);
+            transaccionesMSDTO.setMunicipalities(municipioRepository.findCodDaneUserList(idUser));
+        } else if (programa.get(0).equals("900490473")) {
+            programa.add("9004904731");
+            programa.add("9004904732");
+            transaccionesMSDTO.setMunicipalities(new ArrayList<>());
+        }
 
         List<TransaccionesNomina> transaccionesNominas = new ArrayList<TransaccionesNomina>();
-        if (!idNomina.equals("0")) {
-            if (!programa.equals("99999")) {
-                if (!municipios.contains("99999")) {
-                    transaccionesNominas =
-                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
-                            typeDocument,
-                            numberDocument,
-                            municipios,
-                            programa,
-                            idNomina
-                        );
-                } else {
-                    transaccionesNominas =
-                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
-                            typeDocument,
-                            numberDocument,
-                            programa,
-                            idNomina
-                        );
-                }
-            } else {
-                transaccionesNominas =
-                    transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument, idNomina);
-            }
-        } else {
-            if (!programa.equals("99999")) {
-                if (!municipios.contains("99999")) {
-                    transaccionesNominas =
-                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
-                            typeDocument,
-                            numberDocument,
-                            municipios,
-                            programa
-                        );
-                } else {
-                    transaccionesNominas =
-                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
-                            typeDocument,
-                            numberDocument,
-                            programa
-                        );
-                }
-            } else {
-                transaccionesNominas = transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument);
-            }
-        }
+
+        //        try {
+        //            for (int index = 0; index < transaccionesNominas.size(); index++) {
+        //                if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
+        //                    transaccionesNominas.remove(index);
+        //                }
+        //            }
+        //        } catch (NullPointerException e) {
+        //            log.info("no se encontro el campo fecha de vigencia  para un elemento");
+        //        }
         try {
-            for (int index = 0; index < transaccionesNominas.size(); index++) {
-                if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
-                    transaccionesNominas.remove(index);
-                }
-            }
-        } catch (NullPointerException e) {
-            log.info("no se encontro el campo fecha de vigencia  para un elemento");
+            transaccionesNominas = facadeService.getTransacciones(transaccionesMSDTO);
+        } catch (InterruptedException e) {
+            logger.error("No fue posible conectarse con el servicio de consulta");
+            return null;
         }
 
+        System.out.println(transaccionesNominas);
         return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominas);
+        //return null;
     }
 }

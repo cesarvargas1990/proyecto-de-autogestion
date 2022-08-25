@@ -1,11 +1,13 @@
 package com.supergiros.portalautogestion.service;
 
+import com.supergiros.portalautogestion.domain.TransaccionesNomina;
+import com.supergiros.portalautogestion.service.dto.TransaccionesMSDTO;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,7 +24,23 @@ public class FacadeService {
     }
 
     public ByteArrayResource getTirillaFacade(String pin, String numberDocument) throws Exception {
-        String url = tirillaUrl + "?pin=" + pin + "&numberDocument=" + numberDocument;
+        String url = tirillaUrl + "/download" + "?pin=" + pin + "&numberDocument=" + numberDocument;
         return this.restTemplate.getForObject(url, ByteArrayResource.class);
+    }
+
+    public List<TransaccionesNomina> getTransacciones(TransaccionesMSDTO solicitud) throws InterruptedException {
+        String url = tirillaUrl + "/consulta/getByDocument";
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        ResponseEntity<List<TransaccionesNomina>> rateResponse = restTemplate.exchange(
+            url,
+            HttpMethod.POST,
+            new HttpEntity<>(solicitud),
+            new ParameterizedTypeReference<List<TransaccionesNomina>>() {}
+        );
+        List<TransaccionesNomina> registros = rateResponse.getBody();
+        return registros;
     }
 }
