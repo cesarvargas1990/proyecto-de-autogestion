@@ -20,15 +20,15 @@
           <div class="mr-1">
             <input class="form-control" placeholder="Numero De Documento" type="text" formControlName="numberDocument" />
           </div>
-          <div class="mr-1">
-            <input
-              class="form-control"
-              style="width: 14rem"
-              placeholder="ID de programa (OPCIONAL)"
-              type="text"
-              formControlName="idNomina"
-            />
-          </div>
+          <!--          <div class="mr-1">-->
+          <!--            <input-->
+          <!--              class="form-control"-->
+          <!--              style="width: 14rem"-->
+          <!--              placeholder="ID de programa (OPCIONAL)"-->
+          <!--              type="text"-->
+          <!--              formControlName="idNomina"-->
+          <!--            />-->
+          <!--          </div>-->
           <div class="col" style="size: 5rem">
             <button class="btn btn-primary jh-create-entity create-transacciones-nomina">
               <fa-icon icon="search"></fa-icon>
@@ -72,7 +72,7 @@
           <th scope="col"><span>Valor Giro</span></th>
           <th scope="col"><span>Estado</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].motivoAnulacion !== null"><span>Motivo Anulación</span></th>
-          <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>ID de programa</span></th>
+          <!--          <th scope="col" *ngIf="transaccionesNominas![0].idNomina !== null"><span>ID de programa</span></th>-->
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null">
             <span>Tirilla</span><i class="fa fa-download" aria-hidden="true"></i>
           </th>
@@ -92,7 +92,7 @@
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.motivoAnulacion !== null">{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
-          <td *ngIf="transaccionesNominas![0].idNomina !== null">{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
+          <!--          <td *ngIf="transaccionesNominas![0].idNomina !== null">{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>-->
           <td *ngIf="transaccionesNomina.horaPago !== null">
             <div class="btn-group">
               <button
@@ -163,7 +163,7 @@
           <td>{{ transaccionesNomina.estado ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.motivoAnulacion ?? 'N/A' }}</td>
 
-          <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>
+          <!--          <td>{{ transaccionesNomina.idNomina ?? 'N/A' }}</td>-->
 
           <td class="text-right" *ngIf="transaccionesNomina.horaPago !== null">
             <div class="btn-group">
