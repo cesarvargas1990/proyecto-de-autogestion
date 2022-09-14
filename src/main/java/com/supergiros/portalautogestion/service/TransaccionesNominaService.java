@@ -58,11 +58,21 @@ public class TransaccionesNominaService {
             transaccionesMSDTO.setNIT(new ArrayList<>());
             transaccionesMSDTO.setMunicipalities(new ArrayList<>());
         } else if (!programa.get(0).equals("900490473")) {
+            if (programa.get(0).equals("9000395338")) {
+                programa.add("900039533");
+            }
             transaccionesMSDTO.setNIT(programa);
-            transaccionesMSDTO.setMunicipalities(municipioRepository.findCodDaneUserList(idUser));
+
+            List<String> municipalities = municipioRepository.findCodDaneUserList(idUser);
+            if (!municipalities.get(0).equals("99999")) {
+                transaccionesMSDTO.setMunicipalities(municipalities);
+            } else {
+                transaccionesMSDTO.setMunicipalities(new ArrayList<>());
+            }
         } else if (programa.get(0).equals("900490473")) {
             programa.add("9004904731");
             programa.add("9004904732");
+            transaccionesMSDTO.setNIT(programa);
             transaccionesMSDTO.setMunicipalities(new ArrayList<>());
         }
 
