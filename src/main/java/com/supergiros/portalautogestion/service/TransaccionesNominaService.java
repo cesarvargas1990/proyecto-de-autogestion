@@ -53,7 +53,9 @@ public class TransaccionesNominaService {
         TransaccionesMSDTO transaccionesMSDTO = new TransaccionesMSDTO();
         transaccionesMSDTO.setDocument(numberDocument.toString());
         List<String> programa = programasRepository.findNitProgramaUser(idUser);
-
+        if (!idNomina.equals("0")) {
+            transaccionesMSDTO.setIdNomina(idNomina);
+        }
         if (programa.get(0).equals("99999")) {
             transaccionesMSDTO.setNIT(new ArrayList<>());
             transaccionesMSDTO.setMunicipalities(new ArrayList<>());
@@ -87,6 +89,7 @@ public class TransaccionesNominaService {
         //        } catch (NullPointerException e) {
         //            log.info("no se encontro el campo fecha de vigencia  para un elemento");
         //        }
+
         try {
             transaccionesNominas = facadeService.getTransacciones(transaccionesMSDTO);
         } catch (InterruptedException e) {
