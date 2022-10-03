@@ -11,14 +11,17 @@ public class TransaccionesMSDTO {
 
     List<String> municipalities;
 
+    String idNomina;
+
     public TransaccionesMSDTO() {
         super();
     }
 
-    public TransaccionesMSDTO(String document, List<String> NIT, List<String> municipalities) {
+    public TransaccionesMSDTO(String document, List<String> NIT, List<String> municipalities, String idNomina) {
         this.document = document;
         this.NIT = NIT;
         this.municipalities = municipalities;
+        this.idNomina = idNomina;
     }
 
     public String getDocument() {
@@ -43,5 +46,13 @@ public class TransaccionesMSDTO {
 
     public void setMunicipalities(List<String> municipalities) {
         this.municipalities = municipalities;
+    }
+
+    public String getIdNomina() {
+        return idNomina;
+    }
+
+    public void setIdNomina(String idNomina) {
+        this.idNomina = idNomina;
     }
 }
