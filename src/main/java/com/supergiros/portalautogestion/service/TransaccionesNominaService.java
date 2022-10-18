@@ -13,10 +13,13 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResourceAccessException;
 
 @Service
 public class TransaccionesNominaService {
@@ -80,25 +83,83 @@ public class TransaccionesNominaService {
 
         List<TransaccionesNomina> transaccionesNominas = new ArrayList<TransaccionesNomina>();
 
-        //        try {
-        //            for (int index = 0; index < transaccionesNominas.size(); index++) {
-        //                if (transaccionesNominas.get(index).getFechaVigencia().isBefore(LocalDate.now())) {
-        //                    transaccionesNominas.remove(index);
-        //                }
-        //            }
-        //        } catch (NullPointerException e) {
-        //            log.info("no se encontro el campo fecha de vigencia  para un elemento");
-        //        }
-
         try {
             transaccionesNominas = facadeService.getTransacciones(transaccionesMSDTO);
         } catch (InterruptedException e) {
             logger.error("No fue posible conectarse con el servicio de consulta");
-            return null;
+        } catch (ResourceAccessException e) {
+            logger.error("No fue posible conectarse con el servicio de consulta");
         }
+        List<TransaccionesNomina> transaccionesNominasHist = searchExternal(
+            typeDocument,
+            numberDocument,
+            programa.get(0),
+            municipioRepository.findCodDaneUserList(idUser),
+            idNomina
+        );
+        List<TransaccionesNomina> transaccionesNominasGlobal = Stream
+            .concat(transaccionesNominas.stream(), transaccionesNominasHist.stream())
+            .collect(Collectors.toList());
 
-        System.out.println(transaccionesNominas);
-        return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominas);
+        return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominasGlobal);
         //return null;
+    }
+
+    List<TransaccionesNomina> searchExternal(
+        String typeDocument,
+        Long numberDocument,
+        String programa,
+        List<String> municipios,
+        String idNomina
+    ) {
+        List<TransaccionesNomina> transaccionesNominasHist = new ArrayList<TransaccionesNomina>();
+        if (!idNomina.equals("0")) {
+            if (!programa.equals("99999")) {
+                if (!municipios.contains("99999")) {
+                    transaccionesNominasHist =
+                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
+                            typeDocument,
+                            numberDocument,
+                            municipios,
+                            programa,
+                            idNomina
+                        );
+                } else {
+                    transaccionesNominasHist =
+                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
+                            typeDocument,
+                            numberDocument,
+                            programa,
+                            idNomina
+                        );
+                }
+            } else {
+                transaccionesNominasHist =
+                    transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument, idNomina);
+            }
+        } else {
+            if (!programa.equals("99999")) {
+                if (!municipios.contains("99999")) {
+                    transaccionesNominasHist =
+                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentUser(
+                            typeDocument,
+                            numberDocument,
+                            municipios,
+                            programa
+                        );
+                } else {
+                    transaccionesNominasHist =
+                        transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
+                            typeDocument,
+                            numberDocument,
+                            programa
+                        );
+                }
+            } else {
+                transaccionesNominasHist =
+                    transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument);
+            }
+        }
+        return transaccionesNominasHist;
     }
 }
