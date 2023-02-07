@@ -60,13 +60,13 @@ public class FacadeService {
         for (Map<String, Object> transaccionMap : transaccionesMap) {
             TransaccionesNomina transaccion = new TransaccionesNomina();
             transaccion.setValorGiro(transaccionMap.get("valorGiro") != null ? transaccionMap.get("valorGiro").toString() : null);
-            transaccion.setPinPago(transaccionMap.get("pinPago").toString());
+            transaccion.setPinPago(transaccionMap.get("pinPago") != null ? transaccionMap.get("pinPago").toString() : null);
             transaccion.setfKDepartamentoDePago(transaccionMap.get("fKDepartamentoDePago") != null ? transaccionMap.get("fKDepartamentoDePago").toString() : null);
-            transaccion.setfKDepartamentoDePago(transaccionMap.get("fKMunicipioDePago") != null ? transaccionMap.get("fKMunicipioDePago").toString() : null);
-            transaccion.setAgenciaOficinaNombre(transaccionMap.get("agenciaOficinaNombre").toString());
+            transaccion.setfKMunicipioDePago(transaccionMap.get("fKMunicipioDePago") != null ? transaccionMap.get("fKMunicipioDePago").toString() : null);
+            transaccion.setAgenciaOficinaNombre(transaccionMap.get("agenciaOficinaNombre") != null ? transaccionMap.get("agenciaOficinaNombre").toString() : null);
             transaccion.setMotivoAnulacion(transaccionMap.get("motivoAnulacion") != null ? transaccionMap.get("motivoAnulacion").toString() : null);
-            transaccion.setEstado(transaccionMap.get("estado").toString());
-            transaccion.setTipoDocumentoBenef(transaccionMap.get("tipoDocumentoBenef").toString());
+            transaccion.setEstado(transaccionMap.get("estado") != null ? transaccionMap.get("estado").toString() : null);
+            transaccion.setTipoDocumentoBenef(transaccionMap.get("tipoDocumentoBenef") != null ? transaccionMap.get("tipoDocumentoBenef").toString() : null);
             transaccion.setNumeroDocumentoBenef(Long.valueOf(transaccionMap.get("numeroDocumentoBenef").toString()));
             transaccion.setfKIdConvenio(transaccionMap.get("fKIdConvenio") != null ? transaccionMap.get("fKIdConvenio").toString() : null);
             transaccion.setfKIdPrograma(transaccionMap.get("fKIdPrograma") != null ? transaccionMap.get("fKIdPrograma").toString() : null);
