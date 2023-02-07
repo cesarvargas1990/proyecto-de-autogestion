@@ -66,8 +66,8 @@ public class transaccionesNominaMapper {
                 Convenio conveniosNombre = convenioRepository
                     .getConvenioNameByNit(transaccionesNomina.get(i).getfKIdConvenio())
                     .orElse(null);
-                transaccionesWithChange.setfKIdConvenio("convion");
-                transaccionesWithChange.setfKIdPrograma("1148");
+                transaccionesWithChange.setfKIdConvenio(conveniosNombre.getName());
+                transaccionesWithChange.setfKIdPrograma(programasNombre.getName());
             }
 
             transaccionesNominas2.add(transaccionesWithChange);
