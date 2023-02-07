@@ -72,6 +72,7 @@ public class FacadeService {
             transaccion.setfKIdPrograma(transaccionMap.get("fKIdPrograma") != null ? transaccionMap.get("fKIdPrograma").toString() : null);
             transaccion.setHoraPago(transaccionMap.get("horaPago") != null ? transaccionMap.get("horaPago").toString() : null);
             transaccion.setFechaPago(transaccionMap.get("fechaPago") != null ? LocalDate.parse(transaccionMap.get("fechaPago").toString()) : null);
+            transaccion.setObservacionControl(transaccionMap.get("idNomina") != null ? transaccionMap.get("idNomina").toString() : null);
             transacciones.add(transaccion);
         }
         return transacciones;
