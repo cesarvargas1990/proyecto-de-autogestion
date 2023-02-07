@@ -32,11 +32,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:postgresql://ec2-54-165-90-230.compute-1.amazonaws.com:5432/d1dovo4r3e1ckg
-    username: zfqfplbsuxfxzk
-    password: a4d832ec5b9dc93ae27d153bb7ffec539ace3db73e7b700cedf8a521307863e6
-    #username: postgres
-    #password: postgres
+    url: jdbc:postgresql://10.196.19.24:8080/portalautogestion
+    username: postgres
+    password: postgres
     hikari:
       poolName: Hikari
       auto-commit: false
@@ -55,7 +53,6 @@ spring:
       auth: true
       starttls.enable: true
       ssl.protocol: TLSv1.2
-
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
   thymeleaf:
@@ -87,14 +84,12 @@ jhipster:
   # CORS is only enabled by default with the "dev" profile
   cors:
     # Allow Ionic for JHipster by default (* no longer allowed in Spring Boot 2.4+)
-    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200,https://agconvenios.supergiros.com.co:8082,https://agconvenios.supergiros.com.co,https://localhost:5430'
-    #allowed-origins: '*'
+    allowed-origins: 'http://localhost:8100,https://localhost:8100,http://localhost:9000,https://localhost:9000,http://localhost:4200,https://localhost:4200'
     allowed-methods: '*'
     allowed-headers: '*'
     exposed-headers: 'Authorization,Link,X-Total-Count,X-${jhipster.clientApp.name}-alert,X-${jhipster.clientApp.name}-error,X-${jhipster.clientApp.name}-params'
     allow-credentials: true
     max-age: 1800
-
   security:
     authentication:
       jwt:
@@ -104,7 +99,7 @@ jhipster:
         token-validity-in-seconds: 86400
         token-validity-in-seconds-for-remember-me: 2592000
   mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: https://agconvenios.supergiros.com.co
+    base-url: http://127.0.0.1:8080
   logging:
     use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
