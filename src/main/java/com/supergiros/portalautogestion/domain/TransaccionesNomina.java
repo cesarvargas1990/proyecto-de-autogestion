@@ -112,6 +112,9 @@ public class TransaccionesNomina implements Serializable {
     @Column(name = "valor_giro")
     private String valorGiro;
 
+    @Transient
+    private String agenciaOficinaNombre;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
     public Long getId() {
@@ -515,6 +518,19 @@ public class TransaccionesNomina implements Serializable {
 
     public void setValorGiro(String valorGiro) {
         this.valorGiro = valorGiro;
+    }
+
+    public String getAgenciaOficinaNombre() {
+        return this.agenciaOficinaNombre;
+    }
+
+    public TransaccionesNomina agenciaOficinaNombre(String agenciaOficinaNombre) {
+        this.setAgenciaOficinaNombre(agenciaOficinaNombre);
+        return this;
+    }
+
+    public void setAgenciaOficinaNombre(String agenciaOficinaNombre) {
+        this.agenciaOficinaNombre = agenciaOficinaNombre;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here

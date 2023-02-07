@@ -48,7 +48,7 @@
     <span>No se encontró ningún giro</span>
   </div>
   <div class="alert alert-warning" id="no-result" *ngIf="errorTirilla">
-    <span>No fue posible generar la tirilla</span>
+    <span>Esta información no esta disponible aún, por favor reintente más tarde.</span>
   </div>
 
   <div class="table-responsive" id="entities" *ngIf="transaccionesNominas && transaccionesNominas.length === 1">
@@ -67,6 +67,7 @@
             <span>Departamento De Pago</span>
           </th>
           <th scope="col" *ngIf="transaccionesNominas![0].fKMunicipioDePago !== null"><span>Municipio De Pago</span></th>
+          <th scope="col" *ngIf="transaccionesNominas![0].agenciaOficinaNombre !== null"><span>Oficina/Agencia de pago</span></th>
           <th scope="col"><span>Convenio</span></th>
           <th scope="col"><span>Programa</span></th>
           <th scope="col"><span>Valor Giro</span></th>
@@ -87,6 +88,7 @@
           <td *ngIf="transaccionesNomina.pinPago !== null">{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.fKDepartamentoDePago !== null">{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.fKMunicipioDePago !== null">{{ transaccionesNomina.fKMunicipioDePago ?? 'N/A' }}</td>
+          <td *ngIf="transaccionesNomina.agenciaOficinaNombre !== null">{{ transaccionesNomina.agenciaOficinaNombre ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdConvenio ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdPrograma ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
@@ -138,6 +140,7 @@
             <span>Departamento De Pago</span>
           </th>
           <th scope="col"><span>Municipio De Pago</span></th>
+          <th scope="col"><span>Oficina/Agencia de pago</span></th>
           <th scope="col"><span>Convenio</span></th>
           <th scope="col"><span>Programa</span></th>
           <th scope="col"><span>Valor Giro</span></th>
@@ -157,6 +160,7 @@
           <td>{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKDepartamentoDePago ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKMunicipioDePago ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.agenciaOficinaNombre ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdConvenio ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.fKIdPrograma ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.valorGiro | currency: 'COP':'symbol':'.0-0' }}</td>
