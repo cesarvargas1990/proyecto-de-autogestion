@@ -69,6 +69,8 @@ public class TransaccionesNominaListDTO implements Serializable {
 
     private String valorGiro;
 
+    private String agenciaOficinaNombre;
+
     public Long getId() {
         return id;
     }
@@ -315,6 +317,14 @@ public class TransaccionesNominaListDTO implements Serializable {
 
     public void setValorGiro(String valorGiro) {
         this.valorGiro = valorGiro;
+    }
+
+    public String getAgenciaOficinaNombre() {
+        return agenciaOficinaNombre;
+    }
+
+    public void setAgenciaOficinaNombre(String agenciaOficinaNombre) {
+        this.agenciaOficinaNombre = agenciaOficinaNombre;
     }
 
     public static long getSerialversionuid() {

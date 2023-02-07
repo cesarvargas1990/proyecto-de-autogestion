@@ -48,6 +48,7 @@ public class transaccionesNominaMapper {
             transaccionesWithChange.setEstado(transaccionesNomina.get(i).getEstado());
             transaccionesWithChange.setMotivoAnulacion(transaccionesNomina.get(i).getMotivoAnulacion());
             transaccionesWithChange.setIdNomina(transaccionesNomina.get(i).getObservacionControl());
+            transaccionesWithChange.setAgenciaOficinaNombre(transaccionesNomina.get(i).getAgenciaOficinaNombre());
             if (transaccionesNomina.get(i).getfKDepartamentoDePago() != null && transaccionesNomina.get(i).getfKMunicipioDePago() != null) {
                 Departamentos departamentosNombre = departamentosRepository
                     .getDepartamentosNameByCodDane(Integer.parseInt(transaccionesNomina.get(i).getfKDepartamentoDePago()))

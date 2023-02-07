@@ -1,5 +1,6 @@
 package com.supergiros.portalautogestion.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
 import com.supergiros.portalautogestion.repository.MunicipioRepository;
@@ -89,6 +90,8 @@ public class TransaccionesNominaService {
             logger.error("No fue posible conectarse con el servicio de consulta");
         } catch (ResourceAccessException e) {
             logger.error("No fue posible conectarse con el servicio de consulta");
+        } catch (JsonProcessingException e) {
+            logger.error("No fue posible procesar el objeto json de la consulta");
         }
         List<TransaccionesNomina> transaccionesNominasHist = searchExternal(
             typeDocument,
