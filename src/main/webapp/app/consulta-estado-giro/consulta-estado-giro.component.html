@@ -59,7 +59,9 @@
           <th scope="col">
             <span># Documento Beneficiario</span>
           </th>
-
+          <th scope="col">
+            <span>Nombre del Beneficiario</span>
+          </th>
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Fecha Pago</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].horaPago !== null"><span>Hora Pago</span></th>
           <th scope="col" *ngIf="transaccionesNominas![0].pinPago !== null"><span>PIN</span></th>
@@ -83,6 +85,7 @@
         <tr *ngFor="let transaccionesNomina of transaccionesNominas; trackBy: trackId" data-cy="entityTable">
           <td>{{ transaccionesNomina.tipoDocumentoBenef ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.nombreUnoPago }} {{ transaccionesNomina.nombreDosPago }} {{ transaccionesNomina.apellidoUnoPago }} {{ transaccionesNomina.apellidoDosPago }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
           <td *ngIf="transaccionesNomina.pinPago !== null">{{ transaccionesNomina.pinPago ?? 'N/A' }}</td>
@@ -132,7 +135,9 @@
           <th scope="col">
             <span># Documento Beneficiario</span>
           </th>
-
+          <th scope="col">
+            <span>Nombre del Beneficiario</span>
+          </th>
           <th scope="col"><span>Fecha Pago</span></th>
           <th scope="col"><span>Hora Pago</span></th>
           <th scope="col"><span>PIN</span></th>
@@ -154,6 +159,7 @@
         <tr *ngFor="let transaccionesNomina of transaccionesNominas; index as i; trackBy: trackId" data-cy="entityTable">
           <td>{{ transaccionesNomina.tipoDocumentoBenef ?? 'N/A' }}</td>
           <td>{{ transaccionesNomina.numeroDocumentoBenef ?? 'N/A' }}</td>
+          <td>{{ transaccionesNomina.nombreUnoPago }} {{ transaccionesNomina.nombreDosPago }} {{ transaccionesNomina.apellidoUnoPago }} {{ transaccionesNomina.apellidoDosPago }}</td>
           <td *ngIf="transaccionesNomina.horaPago !== null">{{ transaccionesNomina.fechaPago | formatMediumDate }}</td>
           <td *ngIf="transaccionesNomina.horaPago === null">N/A</td>
           <td>{{ transaccionesNomina.horaPago ?? 'N/A' }}</td>
