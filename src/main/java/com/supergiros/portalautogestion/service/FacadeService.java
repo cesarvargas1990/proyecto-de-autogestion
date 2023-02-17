@@ -73,6 +73,10 @@ public class FacadeService {
             transaccion.setHoraPago(transaccionMap.get("horaPago") != null ? transaccionMap.get("horaPago").toString() : null);
             transaccion.setFechaPago(transaccionMap.get("fechaPago") != null ? LocalDate.parse(transaccionMap.get("fechaPago").toString()) : null);
             transaccion.setObservacionControl(transaccionMap.get("observacionControl") != null ? transaccionMap.get("observacionControl").toString() : null);
+            transaccion.setNombreUnoPago(transaccionMap.get("nombreUnoPago") != null ? transaccionMap.get("nombreUnoPago").toString() : null);
+            transaccion.setNombreDosPago(transaccionMap.get("nombreDosPago") != null ? transaccionMap.get("nombreDosPago").toString() : null);
+            transaccion.setApellidoUnoPago(transaccionMap.get("apellidoUnoPago") != null ? transaccionMap.get("apellidoUnoPago").toString() : null);
+            transaccion.setApellidoDosPago(transaccionMap.get("apellidoDosPago") != null ? transaccionMap.get("apellidoDosPago").toString() : null);
             transacciones.add(transaccion);
         }
         return transacciones;
