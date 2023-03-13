@@ -112,7 +112,7 @@ public class TransaccionesNomina implements Serializable {
     @Column(name = "valor_giro")
     private String valorGiro;
 
-    @Transient
+    @Column(name = "agencia_oficina_nombre")
     private String agenciaOficinaNombre;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
