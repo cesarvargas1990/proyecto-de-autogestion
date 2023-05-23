@@ -2,9 +2,11 @@ package com.supergiros.portalautogestion.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.supergiros.portalautogestion.domain.TransaccionesNomina;
+import com.supergiros.portalautogestion.domain.TransaccionesNominaMatrix;
 import com.supergiros.portalautogestion.repository.DepartamentosRepository;
 import com.supergiros.portalautogestion.repository.MunicipioRepository;
 import com.supergiros.portalautogestion.repository.ProgramasRepository;
+import com.supergiros.portalautogestion.repository.TransNominaMatrixRepository;
 import com.supergiros.portalautogestion.repository.TransaccionesNominaRepository;
 import com.supergiros.portalautogestion.repository.UserRepository;
 import com.supergiros.portalautogestion.service.dto.TransaccionesMSDTO;
@@ -14,6 +16,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
@@ -38,6 +41,9 @@ public class TransaccionesNominaService {
 
     @Autowired
     TransaccionesNominaRepository transaccionesNominaRepository;
+
+    @Autowired
+    TransNominaMatrixRepository transNominaMatrixRepository;
 
     @Autowired
     transaccionesNominaMapper transaccionesNominaMapper;
@@ -100,8 +106,21 @@ public class TransaccionesNominaService {
             municipioRepository.findCodDaneUserList(idUser),
             idNomina
         );
+
+        List<TransaccionesNominaMatrix> transaccionesNominaMatrixList = searchExternalTm(
+            typeDocument,
+            numberDocument,
+            programa.get(0),
+            municipioRepository.findCodDaneUserList(idUser),
+            idNomina
+        );
+
         List<TransaccionesNomina> transaccionesNominasGlobal = Stream
-            .concat(transaccionesNominas.stream(), transaccionesNominasHist.stream())
+            .of(transaccionesNominas.stream(),
+                transaccionesNominasHist.stream(),
+                transaccionesNominaMatrixList.stream().map(
+                    TransaccionesNominaMatrix::toTransaccionesNomina))
+            .flatMap(Function.identity())
             .collect(Collectors.toList());
 
         return transaccionesNominaMapper.transaccionesNominaMap(transaccionesNominasGlobal);
@@ -161,6 +180,46 @@ public class TransaccionesNominaService {
             } else {
                 transaccionesNominasHist =
                     transaccionesNominaRepository.findByTypeDocumentAndNumerDocumentAdmin(typeDocument, numberDocument);
+            }
+        }
+        return transaccionesNominasHist;
+    }
+
+    List<TransaccionesNominaMatrix> searchExternalTm(
+        String typeDocument,
+        Long numberDocument,
+        String programa,
+        List<String> municipios,
+        String idNomina
+    ) {
+        List<TransaccionesNominaMatrix> transaccionesNominasHist = new ArrayList<TransaccionesNominaMatrix>();
+        if (!idNomina.equals("0")) {
+            if (!programa.equals("99999")) {
+
+            } else {
+                transaccionesNominasHist =
+                    transNominaMatrixRepository.findByTypeDocumentAndNumberDocumentAdmin(typeDocument, numberDocument);
+            }
+        } else {
+            if (!programa.equals("99999")) {
+                if (!municipios.contains("99999")) {
+                    transaccionesNominasHist =
+                        transNominaMatrixRepository.findByTypeDocumentAndNumberDocumentUser(
+                            typeDocument,
+                            numberDocument,
+                            programa
+                        );
+                } else {
+                    transaccionesNominasHist =
+                        transNominaMatrixRepository.findByTypeDocumentAndNumerDocumentAllDepartmentsUser(
+                            typeDocument,
+                            numberDocument,
+                            programa
+                        );
+                }
+            } else {
+                transaccionesNominasHist =
+                    transNominaMatrixRepository.findByTypeDocumentAndNumberDocumentAdmin(typeDocument, numberDocument);
             }
         }
         return transaccionesNominasHist;
